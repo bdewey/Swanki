@@ -15,31 +15,6 @@ final class AppDelegate: UIResponder, UIApplicationDelegate {
   func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
     // Override point for customization after application launch.
     LoggingSystem.bootstrap(StreamLogHandler.standardError)
-    let directory = ("~/Documents" as NSString).expandingTildeInPath
-    logger.info("Documents directory: \(directory)")
-    if let url = Bundle.main.url(forResource: "AncientHistory", withExtension: "apkg", subdirectory: "SampleData") {
-      do {
-        let tempFile = try Importer.importPackage(url)
-        defer {
-          try? tempFile.deleteDirectory()
-        }
-        logger.info("Extracted database to \(tempFile.fileURL)")
-        let dbQueue = try DatabaseQueue(path: tempFile.fileURL.path)
-        let models = try dbQueue.read { db -> [NoteModel] in
-          guard let collection = try AnkiCollection.fetchOne(db) else {
-            return []
-          }
-          return try collection.loadModels()
-        }
-        logger.info("Found \(models.count) model(s)")
-        let noteCount = try dbQueue.read { db -> Int in
-          try Note.fetchCount(db)
-        }
-        logger.info("Found \(noteCount) note(s)")
-      } catch {
-        logger.error("Unexpected error importing package: \(error)")
-      }
-    }
     return true
   }
 

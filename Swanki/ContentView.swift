@@ -3,13 +3,14 @@
 import SwiftUI
 
 struct ContentView: View {
+  @EnvironmentObject var collectionDatabase: CollectionDatabase
+
   var body: some View {
     NavigationView {
-      VStack {
-        Text("Decks go here")
+      List(collectionDatabase.notes) { note -> Text in
+        Text(note.fieldsArray.first ?? "")
       }
       .navigationBarTitle("Swanki")
-      .navigationBarItems(trailing: Image(systemName: "plus.circle"))
     }.navigationViewStyle(StackNavigationViewStyle())
   }
 }

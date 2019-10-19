@@ -9,9 +9,7 @@
 /* Begin PBXBuildFile section */
 		D325FDA22358966F002AC9C9 /* SampleData in Resources */ = {isa = PBXBuildFile; fileRef = D325FDA12358966F002AC9C9 /* SampleData */; };
 		D325FDA523589F12002AC9C9 /* Logging in Frameworks */ = {isa = PBXBuildFile; productRef = D325FDA423589F12002AC9C9 /* Logging */; };
-		D325FDA72359ED50002AC9C9 /* Importer.swift in Sources */ = {isa = PBXBuildFile; fileRef = D325FDA62359ED50002AC9C9 /* Importer.swift */; };
 		D325FDAB2359F288002AC9C9 /* Zipper in Frameworks */ = {isa = PBXBuildFile; productRef = D325FDAA2359F288002AC9C9 /* Zipper */; };
-		D325FDAE235A887B002AC9C9 /* TemporaryFile.swift in Sources */ = {isa = PBXBuildFile; fileRef = D325FDAD235A887B002AC9C9 /* TemporaryFile.swift */; };
 		D325FDB1235A8B92002AC9C9 /* GRDB in Frameworks */ = {isa = PBXBuildFile; productRef = D325FDB0235A8B92002AC9C9 /* GRDB */; };
 		D325FDB3235A9A1E002AC9C9 /* Note.swift in Sources */ = {isa = PBXBuildFile; fileRef = D325FDB2235A9A1E002AC9C9 /* Note.swift */; };
 		D325FDB5235B57AC002AC9C9 /* AnkiCollection.swift in Sources */ = {isa = PBXBuildFile; fileRef = D325FDB4235B57AC002AC9C9 /* AnkiCollection.swift */; };
@@ -23,6 +21,7 @@
 		D32BCEB3235829770036768A /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D32BCEB1235829770036768A /* LaunchScreen.storyboard */; };
 		D32BCEBE235829770036768A /* SwankiTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D32BCEBD235829770036768A /* SwankiTests.swift */; };
 		D32BCEC9235829770036768A /* SwankiUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D32BCEC8235829770036768A /* SwankiUITests.swift */; };
+		D3B7144E235BB5A500F2AFB2 /* CollectionDatabase.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3B7144D235BB5A500F2AFB2 /* CollectionDatabase.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -44,8 +43,6 @@
 
 /* Begin PBXFileReference section */
 		D325FDA12358966F002AC9C9 /* SampleData */ = {isa = PBXFileReference; lastKnownFileType = folder; path = SampleData; sourceTree = "<group>"; };
-		D325FDA62359ED50002AC9C9 /* Importer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Importer.swift; sourceTree = "<group>"; };
-		D325FDAD235A887B002AC9C9 /* TemporaryFile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TemporaryFile.swift; sourceTree = "<group>"; };
 		D325FDB2235A9A1E002AC9C9 /* Note.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Note.swift; sourceTree = "<group>"; };
 		D325FDB4235B57AC002AC9C9 /* AnkiCollection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnkiCollection.swift; sourceTree = "<group>"; };
 		D32BCEA3235829750036768A /* Swanki.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Swanki.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -62,6 +59,7 @@
 		D32BCEC4235829770036768A /* SwankiUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SwankiUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		D32BCEC8235829770036768A /* SwankiUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwankiUITests.swift; sourceTree = "<group>"; };
 		D32BCECA235829770036768A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		D3B7144D235BB5A500F2AFB2 /* CollectionDatabase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionDatabase.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -118,15 +116,14 @@
 			children = (
 				D325FDB4235B57AC002AC9C9 /* AnkiCollection.swift */,
 				D32BCEA6235829750036768A /* AppDelegate.swift */,
+				D3B7144D235BB5A500F2AFB2 /* CollectionDatabase.swift */,
 				D32BCEAC235829770036768A /* Assets.xcassets */,
 				D32BCEAA235829750036768A /* ContentView.swift */,
-				D325FDA62359ED50002AC9C9 /* Importer.swift */,
 				D32BCEB4235829770036768A /* Info.plist */,
 				D32BCEB1235829770036768A /* LaunchScreen.storyboard */,
 				D325FDB2235A9A1E002AC9C9 /* Note.swift */,
 				D32BCEAE235829770036768A /* Preview Content */,
 				D32BCEA8235829750036768A /* SceneDelegate.swift */,
-				D325FDAD235A887B002AC9C9 /* TemporaryFile.swift */,
 			);
 			path = Swanki;
 			sourceTree = "<group>";
@@ -300,10 +297,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				D32BCEA7235829750036768A /* AppDelegate.swift in Sources */,
-				D325FDAE235A887B002AC9C9 /* TemporaryFile.swift in Sources */,
 				D32BCEA9235829750036768A /* SceneDelegate.swift in Sources */,
 				D32BCEAB235829750036768A /* ContentView.swift in Sources */,
-				D325FDA72359ED50002AC9C9 /* Importer.swift in Sources */,
+				D3B7144E235BB5A500F2AFB2 /* CollectionDatabase.swift in Sources */,
 				D325FDB5235B57AC002AC9C9 /* AnkiCollection.swift in Sources */,
 				D325FDB3235A9A1E002AC9C9 /* Note.swift in Sources */,
 			);

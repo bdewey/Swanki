@@ -1,5 +1,6 @@
 // Copyright © 2019 Brian's Brain. All rights reserved.
 
+import GRDB
 import Logging
 import UIKit
 
@@ -19,8 +20,15 @@ final class AppDelegate: UIResponder, UIApplicationDelegate {
     if let url = Bundle.main.url(forResource: "AncientHistory", withExtension: "apkg", subdirectory: "SampleData") {
       do {
         let tempFile = try Importer.importPackage(url)
+        defer {
+          try? tempFile.deleteDirectory()
+        }
         logger.info("Extracted database to \(tempFile.fileURL)")
-        try tempFile.deleteDirectory()
+        let dbQueue = try DatabaseQueue(path: tempFile.fileURL.path)
+        let noteCount = try dbQueue.read { db -> Int in
+          try Note.fetchCount(db)
+        }
+        logger.info("Found \(noteCount) note(s)")
       } catch {
         logger.error("Unexpected error importing package: \(error)")
       }

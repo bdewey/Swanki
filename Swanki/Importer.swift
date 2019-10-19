@@ -15,7 +15,7 @@ enum Importer {
     case noDatabaseInPackage
     case couldNotLoadPackage
   }
-  
+
   static func importPackage(_ packageUrl: URL) throws -> TemporaryFile {
     guard let zipper = Zipper.read(at: packageUrl) else {
       logger.error("Could not open zip file at \(packageUrl)")

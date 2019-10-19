@@ -12,6 +12,8 @@
 		D325FDA72359ED50002AC9C9 /* Importer.swift in Sources */ = {isa = PBXBuildFile; fileRef = D325FDA62359ED50002AC9C9 /* Importer.swift */; };
 		D325FDAB2359F288002AC9C9 /* Zipper in Frameworks */ = {isa = PBXBuildFile; productRef = D325FDAA2359F288002AC9C9 /* Zipper */; };
 		D325FDAE235A887B002AC9C9 /* TemporaryFile.swift in Sources */ = {isa = PBXBuildFile; fileRef = D325FDAD235A887B002AC9C9 /* TemporaryFile.swift */; };
+		D325FDB1235A8B92002AC9C9 /* GRDB in Frameworks */ = {isa = PBXBuildFile; productRef = D325FDB0235A8B92002AC9C9 /* GRDB */; };
+		D325FDB3235A9A1E002AC9C9 /* Note.swift in Sources */ = {isa = PBXBuildFile; fileRef = D325FDB2235A9A1E002AC9C9 /* Note.swift */; };
 		D32BCEA7235829750036768A /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D32BCEA6235829750036768A /* AppDelegate.swift */; };
 		D32BCEA9235829750036768A /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D32BCEA8235829750036768A /* SceneDelegate.swift */; };
 		D32BCEAB235829750036768A /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D32BCEAA235829750036768A /* ContentView.swift */; };
@@ -43,6 +45,7 @@
 		D325FDA12358966F002AC9C9 /* SampleData */ = {isa = PBXFileReference; lastKnownFileType = folder; path = SampleData; sourceTree = "<group>"; };
 		D325FDA62359ED50002AC9C9 /* Importer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Importer.swift; sourceTree = "<group>"; };
 		D325FDAD235A887B002AC9C9 /* TemporaryFile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TemporaryFile.swift; sourceTree = "<group>"; };
+		D325FDB2235A9A1E002AC9C9 /* Note.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Note.swift; sourceTree = "<group>"; };
 		D32BCEA3235829750036768A /* Swanki.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Swanki.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D32BCEA6235829750036768A /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		D32BCEA8235829750036768A /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -64,6 +67,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D325FDB1235A8B92002AC9C9 /* GRDB in Frameworks */,
 				D325FDAB2359F288002AC9C9 /* Zipper in Frameworks */,
 				D325FDA523589F12002AC9C9 /* Logging in Frameworks */,
 			);
@@ -111,13 +115,14 @@
 			isa = PBXGroup;
 			children = (
 				D32BCEA6235829750036768A /* AppDelegate.swift */,
-				D325FDA62359ED50002AC9C9 /* Importer.swift */,
-				D32BCEA8235829750036768A /* SceneDelegate.swift */,
-				D32BCEAA235829750036768A /* ContentView.swift */,
 				D32BCEAC235829770036768A /* Assets.xcassets */,
-				D32BCEB1235829770036768A /* LaunchScreen.storyboard */,
+				D32BCEAA235829750036768A /* ContentView.swift */,
+				D325FDA62359ED50002AC9C9 /* Importer.swift */,
 				D32BCEB4235829770036768A /* Info.plist */,
+				D32BCEB1235829770036768A /* LaunchScreen.storyboard */,
+				D325FDB2235A9A1E002AC9C9 /* Note.swift */,
 				D32BCEAE235829770036768A /* Preview Content */,
+				D32BCEA8235829750036768A /* SceneDelegate.swift */,
 				D325FDAD235A887B002AC9C9 /* TemporaryFile.swift */,
 			);
 			path = Swanki;
@@ -168,6 +173,7 @@
 			packageProductDependencies = (
 				D325FDA423589F12002AC9C9 /* Logging */,
 				D325FDAA2359F288002AC9C9 /* Zipper */,
+				D325FDB0235A8B92002AC9C9 /* GRDB */,
 			);
 			productName = Swanki;
 			productReference = D32BCEA3235829750036768A /* Swanki.app */;
@@ -244,6 +250,7 @@
 			packageReferences = (
 				D325FDA323589F12002AC9C9 /* XCRemoteSwiftPackageReference "swift-log" */,
 				D325FDA92359F288002AC9C9 /* XCRemoteSwiftPackageReference "Zipper" */,
+				D325FDAF235A8B91002AC9C9 /* XCRemoteSwiftPackageReference "GRDB.swift" */,
 			);
 			productRefGroup = D32BCEA4235829750036768A /* Products */;
 			projectDirPath = "";
@@ -294,6 +301,7 @@
 				D32BCEA9235829750036768A /* SceneDelegate.swift in Sources */,
 				D32BCEAB235829750036768A /* ContentView.swift in Sources */,
 				D325FDA72359ED50002AC9C9 /* Importer.swift in Sources */,
+				D325FDB3235A9A1E002AC9C9 /* Note.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -638,6 +646,14 @@
 				kind = branch;
 			};
 		};
+		D325FDAF235A8B91002AC9C9 /* XCRemoteSwiftPackageReference "GRDB.swift" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/groue/GRDB.swift.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 4.5.0;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -650,6 +666,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = D325FDA92359F288002AC9C9 /* XCRemoteSwiftPackageReference "Zipper" */;
 			productName = Zipper;
+		};
+		D325FDB0235A8B92002AC9C9 /* GRDB */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = D325FDAF235A8B91002AC9C9 /* XCRemoteSwiftPackageReference "GRDB.swift" */;
+			productName = GRDB;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

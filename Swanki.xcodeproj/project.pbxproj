@@ -3,10 +3,15 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 52;
 	objects = {
 
 /* Begin PBXBuildFile section */
+		D325FDA22358966F002AC9C9 /* SampleData in Resources */ = {isa = PBXBuildFile; fileRef = D325FDA12358966F002AC9C9 /* SampleData */; };
+		D325FDA523589F12002AC9C9 /* Logging in Frameworks */ = {isa = PBXBuildFile; productRef = D325FDA423589F12002AC9C9 /* Logging */; };
+		D325FDA72359ED50002AC9C9 /* Importer.swift in Sources */ = {isa = PBXBuildFile; fileRef = D325FDA62359ED50002AC9C9 /* Importer.swift */; };
+		D325FDAB2359F288002AC9C9 /* Zipper in Frameworks */ = {isa = PBXBuildFile; productRef = D325FDAA2359F288002AC9C9 /* Zipper */; };
+		D325FDAE235A887B002AC9C9 /* TemporaryFile.swift in Sources */ = {isa = PBXBuildFile; fileRef = D325FDAD235A887B002AC9C9 /* TemporaryFile.swift */; };
 		D32BCEA7235829750036768A /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D32BCEA6235829750036768A /* AppDelegate.swift */; };
 		D32BCEA9235829750036768A /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D32BCEA8235829750036768A /* SceneDelegate.swift */; };
 		D32BCEAB235829750036768A /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D32BCEAA235829750036768A /* ContentView.swift */; };
@@ -35,6 +40,9 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		D325FDA12358966F002AC9C9 /* SampleData */ = {isa = PBXFileReference; lastKnownFileType = folder; path = SampleData; sourceTree = "<group>"; };
+		D325FDA62359ED50002AC9C9 /* Importer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Importer.swift; sourceTree = "<group>"; };
+		D325FDAD235A887B002AC9C9 /* TemporaryFile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TemporaryFile.swift; sourceTree = "<group>"; };
 		D32BCEA3235829750036768A /* Swanki.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Swanki.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D32BCEA6235829750036768A /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		D32BCEA8235829750036768A /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -56,6 +64,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D325FDAB2359F288002AC9C9 /* Zipper in Frameworks */,
+				D325FDA523589F12002AC9C9 /* Logging in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -80,6 +90,7 @@
 			isa = PBXGroup;
 			children = (
 				D32BCEA5235829750036768A /* Swanki */,
+				D325FDA12358966F002AC9C9 /* SampleData */,
 				D32BCEBC235829770036768A /* SwankiTests */,
 				D32BCEC7235829770036768A /* SwankiUITests */,
 				D32BCEA4235829750036768A /* Products */,
@@ -100,12 +111,14 @@
 			isa = PBXGroup;
 			children = (
 				D32BCEA6235829750036768A /* AppDelegate.swift */,
+				D325FDA62359ED50002AC9C9 /* Importer.swift */,
 				D32BCEA8235829750036768A /* SceneDelegate.swift */,
 				D32BCEAA235829750036768A /* ContentView.swift */,
 				D32BCEAC235829770036768A /* Assets.xcassets */,
 				D32BCEB1235829770036768A /* LaunchScreen.storyboard */,
 				D32BCEB4235829770036768A /* Info.plist */,
 				D32BCEAE235829770036768A /* Preview Content */,
+				D325FDAD235A887B002AC9C9 /* TemporaryFile.swift */,
 			);
 			path = Swanki;
 			sourceTree = "<group>";
@@ -152,6 +165,10 @@
 			dependencies = (
 			);
 			name = Swanki;
+			packageProductDependencies = (
+				D325FDA423589F12002AC9C9 /* Logging */,
+				D325FDAA2359F288002AC9C9 /* Zipper */,
+			);
 			productName = Swanki;
 			productReference = D32BCEA3235829750036768A /* Swanki.app */;
 			productType = "com.apple.product-type.application";
@@ -224,6 +241,10 @@
 				Base,
 			);
 			mainGroup = D32BCE9A235829750036768A;
+			packageReferences = (
+				D325FDA323589F12002AC9C9 /* XCRemoteSwiftPackageReference "swift-log" */,
+				D325FDA92359F288002AC9C9 /* XCRemoteSwiftPackageReference "Zipper" */,
+			);
 			productRefGroup = D32BCEA4235829750036768A /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -242,6 +263,7 @@
 			files = (
 				D32BCEB3235829770036768A /* LaunchScreen.storyboard in Resources */,
 				D32BCEB0235829770036768A /* Preview Assets.xcassets in Resources */,
+				D325FDA22358966F002AC9C9 /* SampleData in Resources */,
 				D32BCEAD235829770036768A /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -268,8 +290,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				D32BCEA7235829750036768A /* AppDelegate.swift in Sources */,
+				D325FDAE235A887B002AC9C9 /* TemporaryFile.swift in Sources */,
 				D32BCEA9235829750036768A /* SceneDelegate.swift in Sources */,
 				D32BCEAB235829750036768A /* ContentView.swift in Sources */,
+				D325FDA72359ED50002AC9C9 /* Importer.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -443,6 +467,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
+				MARKETING_VERSION = 0.1;
 				PRODUCT_BUNDLE_IDENTIFIER = "org.brians-brain.Swanki";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
@@ -463,6 +488,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
+				MARKETING_VERSION = 0.1;
 				PRODUCT_BUNDLE_IDENTIFIER = "org.brians-brain.Swanki";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
@@ -594,6 +620,38 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		D325FDA323589F12002AC9C9 /* XCRemoteSwiftPackageReference "swift-log" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/apple/swift-log.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.1.1;
+			};
+		};
+		D325FDA92359F288002AC9C9 /* XCRemoteSwiftPackageReference "Zipper" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/bdewey/Zipper";
+			requirement = {
+				branch = "xcode-integration";
+				kind = branch;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		D325FDA423589F12002AC9C9 /* Logging */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = D325FDA323589F12002AC9C9 /* XCRemoteSwiftPackageReference "swift-log" */;
+			productName = Logging;
+		};
+		D325FDAA2359F288002AC9C9 /* Zipper */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = D325FDA92359F288002AC9C9 /* XCRemoteSwiftPackageReference "Zipper" */;
+			productName = Zipper;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = D32BCE9B235829750036768A /* Project object */;
 }

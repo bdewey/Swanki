@@ -25,6 +25,13 @@ final class AppDelegate: UIResponder, UIApplicationDelegate {
         }
         logger.info("Extracted database to \(tempFile.fileURL)")
         let dbQueue = try DatabaseQueue(path: tempFile.fileURL.path)
+        let models = try dbQueue.read { db -> [NoteModel] in
+          guard let collection = try AnkiCollection.fetchOne(db) else {
+            return []
+          }
+          return try collection.loadModels()
+        }
+        logger.info("Found \(models.count) model(s)")
         let noteCount = try dbQueue.read { db -> Int in
           try Note.fetchCount(db)
         }

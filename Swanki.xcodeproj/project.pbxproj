@@ -12,7 +12,7 @@
 		D325FDAB2359F288002AC9C9 /* Zipper in Frameworks */ = {isa = PBXBuildFile; productRef = D325FDAA2359F288002AC9C9 /* Zipper */; };
 		D325FDB1235A8B92002AC9C9 /* GRDB in Frameworks */ = {isa = PBXBuildFile; productRef = D325FDB0235A8B92002AC9C9 /* GRDB */; };
 		D325FDB3235A9A1E002AC9C9 /* Note.swift in Sources */ = {isa = PBXBuildFile; fileRef = D325FDB2235A9A1E002AC9C9 /* Note.swift */; };
-		D325FDB5235B57AC002AC9C9 /* AnkiCollection.swift in Sources */ = {isa = PBXBuildFile; fileRef = D325FDB4235B57AC002AC9C9 /* AnkiCollection.swift */; };
+		D325FDB5235B57AC002AC9C9 /* CollectionMetadata.swift in Sources */ = {isa = PBXBuildFile; fileRef = D325FDB4235B57AC002AC9C9 /* CollectionMetadata.swift */; };
 		D32BCEA7235829750036768A /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D32BCEA6235829750036768A /* AppDelegate.swift */; };
 		D32BCEA9235829750036768A /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D32BCEA8235829750036768A /* SceneDelegate.swift */; };
 		D32BCEAB235829750036768A /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D32BCEAA235829750036768A /* ContentView.swift */; };
@@ -22,6 +22,7 @@
 		D32BCEBE235829770036768A /* SwankiTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D32BCEBD235829770036768A /* SwankiTests.swift */; };
 		D32BCEC9235829770036768A /* SwankiUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D32BCEC8235829770036768A /* SwankiUITests.swift */; };
 		D3B7144E235BB5A500F2AFB2 /* CollectionDatabase.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3B7144D235BB5A500F2AFB2 /* CollectionDatabase.swift */; };
+		D3B71450235C189300F2AFB2 /* DeckConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3B7144F235C189300F2AFB2 /* DeckConfig.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -44,7 +45,7 @@
 /* Begin PBXFileReference section */
 		D325FDA12358966F002AC9C9 /* SampleData */ = {isa = PBXFileReference; lastKnownFileType = folder; path = SampleData; sourceTree = "<group>"; };
 		D325FDB2235A9A1E002AC9C9 /* Note.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Note.swift; sourceTree = "<group>"; };
-		D325FDB4235B57AC002AC9C9 /* AnkiCollection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnkiCollection.swift; sourceTree = "<group>"; };
+		D325FDB4235B57AC002AC9C9 /* CollectionMetadata.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionMetadata.swift; sourceTree = "<group>"; };
 		D32BCEA3235829750036768A /* Swanki.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Swanki.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D32BCEA6235829750036768A /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		D32BCEA8235829750036768A /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -60,6 +61,7 @@
 		D32BCEC8235829770036768A /* SwankiUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwankiUITests.swift; sourceTree = "<group>"; };
 		D32BCECA235829770036768A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		D3B7144D235BB5A500F2AFB2 /* CollectionDatabase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionDatabase.swift; sourceTree = "<group>"; };
+		D3B7144F235C189300F2AFB2 /* DeckConfig.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeckConfig.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -114,11 +116,12 @@
 		D32BCEA5235829750036768A /* Swanki */ = {
 			isa = PBXGroup;
 			children = (
-				D325FDB4235B57AC002AC9C9 /* AnkiCollection.swift */,
 				D32BCEA6235829750036768A /* AppDelegate.swift */,
-				D3B7144D235BB5A500F2AFB2 /* CollectionDatabase.swift */,
 				D32BCEAC235829770036768A /* Assets.xcassets */,
+				D3B7144D235BB5A500F2AFB2 /* CollectionDatabase.swift */,
+				D325FDB4235B57AC002AC9C9 /* CollectionMetadata.swift */,
 				D32BCEAA235829750036768A /* ContentView.swift */,
+				D3B7144F235C189300F2AFB2 /* DeckConfig.swift */,
 				D32BCEB4235829770036768A /* Info.plist */,
 				D32BCEB1235829770036768A /* LaunchScreen.storyboard */,
 				D325FDB2235A9A1E002AC9C9 /* Note.swift */,
@@ -296,11 +299,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D3B71450235C189300F2AFB2 /* DeckConfig.swift in Sources */,
 				D32BCEA7235829750036768A /* AppDelegate.swift in Sources */,
 				D32BCEA9235829750036768A /* SceneDelegate.swift in Sources */,
 				D32BCEAB235829750036768A /* ContentView.swift in Sources */,
 				D3B7144E235BB5A500F2AFB2 /* CollectionDatabase.swift in Sources */,
-				D325FDB5235B57AC002AC9C9 /* AnkiCollection.swift in Sources */,
+				D325FDB5235B57AC002AC9C9 /* CollectionMetadata.swift in Sources */,
 				D325FDB3235A9A1E002AC9C9 /* Note.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

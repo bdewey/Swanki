@@ -3,25 +3,31 @@
 import Foundation
 import GRDB
 
-struct AnkiCollection: Codable, FetchableRecord, PersistableRecord {
-  static var databaseTableName: String { "col" }
-  let id: Int
-  let models: String
+public struct CollectionMetadata: Codable, FetchableRecord, PersistableRecord {
+  public static var databaseTableName: String { "col" }
+  public let id: Int
+  public let models: String
+  public let dconf: String
 
-  func loadModels() throws -> [NoteModel] {
+  public func loadModels() throws -> [NoteModel] {
     let decoder = JSONDecoder()
     let data = models.data(using: .utf8)!
     let dict = try decoder.decode([String: NoteModel].self, from: data)
     return Array(dict.values)
   }
+
+  public func loadDeckConfigs() throws -> [Int: DeckConfig] {
+    let data = dconf.data(using: .utf8)!
+    return try JSONDecoder().decode([Int: DeckConfig].self, from: data)
+  }
 }
 
-struct NoteModel {
-  let id: Int
-  let css: String
-  let deckID: Int
-  let fields: [NoteField]
-  let modelType: ModelType
+public struct NoteModel {
+  public let id: Int
+  public let css: String
+  public let deckID: Int
+  public let fields: [NoteField]
+  public let modelType: ModelType
 
   enum CodingKeys: String, CodingKey {
     case id
@@ -37,7 +43,7 @@ extension NoteModel: Codable {
     case noId
   }
 
-  init(from decoder: Decoder) throws {
+  public init(from decoder: Decoder) throws {
     let values = try decoder.container(keyedBy: CodingKeys.self)
     // Anki sometimes stores id as a string, sometimes as an int. why?
     if let id = try? values.decode(Int.self, forKey: .id) {
@@ -57,13 +63,13 @@ extension NoteModel: Codable {
   }
 }
 
-enum ModelType: Int, Codable {
+public enum ModelType: Int, Codable {
   case standard = 0
   case cloze = 1
 }
 
-struct NoteField: Codable {
-  let font: String
-  let name: String
-  let ord: Int
+public struct NoteField: Codable {
+  public let font: String
+  public let name: String
+  public let ord: Int
 }

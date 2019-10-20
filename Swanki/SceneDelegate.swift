@@ -71,7 +71,10 @@ final class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         try collectionDatabase.importPackage(url)
       }
       try collectionDatabase.openDatabase()
+      try collectionDatabase.fetchMetadata()
       try collectionDatabase.fetchNotes()
+      let configs = try collectionDatabase.collectionMetadata?.loadDeckConfigs()
+      logger.info("Loaded deck configs: \(configs)")
       return collectionDatabase
     } catch {
       fatalError("Could not create database: \(error)")

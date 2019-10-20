@@ -71,4 +71,12 @@ public final class CollectionDatabase: ObservableObject {
       try Note.fetchAll(db)
     }
   }
+
+  @Published public private(set) var collectionMetadata: CollectionMetadata?
+
+  public func fetchMetadata() throws {
+    collectionMetadata = try dbQueue!.read { db -> CollectionMetadata? in
+      try CollectionMetadata.fetchOne(db)
+    }
+  }
 }

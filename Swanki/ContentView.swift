@@ -4,6 +4,7 @@ import SwiftUI
 
 struct ContentView: View {
   @EnvironmentObject var collectionDatabase: CollectionDatabase
+  @State private var presentStudyView = false
 
   var body: some View {
     NavigationView {
@@ -11,12 +12,14 @@ struct ContentView: View {
         Text(note.fieldsArray.first ?? "")
       }
       .navigationBarTitle("Swanki")
-    }.navigationViewStyle(StackNavigationViewStyle())
-  }
-}
-
-struct ContentView_Previews: PreviewProvider {
-  static var previews: some View {
-    ContentView()
+      .navigationBarItems(trailing: Button(action: { self.presentStudyView = true }, label: {
+        Text("Study")
+      }))
+    }
+    .navigationViewStyle(StackNavigationViewStyle())
+    .sheet(isPresented: $presentStudyView) {
+      StudyView(deckId: 0)
+        .environmentObject(self.collectionDatabase)
+    }
   }
 }

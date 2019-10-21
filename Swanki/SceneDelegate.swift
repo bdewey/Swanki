@@ -4,13 +4,6 @@ import Logging
 import SwiftUI
 import UIKit
 
-private let logger: Logger = {
-  var logger = Logger(label: "org.brians-brain.Swanki")
-  logger.logLevel = .debug
-  return logger
-}()
-
-
 final class SceneDelegate: UIResponder, UIWindowSceneDelegate {
   var collectionDatabase: CollectionDatabase?
   var window: UIWindow?
@@ -21,7 +14,7 @@ final class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     options connectionOptions: UIScene.ConnectionOptions
   ) {
     // Create the SwiftUI view that provides the window contents.
-    let contentView = ContentView().environmentObject(makeCollectionDatabase())
+    let contentView = DeckView().environmentObject(makeCollectionDatabase())
 
     // Use a UIHostingController as window root view controller.
     if let windowScene = scene as? UIWindowScene {
@@ -73,8 +66,6 @@ final class SceneDelegate: UIResponder, UIWindowSceneDelegate {
       try collectionDatabase.openDatabase()
       try collectionDatabase.fetchMetadata()
       try collectionDatabase.fetchNotes()
-      let configs = try collectionDatabase.collectionMetadata?.loadDeckConfigs()
-      logger.info("Loaded deck configs: \(configs)")
       return collectionDatabase
     } catch {
       fatalError("Could not create database: \(error)")

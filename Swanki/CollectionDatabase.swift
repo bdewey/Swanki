@@ -6,17 +6,12 @@ import GRDB
 import Logging
 import Zipper
 
-private let logger: Logger = {
-  var logger = Logger(label: "org.brians-brain.Swanki.CollectionDatabase")
-  logger.logLevel = .debug
-  return logger
-}()
-
 /// Holds the database containing the Anki collection.
 public final class CollectionDatabase: ObservableObject {
   enum Error: Swift.Error {
-    case noDatabaseInPackage
     case couldNotLoadPackage
+    case noDatabaseInPackage
+    case unknownDeck(deckID: Int)
   }
 
   /// Designated initializer.
@@ -62,6 +57,26 @@ public final class CollectionDatabase: ObservableObject {
     throw Error.noDatabaseInPackage
   }
 
+  public private(set) var noteModels: [Int: NoteModel] = [:]
+  public private(set) var deckModels: [Int: DeckModel] = [:]
+  public private(set) var deckConfigs: [Int: DeckConfig] = [:]
+
+  public func fetchMetadata() throws {
+    guard let collectionMetadata = try dbQueue!.read({ db -> CollectionMetadata? in
+      try CollectionMetadata.fetchOne(db)
+    }) else {
+      return
+    }
+    let noteModels = try collectionMetadata.loadModels()
+    let deckModels = try collectionMetadata.loadDecks()
+    let deckConfigs = try collectionMetadata.loadDeckConfigs()
+
+    objectWillChange.send()
+    self.noteModels = noteModels
+    self.deckModels = deckModels
+    self.deckConfigs = deckConfigs
+  }
+
   /// Cache of all notes in the database. Update by calling `fetchNotes()`
   @Published public private(set) var notes: [Note] = []
 
@@ -72,11 +87,25 @@ public final class CollectionDatabase: ObservableObject {
     }
   }
 
-  @Published public private(set) var collectionMetadata: CollectionMetadata?
-
-  public func fetchMetadata() throws {
-    collectionMetadata = try dbQueue!.read { db -> CollectionMetadata? in
-      try CollectionMetadata.fetchOne(db)
+  public func fetchNewCards(from deckID: Int) throws -> [Card] {
+    let limit = try newCardLimit(for: deckID)
+    return try dbQueue!.read { db -> [Card] in
+      try Card
+        .filter(Column("did") == deckID)
+        .order(Column("due").asc)
+        .limit(limit)
+        .fetchAll(db)
     }
+  }
+
+  /// How many new cards per day we are supposed to study from deck `deckID`
+  public func newCardLimit(for deckID: Int) throws -> Int {
+    guard
+      let deck = deckModels[deckID],
+      let config = deckConfigs[deck.configID]
+    else {
+      throw Error.unknownDeck(deckID: deckID)
+    }
+    return config.new.perDay
   }
 }

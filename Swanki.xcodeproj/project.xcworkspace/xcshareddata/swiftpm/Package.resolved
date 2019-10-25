@@ -1,0 +1,34 @@
+{
+  "object": {
+    "pins": [
+      {
+        "package": "GRDB",
+        "repositoryURL": "https://github.com/groue/GRDB.swift.git",
+        "state": {
+          "branch": null,
+          "revision": "89bc509170f91e8f593ed1b96cc2ba2c0a236760",
+          "version": "4.5.0"
+        }
+      },
+      {
+        "package": "swift-log",
+        "repositoryURL": "https://github.com/apple/swift-log.git",
+        "state": {
+          "branch": null,
+          "revision": "e8aabbe95db22e064ad42f1a4a9f8982664c70ed",
+          "version": "1.1.1"
+        }
+      },
+      {
+        "package": "Zipper",
+        "repositoryURL": "https://github.com/bdewey/Zipper",
+        "state": {
+          "branch": "xcode-integration",
+          "revision": "f5c6eeb715aee1e79d233b4139d46363801ae993",
+          "version": null
+        }
+      }
+    ]
+  },
+  "version": 1
+}

@@ -27,6 +27,7 @@
 		D3B71454235CB7D000F2AFB2 /* StudyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3B71453235CB7D000F2AFB2 /* StudyView.swift */; };
 		D3B71456235D211B00F2AFB2 /* Logger.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3B71455235D211B00F2AFB2 /* Logger.swift */; };
 		D3B71458235DDB1C00F2AFB2 /* DeckView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3B71457235DDB1C00F2AFB2 /* DeckView.swift */; };
+		D3B7145A2363212200F2AFB2 /* CollectionDatabase+Previews.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3B714592363212200F2AFB2 /* CollectionDatabase+Previews.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -70,6 +71,7 @@
 		D3B71453235CB7D000F2AFB2 /* StudyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StudyView.swift; sourceTree = "<group>"; };
 		D3B71455235D211B00F2AFB2 /* Logger.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Logger.swift; sourceTree = "<group>"; };
 		D3B71457235DDB1C00F2AFB2 /* DeckView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeckView.swift; sourceTree = "<group>"; };
+		D3B714592363212200F2AFB2 /* CollectionDatabase+Previews.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CollectionDatabase+Previews.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -128,6 +130,7 @@
 				D32BCEAC235829770036768A /* Assets.xcassets */,
 				D3B71451235C22B700F2AFB2 /* Card.swift */,
 				D3B7144D235BB5A500F2AFB2 /* CollectionDatabase.swift */,
+				D3B714592363212200F2AFB2 /* CollectionDatabase+Previews.swift */,
 				D3B71457235DDB1C00F2AFB2 /* DeckView.swift */,
 				D325FDB4235B57AC002AC9C9 /* CollectionMetadata.swift */,
 				D32BCEAA235829750036768A /* ContentView.swift */,
@@ -314,6 +317,7 @@
 				D3B71450235C189300F2AFB2 /* DeckConfig.swift in Sources */,
 				D32BCEA7235829750036768A /* AppDelegate.swift in Sources */,
 				D32BCEA9235829750036768A /* SceneDelegate.swift in Sources */,
+				D3B7145A2363212200F2AFB2 /* CollectionDatabase+Previews.swift in Sources */,
 				D32BCEAB235829750036768A /* ContentView.swift in Sources */,
 				D3B71454235CB7D000F2AFB2 /* StudyView.swift in Sources */,
 				D3B71456235D211B00F2AFB2 /* Logger.swift in Sources */,

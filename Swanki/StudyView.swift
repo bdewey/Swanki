@@ -7,8 +7,14 @@ struct StudyView: View {
   let deckId: Int
 
   var body: some View {
-    List(cards) { card in
-      Text("\(card.id)")
+    let card = cards.first
+    let note = card.flatMap { try? collectionDatabase.fetchNote(id: $0.noteID) }
+    let fieldViews = note?.fieldsArray.map { Text($0) } ?? []
+    return VStack {
+      Text(card.flatMap({ "\($0.id)" }) ?? "No card")
+      ForEach(0..<fieldViews.count) {
+        fieldViews[$0]
+      }
     }
   }
 
@@ -19,5 +25,11 @@ struct StudyView: View {
       logger.error("Unexpected error getting cards: \(error)")
       return []
     }
+  }
+}
+
+struct StudyViewPreview: PreviewProvider {
+  static var previews: some View {
+    StudyView(deckId: 0).environmentObject(CollectionDatabase.testDatabase)
   }
 }

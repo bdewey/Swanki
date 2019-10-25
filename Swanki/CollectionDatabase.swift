@@ -87,6 +87,14 @@ public final class CollectionDatabase: ObservableObject {
     }
   }
 
+  public func fetchNote(id: Int) throws -> Note? {
+    try dbQueue!.read { db -> Note? in
+      try Note
+        .filter(Column("id") == id)
+        .fetchOne(db)
+    }
+  }
+
   public func fetchNewCards(from deckID: Int) throws -> [Card] {
     let limit = try newCardLimit(for: deckID)
     return try dbQueue!.read { db -> [Card] in

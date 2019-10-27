@@ -49,14 +49,23 @@ public final class CollectionDatabase: ObservableObject {
       logger.error("Could not open zip file at \(packageUrl)")
       throw Error.couldNotLoadPackage
     }
+    let mediaMap = zipper.mediaMap
+    logger.info("Media map: \(mediaMap)")
+    var didExtractDatabase = false
     for entry in zipper {
       logger.debug("\(entry.path)")
       if entry.path == "collection.anki2" {
         _ = try zipper.extract(entry, to: url.appendingPathComponent("collection.anki2"))
-        return
+        didExtractDatabase = true
+      }
+      if let destinationMedia = mediaMap[entry.path] {
+        logger.info("Extracting \(entry.path) to \(destinationMedia)")
+        _ = try zipper.extract(entry, to: url.appendingPathComponent(destinationMedia))
       }
     }
-    throw Error.noDatabaseInPackage
+    if !didExtractDatabase {
+      throw Error.noDatabaseInPackage
+    }
   }
 
   public private(set) var noteModels: [Int: NoteModel] = [:]
@@ -117,5 +126,22 @@ public final class CollectionDatabase: ObservableObject {
       throw Error.unknownDeck(deckID: deckID)
     }
     return config.new.perDay
+  }
+}
+
+private extension Zipper {
+  var mediaMap: [String: String] {
+    do {
+      var mediaEntries: [String: String] = [:]
+      if let mediaMapEntry = self["media"] {
+        _ = try self.extract(mediaMapEntry) { data in
+          mediaEntries = try JSONDecoder().decode([String: String].self, from: data)
+        }
+      }
+      return mediaEntries
+    } catch {
+      logger.error("Unexpected error extracting media map from archive: \(error)")
+      return [:]
+    }
   }
 }

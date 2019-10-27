@@ -5,6 +5,7 @@ import WebKit
 
 struct WebView: UIViewRepresentable {
   let htmlString: String
+  let baseURL: URL?
 
   func makeUIView(context: UIViewRepresentableContext<WebView>) -> WKWebView {
     WKWebView(frame: .zero)
@@ -15,12 +16,12 @@ struct WebView: UIViewRepresentable {
     let htmlEnd = "</BODY></HTML>"
     let htmlContent = "\(htmlStart)\(htmlString)\(htmlEnd)"
 
-    uiView.loadHTMLString(htmlContent, baseURL: nil)
+    uiView.loadHTMLString(htmlContent, baseURL: baseURL)
   }
 }
 
 struct WebView_Previews: PreviewProvider {
   static var previews: some View {
-    WebView(htmlString: "<b>Testing</b> this <i>thing</i>")
+    WebView(htmlString: "<b>Testing</b> this <i>thing</i>", baseURL: nil)
   }
 }

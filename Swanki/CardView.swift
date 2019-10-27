@@ -9,13 +9,14 @@ struct CardView: View {
     let card: Card
     let model: NoteModel
     let note: Note
+    let baseURL: URL?
   }
 
   let properties: Properties
   @State private var side = Side.front
 
   var body: some View {
-    WebView(htmlString: renderedSide)
+    WebView(htmlString: renderedSide, baseURL: properties.baseURL)
       .onTapGesture {
         self.toggleSide()
     }
@@ -82,7 +83,8 @@ struct CardView_Previews: PreviewProvider {
     CardView(properties: CardView.Properties(
       card: Card.nileCard,
       model: NoteModel.basic,
-      note: Note.nileRiver
+      note: Note.nileRiver,
+      baseURL: nil
     ))
   }
 }

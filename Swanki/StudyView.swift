@@ -35,6 +35,6 @@ struct StudyView: View {
     guard let model = collectionDatabase.noteModels[note.modelID] else {
       throw CollectionDatabase.Error.unknownNoteModel(modelID: note.modelID)
     }
-    return CardView.Properties(card: card, model: model, note: note)
+    return CardView.Properties(card: card, model: model, note: note, baseURL: collectionDatabase.url)
   }
 }

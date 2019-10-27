@@ -23,6 +23,7 @@
 		D32BCEC9235829770036768A /* SwankiUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D32BCEC8235829770036768A /* SwankiUITests.swift */; };
 		D396683F2364924A0015DB82 /* CardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D396683E2364924A0015DB82 /* CardView.swift */; };
 		D396684223650B940015DB82 /* Mustache in Frameworks */ = {isa = PBXBuildFile; productRef = D396684123650B940015DB82 /* Mustache */; };
+		D39668442365EE9D0015DB82 /* WebView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D39668432365EE9D0015DB82 /* WebView.swift */; };
 		D3B7144E235BB5A500F2AFB2 /* CollectionDatabase.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3B7144D235BB5A500F2AFB2 /* CollectionDatabase.swift */; };
 		D3B71450235C189300F2AFB2 /* DeckConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3B7144F235C189300F2AFB2 /* DeckConfig.swift */; };
 		D3B71452235C22B700F2AFB2 /* Card.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3B71451235C22B700F2AFB2 /* Card.swift */; };
@@ -68,6 +69,7 @@
 		D32BCEC8235829770036768A /* SwankiUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwankiUITests.swift; sourceTree = "<group>"; };
 		D32BCECA235829770036768A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		D396683E2364924A0015DB82 /* CardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardView.swift; sourceTree = "<group>"; };
+		D39668432365EE9D0015DB82 /* WebView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebView.swift; sourceTree = "<group>"; };
 		D3B7144D235BB5A500F2AFB2 /* CollectionDatabase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionDatabase.swift; sourceTree = "<group>"; };
 		D3B7144F235C189300F2AFB2 /* DeckConfig.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeckConfig.swift; sourceTree = "<group>"; };
 		D3B71451235C22B700F2AFB2 /* Card.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Card.swift; sourceTree = "<group>"; };
@@ -147,6 +149,7 @@
 				D32BCEAE235829770036768A /* Preview Content */,
 				D32BCEA8235829750036768A /* SceneDelegate.swift */,
 				D3B71453235CB7D000F2AFB2 /* StudyView.swift */,
+				D39668432365EE9D0015DB82 /* WebView.swift */,
 			);
 			path = Swanki;
 			sourceTree = "<group>";
@@ -334,6 +337,7 @@
 				D325FDB3235A9A1E002AC9C9 /* Note.swift in Sources */,
 				D3B71452235C22B700F2AFB2 /* Card.swift in Sources */,
 				D3B71458235DDB1C00F2AFB2 /* DeckView.swift in Sources */,
+				D39668442365EE9D0015DB82 /* WebView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

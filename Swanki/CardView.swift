@@ -15,7 +15,7 @@ struct CardView: View {
   @State private var side = Side.front
 
   var body: some View {
-    Text(renderedSide)
+    WebView(htmlString: renderedSide)
       .onTapGesture {
         self.toggleSide()
     }

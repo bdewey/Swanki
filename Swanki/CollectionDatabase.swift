@@ -8,10 +8,12 @@ import Zipper
 
 /// Holds the database containing the Anki collection.
 public final class CollectionDatabase: ObservableObject {
-  enum Error: Swift.Error {
+  public enum Error: Swift.Error {
     case couldNotLoadPackage
     case noDatabaseInPackage
     case unknownDeck(deckID: Int)
+    case unknownNote(noteID: Int)
+    case unknownNoteModel(modelID: Int)
   }
 
   /// Designated initializer.

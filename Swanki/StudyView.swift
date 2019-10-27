@@ -7,13 +7,12 @@ struct StudyView: View {
   let deckId: Int
 
   var body: some View {
-    let card = cards.first
-    let note = card.flatMap { try? collectionDatabase.fetchNote(id: $0.noteID) }
-    let fieldViews = note?.fieldsArray.map { Text($0) } ?? []
+    let properties = cards
+      .compactMap { try? cardViewProperties(for: $0) }
+      .prefix(1)
     return VStack {
-      Text(card.flatMap({ "\($0.id)" }) ?? "No card")
-      ForEach(0..<fieldViews.count) {
-        fieldViews[$0]
+      ForEach(properties) {
+        CardView(properties: $0)
       }
     }
   }
@@ -25,5 +24,17 @@ struct StudyView: View {
       logger.error("Unexpected error getting cards: \(error)")
       return []
     }
+  }
+
+  private func cardViewProperties(for card: Card) throws -> CardView.Properties {
+    guard
+      let note = try collectionDatabase.fetchNote(id: card.noteID)
+    else {
+      throw CollectionDatabase.Error.unknownNote(noteID: card.noteID)
+    }
+    guard let model = collectionDatabase.noteModels[note.modelID] else {
+      throw CollectionDatabase.Error.unknownNoteModel(modelID: note.modelID)
+    }
+    return CardView.Properties(card: card, model: model, note: note)
   }
 }

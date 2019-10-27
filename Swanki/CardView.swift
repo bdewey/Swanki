@@ -4,9 +4,14 @@ import Mustache
 import SwiftUI
 
 struct CardView: View {
-  let card: Card
-  let model: NoteModel
-  let note: Note
+  struct Properties: Identifiable {
+    var id: Int { card.id }
+    let card: Card
+    let model: NoteModel
+    let note: Note
+  }
+
+  let properties: Properties
   @State private var side = Side.front
 
   var body: some View {
@@ -38,8 +43,8 @@ private extension CardView {
   func text(for side: Side) throws -> String {
     let template = try Template(string: mustacheTemplate(for: side))
     var data = [String: Any]()
-    for field in model.fields {
-      data[field.name] = note.fieldsArray[field.ord]
+    for field in properties.model.fields {
+      data[field.name] = properties.note.fieldsArray[field.ord]
     }
     if side == .back {
       data["FrontSide"] = try Template(string: mustacheTemplate(for: .front)).render(data)
@@ -53,7 +58,7 @@ private extension CardView {
 
   func mustacheTemplate(for side: Side) -> String {
     _ = CardView.initializeMustache
-    let template = model.templates[card.templateIndex]
+    let template = properties.model.templates[properties.card.templateIndex]
     switch side {
     case .front:
       return template.qfmt
@@ -74,10 +79,10 @@ private extension CardView {
 
 struct CardView_Previews: PreviewProvider {
   static var previews: some View {
-    CardView(
+    CardView(properties: CardView.Properties(
       card: Card.nileCard,
       model: NoteModel.basic,
       note: Note.nileRiver
-    )
+    ))
   }
 }

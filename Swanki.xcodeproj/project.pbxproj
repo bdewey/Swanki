@@ -21,6 +21,8 @@
 		D32BCEB3235829770036768A /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D32BCEB1235829770036768A /* LaunchScreen.storyboard */; };
 		D32BCEBE235829770036768A /* SwankiTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D32BCEBD235829770036768A /* SwankiTests.swift */; };
 		D32BCEC9235829770036768A /* SwankiUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D32BCEC8235829770036768A /* SwankiUITests.swift */; };
+		D396683F2364924A0015DB82 /* CardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D396683E2364924A0015DB82 /* CardView.swift */; };
+		D396684223650B940015DB82 /* Mustache in Frameworks */ = {isa = PBXBuildFile; productRef = D396684123650B940015DB82 /* Mustache */; };
 		D3B7144E235BB5A500F2AFB2 /* CollectionDatabase.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3B7144D235BB5A500F2AFB2 /* CollectionDatabase.swift */; };
 		D3B71450235C189300F2AFB2 /* DeckConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3B7144F235C189300F2AFB2 /* DeckConfig.swift */; };
 		D3B71452235C22B700F2AFB2 /* Card.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3B71451235C22B700F2AFB2 /* Card.swift */; };
@@ -65,6 +67,7 @@
 		D32BCEC4235829770036768A /* SwankiUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SwankiUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		D32BCEC8235829770036768A /* SwankiUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwankiUITests.swift; sourceTree = "<group>"; };
 		D32BCECA235829770036768A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		D396683E2364924A0015DB82 /* CardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardView.swift; sourceTree = "<group>"; };
 		D3B7144D235BB5A500F2AFB2 /* CollectionDatabase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionDatabase.swift; sourceTree = "<group>"; };
 		D3B7144F235C189300F2AFB2 /* DeckConfig.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeckConfig.swift; sourceTree = "<group>"; };
 		D3B71451235C22B700F2AFB2 /* Card.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Card.swift; sourceTree = "<group>"; };
@@ -81,6 +84,7 @@
 			files = (
 				D325FDB1235A8B92002AC9C9 /* GRDB in Frameworks */,
 				D325FDAB2359F288002AC9C9 /* Zipper in Frameworks */,
+				D396684223650B940015DB82 /* Mustache in Frameworks */,
 				D325FDA523589F12002AC9C9 /* Logging in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -129,12 +133,13 @@
 				D32BCEA6235829750036768A /* AppDelegate.swift */,
 				D32BCEAC235829770036768A /* Assets.xcassets */,
 				D3B71451235C22B700F2AFB2 /* Card.swift */,
+				D396683E2364924A0015DB82 /* CardView.swift */,
 				D3B7144D235BB5A500F2AFB2 /* CollectionDatabase.swift */,
 				D3B714592363212200F2AFB2 /* CollectionDatabase+Previews.swift */,
-				D3B71457235DDB1C00F2AFB2 /* DeckView.swift */,
 				D325FDB4235B57AC002AC9C9 /* CollectionMetadata.swift */,
 				D32BCEAA235829750036768A /* ContentView.swift */,
 				D3B7144F235C189300F2AFB2 /* DeckConfig.swift */,
+				D3B71457235DDB1C00F2AFB2 /* DeckView.swift */,
 				D32BCEB4235829770036768A /* Info.plist */,
 				D32BCEB1235829770036768A /* LaunchScreen.storyboard */,
 				D3B71455235D211B00F2AFB2 /* Logger.swift */,
@@ -192,6 +197,7 @@
 				D325FDA423589F12002AC9C9 /* Logging */,
 				D325FDAA2359F288002AC9C9 /* Zipper */,
 				D325FDB0235A8B92002AC9C9 /* GRDB */,
+				D396684123650B940015DB82 /* Mustache */,
 			);
 			productName = Swanki;
 			productReference = D32BCEA3235829750036768A /* Swanki.app */;
@@ -269,6 +275,7 @@
 				D325FDA323589F12002AC9C9 /* XCRemoteSwiftPackageReference "swift-log" */,
 				D325FDA92359F288002AC9C9 /* XCRemoteSwiftPackageReference "Zipper" */,
 				D325FDAF235A8B91002AC9C9 /* XCRemoteSwiftPackageReference "GRDB.swift" */,
+				D396684023650B940015DB82 /* XCRemoteSwiftPackageReference "GRMustache" */,
 			);
 			productRefGroup = D32BCEA4235829750036768A /* Products */;
 			projectDirPath = "";
@@ -321,6 +328,7 @@
 				D32BCEAB235829750036768A /* ContentView.swift in Sources */,
 				D3B71454235CB7D000F2AFB2 /* StudyView.swift in Sources */,
 				D3B71456235D211B00F2AFB2 /* Logger.swift in Sources */,
+				D396683F2364924A0015DB82 /* CardView.swift in Sources */,
 				D3B7144E235BB5A500F2AFB2 /* CollectionDatabase.swift in Sources */,
 				D325FDB5235B57AC002AC9C9 /* CollectionMetadata.swift in Sources */,
 				D325FDB3235A9A1E002AC9C9 /* Note.swift in Sources */,
@@ -678,6 +686,14 @@
 				minimumVersion = 4.5.0;
 			};
 		};
+		D396684023650B940015DB82 /* XCRemoteSwiftPackageReference "GRMustache" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/groue/GRMustache.swift";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 4.0.1;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -695,6 +711,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = D325FDAF235A8B91002AC9C9 /* XCRemoteSwiftPackageReference "GRDB.swift" */;
 			productName = GRDB;
+		};
+		D396684123650B940015DB82 /* Mustache */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = D396684023650B940015DB82 /* XCRemoteSwiftPackageReference "GRMustache" */;
+			productName = Mustache;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

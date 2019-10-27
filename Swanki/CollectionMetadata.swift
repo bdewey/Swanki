@@ -44,6 +44,7 @@ public struct NoteModel {
   public let deckID: Int
   public let fields: [NoteField]
   public let modelType: ModelType
+  public let templates: [CardTemplate]
 
   enum CodingKeys: String, CodingKey {
     case id
@@ -51,6 +52,7 @@ public struct NoteModel {
     case deckID = "did"
     case fields = "flds"
     case modelType = "type"
+    case templates = "tmpls"
   }
 }
 
@@ -76,7 +78,17 @@ extension NoteModel: Codable {
     self.deckID = try values.decode(Int.self, forKey: .deckID)
     self.fields = try values.decode([NoteField].self, forKey: .fields)
     self.modelType = try values.decode(ModelType.self, forKey: .modelType)
+    self.templates = try values.decode([CardTemplate].self, forKey: .templates)
   }
+}
+
+public struct CardTemplate: Codable {
+  public let name: String
+  public let afmt: String
+  public let bafmt: String
+  public let bqfmt: String
+  public let ord: Int
+  public let qfmt: String
 }
 
 public enum ModelType: Int, Codable {

@@ -21,3 +21,45 @@ extension CollectionDatabase {
     }
   }()
 }
+
+extension Card {
+  static let nileCard = Card(id: 1334609482913, noteID: 1334609482913, deckID: 1342706224003, templateIndex: 0)
+}
+
+extension Note {
+  static let nileRiver = Note(
+    id: 1334609482913,
+    guid: "abcdefg",
+    modelID: 1342706223926,
+    modifiedTimestampSeconds: 1342706224,
+    usn: -1,
+    tags: " AncientHistory Egypt Geography ",
+    encodedFields: [
+      "Just prior to going into the Mediterranean Sea the Nile River branches out in numerous directions and forms what?<br /><br /><img src=\"pastewpyb0f.jpg\" />",
+      "The Nile Delta.",
+    ].joined(separator: "\u{1F}")
+  )
+}
+
+extension NoteModel {
+  static let basic = NoteModel(
+    id: 1342706223926,
+    css: ".card {\n font-family: arial;\n font-size: 20px;\n text-align: center;\n color: black;\n background-color: white;\n}\n\n.card1 { background-color: #ffffff;text-align: left }",
+    deckID: 1342706224003,
+    fields: [
+      NoteField(font: "Arial", name: "Front", ord: 0),
+      NoteField(font: "Arial", name: "Back", ord: 1),
+    ],
+    modelType: .standard,
+    templates: [
+      CardTemplate(
+        name: "Forward",
+        afmt: "{{FrontSide}}\n\n<hr id=answer>\n\n{{Back}}",
+        bafmt: "",
+        bqfmt: "",
+        ord: 0,
+        qfmt: "{{Front}}"
+      )
+    ]
+  )
+}

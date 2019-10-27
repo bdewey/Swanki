@@ -27,9 +27,3 @@ struct StudyView: View {
     }
   }
 }
-
-struct StudyViewPreview: PreviewProvider {
-  static var previews: some View {
-    StudyView(deckId: 0).environmentObject(CollectionDatabase.testDatabase)
-  }
-}

@@ -59,6 +59,17 @@ final class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     do {
       let homeDirectory = try FileManager.default.url(for: .documentDirectory, in: .userDomainMask, appropriateFor: nil, create: true)
       let collectionDatabase = CollectionDatabase(url: homeDirectory)
+      try collectionDatabase.openDatabase()
+      try collectionDatabase.fetchMetadata()
+      try collectionDatabase.fetchNotes()
+      return collectionDatabase
+    } catch {
+      fatalError("Could not create database: \(error)")
+    }
+  }
+
+  private func rebuildCollectionDatabase(_ collectionDatabase: CollectionDatabase) {
+    do {
       try collectionDatabase.emptyContainer()
       if let url = Bundle.main.url(forResource: "AncientHistory", withExtension: "apkg", subdirectory: "SampleData") {
         try collectionDatabase.importPackage(url)
@@ -66,7 +77,6 @@ final class SceneDelegate: UIResponder, UIWindowSceneDelegate {
       try collectionDatabase.openDatabase()
       try collectionDatabase.fetchMetadata()
       try collectionDatabase.fetchNotes()
-      return collectionDatabase
     } catch {
       fatalError("Could not create database: \(error)")
     }

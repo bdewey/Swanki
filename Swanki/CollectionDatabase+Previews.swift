@@ -23,7 +23,19 @@ extension CollectionDatabase {
 }
 
 extension Card {
-  static let nileCard = Card(id: 1334609482913, noteID: 1334609482913, deckID: 1342706224003, templateIndex: 0)
+  static let nileCard = Card(
+    id: 1334609482913,
+    noteID: 1334609482913,
+    deckID: 1342706224003,
+    templateIndex: 0,
+    queue: 0,
+    type: .new,
+    interval: 0,
+    factor: 2500,
+    reps: 0,
+    lapses: 0,
+    left: 0
+  )
 }
 
 extension Note {

@@ -16,9 +16,23 @@ struct CardView: View {
   @State private var side = Side.front
 
   var body: some View {
-    WebView(htmlString: renderedSide, baseURL: properties.baseURL)
-      .onTapGesture {
-        self.toggleSide()
+    VStack {
+      WebView(htmlString: renderedSide, baseURL: properties.baseURL)
+        .onTapGesture {
+          self.toggleSide()
+      }
+      buttonRowOrEmpty
+        .frame(height: 100.0)
+    }
+  }
+
+  var buttonRowOrEmpty: some View {
+    VStack {
+      if side == .back {
+        CardAnswerButtonRow(card: properties.card)
+      } else {
+        /*@START_MENU_TOKEN@*/EmptyView()/*@END_MENU_TOKEN@*/
+      }
     }
   }
 

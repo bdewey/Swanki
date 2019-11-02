@@ -4,7 +4,7 @@ import SwiftUI
 
 struct CardAnswerButtonRow: View {
   let card: Card
-  let didSelectAnswer: ((CardAnswer) -> Void)? = nil
+  var didSelectAnswer: ((CardAnswer) -> Void)? = nil
 
   var body: some View {
     HStack {

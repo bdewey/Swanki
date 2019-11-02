@@ -4,7 +4,7 @@ import Combine
 import Foundation
 import GRDB
 
-public struct Card: Codable, FetchableRecord, PersistableRecord, Identifiable {
+public struct Card: Codable, FetchableRecord, PersistableRecord, Identifiable, Equatable {
   public enum CardType: Int, Codable {
     case new, learning, due, filtered
   }

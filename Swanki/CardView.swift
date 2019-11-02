@@ -13,13 +13,15 @@ struct CardView: View {
   }
 
   let properties: Properties
+  private(set) var didSelectAnswer: ((CardAnswer) -> Void)? = nil
+
   @State private var side = Side.front
 
   var body: some View {
     VStack {
       WebView(htmlString: renderedSide, baseURL: properties.baseURL)
         .onTapGesture {
-          self.toggleSide()
+          self.flipToBack()
       }
       buttonRowOrEmpty
         .frame(height: 100.0)
@@ -29,7 +31,10 @@ struct CardView: View {
   var buttonRowOrEmpty: some View {
     VStack {
       if side == .back {
-        CardAnswerButtonRow(card: properties.card)
+        CardAnswerButtonRow(card: properties.card, didSelectAnswer: {
+          self.side = Side.front
+          self.didSelectAnswer?($0)
+        })
       } else {
         /*@START_MENU_TOKEN@*/EmptyView()/*@END_MENU_TOKEN@*/
       }
@@ -82,12 +87,9 @@ private extension CardView {
     }
   }
 
-  func toggleSide() {
-    switch side {
-    case .front:
+  func flipToBack() {
+    if side == .front {
       side = .back
-    case .back:
-      side = .front
     }
   }
 }

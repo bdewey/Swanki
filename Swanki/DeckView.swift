@@ -8,7 +8,7 @@ struct DeckView: View {
   var body: some View {
     NavigationView {
       List(sortedDecks) { deckModel in
-        NavigationLink(destination: StudyView(deckId: deckModel.id)) {
+        NavigationLink(destination: StudyView().environmentObject(StudySequenceWrapper(collectionDatabase: self.collectionDatabase, deckId: deckModel.id))) {
           Text(deckModel.name)
         }
       }

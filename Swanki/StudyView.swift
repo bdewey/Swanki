@@ -3,7 +3,7 @@
 import SwiftUI
 
 struct StudyView: View {
-  @EnvironmentObject var studySequence: StudySequenceWrapper
+  @ObservedObject var studySequence: StudySequenceWrapper
 
   var body: some View {
     let properties = studySequence.currentCard.flatMap { try? cardViewProperties(for: $0) }

@@ -127,6 +127,110 @@ public final class CollectionDatabase: ObservableObject {
     }
     return config.new.perDay
   }
+
+  public func recordAnswer(_ answer: CardAnswer, for card: Card) throws {
+    guard
+      let model = deckModels[card.deckID],
+      let config = deckConfigs[model.configID]
+    else {
+      throw Error.unknownDeck(deckID: card.deckID)
+    }
+    var card = card
+    card.reps += 1
+    if card.queue == .new {
+      card.queue = .learning
+      card.type = .learning
+      card.left = startingLeft(for: card, config: config)
+    }
+    switch card.queue {
+    case .learning, .futureLearning:
+      recordAnswer(answer, forLearningCard: &card, config: config)
+    case .due:
+      recordAnswer(answer, forReviewCard: &card)
+    default:
+      preconditionFailure()
+    }
+    try dbQueue?.write({ db in
+      try card.update(db)
+    })
+  }
+
+  private func recordAnswer(_ answer: CardAnswer, forLearningCard card: inout Card, config: DeckConfig) {
+    switch answer {
+    case .again:
+      card.left = startingLeft(for: card, config: config)
+    case .good:
+      card.left -= 1
+      if card.left <= 0 {
+        convertLearningCardToReviewCard(&card, config: config)
+      } else {
+        moveCardToNextStep(&card, config: config)
+      }
+    case .hard:
+      // Don't advance to the next step.
+      // TODO: Make the delay be halfway between the two delay values
+      // FIX: "moveCardToNextStep" doesn't actually change the "left" count so it's a misnomer
+      moveCardToNextStep(&card, config: config)
+    case .easy:
+      convertLearningCardToReviewCard(&card, config: config)
+    }
+  }
+
+  // Anki schedv2 uses a separate queue for "cards to learn today" and "cards still learning but scheduled on another day" -- not sure I want to copy that.
+  private func moveCardToNextStep(_ card: inout Card, config: DeckConfig) {
+    precondition(card.left > 0 && card.left < config.new.delays.count)
+    let delayIndex = config.new.delays.count - card.left - 1
+    assert(delayIndex >= 0 && delayIndex < config.new.delays.count)
+    let delayMinutes = config.new.delays[delayIndex]
+    card.due = Int(round(Date().addingTimeInterval(TimeInterval(delayMinutes) * .minute).timeIntervalSinceReferenceDate))
+  }
+
+  private func convertLearningCardToReviewCard(_ card: inout Card, config: DeckConfig) {
+    card.interval = graduatingInterval(card: card, config: config, early: false)
+    let dueDay = Date().addingTimeInterval(TimeInterval(card.interval) * .day).timeIntervalSinceReferenceDate / .day
+    card.due = Int(round(dueDay))
+    card.factor = config.new.initialFactor
+    card.type = .due
+  }
+
+  private func graduatingInterval(card: Card, config: DeckConfig, early: Bool) -> Int {
+    if card.type == .due || card.type == .filtered {
+      return card.interval
+    }
+    let ideal = early ? config.new.ints[1] : config.new.ints[0]
+    return fuzzRange(for: ideal).randomElement() ?? ideal
+  }
+
+  // Logic transcribed from Anki schedv2.py _fuzzIvlRange
+  private func fuzzRange(for interval: Int) -> ClosedRange<Int> {
+    if interval < 2 {
+      return 1 ... 1
+    }
+    if interval == 2 {
+      return 2 ... 3
+    }
+    var fuzz: Int
+    if interval < 7 {
+      fuzz = interval / 4
+    }
+    if interval < 30 {
+      fuzz = max(2, Int(round(Double(interval) * 0.15)))
+    } else {
+      fuzz = max(4, Int(round(Double(interval) * 0.05)))
+    }
+    fuzz = max(1, fuzz)
+    return (interval - fuzz)...(interval + fuzz)
+  }
+
+  private func recordAnswer(_ answer: CardAnswer, forReviewCard card: inout Card) {
+    assertionFailure()
+  }
+
+  private func startingLeft(for card: Card, config: DeckConfig) -> Int {
+    let left = config.new.delays.count
+    // TODO: Update steps remaining today? I don't know, this seems dumb.
+    return left
+  }
 }
 
 private extension Zipper {
@@ -144,4 +248,9 @@ private extension Zipper {
       return [:]
     }
   }
+}
+
+private extension TimeInterval {
+  static let day: TimeInterval = 60 * 60 * 24
+  static let minute: TimeInterval = 60
 }

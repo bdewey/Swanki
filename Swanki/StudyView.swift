@@ -30,6 +30,13 @@ struct StudyView: View {
 
   private func processAnswer(_ answer: CardAnswer) {
     logger.info("Card answer = \(answer)")
+    if let card = studySequence.currentCard {
+      do {
+        try studySequence.collectionDatabase.recordAnswer(answer, for: card)
+      } catch {
+        logger.error("Unexpected error recording answer: \(error)")
+      }
+    }
     studySequence.advance()
   }
 }

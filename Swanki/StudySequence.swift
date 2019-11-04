@@ -16,8 +16,16 @@ extension StudySequence: Sequence {
     /// Designated initializer.
     init(studySequence: StudySequence) {
       do {
-        let flattenedCollection = try studySequence.decks.map({ try studySequence.collectionDatabase.fetchNewCards(from: $0) }).joined()
-        self.cards = Array(flattenedCollection)
+        var cards: [Card] = []
+        let learningCards = try studySequence.decks.map({ try studySequence.collectionDatabase.fetchLearningCards(from: $0) }).joined()
+        logger.info("Found \(learningCards.count) learning card(s)")
+        cards.append(contentsOf: learningCards)
+        let newCards = try studySequence.decks.map({ try studySequence.collectionDatabase.fetchNewCards(from: $0) }).joined()
+        cards.append(contentsOf: newCards)
+        let reviewCards = try studySequence.decks.map({ try studySequence.collectionDatabase.fetchReviewCards(from: $0) }).joined()
+        logger.info("Found \(reviewCards.count) review card(s)")
+        cards.append(contentsOf: reviewCards)
+        self.cards = cards
       } catch {
         logger.error("Unexpected error building study sequence: \(error)")
         self.cards = []

@@ -117,6 +117,32 @@ public final class CollectionDatabase: ObservableObject {
     }
   }
 
+  public func fetchLearningCards(from deckID: Int) throws -> [Card] {
+    let dueTime = Int(round(Date().timeIntervalSinceReferenceDate))
+    return try dbQueue!.read { db -> [Card] in
+      try Card
+        .filter(Column("did") == deckID)
+        .filter(Column("queue") == Card.CardQueue.learning.rawValue || Column("queue") == Card.CardQueue.futureLearning.rawValue)
+        .filter(Column("due") <= dueTime)
+        .order(Column("due").asc)
+        .fetchAll(db)
+    }
+  }
+
+  public func fetchReviewCards(from deckID: Int) throws -> [Card] {
+    let limit = try reviewCardLimit(for: deckID)
+    let dueTime = Int(round(Date().timeIntervalSinceReferenceDate))
+    return try dbQueue!.read { db -> [Card] in
+      try Card
+        .filter(Column("did") == deckID)
+        .filter(Column("queue") == Card.CardQueue.due.rawValue)
+        .filter(Column("due") <= dueTime)
+        .order(Column("due").asc)
+        .limit(limit)
+        .fetchAll(db)
+    }
+  }
+
   /// How many new cards per day we are supposed to study from deck `deckID`
   public func newCardLimit(for deckID: Int) throws -> Int {
     guard
@@ -126,6 +152,17 @@ public final class CollectionDatabase: ObservableObject {
       throw Error.unknownDeck(deckID: deckID)
     }
     return config.new.perDay
+  }
+
+  /// How many new cards per day we are supposed to study from deck `deckID`
+  public func reviewCardLimit(for deckID: Int) throws -> Int {
+    guard
+      let deck = deckModels[deckID],
+      let config = deckConfigs[deck.configID]
+    else {
+      throw Error.unknownDeck(deckID: deckID)
+    }
+    return config.rev.perDay
   }
 
   public func recordAnswer(_ answer: CardAnswer, for card: Card) throws {
@@ -144,9 +181,9 @@ public final class CollectionDatabase: ObservableObject {
     }
     switch card.queue {
     case .learning, .futureLearning:
-      recordAnswer(answer, forLearningCard: &card, config: config)
+      recordLearningCardAnswer(answer, card: &card, config: config)
     case .due:
-      recordAnswer(answer, forReviewCard: &card)
+      recordReviewCardAnswer(answer, card: &card, config: config)
     default:
       preconditionFailure()
     }
@@ -155,7 +192,7 @@ public final class CollectionDatabase: ObservableObject {
     })
   }
 
-  private func recordAnswer(_ answer: CardAnswer, forLearningCard card: inout Card, config: DeckConfig) {
+  private func recordLearningCardAnswer(_ answer: CardAnswer, card: inout Card, config: DeckConfig) {
     switch answer {
     case .again:
       card.left = startingLeft(for: card, config: config)
@@ -185,12 +222,17 @@ public final class CollectionDatabase: ObservableObject {
     card.due = Int(round(Date().addingTimeInterval(TimeInterval(delayMinutes) * .minute).timeIntervalSinceReferenceDate))
   }
 
+  private func due(in days: Int) -> Int {
+    let dueDay = Calendar.current.startOfDay(for: Date().addingTimeInterval(TimeInterval(days) * .day)).timeIntervalSinceReferenceDate
+    return Int(round(dueDay))
+  }
+
   private func convertLearningCardToReviewCard(_ card: inout Card, config: DeckConfig) {
     card.interval = graduatingInterval(card: card, config: config, early: false)
-    let dueDay = Date().addingTimeInterval(TimeInterval(card.interval) * .day).timeIntervalSinceReferenceDate / .day
-    card.due = Int(round(dueDay))
+    card.due = due(in: card.interval)
     card.factor = config.new.initialFactor
     card.type = .due
+    card.queue = .due
   }
 
   private func graduatingInterval(card: Card, config: DeckConfig, early: Bool) -> Int {
@@ -222,8 +264,54 @@ public final class CollectionDatabase: ObservableObject {
     return (interval - fuzz)...(interval + fuzz)
   }
 
-  private func recordAnswer(_ answer: CardAnswer, forReviewCard card: inout Card) {
-    assertionFailure()
+  private func recordReviewCardAnswer(_ answer: CardAnswer, card: inout Card, config: DeckConfig) {
+    if answer == .again {
+      // TODO: Check for "leeches"?
+      card.lapses += 1
+      card.left = startingLeft(for: card, config: config)
+      card.factor = max(1300, card.factor - 200)
+      card.queue = .learning
+      card.type = .learning
+      return
+    }
+    card.interval = nextInterval(answer: answer, card: card, config: config)
+    card.factor = max(1300, card.factor + answer.factor)
+    card.due = due(in: card.interval)
+  }
+
+  /// Computes the next interval for a card.
+  /// Transcribed from anki schedv2.py, _nextRevIvl
+  private func nextInterval(answer: CardAnswer, card: Card, config: DeckConfig) -> Int {
+    let delay = daysLate(card: card)
+    let factor: Double = Double(card.factor) / 1000
+    let hardFactor = 1.2
+    let hardMin = card.interval
+    var interval = constrainedInterval(Int(round(Double(card.interval) * hardFactor)), previousInterval: hardMin, config: config)
+    if answer == .hard {
+      return interval
+    }
+    interval = constrainedInterval((card.interval + delay / 2), previousInterval: interval, config: config)
+    if answer == .good {
+      return interval
+    }
+    return constrainedInterval(Int(round(Double(card.interval + delay) * factor * config.rev.ease4)), previousInterval: interval, config: config)
+  }
+
+  /// Transcribed from anki schedv2.py, _constrainedInterval
+  private func constrainedInterval(_ interval: Int, previousInterval: Int, config: DeckConfig) -> Int {
+    var interval = interval
+    interval *= config.rev.ivlFct
+    interval = fuzzRange(for: interval).randomElement() ?? interval
+    interval = [interval, previousInterval + 1, 1].max()!
+    interval = min(interval, config.rev.maxIvl)
+    return interval
+  }
+
+  /// "Number of days later than scheduled"
+  // TODO: Make this a method of `Card`?
+  private func daysLate(card: Card) -> Int {
+    logger.error("Haven't implemented days late yet!")
+    return 0
   }
 
   private func startingLeft(for card: Card, config: DeckConfig) -> Int {
@@ -253,4 +341,19 @@ private extension Zipper {
 private extension TimeInterval {
   static let day: TimeInterval = 60 * 60 * 24
   static let minute: TimeInterval = 60
+}
+
+private extension CardAnswer {
+  var factor: Int {
+    switch self {
+    case .again:
+      return 0
+    case .hard:
+      return -150
+    case .good:
+      return 0
+    case .easy:
+      return 150
+    }
+  }
 }

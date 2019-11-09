@@ -338,11 +338,6 @@ private extension Zipper {
   }
 }
 
-private extension TimeInterval {
-  static let day: TimeInterval = 60 * 60 * 24
-  static let minute: TimeInterval = 60
-}
-
 private extension CardAnswer {
   var factor: Int {
     switch self {

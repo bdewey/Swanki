@@ -33,6 +33,8 @@
 		D3B71456235D211B00F2AFB2 /* Logger.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3B71455235D211B00F2AFB2 /* Logger.swift */; };
 		D3B71458235DDB1C00F2AFB2 /* DeckView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3B71457235DDB1C00F2AFB2 /* DeckView.swift */; };
 		D3B7145A2363212200F2AFB2 /* CollectionDatabase+Previews.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3B714592363212200F2AFB2 /* CollectionDatabase+Previews.swift */; };
+		D3E525AF2377221C00C1E549 /* SpacedRepetitionScheduler.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3E525AE2377221C00C1E549 /* SpacedRepetitionScheduler.swift */; };
+		D3E525B1237725A500C1E549 /* SpacedRepetitionSchedulerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3E525B0237725A500C1E549 /* SpacedRepetitionSchedulerTests.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -81,6 +83,8 @@
 		D3B71455235D211B00F2AFB2 /* Logger.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Logger.swift; sourceTree = "<group>"; };
 		D3B71457235DDB1C00F2AFB2 /* DeckView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeckView.swift; sourceTree = "<group>"; };
 		D3B714592363212200F2AFB2 /* CollectionDatabase+Previews.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CollectionDatabase+Previews.swift"; sourceTree = "<group>"; };
+		D3E525AE2377221C00C1E549 /* SpacedRepetitionScheduler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpacedRepetitionScheduler.swift; sourceTree = "<group>"; };
+		D3E525B0237725A500C1E549 /* SpacedRepetitionSchedulerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpacedRepetitionSchedulerTests.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -143,6 +147,7 @@
 				D3966845236DDC9A0015DB82 /* CardAnswerButtonRow.swift */,
 				D3966847236DECA40015DB82 /* CardAnswer.swift */,
 				D3B7144D235BB5A500F2AFB2 /* CollectionDatabase.swift */,
+				D3E525AE2377221C00C1E549 /* SpacedRepetitionScheduler.swift */,
 				D3B714592363212200F2AFB2 /* CollectionDatabase+Previews.swift */,
 				D325FDB4235B57AC002AC9C9 /* CollectionMetadata.swift */,
 				D3B7144F235C189300F2AFB2 /* DeckConfig.swift */,
@@ -173,6 +178,7 @@
 			children = (
 				D32BCEBD235829770036768A /* SwankiTests.swift */,
 				D32BCEBF235829770036768A /* Info.plist */,
+				D3E525B0237725A500C1E549 /* SpacedRepetitionSchedulerTests.swift */,
 			);
 			path = SwankiTests;
 			sourceTree = "<group>";
@@ -343,6 +349,7 @@
 				D325FDB5235B57AC002AC9C9 /* CollectionMetadata.swift in Sources */,
 				D325FDB3235A9A1E002AC9C9 /* Note.swift in Sources */,
 				D3B71452235C22B700F2AFB2 /* Card.swift in Sources */,
+				D3E525AF2377221C00C1E549 /* SpacedRepetitionScheduler.swift in Sources */,
 				D396684A236DF7600015DB82 /* StudySequence.swift in Sources */,
 				D3B71458235DDB1C00F2AFB2 /* DeckView.swift in Sources */,
 				D39668442365EE9D0015DB82 /* WebView.swift in Sources */,
@@ -353,6 +360,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D3E525B1237725A500C1E549 /* SpacedRepetitionSchedulerTests.swift in Sources */,
 				D32BCEBE235829770036768A /* SwankiTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

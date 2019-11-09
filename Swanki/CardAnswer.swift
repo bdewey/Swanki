@@ -3,7 +3,7 @@
 import Foundation
 
 /// The different feedback you can give about how you did looking at a card
-public enum CardAnswer {
+public enum CardAnswer: CaseIterable {
   /// You didn't know the answer.
   case again
 

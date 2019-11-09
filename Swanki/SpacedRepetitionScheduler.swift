@@ -23,6 +23,9 @@ public protocol SchedulableItem {
   /// How many times this item has been reviewed.
   var reviewCount: Int { get }
 
+  /// The desired gap before reviewing this item again.
+  var interval: TimeInterval { get }
+
   /// When this item is due to be reviewed again.
   var due: Date { get }
 }
@@ -30,17 +33,20 @@ public protocol SchedulableItem {
 public struct SchedulingResult: SchedulableItem {
   public var schedulingState: SchedulingState
   public var reviewCount: Int
+  public var interval: TimeInterval
   public var due: Date
 
   /// Public initializer so we can create these in other modules.
   public init(
     schedulingState: SchedulingState = .learning(step: 0),
     reviewCount: Int = 0,
+    interval: TimeInterval = 0,
     due: Date = .distantPast
   ) {
     self.schedulingState = schedulingState
     self.reviewCount = reviewCount
     self.due = due
+    self.interval = interval
   }
 
   /// Casting initializer: Creates a `SchedulingResult` from any `SchedulableItem`
@@ -48,6 +54,7 @@ public struct SchedulingResult: SchedulableItem {
     self.schedulingState = item.schedulingState
     self.reviewCount = item.reviewCount
     self.due = item.due
+    self.interval = item.interval
   }
 }
 
@@ -99,30 +106,29 @@ public struct SpacedRepetitionScheduler {
     case (.learning, .again):
       // Go back to the initial learning step, schedule out a tiny bit.
       result.schedulingState = .learning(step: 0)
-      result.due = now.addingTimeInterval(learningIntervals.first ?? 60)
+      result.interval = learningIntervals.first ?? 60
     case (.learning, .easy):
       // Immediate graduation!
       result.schedulingState = .review
-      result.due = now.addingTimeInterval(easyGraduatingInterval)
+      result.interval = easyGraduatingInterval
     case (.learning(let step), .hard):
       // Stay on the same step.
-      let interval = learningIntervals[step]
-      result.due = now.addingTimeInterval(interval)
+      result.interval = learningIntervals[step]
     case (.learning(let step), .good):
       // Move to the next step.
       if step >= learningIntervals.count {
         // Graduate to "review"
         result.schedulingState = .review
-        result.due = now.addingTimeInterval(goodGraduatingInterval)
+        result.interval = goodGraduatingInterval
       } else {
-        let interval = learningIntervals[step]
+        result.interval = learningIntervals[step]
         result.schedulingState = .learning(step: step + 1)
-        result.due = now.addingTimeInterval(interval)
       }
     default:
       // NOTHING
       break
     }
+    result.due = now.addingTimeInterval(result.interval)
     return result
   }
 }

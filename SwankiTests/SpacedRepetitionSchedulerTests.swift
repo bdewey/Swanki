@@ -18,18 +18,22 @@ final class SpacedRepetitionSchedulerTests: XCTestCase {
     }
 
     XCTAssertEqual(results[.again]?.schedulingState, .learning(step: 0))
-    XCTAssertEqual(results[.again]!.due, now.addingTimeInterval(scheduler.learningIntervals.first!))
+    XCTAssertEqual(results[.again]?.due, now.addingTimeInterval(scheduler.learningIntervals.first!))
+    XCTAssertEqual(results[.again]?.interval, scheduler.learningIntervals.first)
 
     // Cards that were "easy" immediately leave the learning state.
     XCTAssertEqual(results[.easy]?.schedulingState, .review)
     XCTAssertEqual(results[.easy]?.due, now.addingTimeInterval(scheduler.easyGraduatingInterval))
+    XCTAssertEqual(results[.easy]?.interval, scheduler.easyGraduatingInterval)
 
     // Cards that were "good" move to the next state.
     XCTAssertEqual(results[.good]?.schedulingState, .learning(step: 1))
     XCTAssertEqual(results[.good]?.due, now.addingTimeInterval(scheduler.learningIntervals[0]))
+    XCTAssertEqual(results[.good]?.interval, scheduler.learningIntervals[0])
 
     // Cards that were "hard" stay on the same state.
     XCTAssertEqual(results[.hard]?.schedulingState, .learning(step: 0))
     XCTAssertEqual(results[.hard]?.due, now.addingTimeInterval(scheduler.learningIntervals[0]))
+    XCTAssertEqual(results[.hard]?.interval, scheduler.learningIntervals[0])
   }
 }

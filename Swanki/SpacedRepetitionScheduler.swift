@@ -7,68 +7,54 @@ public extension TimeInterval {
   static let day: TimeInterval = 60 * 60 * 24
 }
 
-public enum SchedulingState: Equatable {
-  /// The item is in the learning state.
-  /// - parameter step: How many learning steps have been completed. `step == 0` implies a new card.
-  case learning(step: Int)
-
-  /// The item is in the "review" state
-  case review
-}
-
-public protocol SchedulableItem {
-  /// Current state of the item.
-  var schedulingState: SchedulingState { get }
-
-  /// How many times this item has been reviewed.
-  var reviewCount: Int { get }
-
-  /// How many times this item regressed from "review" back to "learning"
-  var lapseCount: Int { get }
-
-  /// The desired gap before reviewing this item again.
-  var interval: TimeInterval { get }
-
-  /// When this item is due to be reviewed again.
-  var due: Date { get }
-}
-
-public struct SchedulingResult: SchedulableItem {
-  public var schedulingState: SchedulingState
-  public var reviewCount: Int
-  public var lapseCount: Int
-  public var interval: TimeInterval
-  public var due: Date
-
-  /// Public initializer so we can create these in other modules.
-  public init(
-    schedulingState: SchedulingState = .learning(step: 0),
-    reviewCount: Int = 0,
-    lapseCount: Int = 0,
-    interval: TimeInterval = 0,
-    due: Date = .distantPast
-  ) {
-    self.schedulingState = schedulingState
-    self.reviewCount = reviewCount
-    self.lapseCount = lapseCount
-    self.due = due
-    self.interval = interval
-  }
-
-  /// Casting initializer: Creates a `SchedulingResult` from any `SchedulableItem`
-  public init(_ item: SchedulableItem) {
-    self.schedulingState = item.schedulingState
-    self.reviewCount = item.reviewCount
-    self.lapseCount = item.lapseCount
-    self.due = item.due
-    self.interval = item.interval
-  }
-}
-
 /// A spaced-repetition scheduler that implements an Anki-style algorithm, where items can be in either a "learning" state
 /// with a specific number of steps to "graduate", or the items can be in the "review" state with a geometric progression of times
 /// between reviews.
 public struct SpacedRepetitionScheduler {
+  /// The scheduler works with this abstract "item". Since the scheduler needs to create new Items, this is a struct and not a protocol.
+  /// The consumer of the scheduler will need to create Items representing whatever is being scheduled, and then map new item state
+  /// back to the actual scheduled entity.
+  public struct Item {
+    public enum LearningState: Equatable {
+      /// The item is in the learning state.
+      /// - parameter step: How many learning steps have been completed. `step == 0` implies a new card.
+      case learning(step: Int)
+
+      /// The item is in the "review" state
+      case review
+    }
+
+    /// The learning state of this item.
+    public var learningState: LearningState
+
+    /// How many times this item has been reviewed.
+    public var reviewCount: Int
+
+    /// How many times this item regressed from "review" back to "learning"
+    public var lapseCount: Int
+
+    /// The ideal amount of time until seeing this item again.
+    public var interval: TimeInterval
+
+    /// The due date of this item.
+    public var due: Date
+
+    /// Public initializer so we can create these in other modules.
+    public init(
+      schedulingState: LearningState = .learning(step: 0),
+      reviewCount: Int = 0,
+      lapseCount: Int = 0,
+      interval: TimeInterval = 0,
+      due: Date = .distantPast
+    ) {
+      self.learningState = schedulingState
+      self.reviewCount = reviewCount
+      self.lapseCount = lapseCount
+      self.due = due
+      self.interval = interval
+    }
+  }
+
   /// Public initializer.
   /// - parameter learningIntervals: The time between successive stages of "learning" a card.
   public init(
@@ -95,10 +81,10 @@ public struct SpacedRepetitionScheduler {
   /// - parameter now: The current time. Item due dates will be relative to this date.
   /// - returns: A mapping of "answer" to "next state of the schedulable item"
   public func scheduleItem(
-    _ item: SchedulableItem,
+    _ item: Item,
     now: Date = Date()
-  ) -> [CardAnswer: SchedulingResult] {
-    var results = [CardAnswer: SchedulingResult]()
+  ) -> [CardAnswer: Item] {
+    var results = [CardAnswer: Item]()
     for answer in CardAnswer.allCases {
       results[answer] = result(item: item, answer: answer, now: now)
     }
@@ -106,15 +92,15 @@ public struct SpacedRepetitionScheduler {
   }
 
   /// Computes the scheduling result given an item, answer, and current time.
-  private func result(item: SchedulableItem, answer: CardAnswer, now: Date) -> SchedulingResult {
-    var result = SchedulingResult(item)
+  private func result(item: Item, answer: CardAnswer, now: Date) -> Item {
+    var result = item
     result.reviewCount += 1
-    switch (item.schedulingState, answer) {
+    switch (item.learningState, answer) {
     case (.learning, .again):
       moveToFirstStep(&result)
     case (.learning, .easy):
       // Immediate graduation!
-      result.schedulingState = .review
+      result.learningState = .review
       result.interval = easyGraduatingInterval
     case (.learning(let step), .hard):
       // Stay on the same step.
@@ -123,11 +109,11 @@ public struct SpacedRepetitionScheduler {
       // Move to the next step.
       if step >= learningIntervals.count {
         // Graduate to "review"
-        result.schedulingState = .review
+        result.learningState = .review
         result.interval = goodGraduatingInterval
       } else {
         result.interval = learningIntervals[step]
-        result.schedulingState = .learning(step: step + 1)
+        result.learningState = .learning(step: step + 1)
       }
     case (.review, .again):
       result.lapseCount += 1
@@ -140,9 +126,9 @@ public struct SpacedRepetitionScheduler {
     return result
   }
 
-  private func moveToFirstStep(_ result: inout SchedulingResult) {
+  private func moveToFirstStep(_ result: inout Item) {
     // Go back to the initial learning step, schedule out a tiny bit.
-    result.schedulingState = .learning(step: 1)
+    result.learningState = .learning(step: 1)
     result.interval = learningIntervals.first ?? .minute
   }
 }

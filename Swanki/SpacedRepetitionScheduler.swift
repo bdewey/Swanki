@@ -77,11 +77,13 @@ public struct SpacedRepetitionScheduler {
   public init(
     learningIntervals: [TimeInterval],
     easyGraduatingInterval: TimeInterval = 4 * .day,
-    goodGraduatingInterval: TimeInterval = 1 * .day
+    goodGraduatingInterval: TimeInterval = 1 * .day,
+    easyBoost: Double = 1.3
   ) {
     self.learningIntervals = learningIntervals
     self.easyGraduatingInterval = easyGraduatingInterval
     self.goodGraduatingInterval = goodGraduatingInterval
+    self.easyBoost = easyBoost
   }
 
   /// The intervals between successive steps when "learning" an item.
@@ -92,6 +94,9 @@ public struct SpacedRepetitionScheduler {
 
   /// When a card graduates from "learning" to "review" with a "good" answer, it's schedule out by this interval.
   public let goodGraduatingInterval: TimeInterval
+
+  /// An additional boost given to "easy" cards in review mode.
+  public let easyBoost: Double
 
   /// Determines the next state of a schedulable item for all possible answers.
   /// - parameter item: The item to schedule.
@@ -112,6 +117,7 @@ public struct SpacedRepetitionScheduler {
   private func result(item: Item, answer: CardAnswer, now: Date) -> Item {
     var result = item
     result.reviewCount += 1
+    let delay = max(now.timeIntervalSince(item.due), 0)
     switch (item.learningState, answer) {
     case (.learning, .again):
       moveToFirstStep(&result)
@@ -142,9 +148,9 @@ public struct SpacedRepetitionScheduler {
     case (.review, .good):
       // Expand interval by factor, fuzzing the result, and ensuring that it at least moves forward
       // by the "hard" amount.
-      let delay = max(now.timeIntervalSince(item.due), 0)
       result.interval = max(((result.interval + delay / 2) * result.factor).fuzzed(), result.interval * 1.2)
     case (.review, .easy):
+      result.interval = max(((result.interval + delay) * result.factor * easyBoost).fuzzed(), result.interval * result.factor)
       result.factor += 0.15
     }
     result.due = now.addingTimeInterval(result.interval)

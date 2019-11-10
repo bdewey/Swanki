@@ -7,6 +7,18 @@ public extension TimeInterval {
   static let day: TimeInterval = 60 * 60 * 24
 }
 
+public extension Comparable {
+  func clamped(to range: ClosedRange<Self>) -> Self {
+    if self > range.upperBound {
+      return range.upperBound
+    } else if self < range.lowerBound {
+      return range.lowerBound
+    } else {
+      return self
+    }
+  }
+}
+
 /// A spaced-repetition scheduler that implements an Anki-style algorithm, where items can be in either a "learning" state
 /// with a specific number of steps to "graduate", or the items can be in the "review" state with a geometric progression of times
 /// between reviews.
@@ -124,6 +136,11 @@ public struct SpacedRepetitionScheduler {
       result.lapseCount += 1
       result.factor = max(1.3, result.factor - 0.2)
       moveToFirstStep(&result)
+    case (.review, .hard):
+      result.interval = max((result.interval * 1.2).fuzzed(), result.interval)
+      result.factor = max(1.3, result.factor - 0.15)
+    case (.review, .easy):
+      result.factor += 0.15
     default:
       // NOTHING
       break
@@ -138,3 +155,33 @@ public struct SpacedRepetitionScheduler {
     result.interval = learningIntervals.first ?? .minute
   }
 }
+
+private extension TimeInterval {
+  /// A TimeInterval that is close to, but not necessarily identical to, the receiver.
+  /// - note: The value will fall within the bounds defined by `self.fuzzRange`
+  func fuzzed() -> TimeInterval {
+    return Double.random(in: fuzzRange)
+  }
+
+  /// To keep cards added at the same time from always being scheduled together, we apply "fuzz" to the time interval.
+  /// - note: This logic is transcribed from anki schedv2.py _fuzzIvlRange
+  var fuzzRange: ClosedRange<Double> {
+    if self < 2 * .day {
+      return self ... self
+    }
+    if self < 3 * .day {
+      return 2 * .day ... 3 * .day
+    }
+    var fuzz: TimeInterval
+    if self < 7 * .day {
+      fuzz = self / 4
+    } else if self < 30 * .day {
+      fuzz = max(2, self * 0.15)
+    } else {
+      fuzz = max(4, self * 0.05)
+    }
+    fuzz = max(1, fuzz)
+    return (self - fuzz) ... (self + fuzz)
+  }
+}
+

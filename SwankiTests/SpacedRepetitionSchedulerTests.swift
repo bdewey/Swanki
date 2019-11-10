@@ -61,5 +61,6 @@ final class SpacedRepetitionSchedulerTests: XCTestCase {
     XCTAssertEqual(results[.again]?.lapseCount, 1)
     XCTAssertEqual(results[.again]?.interval, scheduler.learningIntervals.first)
     XCTAssertEqual(results[.again]?.learningState, .learning(step: 1))
+    XCTAssertEqual(results[.again]!.factor, 2.3, accuracy: 0.01)
   }
 }

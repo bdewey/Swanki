@@ -39,18 +39,23 @@ public struct SpacedRepetitionScheduler {
     /// The due date of this item.
     public var due: Date
 
+    // TODO: This needs a reasonable description
+    public var factor: Double
+
     /// Public initializer so we can create these in other modules.
     public init(
       schedulingState: LearningState = .learning(step: 0),
       reviewCount: Int = 0,
       lapseCount: Int = 0,
       interval: TimeInterval = 0,
+      factor: Double = 2.5,
       due: Date = .distantPast
     ) {
       self.learningState = schedulingState
       self.reviewCount = reviewCount
       self.lapseCount = lapseCount
       self.due = due
+      self.factor = factor
       self.interval = interval
     }
   }
@@ -117,6 +122,7 @@ public struct SpacedRepetitionScheduler {
       }
     case (.review, .again):
       result.lapseCount += 1
+      result.factor = max(1.3, result.factor - 0.2)
       moveToFirstStep(&result)
     default:
       // NOTHING

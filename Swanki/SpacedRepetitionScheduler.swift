@@ -23,6 +23,9 @@ public protocol SchedulableItem {
   /// How many times this item has been reviewed.
   var reviewCount: Int { get }
 
+  /// How many times this item regressed from "review" back to "learning"
+  var lapseCount: Int { get }
+
   /// The desired gap before reviewing this item again.
   var interval: TimeInterval { get }
 
@@ -33,6 +36,7 @@ public protocol SchedulableItem {
 public struct SchedulingResult: SchedulableItem {
   public var schedulingState: SchedulingState
   public var reviewCount: Int
+  public var lapseCount: Int
   public var interval: TimeInterval
   public var due: Date
 
@@ -40,11 +44,13 @@ public struct SchedulingResult: SchedulableItem {
   public init(
     schedulingState: SchedulingState = .learning(step: 0),
     reviewCount: Int = 0,
+    lapseCount: Int = 0,
     interval: TimeInterval = 0,
     due: Date = .distantPast
   ) {
     self.schedulingState = schedulingState
     self.reviewCount = reviewCount
+    self.lapseCount = lapseCount
     self.due = due
     self.interval = interval
   }
@@ -53,6 +59,7 @@ public struct SchedulingResult: SchedulableItem {
   public init(_ item: SchedulableItem) {
     self.schedulingState = item.schedulingState
     self.reviewCount = item.reviewCount
+    self.lapseCount = item.lapseCount
     self.due = item.due
     self.interval = item.interval
   }
@@ -104,16 +111,14 @@ public struct SpacedRepetitionScheduler {
     result.reviewCount += 1
     switch (item.schedulingState, answer) {
     case (.learning, .again):
-      // Go back to the initial learning step, schedule out a tiny bit.
-      result.schedulingState = .learning(step: 0)
-      result.interval = learningIntervals.first ?? 60
+      moveToFirstStep(&result)
     case (.learning, .easy):
       // Immediate graduation!
       result.schedulingState = .review
       result.interval = easyGraduatingInterval
     case (.learning(let step), .hard):
       // Stay on the same step.
-      result.interval = learningIntervals[step]
+      result.interval = learningIntervals[max(0, step-1)]
     case (.learning(let step), .good):
       // Move to the next step.
       if step >= learningIntervals.count {
@@ -124,11 +129,20 @@ public struct SpacedRepetitionScheduler {
         result.interval = learningIntervals[step]
         result.schedulingState = .learning(step: step + 1)
       }
+    case (.review, .again):
+      result.lapseCount += 1
+      moveToFirstStep(&result)
     default:
       // NOTHING
       break
     }
     result.due = now.addingTimeInterval(result.interval)
     return result
+  }
+
+  private func moveToFirstStep(_ result: inout SchedulingResult) {
+    // Go back to the initial learning step, schedule out a tiny bit.
+    result.schedulingState = .learning(step: 1)
+    result.interval = learningIntervals.first ?? .minute
   }
 }

@@ -4,10 +4,11 @@ import Swanki
 import XCTest
 
 final class SpacedRepetitionSchedulerTests: XCTestCase {
+  let scheduler = SpacedRepetitionScheduler(
+    learningIntervals: [1 * .minute, 10 * .minute]
+  )
+
   func testScheduleNewCard() {
-    let scheduler = SpacedRepetitionScheduler(
-      learningIntervals: [1 * .minute, 10 * .minute]
-    )
     let newItem = SchedulingResult(schedulingState: .learning(step: 0))
     let now = Date()
     let results = scheduler.scheduleItem(newItem, now: now)
@@ -17,7 +18,7 @@ final class SpacedRepetitionSchedulerTests: XCTestCase {
       XCTAssertEqual(result.reviewCount, 1)
     }
 
-    XCTAssertEqual(results[.again]?.schedulingState, .learning(step: 0))
+    XCTAssertEqual(results[.again]?.schedulingState, .learning(step: 1))
     XCTAssertEqual(results[.again]?.due, now.addingTimeInterval(scheduler.learningIntervals.first!))
     XCTAssertEqual(results[.again]?.interval, scheduler.learningIntervals.first)
 
@@ -35,5 +36,30 @@ final class SpacedRepetitionSchedulerTests: XCTestCase {
     XCTAssertEqual(results[.hard]?.schedulingState, .learning(step: 0))
     XCTAssertEqual(results[.hard]?.due, now.addingTimeInterval(scheduler.learningIntervals[0]))
     XCTAssertEqual(results[.hard]?.interval, scheduler.learningIntervals[0])
+  }
+
+  func testProgressFromNewToReview() {
+    var item = SchedulingResult()
+
+    for _ in 0 ... scheduler.learningIntervals.count {
+      // Answer the item as "good"
+      item = scheduler.scheduleItem(item)[.good]!
+    }
+    XCTAssertEqual(item.schedulingState, .review)
+    XCTAssertEqual(item.interval, scheduler.goodGraduatingInterval)
+  }
+
+  func testScheduleReviewCard() {
+    let now = Date()
+    let reviewItem = SchedulingResult(
+      schedulingState: .review,
+      reviewCount: 5,
+      interval: 4 * .day,
+      due: now
+    )
+    let results = scheduler.scheduleItem(reviewItem, now: now)
+    XCTAssertEqual(results[.again]?.lapseCount, 1)
+    XCTAssertEqual(results[.again]?.interval, scheduler.learningIntervals.first)
+    XCTAssertEqual(results[.again]?.schedulingState, .learning(step: 1))
   }
 }

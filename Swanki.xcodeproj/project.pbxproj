@@ -20,6 +20,7 @@
 		D32BCEB3235829770036768A /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D32BCEB1235829770036768A /* LaunchScreen.storyboard */; };
 		D32BCEBE235829770036768A /* SwankiTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D32BCEBD235829770036768A /* SwankiTests.swift */; };
 		D32BCEC9235829770036768A /* SwankiUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D32BCEC8235829770036768A /* SwankiUITests.swift */; };
+		D351006D237897A500CE2D7E /* TimeInterval+Fuzzing.swift in Sources */ = {isa = PBXBuildFile; fileRef = D351006C237897A500CE2D7E /* TimeInterval+Fuzzing.swift */; };
 		D396683F2364924A0015DB82 /* CardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D396683E2364924A0015DB82 /* CardView.swift */; };
 		D396684223650B940015DB82 /* Mustache in Frameworks */ = {isa = PBXBuildFile; productRef = D396684123650B940015DB82 /* Mustache */; };
 		D39668442365EE9D0015DB82 /* WebView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D39668432365EE9D0015DB82 /* WebView.swift */; };
@@ -71,6 +72,7 @@
 		D32BCEC4235829770036768A /* SwankiUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SwankiUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		D32BCEC8235829770036768A /* SwankiUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwankiUITests.swift; sourceTree = "<group>"; };
 		D32BCECA235829770036768A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		D351006C237897A500CE2D7E /* TimeInterval+Fuzzing.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "TimeInterval+Fuzzing.swift"; sourceTree = "<group>"; };
 		D396683E2364924A0015DB82 /* CardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardView.swift; sourceTree = "<group>"; };
 		D39668432365EE9D0015DB82 /* WebView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebView.swift; sourceTree = "<group>"; };
 		D3966845236DDC9A0015DB82 /* CardAnswerButtonRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardAnswerButtonRow.swift; sourceTree = "<group>"; };
@@ -143,11 +145,10 @@
 				D32BCEA6235829750036768A /* AppDelegate.swift */,
 				D32BCEAC235829770036768A /* Assets.xcassets */,
 				D3B71451235C22B700F2AFB2 /* Card.swift */,
-				D396683E2364924A0015DB82 /* CardView.swift */,
-				D3966845236DDC9A0015DB82 /* CardAnswerButtonRow.swift */,
 				D3966847236DECA40015DB82 /* CardAnswer.swift */,
+				D3966845236DDC9A0015DB82 /* CardAnswerButtonRow.swift */,
+				D396683E2364924A0015DB82 /* CardView.swift */,
 				D3B7144D235BB5A500F2AFB2 /* CollectionDatabase.swift */,
-				D3E525AE2377221C00C1E549 /* SpacedRepetitionScheduler.swift */,
 				D3B714592363212200F2AFB2 /* CollectionDatabase+Previews.swift */,
 				D325FDB4235B57AC002AC9C9 /* CollectionMetadata.swift */,
 				D3B7144F235C189300F2AFB2 /* DeckConfig.swift */,
@@ -158,8 +159,10 @@
 				D325FDB2235A9A1E002AC9C9 /* Note.swift */,
 				D32BCEAE235829770036768A /* Preview Content */,
 				D32BCEA8235829750036768A /* SceneDelegate.swift */,
-				D3B71453235CB7D000F2AFB2 /* StudyView.swift */,
+				D3E525AE2377221C00C1E549 /* SpacedRepetitionScheduler.swift */,
 				D3966849236DF7600015DB82 /* StudySequence.swift */,
+				D3B71453235CB7D000F2AFB2 /* StudyView.swift */,
+				D351006C237897A500CE2D7E /* TimeInterval+Fuzzing.swift */,
 				D39668432365EE9D0015DB82 /* WebView.swift */,
 			);
 			path = Swanki;
@@ -345,6 +348,7 @@
 				D3B71456235D211B00F2AFB2 /* Logger.swift in Sources */,
 				D396683F2364924A0015DB82 /* CardView.swift in Sources */,
 				D3966846236DDC9A0015DB82 /* CardAnswerButtonRow.swift in Sources */,
+				D351006D237897A500CE2D7E /* TimeInterval+Fuzzing.swift in Sources */,
 				D3B7144E235BB5A500F2AFB2 /* CollectionDatabase.swift in Sources */,
 				D325FDB5235B57AC002AC9C9 /* CollectionMetadata.swift in Sources */,
 				D325FDB3235A9A1E002AC9C9 /* Note.swift in Sources */,

@@ -48,9 +48,6 @@ public struct SpacedRepetitionScheduler {
     /// The ideal amount of time until seeing this item again.
     public var interval: TimeInterval
 
-    /// The due date of this item.
-    public var due: Date
-
     // TODO: This needs a reasonable description
     public var factor: Double
 
@@ -60,13 +57,11 @@ public struct SpacedRepetitionScheduler {
       reviewCount: Int = 0,
       lapseCount: Int = 0,
       interval: TimeInterval = 0,
-      factor: Double = 2.5,
-      due: Date = .distantPast
+      factor: Double = 2.5
     ) {
       self.learningState = schedulingState
       self.reviewCount = reviewCount
       self.lapseCount = lapseCount
-      self.due = due
       self.factor = factor
       self.interval = interval
     }
@@ -104,20 +99,19 @@ public struct SpacedRepetitionScheduler {
   /// - returns: A mapping of "answer" to "next state of the schedulable item"
   public func scheduleItem(
     _ item: Item,
-    now: Date = Date()
+    afterDelay delay: TimeInterval = 0
   ) -> [CardAnswer: Item] {
     var results = [CardAnswer: Item]()
     for answer in CardAnswer.allCases {
-      results[answer] = result(item: item, answer: answer, now: now)
+      results[answer] = result(item: item, answer: answer, delay: delay)
     }
     return results
   }
 
   /// Computes the scheduling result given an item, answer, and current time.
-  private func result(item: Item, answer: CardAnswer, now: Date) -> Item {
+  private func result(item: Item, answer: CardAnswer, delay: TimeInterval) -> Item {
     var result = item
     result.reviewCount += 1
-    let delay = max(now.timeIntervalSince(item.due), 0)
     switch (item.learningState, answer) {
     case (.learning, .again):
       moveToFirstStep(&result)
@@ -143,17 +137,16 @@ public struct SpacedRepetitionScheduler {
       result.factor = max(1.3, result.factor - 0.2)
       moveToFirstStep(&result)
     case (.review, .hard):
-      result.interval = max((result.interval * 1.2).fuzzed(), result.interval)
+      result.interval = result.interval * 1.2
       result.factor = max(1.3, result.factor - 0.15)
     case (.review, .good):
       // Expand interval by factor, fuzzing the result, and ensuring that it at least moves forward
       // by the "hard" amount.
-      result.interval = max(((result.interval + delay / 2) * result.factor).fuzzed(), result.interval * 1.2)
+      result.interval = (result.interval + delay / 2) * result.factor
     case (.review, .easy):
-      result.interval = max(((result.interval + delay) * result.factor * easyBoost).fuzzed(), result.interval * result.factor)
+      result.interval = (result.interval + delay) * result.factor * easyBoost
       result.factor += 0.15
     }
-    result.due = now.addingTimeInterval(result.interval)
     return result
   }
 
@@ -161,35 +154,6 @@ public struct SpacedRepetitionScheduler {
     // Go back to the initial learning step, schedule out a tiny bit.
     result.learningState = .learning(step: 1)
     result.interval = learningIntervals.first ?? .minute
-  }
-}
-
-private extension TimeInterval {
-  /// A TimeInterval that is close to, but not necessarily identical to, the receiver.
-  /// - note: The value will fall within the bounds defined by `self.fuzzRange`
-  func fuzzed() -> TimeInterval {
-    return Double.random(in: fuzzRange)
-  }
-
-  /// To keep cards added at the same time from always being scheduled together, we apply "fuzz" to the time interval.
-  /// - note: This logic is transcribed from anki schedv2.py _fuzzIvlRange
-  var fuzzRange: ClosedRange<Double> {
-    if self < 2 * .day {
-      return self ... self
-    }
-    if self < 3 * .day {
-      return 2 * .day ... 3 * .day
-    }
-    var fuzz: TimeInterval
-    if self < 7 * .day {
-      fuzz = self / 4
-    } else if self < 30 * .day {
-      fuzz = max(2 * .day, self * 0.15)
-    } else {
-      fuzz = max(4 * .day, self * 0.05)
-    }
-    fuzz = max(1, fuzz)
-    return (self - fuzz) ... (self + fuzz)
   }
 }
 

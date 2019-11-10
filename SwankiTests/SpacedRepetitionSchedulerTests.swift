@@ -91,6 +91,37 @@ final class SpacedRepetitionSchedulerTests: XCTestCase {
     XCTAssertEqual(range.lowerBound, reviewItem.interval, accuracy: 0.01)
   }
 
+  func testScheduleReviewGoodNoDelay() {
+    let now = Date()
+    let reviewItem = SpacedRepetitionScheduler.Item(
+      schedulingState: .review,
+      reviewCount: 5,
+      interval: 14 * .day,
+      due: now
+    )
+    let range = intervalRange(for: reviewItem, now: now, answer: .good, iterations: 5000)
+    // Upper bound is (hard_interval * current_interval) + fuzz
+    XCTAssertEqual(range.upperBound, reviewItem.interval * reviewItem.factor + 4 * .day, accuracy: 0.02 * .day)
+    // Lower bound gets clamped to current_interval * 1.2
+    XCTAssertEqual(range.lowerBound, reviewItem.interval * reviewItem.factor - 4 * .day, accuracy: 0.02 * .day)
+  }
+
+  func testScheduleReviewGoodWithDelay() {
+    let now = Date()
+    let reviewItem = SpacedRepetitionScheduler.Item(
+      schedulingState: .review,
+      reviewCount: 5,
+      interval: 14 * .day,
+      due: now
+    )
+    let delay: TimeInterval = 3 * .day
+    let range = intervalRange(for: reviewItem, now: now.addingTimeInterval(delay), answer: .good, iterations: 5000)
+    // Upper bound is (hard_interval * current_interval) + fuzz
+    XCTAssertEqual(range.upperBound, (reviewItem.interval + delay / 2) * reviewItem.factor + 4 * .day, accuracy: 0.02 * .day)
+    // Lower bound gets clamped to current_interval * 1.2
+    XCTAssertEqual(range.lowerBound, (reviewItem.interval + delay / 2) * reviewItem.factor - 4 * .day, accuracy: 0.02 * .day)
+  }
+
   func intervalRange(
     for item: SpacedRepetitionScheduler.Item,
     now: Date,

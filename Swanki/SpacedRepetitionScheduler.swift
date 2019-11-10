@@ -139,11 +139,13 @@ public struct SpacedRepetitionScheduler {
     case (.review, .hard):
       result.interval = max((result.interval * 1.2).fuzzed(), result.interval)
       result.factor = max(1.3, result.factor - 0.15)
+    case (.review, .good):
+      // Expand interval by factor, fuzzing the result, and ensuring that it at least moves forward
+      // by the "hard" amount.
+      let delay = max(now.timeIntervalSince(item.due), 0)
+      result.interval = max(((result.interval + delay / 2) * result.factor).fuzzed(), result.interval * 1.2)
     case (.review, .easy):
       result.factor += 0.15
-    default:
-      // NOTHING
-      break
     }
     result.due = now.addingTimeInterval(result.interval)
     return result
@@ -176,9 +178,9 @@ private extension TimeInterval {
     if self < 7 * .day {
       fuzz = self / 4
     } else if self < 30 * .day {
-      fuzz = max(2, self * 0.15)
+      fuzz = max(2 * .day, self * 0.15)
     } else {
-      fuzz = max(4, self * 0.05)
+      fuzz = max(4 * .day, self * 0.05)
     }
     fuzz = max(1, fuzz)
     return (self - fuzz) ... (self + fuzz)

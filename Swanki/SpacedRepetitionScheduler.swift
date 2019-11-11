@@ -53,13 +53,13 @@ public struct SpacedRepetitionScheduler {
 
     /// Public initializer so we can create these in other modules.
     public init(
-      schedulingState: LearningState = .learning(step: 0),
+      learningState: LearningState = .learning(step: 0),
       reviewCount: Int = 0,
       lapseCount: Int = 0,
       interval: TimeInterval = 0,
       factor: Double = 2.5
     ) {
-      self.learningState = schedulingState
+      self.learningState = learningState
       self.reviewCount = reviewCount
       self.lapseCount = lapseCount
       self.factor = factor

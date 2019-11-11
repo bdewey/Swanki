@@ -9,7 +9,7 @@ final class SpacedRepetitionSchedulerTests: XCTestCase {
   )
 
   func testScheduleNewCard() {
-    let newItem = SpacedRepetitionScheduler.Item(schedulingState: .learning(step: 0))
+    let newItem = SpacedRepetitionScheduler.Item(learningState: .learning(step: 0))
     let results = scheduler.scheduleItem(newItem)
     XCTAssertEqual(results.count, CardAnswer.allCases.count)
     // Check that the repetition count increased for all items.
@@ -46,7 +46,7 @@ final class SpacedRepetitionSchedulerTests: XCTestCase {
 
   func testScheduleReviewCard() {
     let reviewItem = SpacedRepetitionScheduler.Item(
-      schedulingState: .review,
+      learningState: .review,
       reviewCount: 5,
       interval: 4 * .day
     )

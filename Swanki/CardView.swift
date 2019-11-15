@@ -7,6 +7,7 @@ struct CardView: View {
   struct Properties: Identifiable {
     var id: Int { card.id }
     let card: Card
+    let answers: [(key: CardAnswer, value: SpacedRepetitionScheduler.Item)]
     let model: NoteModel
     let note: Note
     let baseURL: URL?
@@ -31,7 +32,7 @@ struct CardView: View {
   var buttonRowOrEmpty: some View {
     VStack {
       if side == .back {
-        CardAnswerButtonRow(card: properties.card, didSelectAnswer: {
+        CardAnswerButtonRow(answers: properties.answers, didSelectAnswer: {
           self.side = Side.front
           self.didSelectAnswer?($0)
         })
@@ -96,8 +97,10 @@ private extension CardView {
 
 struct CardView_Previews: PreviewProvider {
   static var previews: some View {
-    CardView(properties: CardView.Properties(
+    let scheduler = SpacedRepetitionScheduler(learningIntervals: [.minute, 10 * .minute])
+    return CardView(properties: CardView.Properties(
       card: Card.nileCard,
+      answers: scheduler.scheduleItem(SpacedRepetitionScheduler.Item()),
       model: NoteModel.basic,
       note: Note.nileRiver,
       baseURL: nil

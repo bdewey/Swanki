@@ -15,4 +15,18 @@ public enum CardAnswer: CaseIterable {
 
   /// You got the answer and it was easy... really space out how often you see it.
   case easy
+
+  var localizedName: String {
+    // TODO: Actually localize the output.
+    switch self {
+      case .again:
+        return "Again"
+      case .easy:
+        return "Easy"
+      case .good:
+        return "Good"
+      case .hard:
+        return "Hard"
+    }
+  }
 }

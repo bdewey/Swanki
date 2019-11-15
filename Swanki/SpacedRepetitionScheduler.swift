@@ -36,8 +36,8 @@ public struct SpacedRepetitionScheduler {
   /// The scheduler works with this abstract "item". Since the scheduler needs to create new Items, this is a struct and not a protocol.
   /// The consumer of the scheduler will need to create Items representing whatever is being scheduled, and then map new item state
   /// back to the actual scheduled entity.
-  public struct Item {
-    public enum LearningState: Equatable {
+  public struct Item: Hashable {
+    public enum LearningState: Hashable {
       /// The item is in the learning state.
       /// - parameter step: How many learning steps have been completed. `step == 0` implies a new card.
       case learning(step: Int)

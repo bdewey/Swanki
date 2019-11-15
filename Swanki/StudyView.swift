@@ -25,7 +25,15 @@ struct StudyView: View {
     guard let model = studySequence.collectionDatabase.noteModels[note.modelID] else {
       throw CollectionDatabase.Error.unknownNoteModel(modelID: note.modelID)
     }
-    return CardView.Properties(card: card, model: model, note: note, baseURL: studySequence.collectionDatabase.url)
+    guard
+      let deckModel = studySequence.collectionDatabase.deckModels[card.deckID],
+      let config = studySequence.collectionDatabase.deckConfigs[deckModel.configID]
+    else {
+      throw CollectionDatabase.Error.unknownDeck(deckID: card.deckID)
+    }
+    let scheduler = SpacedRepetitionScheduler(config: config)
+    let answers = scheduler.scheduleItem(scheduler.makeSchedulingItem(for: card))
+    return CardView.Properties(card: card, answers: answers, model: model, note: note, baseURL: studySequence.collectionDatabase.url)
   }
 
   private func processAnswer(_ answer: CardAnswer) {

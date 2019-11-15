@@ -3,47 +3,41 @@
 import SwiftUI
 
 struct CardAnswerButtonRow: View {
-  let card: Card
+  let answers: [(key: CardAnswer, value: SpacedRepetitionScheduler.Item)]
   var didSelectAnswer: ((CardAnswer) -> Void)? = nil
+
+  struct ButtonProperties: Hashable {
+    let answer: CardAnswer
+    let interval: TimeInterval
+  }
 
   var body: some View {
     HStack {
-      ForEach(eligibleAnswers, id: \.self) { answer in
-        self.button(for: answer)
+      ForEach(buttonProperties, id: \.self) { properties in
+        self.button(properties: properties)
       }
     }
   }
 
-  var eligibleAnswers: [CardAnswer] {
-    switch card.type {
-    case .new, .learning:
-      return [.again, .good, .easy]
-    case .due, .filtered:
-      return [.again, .hard, .good, .easy]
+  private var buttonProperties: [ButtonProperties] {
+    answers.map {
+      ButtonProperties(answer: $0.key, interval: $0.value.interval)
     }
   }
 
-  func button(for answer: CardAnswer) -> some View {
-    Button(action: { self.didSelectAnswer?(answer) }) {
-      Text(self.buttonLabel(for: answer))
+  func button(properties: ButtonProperties) -> some View {
+    Button(action: { self.didSelectAnswer?(properties.answer) }) {
+      Text(self.buttonLabel(properties: properties))
         .foregroundColor(Color.white)
         .padding(.all)
     }
-    .background(self.buttonColor(for: answer))
+    .background(self.buttonColor(for: properties.answer))
     .cornerRadius(10)
   }
 
-  func buttonLabel(for answer: CardAnswer) -> String {
-    switch answer {
-    case .again:
-      return "Again"
-    case .easy:
-      return "Easy"
-    case .good:
-      return "Good"
-    case .hard:
-      return "Hard"
-    }
+  func buttonLabel(properties: ButtonProperties) -> String {
+    let intervalString = DateComponentsFormatter.intervalFormatter.string(from: properties.interval)!
+    return intervalString + "\n" + properties.answer.localizedName
   }
 
   func buttonColor(for answer: CardAnswer) -> Color {
@@ -60,8 +54,22 @@ struct CardAnswerButtonRow: View {
   }
 }
 
+public extension DateComponentsFormatter {
+  /// Shows the age of a page in a document list view.
+  static let intervalFormatter: DateComponentsFormatter = {
+    let ageFormatter = DateComponentsFormatter()
+    ageFormatter.maximumUnitCount = 1
+    ageFormatter.unitsStyle = .abbreviated
+    ageFormatter.allowsFractionalUnits = false
+    ageFormatter.allowedUnits = [.day, .hour, .minute]
+    return ageFormatter
+  }()
+}
+
 struct CardAnswerButtonRow_Previews: PreviewProvider {
     static var previews: some View {
-      CardAnswerButtonRow(card: Card.nileCard)
+      // Make some answers for a new item.
+      let scheduler = SpacedRepetitionScheduler(learningIntervals: [.minute, 10 * .minute])
+      return CardAnswerButtonRow(answers: scheduler.scheduleItem(SpacedRepetitionScheduler.Item()))
     }
 }

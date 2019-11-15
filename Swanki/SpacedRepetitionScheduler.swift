@@ -19,6 +19,16 @@ public extension Comparable {
   }
 }
 
+extension Array where Element == (key: CardAnswer, value: SpacedRepetitionScheduler.Item) {
+  /// A convenience for searching through a (small) array of keys / values
+  public subscript(_ answer: CardAnswer) -> SpacedRepetitionScheduler.Item? {
+    for (candidateAnswer, item) in self {
+      if candidateAnswer == answer { return item }
+    }
+    return nil
+  }
+}
+
 /// A spaced-repetition scheduler that implements an Anki-style algorithm, where items can be in either a "learning" state
 /// with a specific number of steps to "graduate", or the items can be in the "review" state with a geometric progression of times
 /// between reviews.
@@ -96,16 +106,14 @@ public struct SpacedRepetitionScheduler {
   /// Determines the next state of a schedulable item for all possible answers.
   /// - parameter item: The item to schedule.
   /// - parameter now: The current time. Item due dates will be relative to this date.
-  /// - returns: A mapping of "answer" to "next state of the schedulable item"
+  /// - returns: An array containing all possible answers and the next state of the item if the person picks that answer.
   public func scheduleItem(
     _ item: Item,
     afterDelay delay: TimeInterval = 0
-  ) -> [CardAnswer: Item] {
-    var results = [CardAnswer: Item]()
-    for answer in CardAnswer.allCases {
-      results[answer] = result(item: item, answer: answer, delay: delay)
+  ) -> [(key: CardAnswer, value: Item)] {
+    return CardAnswer.allCases.map { answer in
+      return (answer, result(item: item, answer: answer, delay: delay))
     }
-    return results
   }
 
   /// Computes the scheduling result given an item, answer, and current time.

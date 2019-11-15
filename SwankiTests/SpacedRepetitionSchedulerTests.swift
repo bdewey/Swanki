@@ -13,8 +13,8 @@ final class SpacedRepetitionSchedulerTests: XCTestCase {
     let results = scheduler.scheduleItem(newItem)
     XCTAssertEqual(results.count, CardAnswer.allCases.count)
     // Check that the repetition count increased for all items.
-    for result in results.values {
-      XCTAssertEqual(result.reviewCount, 1)
+    for result in results {
+      XCTAssertEqual(result.value.reviewCount, 1)
     }
 
     XCTAssertEqual(results[.again]?.learningState, .learning(step: 1))

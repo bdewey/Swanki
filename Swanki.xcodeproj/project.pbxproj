@@ -18,7 +18,6 @@
 		D32BCEAD235829770036768A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D32BCEAC235829770036768A /* Assets.xcassets */; };
 		D32BCEB0235829770036768A /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D32BCEAF235829770036768A /* Preview Assets.xcassets */; };
 		D32BCEB3235829770036768A /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D32BCEB1235829770036768A /* LaunchScreen.storyboard */; };
-		D32BCEBE235829770036768A /* SwankiTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D32BCEBD235829770036768A /* SwankiTests.swift */; };
 		D32BCEC9235829770036768A /* SwankiUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D32BCEC8235829770036768A /* SwankiUITests.swift */; };
 		D351006D237897A500CE2D7E /* TimeInterval+Fuzzing.swift in Sources */ = {isa = PBXBuildFile; fileRef = D351006C237897A500CE2D7E /* TimeInterval+Fuzzing.swift */; };
 		D351006F2378986600CE2D7E /* SpacedRepetitionScheduler+Card.swift in Sources */ = {isa = PBXBuildFile; fileRef = D351006E2378986600CE2D7E /* SpacedRepetitionScheduler+Card.swift */; };
@@ -68,7 +67,6 @@
 		D32BCEB2235829770036768A /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		D32BCEB4235829770036768A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		D32BCEB9235829770036768A /* SwankiTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SwankiTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		D32BCEBD235829770036768A /* SwankiTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwankiTests.swift; sourceTree = "<group>"; };
 		D32BCEBF235829770036768A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		D32BCEC4235829770036768A /* SwankiUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SwankiUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		D32BCEC8235829770036768A /* SwankiUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwankiUITests.swift; sourceTree = "<group>"; };
@@ -182,7 +180,6 @@
 		D32BCEBC235829770036768A /* SwankiTests */ = {
 			isa = PBXGroup;
 			children = (
-				D32BCEBD235829770036768A /* SwankiTests.swift */,
 				D32BCEBF235829770036768A /* Info.plist */,
 				D3E525B0237725A500C1E549 /* SpacedRepetitionSchedulerTests.swift */,
 			);
@@ -369,7 +366,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				D3E525B1237725A500C1E549 /* SpacedRepetitionSchedulerTests.swift in Sources */,
-				D32BCEBE235829770036768A /* SwankiTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

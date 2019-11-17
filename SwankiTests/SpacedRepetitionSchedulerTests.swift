@@ -11,7 +11,9 @@ final class SpacedRepetitionSchedulerTests: XCTestCase {
   func testScheduleNewCard() {
     let newItem = SpacedRepetitionScheduler.Item(learningState: .learning(step: 0))
     let results = scheduler.scheduleItem(newItem)
-    XCTAssertEqual(results.count, CardAnswer.allCases.count)
+
+    // shouldn't be a "hard" answer
+    XCTAssertEqual(results.count, CardAnswer.allCases.count - 1)
     // Check that the repetition count increased for all items.
     for result in results {
       XCTAssertEqual(result.value.reviewCount, 1)
@@ -27,10 +29,6 @@ final class SpacedRepetitionSchedulerTests: XCTestCase {
     // Cards that were "good" move to the next state.
     XCTAssertEqual(results[.good]?.learningState, .learning(step: 1))
     XCTAssertEqual(results[.good]?.interval, scheduler.learningIntervals[0])
-
-    // Cards that were "hard" stay on the same state.
-    XCTAssertEqual(results[.hard]?.learningState, .learning(step: 0))
-    XCTAssertEqual(results[.hard]?.interval, scheduler.learningIntervals[0])
   }
 
   func testProgressFromNewToReview() {

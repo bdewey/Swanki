@@ -111,13 +111,15 @@ public struct SpacedRepetitionScheduler {
     _ item: Item,
     afterDelay delay: TimeInterval = 0
   ) -> [(key: CardAnswer, value: Item)] {
-    return CardAnswer.allCases.map { answer in
-      return (answer, result(item: item, answer: answer, delay: delay))
+    let result = CardAnswer.allCases.compactMap { answer in
+      // result may be nil; in that case return nil instead of `(answer, nil)`
+      return self.result(item: item, answer: answer, delay: delay).flatMap { (answer, $0) }
     }
+    return result
   }
 
   /// Computes the scheduling result given an item, answer, and current time.
-  private func result(item: Item, answer: CardAnswer, delay: TimeInterval) -> Item {
+  private func result(item: Item, answer: CardAnswer, delay: TimeInterval) -> Item? {
     var result = item
     result.reviewCount += 1
     switch (item.learningState, answer) {
@@ -127,9 +129,9 @@ public struct SpacedRepetitionScheduler {
       // Immediate graduation!
       result.learningState = .review
       result.interval = easyGraduatingInterval
-    case (.learning(let step), .hard):
-      // Stay on the same step.
-      result.interval = learningIntervals[max(0, step-1)]
+    case (.learning, .hard):
+      // Not a valid answer -- no "hard" for something we're learning
+      return nil
     case (.learning(let step), .good):
       // Move to the next step.
       if step >= learningIntervals.count {

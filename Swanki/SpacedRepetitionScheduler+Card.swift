@@ -7,8 +7,8 @@ public extension SpacedRepetitionScheduler {
   init(config: DeckConfig) {
     self.init(
       learningIntervals: config.new.delays.map({ Double($0) * .minute }),
-      easyGraduatingInterval: TimeInterval(config.new.ints[0]) * .day,
-      goodGraduatingInterval: TimeInterval(config.new.ints[1]) * .day,
+      easyGraduatingInterval: TimeInterval(config.new.ints[1]) * .day,
+      goodGraduatingInterval: TimeInterval(config.new.ints[0]) * .day,
       easyBoost: config.rev.ease4
     )
   }

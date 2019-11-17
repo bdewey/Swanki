@@ -134,13 +134,13 @@ public struct SpacedRepetitionScheduler {
       return nil
     case (.learning(let step), .good):
       // Move to the next step.
-      if step >= learningIntervals.count {
+      if step < (learningIntervals.count - 1) {
+        result.interval = learningIntervals[step + 1]
+        result.learningState = .learning(step: step + 1)
+      } else {
         // Graduate to "review"
         result.learningState = .review
         result.interval = goodGraduatingInterval
-      } else {
-        result.interval = learningIntervals[step]
-        result.learningState = .learning(step: step + 1)
       }
     case (.review, .again):
       result.lapseCount += 1
@@ -162,7 +162,7 @@ public struct SpacedRepetitionScheduler {
 
   private func moveToFirstStep(_ result: inout Item) {
     // Go back to the initial learning step, schedule out a tiny bit.
-    result.learningState = .learning(step: 1)
+    result.learningState = .learning(step: 0)
     result.interval = learningIntervals.first ?? .minute
   }
 }

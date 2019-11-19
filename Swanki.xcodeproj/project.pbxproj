@@ -61,7 +61,7 @@
 		D325FDB4235B57AC002AC9C9 /* CollectionMetadata.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionMetadata.swift; sourceTree = "<group>"; };
 		D32BCEA3235829750036768A /* Swanki.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Swanki.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D32BCEA6235829750036768A /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		D32BCEA8235829750036768A /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
+		D32BCEA8235829750036768A /* SceneDelegate.swift */ = {isa = PBXFileReference; indentWidth = 2; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; tabWidth = 2; };
 		D32BCEAC235829770036768A /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		D32BCEAF235829770036768A /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		D32BCEB2235829770036768A /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -127,7 +127,9 @@
 				D32BCEC7235829770036768A /* SwankiUITests */,
 				D32BCEA4235829750036768A /* Products */,
 			);
+			indentWidth = 2;
 			sourceTree = "<group>";
+			tabWidth = 2;
 		};
 		D32BCEA4235829750036768A /* Products */ = {
 			isa = PBXGroup;

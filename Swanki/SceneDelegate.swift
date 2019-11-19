@@ -56,15 +56,17 @@ final class SceneDelegate: UIResponder, UIWindowSceneDelegate {
   // MARK: - Private
 
   private func makeCollectionDatabase() -> CollectionDatabase {
+    let homeDirectory = try! FileManager.default.url(for: .documentDirectory, in: .userDomainMask, appropriateFor: nil, create: true)
     do {
-      let homeDirectory = try FileManager.default.url(for: .documentDirectory, in: .userDomainMask, appropriateFor: nil, create: true)
       let collectionDatabase = CollectionDatabase(url: homeDirectory)
       try collectionDatabase.openDatabase()
       try collectionDatabase.fetchMetadata()
       try collectionDatabase.fetchNotes()
       return collectionDatabase
     } catch {
-      fatalError("Could not create database: \(error)")
+      let collectionDatabase = CollectionDatabase(url: homeDirectory)
+      rebuildCollectionDatabase(collectionDatabase)
+      return collectionDatabase
     }
   }
 

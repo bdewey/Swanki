@@ -10,9 +10,19 @@ struct NotesView: View {
   // TODO: We currently don't filter on this value.
   let deckID: Int
 
+  @State private var editingNote: Note? = nil
+
   var body: some View {
     List(collectionDatabase.notes) { note in
-      Text(note.fieldsArray.first ?? "").lineLimit(1)
-    }.navigationBarTitle("Notes", displayMode: .inline)
+      Text(note.fieldsArray.first ?? "")
+        .lineLimit(1)
+        .onTapGesture {
+          self.editingNote = note
+        }
+    }
+    .navigationBarTitle("Notes", displayMode: .inline)
+    .sheet(item: $editingNote) { _ in
+      NoteView(note: self.$editingNote).environmentObject(self.collectionDatabase)
+    }
   }
 }

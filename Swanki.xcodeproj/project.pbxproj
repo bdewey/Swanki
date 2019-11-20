@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		63C984B32385583700E5CAFE /* NotesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63C984B22385583700E5CAFE /* NotesView.swift */; };
+		63C984B5238566A400E5CAFE /* NoteView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63C984B4238566A400E5CAFE /* NoteView.swift */; };
 		D325FDA22358966F002AC9C9 /* SampleData in Resources */ = {isa = PBXBuildFile; fileRef = D325FDA12358966F002AC9C9 /* SampleData */; };
 		D325FDA523589F12002AC9C9 /* Logging in Frameworks */ = {isa = PBXBuildFile; productRef = D325FDA423589F12002AC9C9 /* Logging */; };
 		D325FDAB2359F288002AC9C9 /* Zipper in Frameworks */ = {isa = PBXBuildFile; productRef = D325FDAA2359F288002AC9C9 /* Zipper */; };
@@ -58,6 +59,7 @@
 
 /* Begin PBXFileReference section */
 		63C984B22385583700E5CAFE /* NotesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotesView.swift; sourceTree = "<group>"; };
+		63C984B4238566A400E5CAFE /* NoteView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoteView.swift; sourceTree = "<group>"; };
 		D325FDA12358966F002AC9C9 /* SampleData */ = {isa = PBXFileReference; lastKnownFileType = folder; path = SampleData; sourceTree = "<group>"; };
 		D325FDB2235A9A1E002AC9C9 /* Note.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Note.swift; sourceTree = "<group>"; };
 		D325FDB4235B57AC002AC9C9 /* CollectionMetadata.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionMetadata.swift; sourceTree = "<group>"; };
@@ -161,6 +163,7 @@
 				D32BCEB1235829770036768A /* LaunchScreen.storyboard */,
 				D3B71455235D211B00F2AFB2 /* Logger.swift */,
 				D325FDB2235A9A1E002AC9C9 /* Note.swift */,
+				63C984B4238566A400E5CAFE /* NoteView.swift */,
 				63C984B22385583700E5CAFE /* NotesView.swift */,
 				D32BCEAE235829770036768A /* Preview Content */,
 				D32BCEA8235829750036768A /* SceneDelegate.swift */,
@@ -349,6 +352,7 @@
 				63C984B32385583700E5CAFE /* NotesView.swift in Sources */,
 				D351006F2378986600CE2D7E /* SpacedRepetitionScheduler+Card.swift in Sources */,
 				D32BCEA9235829750036768A /* SceneDelegate.swift in Sources */,
+				63C984B5238566A400E5CAFE /* NoteView.swift in Sources */,
 				D3B7145A2363212200F2AFB2 /* CollectionDatabase+Previews.swift in Sources */,
 				D3966848236DECA40015DB82 /* CardAnswer.swift in Sources */,
 				D3B71454235CB7D000F2AFB2 /* StudyView.swift in Sources */,

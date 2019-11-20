@@ -13,6 +13,12 @@ struct StudyView: View {
       } else {
         EmptyView()
       }
+    }.navigationBarItems(trailing: browseButton)
+  }
+
+  private var browseButton: some View {
+    NavigationLink(destination: NotesView(deckID: studySequence.deckID)) {
+      Text("Browse")
     }
   }
 
@@ -52,12 +58,14 @@ struct StudyView: View {
 public class StudySequenceWrapper: ObservableObject {
   public init(collectionDatabase: CollectionDatabase, deckId: Int) {
     self.collectionDatabase = collectionDatabase
+    self.deckID = deckId
     let studySequence = StudySequence(collectionDatabase: collectionDatabase, decks: [deckId])
     self.iterator = studySequence.makeIterator()
     self.currentCard = iterator.next()
   }
 
   public let collectionDatabase: CollectionDatabase
+  public let deckID: Int
   private var iterator: StudySequence.Iterator
   @Published private(set) var currentCard: Card?
 

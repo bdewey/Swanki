@@ -19,6 +19,7 @@ struct HtmlEditorView: UIViewRepresentable {
       defaultMissingImage: Images.defaultMissing
     )
     textView.textAttachmentDelegate = context.coordinator
+    textView.isEditable = false
     return textView
   }
 

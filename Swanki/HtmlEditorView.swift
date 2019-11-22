@@ -3,8 +3,15 @@
 import Aztec
 import SwiftUI
 
+/// Instantiates an Aztec HTML editor.
+/// Assumes that there is a CollectionDatabase in the environment.
 struct HtmlEditorView: UIViewRepresentable {
+  /// The HTML content to edit.
+  // TODO: Turn this into a binding!
   let html: String
+
+  /// The base URL from which to load images.
+  let baseURL: URL
 
   func makeUIView(context: UIViewRepresentableContext<HtmlEditorView>) -> Aztec.TextView {
     let textView = TextView(
@@ -17,15 +24,44 @@ struct HtmlEditorView: UIViewRepresentable {
 
   func updateUIView(_ uiView: TextView, context: UIViewRepresentableContext<HtmlEditorView>) {
     uiView.setHTML(html)
-    print("\(uiView.contentSize)")
   }
 
   func makeCoordinator() -> Coordinator {
-    return Coordinator()
+    return Coordinator(self)
   }
 
+  /// Coordinator object -- serves as our delegate.
   final class Coordinator: TextViewAttachmentDelegate {
-    func textView(_ textView: TextView, attachment: NSTextAttachment, imageAt url: URL, onSuccess success: @escaping (UIImage) -> Void, onFailure failure: @escaping () -> Void) {
+    /// The associated view.
+    var view: HtmlEditorView
+
+    init(_ view: HtmlEditorView) {
+      self.view = view
+    }
+
+    func textView(
+      _ textView: TextView,
+      attachment: NSTextAttachment,
+      imageAt url: URL,
+      onSuccess success: @escaping (UIImage) -> Void,
+      onFailure failure: @escaping () -> Void
+    ) {
+      guard
+        let resolvedURL = URL(string: url.relativeString, relativeTo: self.view.baseURL)
+      else {
+        failure()
+        return
+      }
+      DispatchQueue.global(qos: .default).async {
+        let image = (try? Data(contentsOf: resolvedURL)).flatMap({ UIImage(data: $0) })
+        DispatchQueue.main.async {
+          if let image = image {
+            success(image)
+          } else {
+            failure()
+          }
+        }
+      }
       failure()
     }
 

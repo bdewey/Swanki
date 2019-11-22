@@ -15,7 +15,10 @@ struct NoteView: View {
             // TODO: I want to set the height to contentSize.height. How do I do that?
             // Maybe I need a Binding<CGFloat> per section, and then I can write the desired height
             // into that binding?
-            HtmlEditorView(html: section.contents).frame(height: 200)
+            HtmlEditorView(
+              html: section.contents,
+              baseURL: self.collectionDatabase.url
+            ).frame(height: 200)
           }
         }
       }

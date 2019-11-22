@@ -12,7 +12,10 @@ struct NoteView: View {
       Form {
         ForEach(sections) { section in
           Section(header: Text(section.title)) {
-            Text(section.contents)
+            // TODO: I want to set the height to contentSize.height. How do I do that?
+            // Maybe I need a Binding<CGFloat> per section, and then I can write the desired height
+            // into that binding?
+            HtmlEditorView(html: section.contents).frame(height: 200)
           }
         }
       }

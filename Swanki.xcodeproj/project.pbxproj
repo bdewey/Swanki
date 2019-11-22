@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		63A505C423880E2400E93016 /* Aztec.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 63A505C323880E2400E93016 /* Aztec.framework */; };
+		63A505C523880E2400E93016 /* Aztec.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 63A505C323880E2400E93016 /* Aztec.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		63A505C82388106000E93016 /* HtmlEditorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63A505C72388106000E93016 /* HtmlEditorView.swift */; };
 		63C984B32385583700E5CAFE /* NotesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63C984B22385583700E5CAFE /* NotesView.swift */; };
 		63C984B5238566A400E5CAFE /* NoteView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63C984B4238566A400E5CAFE /* NoteView.swift */; };
 		D325FDA22358966F002AC9C9 /* SampleData in Resources */ = {isa = PBXBuildFile; fileRef = D325FDA12358966F002AC9C9 /* SampleData */; };
@@ -57,7 +60,24 @@
 		};
 /* End PBXContainerItemProxy section */
 
+/* Begin PBXCopyFilesBuildPhase section */
+		63A505C623880E2400E93016 /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				63A505C523880E2400E93016 /* Aztec.framework in Embed Frameworks */,
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
 /* Begin PBXFileReference section */
+		63A505C323880E2400E93016 /* Aztec.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Aztec.framework; path = Carthage/Build/iOS/Aztec.framework; sourceTree = "<group>"; };
+		63A505C72388106000E93016 /* HtmlEditorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HtmlEditorView.swift; sourceTree = "<group>"; };
+		63A505CC2388145000E93016 /* libxml2.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libxml2.tbd; path = usr/lib/libxml2.tbd; sourceTree = SDKROOT; };
 		63C984B22385583700E5CAFE /* NotesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotesView.swift; sourceTree = "<group>"; };
 		63C984B4238566A400E5CAFE /* NoteView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoteView.swift; sourceTree = "<group>"; };
 		D325FDA12358966F002AC9C9 /* SampleData */ = {isa = PBXFileReference; lastKnownFileType = folder; path = SampleData; sourceTree = "<group>"; };
@@ -101,6 +121,7 @@
 				D325FDB1235A8B92002AC9C9 /* GRDB in Frameworks */,
 				D325FDAB2359F288002AC9C9 /* Zipper in Frameworks */,
 				D396684223650B940015DB82 /* Mustache in Frameworks */,
+				63A505C423880E2400E93016 /* Aztec.framework in Frameworks */,
 				D325FDA523589F12002AC9C9 /* Logging in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -122,6 +143,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		63A505C223880E2400E93016 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				63A505CC2388145000E93016 /* libxml2.tbd */,
+				63A505C323880E2400E93016 /* Aztec.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		D32BCE9A235829750036768A = {
 			isa = PBXGroup;
 			children = (
@@ -130,6 +160,7 @@
 				D32BCEBC235829770036768A /* SwankiTests */,
 				D32BCEC7235829770036768A /* SwankiUITests */,
 				D32BCEA4235829750036768A /* Products */,
+				63A505C223880E2400E93016 /* Frameworks */,
 			);
 			indentWidth = 2;
 			sourceTree = "<group>";
@@ -159,12 +190,13 @@
 				D325FDB4235B57AC002AC9C9 /* CollectionMetadata.swift */,
 				D3B7144F235C189300F2AFB2 /* DeckConfig.swift */,
 				D3B71457235DDB1C00F2AFB2 /* DeckView.swift */,
+				63A505C72388106000E93016 /* HtmlEditorView.swift */,
 				D32BCEB4235829770036768A /* Info.plist */,
 				D32BCEB1235829770036768A /* LaunchScreen.storyboard */,
 				D3B71455235D211B00F2AFB2 /* Logger.swift */,
 				D325FDB2235A9A1E002AC9C9 /* Note.swift */,
-				63C984B4238566A400E5CAFE /* NoteView.swift */,
 				63C984B22385583700E5CAFE /* NotesView.swift */,
+				63C984B4238566A400E5CAFE /* NoteView.swift */,
 				D32BCEAE235829770036768A /* Preview Content */,
 				D32BCEA8235829750036768A /* SceneDelegate.swift */,
 				D3E525AE2377221C00C1E549 /* SpacedRepetitionScheduler.swift */,
@@ -213,6 +245,7 @@
 				D32BCE9F235829750036768A /* Sources */,
 				D32BCEA0235829750036768A /* Frameworks */,
 				D32BCEA1235829750036768A /* Resources */,
+				63A505C623880E2400E93016 /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
@@ -357,6 +390,7 @@
 				D3966848236DECA40015DB82 /* CardAnswer.swift in Sources */,
 				D3B71454235CB7D000F2AFB2 /* StudyView.swift in Sources */,
 				D3B71456235D211B00F2AFB2 /* Logger.swift in Sources */,
+				63A505C82388106000E93016 /* HtmlEditorView.swift in Sources */,
 				D396683F2364924A0015DB82 /* CardView.swift in Sources */,
 				D3966846236DDC9A0015DB82 /* CardAnswerButtonRow.swift in Sources */,
 				D351006D237897A500CE2D7E /* TimeInterval+Fuzzing.swift in Sources */,
@@ -538,6 +572,11 @@
 				DEVELOPMENT_ASSET_PATHS = "\"Swanki/Preview Content\"";
 				DEVELOPMENT_TEAM = K2UU8WDD8H;
 				ENABLE_PREVIEWS = YES;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Carthage/Build/iOS",
+				);
+				HEADER_SEARCH_PATHS = /usr/include/libxml2;
 				INFOPLIST_FILE = Swanki/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -559,6 +598,11 @@
 				DEVELOPMENT_ASSET_PATHS = "\"Swanki/Preview Content\"";
 				DEVELOPMENT_TEAM = K2UU8WDD8H;
 				ENABLE_PREVIEWS = YES;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Carthage/Build/iOS",
+				);
+				HEADER_SEARCH_PATHS = /usr/include/libxml2;
 				INFOPLIST_FILE = Swanki/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",

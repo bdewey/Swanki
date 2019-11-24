@@ -13,18 +13,22 @@ struct HtmlEditorView: UIViewRepresentable {
   /// The base URL from which to load images.
   let baseURL: URL
 
+  @Binding var desiredHeight: CGFloat
+
   func makeUIView(context: UIViewRepresentableContext<HtmlEditorView>) -> Aztec.TextView {
     let textView = TextView(
       defaultFont: UIFont.preferredFont(forTextStyle: .body),
       defaultMissingImage: Images.defaultMissing
     )
     textView.textAttachmentDelegate = context.coordinator
-    textView.isEditable = false
+    textView.delegate = context.coordinator
+    textView.setHTML(html)
+//    textView.isEditable = false
     return textView
   }
 
   func updateUIView(_ uiView: TextView, context: UIViewRepresentableContext<HtmlEditorView>) {
-    uiView.setHTML(html)
+
   }
 
   func makeCoordinator() -> Coordinator {
@@ -32,7 +36,7 @@ struct HtmlEditorView: UIViewRepresentable {
   }
 
   /// Coordinator object -- serves as our delegate.
-  final class Coordinator: TextViewAttachmentDelegate {
+  final class Coordinator: NSObject, TextViewAttachmentDelegate {
     /// The associated view.
     var view: HtmlEditorView
 
@@ -90,5 +94,14 @@ struct HtmlEditorView: UIViewRepresentable {
   private enum Images {
     static let defaultMissing = UIImage.init(systemName: "xmark.octagon.fill") ?? UIImage()
     static let placeholder = UIImage.init(systemName: "photo.fill") ?? UIImage()
+  }
+}
+
+extension HtmlEditorView.Coordinator: UITextViewDelegate {
+  func textViewDidChange(_ textView: UITextView) {
+    DispatchQueue.main.async {
+      print("Setting desired height to \(textView.contentSize.height)")
+      self.view.desiredHeight = textView.contentSize.height
+    }
   }
 }

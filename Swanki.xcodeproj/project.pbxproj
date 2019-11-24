@@ -9,7 +9,7 @@
 /* Begin PBXBuildFile section */
 		63A505C423880E2400E93016 /* Aztec.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 63A505C323880E2400E93016 /* Aztec.framework */; };
 		63A505C523880E2400E93016 /* Aztec.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 63A505C323880E2400E93016 /* Aztec.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		63A505C82388106000E93016 /* HtmlEditorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63A505C72388106000E93016 /* HtmlEditorView.swift */; };
+		63A505C82388106000E93016 /* HTMLView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63A505C72388106000E93016 /* HTMLView.swift */; };
 		63C984B32385583700E5CAFE /* NotesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63C984B22385583700E5CAFE /* NotesView.swift */; };
 		63C984B5238566A400E5CAFE /* NoteView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63C984B4238566A400E5CAFE /* NoteView.swift */; };
 		D325FDA22358966F002AC9C9 /* SampleData in Resources */ = {isa = PBXBuildFile; fileRef = D325FDA12358966F002AC9C9 /* SampleData */; };
@@ -76,7 +76,7 @@
 
 /* Begin PBXFileReference section */
 		63A505C323880E2400E93016 /* Aztec.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Aztec.framework; path = Carthage/Build/iOS/Aztec.framework; sourceTree = "<group>"; };
-		63A505C72388106000E93016 /* HtmlEditorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HtmlEditorView.swift; sourceTree = "<group>"; };
+		63A505C72388106000E93016 /* HTMLView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTMLView.swift; sourceTree = "<group>"; };
 		63A505CC2388145000E93016 /* libxml2.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libxml2.tbd; path = usr/lib/libxml2.tbd; sourceTree = SDKROOT; };
 		63C984B22385583700E5CAFE /* NotesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotesView.swift; sourceTree = "<group>"; };
 		63C984B4238566A400E5CAFE /* NoteView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoteView.swift; sourceTree = "<group>"; };
@@ -190,7 +190,7 @@
 				D325FDB4235B57AC002AC9C9 /* CollectionMetadata.swift */,
 				D3B7144F235C189300F2AFB2 /* DeckConfig.swift */,
 				D3B71457235DDB1C00F2AFB2 /* DeckView.swift */,
-				63A505C72388106000E93016 /* HtmlEditorView.swift */,
+				63A505C72388106000E93016 /* HTMLView.swift */,
 				D32BCEB4235829770036768A /* Info.plist */,
 				D32BCEB1235829770036768A /* LaunchScreen.storyboard */,
 				D3B71455235D211B00F2AFB2 /* Logger.swift */,
@@ -390,7 +390,7 @@
 				D3966848236DECA40015DB82 /* CardAnswer.swift in Sources */,
 				D3B71454235CB7D000F2AFB2 /* StudyView.swift in Sources */,
 				D3B71456235D211B00F2AFB2 /* Logger.swift in Sources */,
-				63A505C82388106000E93016 /* HtmlEditorView.swift in Sources */,
+				63A505C82388106000E93016 /* HTMLView.swift in Sources */,
 				D396683F2364924A0015DB82 /* CardView.swift in Sources */,
 				D3966846236DDC9A0015DB82 /* CardAnswerButtonRow.swift in Sources */,
 				D351006D237897A500CE2D7E /* TimeInterval+Fuzzing.swift in Sources */,

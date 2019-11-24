@@ -12,12 +12,10 @@ struct NoteView: View {
       Form {
         ForEach(sections) { section in
           Section(header: Text(section.title)) {
-            // TODO: I want to set the height to contentSize.height. How do I do that?
-            // Maybe I need a Binding<CGFloat> per section, and then I can write the desired height
-            // into that binding?
-            HtmlEditorViewWrapper(
+            HTMLView(
               html: section.contents,
-              baseURL: self.collectionDatabase.url
+              baseURL: self.collectionDatabase.url,
+              isEditable: true
             )
           }
         }
@@ -53,21 +51,5 @@ struct NoteView: View {
     let contents: String
 
     var id: String { title }
-  }
-}
-
-struct HtmlEditorViewWrapper: View {
-  /// The HTML content to edit.
-  // TODO: Turn this into a binding!
-  let html: String
-
-  /// The base URL from which to load images.
-  let baseURL: URL
-
-  @State var desiredHeight: CGFloat = 100
-
-  var body: some View {
-    HtmlEditorView(html: html, baseURL: baseURL, desiredHeight: $desiredHeight)
-      .frame(height: desiredHeight)
   }
 }

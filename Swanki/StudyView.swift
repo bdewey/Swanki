@@ -13,12 +13,6 @@ struct StudyView: View {
       } else {
         EmptyView()
       }
-    }.navigationBarItems(trailing: browseButton)
-  }
-
-  private var browseButton: some View {
-    NavigationLink(destination: NotesView(deckID: studySequence.deckID)) {
-      Text("Browse")
     }
   }
 

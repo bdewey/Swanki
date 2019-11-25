@@ -24,13 +24,22 @@ struct HTMLView: View {
   /// If we should allow content editing
   var isEditable: Bool = false
 
+  /// Background color for the editor.
+  var backgroundColor: UIColor = .systemBackground
+
   /// Holds the height of the view. Will adjust to the content size of the actual content.
   @State private var desiredHeight: CGFloat = 100
 
   var body: some View {
-    AztecView(html: html, baseURL: baseURL, isEditable: isEditable, desiredHeight: $desiredHeight)
-      .frame(height: desiredHeight)
-      .accessibility(label: Text(verbatim: title))
+    AztecView(
+      html: html,
+      baseURL: baseURL,
+      isEditable: isEditable,
+      backgroundColor: backgroundColor,
+      desiredHeight: $desiredHeight
+    )
+    .frame(height: desiredHeight)
+    .accessibility(label: Text(verbatim: title))
   }
 }
 
@@ -48,6 +57,8 @@ private extension HTMLView {
     /// If we should allow content editing
     let isEditable: Bool
 
+    let backgroundColor: UIColor
+
     @Binding var desiredHeight: CGFloat
 
     func makeUIView(context: UIViewRepresentableContext<AztecView>) -> Aztec.TextView {
@@ -56,6 +67,7 @@ private extension HTMLView {
         defaultMissingImage: Images.defaultMissing
       )
       textView.textAttachmentDelegate = context.coordinator
+      textView.backgroundColor = backgroundColor
       textView.setHTML(html)
       textView.isEditable = isEditable
       context.coordinator.textView = textView

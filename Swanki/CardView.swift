@@ -28,6 +28,7 @@ struct CardView: View {
         .frame(height: 100.0)
     }
     .padding()
+    .animation(.easeInOut)
   }
 
   var buttonRowOrEmpty: some View {

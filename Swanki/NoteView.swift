@@ -13,6 +13,7 @@ struct NoteView: View {
         ForEach(sections) { section in
           Section(header: Text(section.title)) {
             HTMLView(
+              title: section.title,
               html: section.contents,
               baseURL: self.collectionDatabase.url,
               isEditable: true
@@ -21,7 +22,7 @@ struct NoteView: View {
         }
       }
       .navigationBarItems(leading: cancelButton)
-    .navigationBarTitle("Edit")
+      .navigationBarTitle("Edit")
     }.navigationViewStyle(StackNavigationViewStyle())
   }
 
@@ -39,11 +40,11 @@ struct NoteView: View {
     }
     return noteModel.fields
       .sorted(by: { $0.ord < $1.ord })
-      .map({ $0.name })
+      .map { $0.name }
   }
 
   private var cancelButton: some View {
-    Button(action: { self.note = nil }, label: { Text("Cancel")})
+    Button(action: { self.note = nil }, label: { Text("Cancel") })
   }
 
   private struct NoteSection: Identifiable {

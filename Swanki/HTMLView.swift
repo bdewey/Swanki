@@ -1,9 +1,19 @@
 // Copyright © 2019 Brian's Brain. All rights reserved.
 
 import Aztec
+import Logging
 import SwiftUI
 
+private let layoutLogger: Logger = {
+  var logger = Logger(label: "org.brians-brain.HTMLView.layout")
+  logger.logLevel = .debug
+  return logger
+}()
+
 struct HTMLView: View {
+  /// the view title -- will be its accessibility label.
+  let title: String
+
   /// The HTML content to edit.
   // TODO: Turn this into a binding!
   let html: String
@@ -20,6 +30,7 @@ struct HTMLView: View {
   var body: some View {
     AztecView(html: html, baseURL: baseURL, isEditable: isEditable, desiredHeight: $desiredHeight)
       .frame(height: desiredHeight)
+      .accessibility(label: Text(verbatim: title))
   }
 }
 
@@ -45,15 +56,14 @@ private extension HTMLView {
         defaultMissingImage: Images.defaultMissing
       )
       textView.textAttachmentDelegate = context.coordinator
-      textView.delegate = context.coordinator
       textView.setHTML(html)
       textView.isEditable = isEditable
+      context.coordinator.textView = textView
+      textView.layoutManager.delegate = context.coordinator
       return textView
     }
 
-    func updateUIView(_ uiView: TextView, context: UIViewRepresentableContext<AztecView>) {
-
-    }
+    func updateUIView(_ uiView: TextView, context: UIViewRepresentableContext<AztecView>) {}
 
     func makeCoordinator() -> Coordinator {
       return Coordinator(self)
@@ -63,6 +73,9 @@ private extension HTMLView {
     final class Coordinator: NSObject, TextViewAttachmentDelegate {
       /// The associated view.
       var view: AztecView
+
+      /// Weak reference to the assocated textView
+      weak var textView: UITextView?
 
       init(_ view: AztecView) {
         self.view = view
@@ -77,15 +90,16 @@ private extension HTMLView {
       ) {
         guard
           let resolvedURL = URL(string: url.relativeString, relativeTo: self.view.baseURL)
-          else {
-            failure()
-            return
+        else {
+          failure()
+          return
         }
         DispatchQueue.global(qos: .default).async {
-          let image = (try? Data(contentsOf: resolvedURL)).flatMap({ UIImage(data: $0) })
+          let image = (try? Data(contentsOf: resolvedURL)).flatMap { UIImage(data: $0) }
           DispatchQueue.main.async {
             if let image = image {
               success(image)
+              logger.debug("Finished loading image, size = \(image.size)")
             } else {
               failure()
             }
@@ -116,17 +130,32 @@ private extension HTMLView {
     }
 
     private enum Images {
-      static let defaultMissing = UIImage.init(systemName: "xmark.octagon.fill") ?? UIImage()
-      static let placeholder = UIImage.init(systemName: "photo.fill") ?? UIImage()
+      static let defaultMissing = UIImage(systemName: "xmark.octagon.fill") ?? UIImage()
+      static let placeholder = UIImage(systemName: "photo.fill") ?? UIImage()
     }
   }
 }
 
-extension HTMLView.AztecView.Coordinator: UITextViewDelegate {
-  func textViewDidChange(_ textView: UITextView) {
-    DispatchQueue.main.async {
-      print("Setting desired height to \(textView.contentSize.height)")
-      self.view.desiredHeight = textView.contentSize.height
+extension HTMLView.AztecView.Coordinator: NSLayoutManagerDelegate {
+  func layoutManager(
+    _ layoutManager: NSLayoutManager,
+    didCompleteLayoutFor textContainer: NSTextContainer?,
+    atEnd layoutFinishedFlag: Bool
+  ) {
+    guard layoutFinishedFlag else { return }
+    guard
+      let container = layoutManager.textContainers.first,
+      let textView = textView
+    else {
+      assertionFailure("Unexpected text container configuration")
+      return
+    }
+    let containerHeight = ceil(layoutManager.usedRect(for: container).height) +
+      textView.textContainerInset.top +
+      textView.textContainerInset.bottom
+    if containerHeight != view.desiredHeight {
+      layoutLogger.debug("Changing height from \(view.desiredHeight) to \(containerHeight)")
+      view.desiredHeight = containerHeight
     }
   }
 }

@@ -20,7 +20,7 @@ struct CardView: View {
 
   var body: some View {
     VStack {
-      HTMLView(title: "quiz", html: .constant(renderedSide), baseURL: properties.baseURL)
+      HTMLView(title: "quiz", html: renderedSide, baseURL: properties.baseURL)
         .onTapGesture {
           self.flipToBack()
         }

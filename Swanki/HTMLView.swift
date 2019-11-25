@@ -11,6 +11,36 @@ private let layoutLogger: Logger = {
 }()
 
 struct HTMLView: View {
+  /// Editable initializer.
+  init(
+    title: String,
+    html: Binding<String>,
+    baseURL: URL?,
+    backgroundColor: UIColor = .systemBackground
+  ) {
+    self.title = title
+    self.html = html
+    self.baseURL = baseURL
+    self.backgroundColor = backgroundColor
+
+    self.isEditable = true
+  }
+
+  /// Non-editable initializer.
+  init(
+    title: String,
+    html: String,
+    baseURL: URL?,
+    backgroundColor: UIColor = .systemBackground
+  ) {
+    self.title = title
+    self.html = .constant(html)
+    self.baseURL = baseURL
+    self.backgroundColor = backgroundColor
+
+    self.isEditable = false
+  }
+
   /// the view title -- will be its accessibility label.
   let title: String
 

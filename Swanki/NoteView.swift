@@ -16,7 +16,6 @@ struct NoteView: View {
               title: section.title,
               html: .constant(section.contents),
               baseURL: self.collectionDatabase.url,
-              isEditable: true,
               backgroundColor: .secondarySystemBackground
             )
           }

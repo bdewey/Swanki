@@ -19,7 +19,7 @@ struct HTMLView: View {
   let html: String
 
   /// The base URL from which to load images.
-  let baseURL: URL
+  let baseURL: URL?
 
   /// If we should allow content editing
   var isEditable: Bool = false
@@ -52,7 +52,7 @@ private extension HTMLView {
     let html: String
 
     /// The base URL from which to load images.
-    let baseURL: URL
+    let baseURL: URL?
 
     /// If we should allow content editing
     let isEditable: Bool
@@ -67,15 +67,21 @@ private extension HTMLView {
         defaultMissingImage: Images.defaultMissing
       )
       textView.textAttachmentDelegate = context.coordinator
-      textView.backgroundColor = backgroundColor
-      textView.setHTML(html)
-      textView.isEditable = isEditable
       context.coordinator.textView = textView
       textView.layoutManager.delegate = context.coordinator
       return textView
     }
 
-    func updateUIView(_ uiView: TextView, context: UIViewRepresentableContext<AztecView>) {}
+    func updateUIView(_ textView: TextView, context: UIViewRepresentableContext<AztecView>) {
+      if html != context.coordinator.html {
+        context.coordinator.html = html
+        textView.suppressLayoutNotifications {
+          textView.setHTML(html)
+        }
+      }
+      textView.isEditable = isEditable
+      textView.backgroundColor = backgroundColor
+    }
 
     func makeCoordinator() -> Coordinator {
       return Coordinator(self)
@@ -85,6 +91,9 @@ private extension HTMLView {
     final class Coordinator: NSObject, TextViewAttachmentDelegate {
       /// The associated view.
       var view: AztecView
+
+      /// The most recent raw HTML string set on `view`
+      var html: String?
 
       /// Weak reference to the assocated textView
       weak var textView: UITextView?
@@ -167,7 +176,17 @@ extension HTMLView.AztecView.Coordinator: NSLayoutManagerDelegate {
       textView.textContainerInset.bottom
     if containerHeight != view.desiredHeight {
       layoutLogger.debug("Changing height from \(view.desiredHeight) to \(containerHeight)")
-      view.desiredHeight = containerHeight
+      self.view.desiredHeight = containerHeight
     }
+  }
+}
+
+private extension TextView {
+  /// Prevents layoutManager delegate notifications from being sent as a consequence of actions performed in `block`
+  func suppressLayoutNotifications(during block: () -> Void) {
+    let existingDelegate = layoutManager.delegate
+    layoutManager.delegate = nil
+    block()
+    layoutManager.delegate = existingDelegate
   }
 }

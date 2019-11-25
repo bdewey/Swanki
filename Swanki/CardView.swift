@@ -20,13 +20,14 @@ struct CardView: View {
 
   var body: some View {
     VStack {
-      WebView(htmlString: renderedSide, baseURL: properties.baseURL)
+      HTMLView(title: "quiz", html: renderedSide, baseURL: properties.baseURL)
         .onTapGesture {
           self.flipToBack()
         }
       buttonRowOrEmpty
         .frame(height: 100.0)
     }
+    .padding()
   }
 
   var buttonRowOrEmpty: some View {

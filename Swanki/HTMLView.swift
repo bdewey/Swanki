@@ -15,8 +15,7 @@ struct HTMLView: View {
   let title: String
 
   /// The HTML content to edit.
-  // TODO: Turn this into a binding!
-  let html: String
+  let html: Binding<String>
 
   /// The base URL from which to load images.
   let baseURL: URL?
@@ -48,8 +47,7 @@ private extension HTMLView {
   /// Assumes that there is a CollectionDatabase in the environment.
   struct AztecView: UIViewRepresentable {
     /// The HTML content to edit.
-    // TODO: Turn this into a binding!
-    let html: String
+    let html: Binding<String>
 
     /// The base URL from which to load images.
     let baseURL: URL?
@@ -73,10 +71,10 @@ private extension HTMLView {
     }
 
     func updateUIView(_ textView: TextView, context: UIViewRepresentableContext<AztecView>) {
-      if html != context.coordinator.html {
-        context.coordinator.html = html
+      if html.wrappedValue != context.coordinator.html {
+        context.coordinator.html = html.wrappedValue
         textView.suppressLayoutNotifications {
-          textView.setHTML(html)
+          textView.setHTML(html.wrappedValue)
         }
       }
       textView.isEditable = isEditable

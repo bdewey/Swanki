@@ -113,7 +113,7 @@ public struct SpacedRepetitionScheduler {
   ) -> [(key: CardAnswer, value: Item)] {
     let result = CardAnswer.allCases.compactMap { answer in
       // result may be nil; in that case return nil instead of `(answer, nil)`
-      return self.result(item: item, answer: answer, delay: delay).flatMap { (answer, $0) }
+      self.result(item: item, answer: answer, delay: delay).flatMap { (answer, $0) }
     }
     return result
   }
@@ -166,4 +166,3 @@ public struct SpacedRepetitionScheduler {
     result.interval = learningIntervals.first ?? .minute
   }
 }
-

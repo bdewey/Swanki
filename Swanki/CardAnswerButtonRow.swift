@@ -4,7 +4,7 @@ import SwiftUI
 
 struct CardAnswerButtonRow: View {
   let answers: [(key: CardAnswer, value: SpacedRepetitionScheduler.Item)]
-  var didSelectAnswer: ((CardAnswer) -> Void)? = nil
+  var didSelectAnswer: ((CardAnswer) -> Void)?
 
   struct ButtonProperties: Hashable {
     let answer: CardAnswer
@@ -31,7 +31,7 @@ struct CardAnswerButtonRow: View {
         .foregroundColor(Color.white)
         .padding(.all)
     }
-    .background(self.buttonColor(for: properties.answer))
+    .background(buttonColor(for: properties.answer))
     .cornerRadius(10)
   }
 
@@ -67,9 +67,9 @@ public extension DateComponentsFormatter {
 }
 
 struct CardAnswerButtonRow_Previews: PreviewProvider {
-    static var previews: some View {
-      // Make some answers for a new item.
-      let scheduler = SpacedRepetitionScheduler(learningIntervals: [.minute, 10 * .minute])
-      return CardAnswerButtonRow(answers: scheduler.scheduleItem(SpacedRepetitionScheduler.Item()))
-    }
+  static var previews: some View {
+    // Make some answers for a new item.
+    let scheduler = SpacedRepetitionScheduler(learningIntervals: [.minute, 10 * .minute])
+    return CardAnswerButtonRow(answers: scheduler.scheduleItem(SpacedRepetitionScheduler.Item()))
+  }
 }

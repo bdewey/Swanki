@@ -14,7 +14,7 @@ struct CardView: View {
   }
 
   let properties: Properties
-  private(set) var didSelectAnswer: ((CardAnswer) -> Void)? = nil
+  private(set) var didSelectAnswer: ((CardAnswer) -> Void)?
 
   @State private var side = Side.front
 
@@ -23,7 +23,7 @@ struct CardView: View {
       WebView(htmlString: renderedSide, baseURL: properties.baseURL)
         .onTapGesture {
           self.flipToBack()
-      }
+        }
       buttonRowOrEmpty
         .frame(height: 100.0)
     }

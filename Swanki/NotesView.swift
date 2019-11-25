@@ -10,7 +10,7 @@ struct NotesView: View {
   // TODO: We currently don't filter on this value.
   let deckID: Int
 
-  @State private var editingNote: Note? = nil
+  @State private var editingNote: Note?
 
   var body: some View {
     List(collectionDatabase.notes) { note in

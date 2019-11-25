@@ -72,7 +72,7 @@ extension NoteModel {
         bqfmt: "",
         ord: 0,
         qfmt: "{{Front}}"
-      )
+      ),
     ]
   )
 }

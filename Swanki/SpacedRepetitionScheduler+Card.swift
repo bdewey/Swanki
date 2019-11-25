@@ -6,7 +6,7 @@ import Foundation
 public extension SpacedRepetitionScheduler {
   init(config: DeckConfig) {
     self.init(
-      learningIntervals: config.new.delays.map({ Double($0) * .minute }),
+      learningIntervals: config.new.delays.map { Double($0) * .minute },
       easyGraduatingInterval: TimeInterval(config.new.ints[1]) * .day,
       goodGraduatingInterval: TimeInterval(config.new.ints[0]) * .day,
       easyBoost: config.rev.ease4
@@ -19,7 +19,7 @@ public extension SpacedRepetitionScheduler {
       learningState: learningState(for: card),
       reviewCount: card.reps,
       lapseCount: card.lapses,
-      interval: (card.interval < 0) ? (TimeInterval(-1 * card.interval)) : TimeInterval(card.interval) * .day,
+      interval: (card.interval < 0) ? TimeInterval(-1 * card.interval) : TimeInterval(card.interval) * .day,
       factor: Double(card.factor) / 1000
     )
   }

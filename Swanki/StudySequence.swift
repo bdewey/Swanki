@@ -17,12 +17,12 @@ extension StudySequence: Sequence {
     init(studySequence: StudySequence) {
       do {
         var cards: [Card] = []
-        let learningCards = try studySequence.decks.map({ try studySequence.collectionDatabase.fetchLearningCards(from: $0) }).joined()
+        let learningCards = try studySequence.decks.map { try studySequence.collectionDatabase.fetchLearningCards(from: $0) }.joined()
         logger.info("Found \(learningCards.count) learning card(s)")
         cards.append(contentsOf: learningCards)
-        let newCards = try studySequence.decks.map({ try studySequence.collectionDatabase.fetchNewCards(from: $0) }).joined()
+        let newCards = try studySequence.decks.map { try studySequence.collectionDatabase.fetchNewCards(from: $0) }.joined()
         cards.append(contentsOf: newCards)
-        let reviewCards = try studySequence.decks.map({ try studySequence.collectionDatabase.fetchReviewCards(from: $0) }).joined()
+        let reviewCards = try studySequence.decks.map { try studySequence.collectionDatabase.fetchReviewCards(from: $0) }.joined()
         logger.info("Found \(reviewCards.count) review card(s)")
         cards.append(contentsOf: reviewCards)
         self.cards = cards

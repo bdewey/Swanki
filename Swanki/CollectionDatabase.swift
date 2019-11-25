@@ -177,9 +177,9 @@ public final class CollectionDatabase: ObservableObject {
     let nextItem = scheduler.scheduleItem(item)[answer]!
     var card = card
     scheduler.applyItem(nextItem, to: &card)
-    try dbQueue?.write({ db in
+    try dbQueue?.write { db in
       try card.update(db)
-    })
+    }
   }
 }
 
@@ -188,7 +188,7 @@ private extension Zipper {
     do {
       var mediaEntries: [String: String] = [:]
       if let mediaMapEntry = self["media"] {
-        _ = try self.extract(mediaMapEntry) { data in
+        _ = try extract(mediaMapEntry) { data in
           mediaEntries = try JSONDecoder().decode([String: String].self, from: data)
         }
       }

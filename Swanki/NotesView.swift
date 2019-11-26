@@ -10,14 +10,14 @@ struct NotesView: View {
   // TODO: We currently don't filter on this value.
   let deckID: Int
 
-  @State private var editingNote: Note?
+  @State private var editingNote: BindableNote?
 
   var body: some View {
     List(collectionDatabase.notes) { note in
       Text(note.fieldsArray.first ?? "")
         .lineLimit(1)
         .onTapGesture {
-          self.editingNote = note
+          self.editingNote = BindableNote(note)
         }
     }
     .navigationBarTitle("Notes", displayMode: .inline)

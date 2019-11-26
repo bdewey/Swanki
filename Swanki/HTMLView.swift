@@ -19,7 +19,7 @@ struct HTMLView: View {
     backgroundColor: UIColor = .systemBackground
   ) {
     self.title = title
-    self.html = html
+    self._html = html
     self.baseURL = baseURL
     self.backgroundColor = backgroundColor
 
@@ -34,7 +34,7 @@ struct HTMLView: View {
     backgroundColor: UIColor = .systemBackground
   ) {
     self.title = title
-    self.html = .constant(html)
+    self._html = .constant(html)
     self.baseURL = baseURL
     self.backgroundColor = backgroundColor
 
@@ -45,7 +45,7 @@ struct HTMLView: View {
   let title: String
 
   /// The HTML content to edit.
-  let html: Binding<String>
+  @Binding var html: String
 
   /// The base URL from which to load images.
   let baseURL: URL?
@@ -61,7 +61,7 @@ struct HTMLView: View {
 
   var body: some View {
     AztecView(
-      html: html,
+      html: $html,
       baseURL: baseURL,
       isEditable: isEditable,
       backgroundColor: backgroundColor,
@@ -77,7 +77,7 @@ private extension HTMLView {
   /// Assumes that there is a CollectionDatabase in the environment.
   struct AztecView: UIViewRepresentable {
     /// The HTML content to edit.
-    let html: Binding<String>
+    @Binding var html: String
 
     /// The base URL from which to load images.
     let baseURL: URL?
@@ -96,15 +96,16 @@ private extension HTMLView {
       )
       textView.textAttachmentDelegate = context.coordinator
       context.coordinator.textView = textView
+      textView.delegate = context.coordinator
       textView.layoutManager.delegate = context.coordinator
       return textView
     }
 
     func updateUIView(_ textView: TextView, context: UIViewRepresentableContext<AztecView>) {
-      if html.wrappedValue != context.coordinator.html {
-        context.coordinator.html = html.wrappedValue
+      if html != context.coordinator.html {
+        context.coordinator.html = html
         textView.suppressLayoutNotifications {
-          textView.setHTML(html.wrappedValue)
+          textView.setHTML(html)
         }
       }
       textView.isEditable = isEditable
@@ -182,6 +183,19 @@ private extension HTMLView {
       static let defaultMissing = UIImage(systemName: "xmark.octagon.fill") ?? UIImage()
       static let placeholder = UIImage(systemName: "photo.fill") ?? UIImage()
     }
+  }
+}
+
+extension HTMLView.AztecView.Coordinator: UITextViewDelegate {
+  func textViewDidChange(_ textView: UITextView) {
+    guard let htmlView = textView as? TextView else {
+      assertionFailure("Expected an Aztec.TextView")
+      return
+    }
+    let html = htmlView.getHTML()
+    // Avoid update loops by remembering this HTML
+    self.html = html
+    view.html = html
   }
 }
 

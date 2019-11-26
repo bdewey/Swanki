@@ -5,7 +5,7 @@ import SwiftUI
 /// Displays (& optionally edits) a single note. Designed to be displayed as a modal.
 struct NoteView: View {
   @EnvironmentObject var collectionDatabase: CollectionDatabase
-  @Binding var note: Note?
+  @Binding var note: BindableNote?
 
   var body: some View {
     NavigationView {
@@ -14,21 +14,22 @@ struct NoteView: View {
           Section(header: Text(section.title)) {
             HTMLView(
               title: section.title,
-              html: .constant(section.contents),
+              html: self.note?.field(at: section.index) ?? .constant("WTF"),
               baseURL: self.collectionDatabase.url,
               backgroundColor: .secondarySystemBackground
             )
           }
         }
       }
-      .navigationBarItems(leading: cancelButton)
+      .navigationBarItems(leading: cancelButton, trailing: doneButton)
       .navigationBarTitle("Edit")
     }.navigationViewStyle(StackNavigationViewStyle())
   }
 
   private var sections: [NoteSection] {
-    zip(fieldsNames, note?.fieldsArray ?? [])
-      .map { NoteSection(title: $0, contents: $1) }
+    fieldsNames.enumerated().map { i, name -> NoteSection in
+      NoteSection(title: name, contents: note?.fieldsArray[i] ?? "", index: i)
+    }
   }
 
   private var fieldsNames: [String] {
@@ -47,9 +48,26 @@ struct NoteView: View {
     Button(action: { self.note = nil }, label: { Text("Cancel") })
   }
 
+  private var doneButton: some View {
+    Button(action: saveNote, label: { Text("Done").bold() })
+  }
+
+  private func saveNote() {
+    guard let noteWrapper = note else { return }
+    do {
+      try collectionDatabase.dbQueue?.write { db in
+        try noteWrapper.note.update(db)
+      }
+    } catch {
+      logger.error("Error saving note: \(error)")
+    }
+    note = nil
+  }
+
   private struct NoteSection: Identifiable {
     let title: String
     let contents: String
+    let index: Int
 
     var id: String { title }
   }

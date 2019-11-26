@@ -12,10 +12,18 @@ public struct Note: Codable, FetchableRecord, PersistableRecord, Identifiable {
   public let modifiedTimestampSeconds: Int
   public let usn: Int
   public let tags: String
-  public let encodedFields: String
+  public var encodedFields: String
+
+  private static let fieldSeparator: Character = "\u{1F}"
 
   public var fieldsArray: [String] {
-    encodedFields.split(separator: "\u{1F}").map { String($0) }
+    encodedFields.split(separator: Self.fieldSeparator).map { String($0) }
+  }
+
+  public mutating func setField(at index: Int, to value: String) {
+    var existingFields = encodedFields.split(separator: Self.fieldSeparator)
+    existingFields[index] = value[value.startIndex...]
+    encodedFields = existingFields.joined(separator: String(Self.fieldSeparator))
   }
 
   enum CodingKeys: String, CodingKey {

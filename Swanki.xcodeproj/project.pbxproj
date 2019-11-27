@@ -183,6 +183,7 @@
 			children = (
 				D32BCEA6235829750036768A /* AppDelegate.swift */,
 				D32BCEAC235829770036768A /* Assets.xcassets */,
+				D3E159DE238C14AA00940661 /* BindableNote.swift */,
 				D3B71451235C22B700F2AFB2 /* Card.swift */,
 				D3966847236DECA40015DB82 /* CardAnswer.swift */,
 				D3966845236DDC9A0015DB82 /* CardAnswerButtonRow.swift */,
@@ -193,7 +194,6 @@
 				D3B7144F235C189300F2AFB2 /* DeckConfig.swift */,
 				D3B71457235DDB1C00F2AFB2 /* DeckView.swift */,
 				63A505C72388106000E93016 /* HTMLView.swift */,
-				D3E159DE238C14AA00940661 /* BindableNote.swift */,
 				D32BCEB4235829770036768A /* Info.plist */,
 				D32BCEB1235829770036768A /* LaunchScreen.storyboard */,
 				D3B71455235D211B00F2AFB2 /* Logger.swift */,

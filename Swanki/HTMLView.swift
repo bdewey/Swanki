@@ -218,7 +218,7 @@ extension HTMLView.AztecView.Coordinator: NSLayoutManagerDelegate {
       textView.textContainerInset.bottom
     if containerHeight != view.desiredHeight {
       layoutLogger.debug("Changing height from \(view.desiredHeight) to \(containerHeight)")
-      self.view.desiredHeight = containerHeight
+      view.desiredHeight = containerHeight
     }
   }
 }

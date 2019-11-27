@@ -14,7 +14,6 @@ extension CollectionDatabase {
       }
       try collectionDatabase.openDatabase()
       try collectionDatabase.fetchMetadata()
-      try collectionDatabase.fetchNotes()
       return collectionDatabase
     } catch {
       fatalError("Could not make database: \(error)")

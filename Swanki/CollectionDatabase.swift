@@ -88,16 +88,6 @@ public final class CollectionDatabase: ObservableObject {
     self.deckConfigs = deckConfigs
   }
 
-  /// Cache of all notes in the database. Update by calling `fetchNotes()`
-  @Published public private(set) var notes: [Note] = []
-
-  /// Fetches all notes in the database and stores them in `notes`
-  public func fetchNotes() throws {
-    notes = try dbQueue!.read { db -> [Note] in
-      try Note.fetchAll(db)
-    }
-  }
-
   public func fetchNote(id: Int) throws -> Note? {
     try dbQueue!.read { db -> Note? in
       try Note

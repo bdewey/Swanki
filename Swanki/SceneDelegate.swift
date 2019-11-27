@@ -61,7 +61,6 @@ final class SceneDelegate: UIResponder, UIWindowSceneDelegate {
       let collectionDatabase = CollectionDatabase(url: homeDirectory)
       try collectionDatabase.openDatabase()
       try collectionDatabase.fetchMetadata()
-      try collectionDatabase.fetchNotes()
       return collectionDatabase
     } catch {
       let collectionDatabase = CollectionDatabase(url: homeDirectory)
@@ -78,7 +77,6 @@ final class SceneDelegate: UIResponder, UIWindowSceneDelegate {
       }
       try collectionDatabase.openDatabase()
       try collectionDatabase.fetchMetadata()
-      try collectionDatabase.fetchNotes()
     } catch {
       fatalError("Could not create database: \(error)")
     }

@@ -1,5 +1,6 @@
 // Copyright © 2019 Brian's Brain. All rights reserved.
 
+import GRDB
 import SwiftUI
 
 struct DeckView: View {
@@ -38,7 +39,16 @@ private struct DeckRow: View {
   var body: some View {
     ZStack {
       NavigationLink(destination: self.studyView, isActive: self.$studyViewNavigation, label: { EmptyView() })
-      NavigationLink(destination: NotesView(deckID: deckModel.id), isActive: self.$browseNavigation, label: { EmptyView() })
+      NavigationLink(
+        destination: NotesView(
+          notesResults: NotesResults(
+            database: collectionDatabase,
+            query: notesQuery
+          ).fetch()
+        ),
+        isActive: self.$browseNavigation,
+        label: { EmptyView() }
+      )
       HStack {
         Text(deckModel.name).lineLimit(1)
         Spacer()
@@ -47,6 +57,24 @@ private struct DeckRow: View {
       }
       .contentShape(Rectangle()) // You need this so the onTapGesture will work on the entire row, including padding
       .onTapGesture(perform: { self.studyViewNavigation = true })
+    }
+  }
+
+  /// A query that finds all notes that belong to models associated with this deck.
+  private var notesQuery: QueryInterfaceRequest<Note> {
+    let ids = noteModels.map { $0.id }
+    return Note.filter(ids.contains(Column("mid")))
+  }
+
+  /// All note models associated with this deck.
+  private var noteModels: [NoteModel] {
+    collectionDatabase.noteModels.compactMap { tuple in
+      let (_, value) = tuple
+      if value.deckID == deckModel.id {
+        return value
+      } else {
+        return nil
+      }
     }
   }
 

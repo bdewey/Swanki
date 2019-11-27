@@ -6,6 +6,7 @@ import SwiftUI
 struct NoteView: View {
   @EnvironmentObject var collectionDatabase: CollectionDatabase
   @Binding var note: BindableNote?
+  let saveAction: ((Note) -> Void)?
 
   var body: some View {
     NavigationView {
@@ -54,13 +55,7 @@ struct NoteView: View {
 
   private func saveNote() {
     guard let noteWrapper = note else { return }
-    do {
-      try collectionDatabase.dbQueue?.write { db in
-        try noteWrapper.note.update(db)
-      }
-    } catch {
-      logger.error("Error saving note: \(error)")
-    }
+    saveAction?(noteWrapper.note)
     note = nil
   }
 

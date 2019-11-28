@@ -155,7 +155,7 @@ public final class CollectionDatabase: ObservableObject {
     return config.rev.perDay
   }
 
-  public func recordAnswer(_ answer: CardAnswer, for card: Card) throws {
+  public func recordAnswer(_ answer: CardAnswer, for card: Card, studyTime: TimeInterval) throws {
     guard
       let model = deckModels[card.deckID],
       let config = deckConfigs[model.configID]
@@ -169,7 +169,7 @@ public final class CollectionDatabase: ObservableObject {
     scheduler.applyItem(nextItem, to: &newCard)
     try dbQueue?.write { db in
       try newCard.update(db)
-      let logEntry = LogEntry(now: Date(), oldCard: card, newCard: newCard, answer: answer, studyTime: 0)
+      let logEntry = LogEntry(now: Date(), oldCard: card, newCard: newCard, answer: answer, studyTime: studyTime)
       try logEntry.insert(db)
     }
   }

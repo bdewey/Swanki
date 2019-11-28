@@ -36,11 +36,11 @@ struct StudyView: View {
     return CardView.Properties(card: card, answers: answers, model: model, note: note, baseURL: studySequence.collectionDatabase.url)
   }
 
-  private func processAnswer(_ answer: CardAnswer) {
+  private func processAnswer(_ answer: CardAnswer, studyTime: TimeInterval) {
     logger.info("Card answer = \(answer)")
     if let card = studySequence.currentCard {
       do {
-        try studySequence.collectionDatabase.recordAnswer(answer, for: card)
+        try studySequence.collectionDatabase.recordAnswer(answer, for: card, studyTime: studyTime)
       } catch {
         logger.error("Unexpected error recording answer: \(error)")
       }

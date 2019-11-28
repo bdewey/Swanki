@@ -14,9 +14,10 @@ struct CardView: View {
   }
 
   let properties: Properties
-  private(set) var didSelectAnswer: ((CardAnswer) -> Void)?
+  private(set) var didSelectAnswer: ((CardAnswer, TimeInterval) -> Void)?
 
   @State private var side = Side.front
+  @State private var showedFront: CFTimeInterval = 0
 
   var body: some View {
     VStack {
@@ -29,6 +30,9 @@ struct CardView: View {
     }
     .padding()
     .animation(.easeInOut)
+    .onAppear {
+      self.showedFront = CACurrentMediaTime()
+    }
   }
 
   var buttonRowOrEmpty: some View {
@@ -36,7 +40,7 @@ struct CardView: View {
       if side == .back {
         CardAnswerButtonRow(answers: properties.answers, didSelectAnswer: {
           self.side = Side.front
-          self.didSelectAnswer?($0)
+          self.didSelectAnswer?($0, CACurrentMediaTime() - self.showedFront)
         })
       } else {
         /*@START_MENU_TOKEN@*/EmptyView()/*@END_MENU_TOKEN@*/

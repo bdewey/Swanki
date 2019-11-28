@@ -61,6 +61,6 @@ private struct DeckRow: View {
   }
 
   private var studyView: some View {
-    StudyView(studySequence: StudySequenceWrapper(collectionDatabase: self.collectionDatabase, deckId: deckModel.id))
+    StudyView(studySession: StudySession(collectionDatabase: self.collectionDatabase, decks: [deckModel.id]))
   }
 }

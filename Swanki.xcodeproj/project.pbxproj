@@ -31,7 +31,6 @@
 		D39668442365EE9D0015DB82 /* WebView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D39668432365EE9D0015DB82 /* WebView.swift */; };
 		D3966846236DDC9A0015DB82 /* CardAnswerButtonRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3966845236DDC9A0015DB82 /* CardAnswerButtonRow.swift */; };
 		D3966848236DECA40015DB82 /* CardAnswer.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3966847236DECA40015DB82 /* CardAnswer.swift */; };
-		D396684A236DF7600015DB82 /* StudySequence.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3966849236DF7600015DB82 /* StudySequence.swift */; };
 		D3B7144E235BB5A500F2AFB2 /* CollectionDatabase.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3B7144D235BB5A500F2AFB2 /* CollectionDatabase.swift */; };
 		D3B71450235C189300F2AFB2 /* DeckConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3B7144F235C189300F2AFB2 /* DeckConfig.swift */; };
 		D3B71452235C22B700F2AFB2 /* Card.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3B71451235C22B700F2AFB2 /* Card.swift */; };
@@ -43,6 +42,7 @@
 		D3E159E1238E0EC200940661 /* ObservableDeck.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3E159E0238E0EC200940661 /* ObservableDeck.swift */; };
 		D3E159E3239059DC00940661 /* LogEntry.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3E159E2239059DC00940661 /* LogEntry.swift */; };
 		D3E159E52390790000940661 /* Date+Anki.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3E159E42390790000940661 /* Date+Anki.swift */; };
+		D3E159E7239083FA00940661 /* StudySession.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3E159E6239083FA00940661 /* StudySession.swift */; };
 		D3E525AF2377221C00C1E549 /* SpacedRepetitionScheduler.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3E525AE2377221C00C1E549 /* SpacedRepetitionScheduler.swift */; };
 		D3E525B1237725A500C1E549 /* SpacedRepetitionSchedulerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3E525B0237725A500C1E549 /* SpacedRepetitionSchedulerTests.swift */; };
 /* End PBXBuildFile section */
@@ -105,7 +105,6 @@
 		D39668432365EE9D0015DB82 /* WebView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebView.swift; sourceTree = "<group>"; };
 		D3966845236DDC9A0015DB82 /* CardAnswerButtonRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardAnswerButtonRow.swift; sourceTree = "<group>"; };
 		D3966847236DECA40015DB82 /* CardAnswer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardAnswer.swift; sourceTree = "<group>"; };
-		D3966849236DF7600015DB82 /* StudySequence.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StudySequence.swift; sourceTree = "<group>"; };
 		D3B7144D235BB5A500F2AFB2 /* CollectionDatabase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionDatabase.swift; sourceTree = "<group>"; };
 		D3B7144F235C189300F2AFB2 /* DeckConfig.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeckConfig.swift; sourceTree = "<group>"; };
 		D3B71451235C22B700F2AFB2 /* Card.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Card.swift; sourceTree = "<group>"; };
@@ -117,6 +116,7 @@
 		D3E159E0238E0EC200940661 /* ObservableDeck.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObservableDeck.swift; sourceTree = "<group>"; };
 		D3E159E2239059DC00940661 /* LogEntry.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogEntry.swift; sourceTree = "<group>"; };
 		D3E159E42390790000940661 /* Date+Anki.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+Anki.swift"; sourceTree = "<group>"; };
+		D3E159E6239083FA00940661 /* StudySession.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StudySession.swift; sourceTree = "<group>"; };
 		D3E525AE2377221C00C1E549 /* SpacedRepetitionScheduler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpacedRepetitionScheduler.swift; sourceTree = "<group>"; };
 		D3E525B0237725A500C1E549 /* SpacedRepetitionSchedulerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpacedRepetitionSchedulerTests.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -213,7 +213,7 @@
 				D32BCEA8235829750036768A /* SceneDelegate.swift */,
 				D3E525AE2377221C00C1E549 /* SpacedRepetitionScheduler.swift */,
 				D351006E2378986600CE2D7E /* SpacedRepetitionScheduler+Card.swift */,
-				D3966849236DF7600015DB82 /* StudySequence.swift */,
+				D3E159E6239083FA00940661 /* StudySession.swift */,
 				D3B71453235CB7D000F2AFB2 /* StudyView.swift */,
 				D351006C237897A500CE2D7E /* TimeInterval+Fuzzing.swift */,
 				D39668432365EE9D0015DB82 /* WebView.swift */,
@@ -415,9 +415,9 @@
 				D325FDB3235A9A1E002AC9C9 /* Note.swift in Sources */,
 				D3B71452235C22B700F2AFB2 /* Card.swift in Sources */,
 				D3E525AF2377221C00C1E549 /* SpacedRepetitionScheduler.swift in Sources */,
-				D396684A236DF7600015DB82 /* StudySequence.swift in Sources */,
 				D3B71458235DDB1C00F2AFB2 /* DeckView.swift in Sources */,
 				D39668442365EE9D0015DB82 /* WebView.swift in Sources */,
+				D3E159E7239083FA00940661 /* StudySession.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

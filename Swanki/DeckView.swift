@@ -45,11 +45,14 @@ private struct DeckRow: View {
             database: collectionDatabase,
             query: notesQuery,
             noteFactory: {
-              let model = self.noteModels.first
-              return Note.makeEmptyNote(
-                modelID: model?.id ?? -1,
-                fieldCount: model?.fields.count ?? 0
+              guard let model = self.noteModels.first else {
+                return nil
+              }
+              let note = Note.makeEmptyNote(
+                modelID: model.id,
+                fieldCount: model.fields.count
               )
+              return (note, model)
             }
           ).fetch()
         ),

@@ -20,28 +20,37 @@ public struct Card: Codable, FetchableRecord, PersistableRecord, Identifiable, E
   }
 
   public static var databaseTableName: String { "cards" }
-  public let id: Int
-  public let noteID: Int
-  public let deckID: Int
-  public let templateIndex: Int
-  public var queue: CardQueue
+  public var id = 0
+  public var noteID: Int
+  public var deckID: Int
+  public var templateIndex: Int
+  public var modificationTimeSeconds = 0
+  public var queue = CardQueue.new
   /// Due is used differently for different card types:
   /// - new: note id or random int
   /// - due: integer day, relative to the collection's creation time <-- I'm changing the "relative" bit because that's dumb
   /// - learning: integer timestamp
-  public var due: Int
-  public var type: CardType
-  public var interval: Int
-  public var factor: Int
-  public var reps: Int
-  public var lapses: Int
-  public var left: Int
+  public var due = 0
+  public var type = CardType.new
+  public var interval = 0
+  public var factor = 0
+  public var reps = 0
+  public var lapses = 0
+  public var left = 0
+
+  // MARK: Unused 
+  public let usn = 0
+  public let odue = 0
+  public let odid = 0
+  public let flags = 0
+  public let data = ""
 
   enum CodingKeys: String, CodingKey {
     case id
     case noteID = "nid"
     case deckID = "did"
     case templateIndex = "ord"
+    case modificationTimeSeconds = "mod"
     case queue
     case due
     case type
@@ -50,5 +59,6 @@ public struct Card: Codable, FetchableRecord, PersistableRecord, Identifiable, E
     case reps
     case lapses
     case left
+    case usn, odue, odid, flags, data
   }
 }

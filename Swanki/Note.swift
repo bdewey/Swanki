@@ -60,4 +60,11 @@ public extension Note {
       encodedFields: String(repeating: Self.fieldSeparator, count: fieldCount - 1)
     )
   }
+
+  /// Makes new Card structures from this note.
+  func cards(model: NoteModel) -> [Card] {
+    model.templates.map { template -> Card in
+      Card(noteID: self.id, deckID: model.deckID, templateIndex: template.ord)
+    }
+  }
 }

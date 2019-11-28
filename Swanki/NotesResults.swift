@@ -5,10 +5,12 @@ import GRDB
 
 /// Holds the results of a SELECT of Note data from a CollectionDatabase.
 public final class NotesResults: ObservableObject {
+  public typealias NoteFactory = () -> (Note, NoteModel)?
+
   public init(
     database: CollectionDatabase,
     query: QueryInterfaceRequest<Note>,
-    noteFactory: @escaping () -> Note
+    noteFactory: @escaping NoteFactory
   ) {
     self.database = database
     self.query = query
@@ -22,7 +24,7 @@ public final class NotesResults: ObservableObject {
   public let query: QueryInterfaceRequest<Note>
 
   /// A factory block for creating new notes relevant to these results.
-  public let noteFactory: () -> Note
+  public let noteFactory: NoteFactory
 
   /// The actual notes.
   @Published public private(set) var notes: [Note] = []
@@ -49,7 +51,7 @@ public final class NotesResults: ObservableObject {
     })
   }
 
-  public func insertNote(_ note: Note, completion: ((Result<[Note], Error>) -> Void)? = nil) {
+  public func insertNote(_ note: Note, model: NoteModel, completion: ((Result<[Note], Error>) -> Void)? = nil) {
     database.dbQueue!.asyncWrite({ db -> [Note] in
       // Create a mutable copy.
       var note = note
@@ -61,6 +63,19 @@ public final class NotesResults: ObservableObject {
       note.id = newID
       note.modifiedTimestampSeconds = Int(floor(now))
       try note.insert(db)
+
+      // Now save the cards for this note.
+      newID += 1
+      for card in note.cards(model: model) {
+        var card = card
+        while try Card.filter(key: newID).fetchCount(db) != 0 {
+          newID += 1
+        }
+        card.id = newID
+        card.modificationTimeSeconds = Int(floor(now))
+        try card.insert(db)
+        newID += 1
+      }
       return try self.query.fetchAll(db)
     }, completion: { _, result in
       self.updateNotes(result, completion: completion)
@@ -69,6 +84,9 @@ public final class NotesResults: ObservableObject {
 
   public func deleteNotes(_ notes: [Note], completion: ((Result<[Note], Error>) -> Void)? = nil) {
     database.dbQueue!.asyncWrite({ db -> [Note] in
+      for note in notes {
+        try Card.filter(Column("nid") == note.id).deleteAll(db)
+      }
       try Note.deleteAll(db, keys: notes.map({ $0.id }))
       return try self.query.fetchAll(db)
     }, completion: { _, result in

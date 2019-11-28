@@ -27,6 +27,7 @@ extension Card {
     noteID: 1334609482913,
     deckID: 1342706224003,
     templateIndex: 0,
+    modificationTimeSeconds: 1345898758,
     queue: .new,
     due: 113,
     type: .new,

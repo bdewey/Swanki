@@ -50,11 +50,11 @@ struct NotesView: View {
   }
 
   private func newNoteAction() {
-    // This is an "empty" note associated with a random model.
-    // TODO: Don't pick a random model.
-    let note = notesResults.noteFactory()
+    guard let (note, model) = notesResults.noteFactory() else {
+      return
+    }
     draftNote = DraftNote(title: "New", note: note, commitAction: { newNote in
-      self.notesResults.insertNote(newNote)
+      self.notesResults.insertNote(newNote, model: model)
     })
   }
 }

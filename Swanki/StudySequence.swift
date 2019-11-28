@@ -18,12 +18,13 @@ extension StudySequence: Sequence {
       do {
         var cards: [Card] = []
         let learningCards = try studySequence.decks.map { try studySequence.collectionDatabase.fetchLearningCards(from: $0) }.joined()
-        logger.info("Found \(learningCards.count) learning card(s)")
+        logger.info("Found \(learningCards.count) learning card(s) for decks \(studySequence.decks)")
         cards.append(contentsOf: learningCards)
         let newCards = try studySequence.decks.map { try studySequence.collectionDatabase.fetchNewCards(from: $0) }.joined()
         cards.append(contentsOf: newCards)
+        logger.info("Found \(newCards.count) new card(s) for decks \(studySequence.decks)")
         let reviewCards = try studySequence.decks.map { try studySequence.collectionDatabase.fetchReviewCards(from: $0) }.joined()
-        logger.info("Found \(reviewCards.count) review card(s)")
+        logger.info("Found \(reviewCards.count) review card(s) for decks \(studySequence.decks)")
         cards.append(contentsOf: reviewCards)
         self.cards = cards
       } catch {

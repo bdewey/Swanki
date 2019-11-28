@@ -165,10 +165,12 @@ public final class CollectionDatabase: ObservableObject {
     let scheduler = SpacedRepetitionScheduler(config: config)
     let item = scheduler.makeSchedulingItem(for: card)
     let nextItem = scheduler.scheduleItem(item)[answer]!
-    var card = card
-    scheduler.applyItem(nextItem, to: &card)
+    var newCard = card
+    scheduler.applyItem(nextItem, to: &newCard)
     try dbQueue?.write { db in
-      try card.update(db)
+      try newCard.update(db)
+      let logEntry = LogEntry(now: Date(), oldCard: card, newCard: newCard, answer: answer, studyTime: 0)
+      try logEntry.insert(db)
     }
   }
 }

@@ -45,7 +45,7 @@ public extension SpacedRepetitionScheduler {
       // Store an integer number of seconds since the reference date. Don't fuzz.
       // TODO: I'm not using the "we're still learning this card but not today" state that Anki does.
       //       Do I have to?
-      card.due = Int(floor(now.addingTimeInterval(item.interval).timeIntervalSinceReferenceDate))
+      card.due = now.addingTimeInterval(item.interval).secondsRelativeFormat
     case .review:
       card.queue = .due
       card.left = 0
@@ -56,11 +56,5 @@ public extension SpacedRepetitionScheduler {
     card.lapses = item.lapseCount
     card.interval = (item.interval < .day) ? (-1 * Int(round(item.interval))) : Int(round(item.interval / .day))
     card.factor = Int(round(item.factor * 1000))
-  }
-}
-
-private extension Date {
-  var dayRelativeFormat: Int {
-    Int(floor(timeIntervalSinceReferenceDate / .day))
   }
 }

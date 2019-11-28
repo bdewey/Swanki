@@ -101,6 +101,7 @@ public final class CollectionDatabase: ObservableObject {
     return try dbQueue!.read { db -> [Card] in
       try Card
         .filter(Column("did") == deckID)
+        .filter(Column("queue") == Card.CardQueue.new.rawValue)
         .order(Column("due").asc)
         .limit(limit)
         .fetchAll(db)
@@ -108,7 +109,7 @@ public final class CollectionDatabase: ObservableObject {
   }
 
   public func fetchLearningCards(from deckID: Int) throws -> [Card] {
-    let dueTime = Int(round(Date().timeIntervalSinceReferenceDate))
+    let dueTime = Date().secondsRelativeFormat
     return try dbQueue!.read { db -> [Card] in
       try Card
         .filter(Column("did") == deckID)
@@ -121,7 +122,7 @@ public final class CollectionDatabase: ObservableObject {
 
   public func fetchReviewCards(from deckID: Int) throws -> [Card] {
     let limit = try reviewCardLimit(for: deckID)
-    let dueTime = Int(round(Date().timeIntervalSinceReferenceDate))
+    let dueTime = Date().dayRelativeFormat
     return try dbQueue!.read { db -> [Card] in
       try Card
         .filter(Column("did") == deckID)

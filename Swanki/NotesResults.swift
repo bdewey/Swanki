@@ -66,6 +66,15 @@ public final class NotesResults: ObservableObject {
       self.updateNotes(result, completion: completion)
     })
   }
+
+  public func deleteNotes(_ notes: [Note], completion: ((Result<[Note], Error>) -> Void)? = nil) {
+    database.dbQueue!.asyncWrite({ db -> [Note] in
+      try Note.deleteAll(db, keys: notes.map({ $0.id }))
+      return try self.query.fetchAll(db)
+    }, completion: { _, result in
+      self.updateNotes(result, completion: completion)
+    })
+  }
 }
 
 private extension NotesResults {

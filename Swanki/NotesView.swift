@@ -11,20 +11,23 @@ struct NotesView: View {
   @State private var draftNote: DraftNote?
 
   var body: some View {
-    List(notesResults.notes) { note in
-      HStack {
-        Text(note.fieldsArray.first ?? "")
-          .lineLimit(1)
-        Spacer()
+    List {
+      ForEach(notesResults.notes) { note in
+        HStack {
+          Text(note.fieldsArray.first ?? "")
+            .lineLimit(1)
+          Spacer()
+        }
+        .contentShape(Rectangle())
+        .onTapGesture {
+          self.draftNote = DraftNote(
+            title: "Edit",
+            note: note,
+            commitAction: { self.notesResults.updateNote($0) }
+          )
+        }
       }
-      .contentShape(Rectangle())
-      .onTapGesture {
-        self.draftNote = DraftNote(
-          title: "Edit",
-          note: note,
-          commitAction: { self.notesResults.updateNote($0) }
-        )
-      }
+      .onDelete(perform: deleteNotes)
     }
     .navigationBarTitle("Notes", displayMode: .inline)
     .sheet(item: $draftNote) { _ in
@@ -39,6 +42,11 @@ struct NotesView: View {
     Button(action: newNoteAction) {
       Image(systemName: "plus.circle")
     }
+  }
+
+  private func deleteNotes(at indexes: IndexSet) {
+    let victims = indexes.map { notesResults.notes[$0] }
+    notesResults.deleteNotes(victims)
   }
 
   private func newNoteAction() {

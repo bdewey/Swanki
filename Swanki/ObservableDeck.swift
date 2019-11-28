@@ -3,20 +3,16 @@
 import Foundation
 import GRDB
 
-/// Holds the results of a SELECT of Note data from a CollectionDatabase.
-public final class NotesResults: ObservableObject {
+/// Exposes the notes of a Deck in an observable way.
+public final class ObservableDeck: ObservableObject {
   public typealias NoteFactory = () -> (Note, NoteModel)?
 
   public init(
     database: CollectionDatabase,
-    deckID: Int,
-    query: QueryInterfaceRequest<Note>,
-    noteFactory: @escaping NoteFactory
+    deckID: Int
   ) {
     self.database = database
     self.deckID = deckID
-    self.query = query
-    self.noteFactory = noteFactory
   }
 
   /// The underlying database.
@@ -26,13 +22,25 @@ public final class NotesResults: ObservableObject {
   public let deckID: Int
 
   /// The query.
-  public let query: QueryInterfaceRequest<Note>
-
-  /// A factory block for creating new notes relevant to these results.
-  public let noteFactory: NoteFactory
+  public private(set) lazy var query: QueryInterfaceRequest<Note> = {
+    let ids = noteModels.map { $0.id }
+    return Note.filter(ids.contains(Column("mid")))
+  }()
 
   /// The actual notes.
   @Published public private(set) var notes: [Note] = []
+
+  /// All note models associated with this deck.
+  public private(set) lazy var noteModels: [NoteModel] = {
+    database.noteModels.compactMap { tuple in
+      let (_, value) = tuple
+      if value.deckID == deckID {
+        return value
+      } else {
+        return nil
+      }
+    }
+  }()
 
   /// Fetches the notes.
   @discardableResult
@@ -101,7 +109,7 @@ public final class NotesResults: ObservableObject {
   }
 }
 
-private extension NotesResults {
+private extension ObservableDeck {
   /// Updates the notes array with a new result.
   private func updateNotes(
     _ result: Result<[Note], Error>,

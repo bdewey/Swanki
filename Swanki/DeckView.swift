@@ -41,20 +41,9 @@ private struct DeckRow: View {
       NavigationLink(destination: self.studyView, isActive: self.$studyViewNavigation, label: { EmptyView() })
       NavigationLink(
         destination: NotesView(
-          notesResults: NotesResults(
+          notesResults: ObservableDeck(
             database: collectionDatabase,
-            deckID: deckModel.id,
-            query: notesQuery,
-            noteFactory: {
-              guard let model = self.noteModels.first else {
-                return nil
-              }
-              let note = Note.makeEmptyNote(
-                modelID: model.id,
-                fieldCount: model.fields.count
-              )
-              return (note, model)
-            }
+            deckID: deckModel.id
           ).fetch()
         ),
         isActive: self.$browseNavigation,
@@ -68,24 +57,6 @@ private struct DeckRow: View {
       }
       .contentShape(Rectangle()) // You need this so the onTapGesture will work on the entire row, including padding
       .onTapGesture(perform: { self.studyViewNavigation = true })
-    }
-  }
-
-  /// A query that finds all notes that belong to models associated with this deck.
-  private var notesQuery: QueryInterfaceRequest<Note> {
-    let ids = noteModels.map { $0.id }
-    return Note.filter(ids.contains(Column("mid")))
-  }
-
-  /// All note models associated with this deck.
-  private var noteModels: [NoteModel] {
-    collectionDatabase.noteModels.compactMap { tuple in
-      let (_, value) = tuple
-      if value.deckID == deckModel.id {
-        return value
-      } else {
-        return nil
-      }
     }
   }
 

@@ -6,7 +6,7 @@ import SwiftUI
 struct NotesView: View {
   @EnvironmentObject var collectionDatabase: CollectionDatabase
 
-  @ObservedObject var notesResults: NotesResults
+  @ObservedObject var notesResults: ObservableDeck
 
   @State private var draftNote: DraftNote?
   @State private var showNoteTypeSheet: Bool = false

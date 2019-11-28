@@ -40,7 +40,7 @@
 		D3B71458235DDB1C00F2AFB2 /* DeckView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3B71457235DDB1C00F2AFB2 /* DeckView.swift */; };
 		D3B7145A2363212200F2AFB2 /* CollectionDatabase+Previews.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3B714592363212200F2AFB2 /* CollectionDatabase+Previews.swift */; };
 		D3E159DF238C14AA00940661 /* DraftNote.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3E159DE238C14AA00940661 /* DraftNote.swift */; };
-		D3E159E1238E0EC200940661 /* NotesResults.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3E159E0238E0EC200940661 /* NotesResults.swift */; };
+		D3E159E1238E0EC200940661 /* ObservableDeck.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3E159E0238E0EC200940661 /* ObservableDeck.swift */; };
 		D3E525AF2377221C00C1E549 /* SpacedRepetitionScheduler.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3E525AE2377221C00C1E549 /* SpacedRepetitionScheduler.swift */; };
 		D3E525B1237725A500C1E549 /* SpacedRepetitionSchedulerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3E525B0237725A500C1E549 /* SpacedRepetitionSchedulerTests.swift */; };
 /* End PBXBuildFile section */
@@ -112,7 +112,7 @@
 		D3B71457235DDB1C00F2AFB2 /* DeckView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeckView.swift; sourceTree = "<group>"; };
 		D3B714592363212200F2AFB2 /* CollectionDatabase+Previews.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CollectionDatabase+Previews.swift"; sourceTree = "<group>"; };
 		D3E159DE238C14AA00940661 /* DraftNote.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DraftNote.swift; sourceTree = "<group>"; };
-		D3E159E0238E0EC200940661 /* NotesResults.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotesResults.swift; sourceTree = "<group>"; };
+		D3E159E0238E0EC200940661 /* ObservableDeck.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObservableDeck.swift; sourceTree = "<group>"; };
 		D3E525AE2377221C00C1E549 /* SpacedRepetitionScheduler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpacedRepetitionScheduler.swift; sourceTree = "<group>"; };
 		D3E525B0237725A500C1E549 /* SpacedRepetitionSchedulerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpacedRepetitionSchedulerTests.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -200,9 +200,9 @@
 				D32BCEB1235829770036768A /* LaunchScreen.storyboard */,
 				D3B71455235D211B00F2AFB2 /* Logger.swift */,
 				D325FDB2235A9A1E002AC9C9 /* Note.swift */,
-				D3E159E0238E0EC200940661 /* NotesResults.swift */,
 				63C984B22385583700E5CAFE /* NotesView.swift */,
 				63C984B4238566A400E5CAFE /* NoteView.swift */,
+				D3E159E0238E0EC200940661 /* ObservableDeck.swift */,
 				D32BCEAE235829770036768A /* Preview Content */,
 				D32BCEA8235829750036768A /* SceneDelegate.swift */,
 				D3E525AE2377221C00C1E549 /* SpacedRepetitionScheduler.swift */,
@@ -402,7 +402,7 @@
 				D3966846236DDC9A0015DB82 /* CardAnswerButtonRow.swift in Sources */,
 				D351006D237897A500CE2D7E /* TimeInterval+Fuzzing.swift in Sources */,
 				D3B7144E235BB5A500F2AFB2 /* CollectionDatabase.swift in Sources */,
-				D3E159E1238E0EC200940661 /* NotesResults.swift in Sources */,
+				D3E159E1238E0EC200940661 /* ObservableDeck.swift in Sources */,
 				D325FDB5235B57AC002AC9C9 /* CollectionMetadata.swift in Sources */,
 				D325FDB3235A9A1E002AC9C9 /* Note.swift in Sources */,
 				D3B71452235C22B700F2AFB2 /* Card.swift in Sources */,

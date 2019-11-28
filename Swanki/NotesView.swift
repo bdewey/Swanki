@@ -8,22 +8,41 @@ struct NotesView: View {
 
   @ObservedObject var notesResults: NotesResults
 
-  @State private var editingNote: BindableNote?
+  @State private var draftNote: DraftNote?
 
   var body: some View {
     List(notesResults.notes) { note in
       Text(note.fieldsArray.first ?? "")
         .lineLimit(1)
         .onTapGesture {
-          self.editingNote = BindableNote(note)
+          self.draftNote = DraftNote(
+            title: "Edit",
+            note: note,
+            commitAction: { self.notesResults.updateNote($0) }
+          )
         }
     }
     .navigationBarTitle("Notes", displayMode: .inline)
-    .sheet(item: $editingNote) { _ in
+    .sheet(item: $draftNote) { _ in
       NoteView(
-        note: self.$editingNote,
-        saveAction: { self.notesResults.updateNote($0) }
+        note: self.$draftNote
       ).environmentObject(self.collectionDatabase)
     }
+    .navigationBarItems(trailing: newNoteButton)
+  }
+
+  private var newNoteButton: some View {
+    Button(action: newNoteAction) {
+      Image(systemName: "plus.circle")
+    }
+  }
+
+  private func newNoteAction() {
+    // This is an "empty" note associated with a random model.
+    // TODO: Don't pick a random model.
+    let note = notesResults.noteFactory()
+    draftNote = DraftNote(title: "New", note: note, commitAction: { newNote in
+      self.notesResults.insertNote(newNote)
+    })
   }
 }

@@ -7,10 +7,12 @@ import GRDB
 public final class NotesResults: ObservableObject {
   public init(
     database: CollectionDatabase,
-    query: QueryInterfaceRequest<Note>
+    query: QueryInterfaceRequest<Note>,
+    noteFactory: @escaping () -> Note
   ) {
     self.database = database
     self.query = query
+    self.noteFactory = noteFactory
   }
 
   /// The underlying database.
@@ -18,6 +20,9 @@ public final class NotesResults: ObservableObject {
 
   /// The query.
   public let query: QueryInterfaceRequest<Note>
+
+  /// A factory block for creating new notes relevant to these results.
+  public let noteFactory: () -> Note
 
   /// The actual notes.
   @Published public private(set) var notes: [Note] = []
@@ -43,6 +48,24 @@ public final class NotesResults: ObservableObject {
       self.updateNotes(result, completion: completion)
     })
   }
+
+  public func insertNote(_ note: Note, completion: ((Result<[Note], Error>) -> Void)? = nil) {
+    database.dbQueue!.asyncWrite({ db -> [Note] in
+      // Create a mutable copy.
+      var note = note
+      let now = Date().timeIntervalSince1970
+      var newID = Int(floor(now * 1000)) // Start with integer milliseconds since the epoch
+      while try Note.filter(key: newID).fetchCount(db) != 0 {
+        newID += 1
+      }
+      note.id = newID
+      note.modifiedTimestampSeconds = Int(floor(now))
+      try note.insert(db)
+      return try self.query.fetchAll(db)
+    }, completion: { _, result in
+      self.updateNotes(result, completion: completion)
+    })
+  }
 }
 
 private extension NotesResults {
@@ -58,6 +81,11 @@ private extension NotesResults {
       return
     }
     completion?(result)
-    _ = result.map { notes = $0 }
+    switch result {
+    case .success(let notes):
+      self.notes = notes
+    case .failure(let error):
+      logger.error("Error updating notes: \(error)")
+    }
   }
 }

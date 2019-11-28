@@ -5,8 +5,7 @@ import SwiftUI
 /// Displays (& optionally edits) a single note. Designed to be displayed as a modal.
 struct NoteView: View {
   @EnvironmentObject var collectionDatabase: CollectionDatabase
-  @Binding var note: BindableNote?
-  let saveAction: ((Note) -> Void)?
+  @Binding var note: DraftNote?
 
   var body: some View {
     NavigationView {
@@ -29,7 +28,7 @@ struct NoteView: View {
 
   private var sections: [NoteSection] {
     fieldsNames.enumerated().map { i, name -> NoteSection in
-      NoteSection(title: name, contents: note?.fieldsArray[i] ?? "", index: i)
+      NoteSection(title: name, index: i)
     }
   }
 
@@ -55,13 +54,12 @@ struct NoteView: View {
 
   private func saveNote() {
     guard let noteWrapper = note else { return }
-    saveAction?(noteWrapper.note)
+    note?.commitAction(noteWrapper.note)
     note = nil
   }
 
   private struct NoteSection: Identifiable {
     let title: String
-    let contents: String
     let index: Int
 
     var id: String { title }

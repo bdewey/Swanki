@@ -43,7 +43,14 @@ private struct DeckRow: View {
         destination: NotesView(
           notesResults: NotesResults(
             database: collectionDatabase,
-            query: notesQuery
+            query: notesQuery,
+            noteFactory: {
+              let model = self.noteModels.first
+              return Note.makeEmptyNote(
+                modelID: model?.id ?? -1,
+                fieldCount: model?.fields.count ?? 0
+              )
+            }
           ).fetch()
         ),
         isActive: self.$browseNavigation,

@@ -5,12 +5,20 @@ import SwiftUI
 
 /// Wraps a Note and provides bindings to its individual fields.
 @dynamicMemberLookup
-public final class BindableNote: ObservableObject, Identifiable {
-  public init(_ note: Note) {
+public final class DraftNote: ObservableObject, Identifiable {
+  public init(
+    title: LocalizedStringKey,
+    note: Note,
+    commitAction: @escaping (Note) -> Void
+  ) {
+    self.title = title
     self.note = note
+    self.commitAction = commitAction
   }
 
+  public let title: LocalizedStringKey
   @Published public var note: Note
+  public let commitAction: (Note) -> Void
 
   public var id: Int { note.id }
 

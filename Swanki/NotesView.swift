@@ -12,15 +12,19 @@ struct NotesView: View {
 
   var body: some View {
     List(notesResults.notes) { note in
-      Text(note.fieldsArray.first ?? "")
-        .lineLimit(1)
-        .onTapGesture {
-          self.draftNote = DraftNote(
-            title: "Edit",
-            note: note,
-            commitAction: { self.notesResults.updateNote($0) }
-          )
-        }
+      HStack {
+        Text(note.fieldsArray.first ?? "")
+          .lineLimit(1)
+        Spacer()
+      }
+      .contentShape(Rectangle())
+      .onTapGesture {
+        self.draftNote = DraftNote(
+          title: "Edit",
+          note: note,
+          commitAction: { self.notesResults.updateNote($0) }
+        )
+      }
     }
     .navigationBarTitle("Notes", displayMode: .inline)
     .sheet(item: $draftNote) { _ in

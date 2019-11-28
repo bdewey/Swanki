@@ -9,6 +9,7 @@ struct NotesView: View {
   @ObservedObject var notesResults: NotesResults
 
   @State private var draftNote: DraftNote?
+  @State private var showNoteTypeSheet: Bool = false
 
   var body: some View {
     List {
@@ -35,6 +36,7 @@ struct NotesView: View {
         note: self.$draftNote
       ).environmentObject(self.collectionDatabase)
     }
+    .actionSheet(isPresented: $showNoteTypeSheet, content: { self.noteActionSheet })
     .navigationBarItems(trailing: newNoteButton)
   }
 
@@ -49,12 +51,25 @@ struct NotesView: View {
     notesResults.deleteNotes(victims)
   }
 
-  private func newNoteAction() {
-    guard let (note, model) = notesResults.noteFactory() else {
-      return
+  private var noteActionSheet: ActionSheet {
+    var buttons = collectionDatabase.noteModels.values
+      .filter { $0.deckID == notesResults.deckID }
+      .filter { $0.modelType == .standard }
+      .map { model in
+        ActionSheet.Button.default(Text(verbatim: model.name), action: { self.draftNote = self.makeDraftNote(from: model) })
+      }
+    buttons.append(.cancel())
+    return ActionSheet(title: Text("Type"), message: nil, buttons: buttons)
+  }
+
+  private func makeDraftNote(from model: NoteModel) -> DraftNote {
+    let note = Note.makeEmptyNote(modelID: model.id, fieldCount: model.fields.count)
+    return DraftNote(title: "New", note: note) { updatedNote in
+      self.notesResults.insertNote(updatedNote, model: model)
     }
-    draftNote = DraftNote(title: "New", note: note, commitAction: { newNote in
-      self.notesResults.insertNote(newNote, model: model)
-    })
+  }
+
+  private func newNoteAction() {
+    showNoteTypeSheet = true
   }
 }

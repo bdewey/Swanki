@@ -57,6 +57,7 @@ extension Note {
 extension NoteModel {
   static let basic = NoteModel(
     id: 1342706223926,
+    name: "Basic",
     css: ".card {\n font-family: arial;\n font-size: 20px;\n text-align: center;\n color: black;\n background-color: white;\n}\n\n.card1 { background-color: #ffffff;text-align: left }",
     deckID: 1342706224003,
     fields: [

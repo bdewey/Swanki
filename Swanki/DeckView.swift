@@ -43,6 +43,7 @@ private struct DeckRow: View {
         destination: NotesView(
           notesResults: NotesResults(
             database: collectionDatabase,
+            deckID: deckModel.id,
             query: notesQuery,
             noteFactory: {
               guard let model = self.noteModels.first else {

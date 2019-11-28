@@ -40,6 +40,7 @@ public struct CollectionMetadata: Codable, FetchableRecord, PersistableRecord {
 
 public struct NoteModel {
   public let id: Int
+  public let name: String
   public let css: String
   public let deckID: Int
   public let fields: [NoteField]
@@ -48,6 +49,7 @@ public struct NoteModel {
 
   enum CodingKeys: String, CodingKey {
     case id
+    case name
     case css
     case deckID = "did"
     case fields = "flds"
@@ -74,6 +76,7 @@ extension NoteModel: Codable {
         throw NoteDecodingError.noId
       }
     }
+    self.name = try values.decode(String.self, forKey: .name)
     self.css = try values.decode(String.self, forKey: .css)
     self.deckID = try values.decode(Int.self, forKey: .deckID)
     self.fields = try values.decode([NoteField].self, forKey: .fields)

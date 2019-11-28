@@ -9,16 +9,21 @@ public final class NotesResults: ObservableObject {
 
   public init(
     database: CollectionDatabase,
+    deckID: Int,
     query: QueryInterfaceRequest<Note>,
     noteFactory: @escaping NoteFactory
   ) {
     self.database = database
+    self.deckID = deckID
     self.query = query
     self.noteFactory = noteFactory
   }
 
   /// The underlying database.
   public let database: CollectionDatabase
+
+  /// The deck we are viewing
+  public let deckID: Int
 
   /// The query.
   public let query: QueryInterfaceRequest<Note>
@@ -72,6 +77,7 @@ public final class NotesResults: ObservableObject {
           newID += 1
         }
         card.id = newID
+        card.deckID = self.deckID
         card.modificationTimeSeconds = Int(floor(now))
         try card.insert(db)
         newID += 1
@@ -87,7 +93,7 @@ public final class NotesResults: ObservableObject {
       for note in notes {
         try Card.filter(Column("nid") == note.id).deleteAll(db)
       }
-      try Note.deleteAll(db, keys: notes.map({ $0.id }))
+      try Note.deleteAll(db, keys: notes.map { $0.id })
       return try self.query.fetchAll(db)
     }, completion: { _, result in
       self.updateNotes(result, completion: completion)

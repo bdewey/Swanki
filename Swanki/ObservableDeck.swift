@@ -65,6 +65,13 @@ public final class ObservableDeck: ObservableObject {
   }
 
   public func insertNote(_ note: Note, model: NoteModel, completion: ((Result<[Note], Error>) -> Void)? = nil) {
+    guard
+      let deckModel = database.deckModels[deckID],
+      let deckConfig = database.deckConfigs[deckModel.configID]
+    else {
+      assertionFailure()
+      return
+    }
     database.dbQueue!.asyncWrite({ db -> [Note] in
       // Create a mutable copy.
       var note = note
@@ -87,6 +94,8 @@ public final class ObservableDeck: ObservableObject {
         card.id = newID
         card.deckID = self.deckID
         card.modificationTimeSeconds = Int(floor(now))
+        card.due = note.id
+        card.factor = deckConfig.new.initialFactor
         try card.insert(db)
         newID += 1
       }

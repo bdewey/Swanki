@@ -6,7 +6,7 @@ struct StudyView: View {
   @ObservedObject var studySession: StudySession
 
   var body: some View {
-    let properties = studySession.currentCard.flatMap { try? cardViewProperties(for: $0) }
+    let properties = studySession.cards.first.flatMap { try? cardViewProperties(for: $0) }
     return VStack {
       if properties != nil {
         CardView(properties: properties!, didSelectAnswer: processAnswer)
@@ -38,13 +38,10 @@ struct StudyView: View {
 
   private func processAnswer(_ answer: CardAnswer, studyTime: TimeInterval) {
     logger.info("Card answer = \(answer)")
-    if let card = studySession.currentCard {
-      do {
-        try studySession.collectionDatabase.recordAnswer(answer, for: card, studyTime: studyTime)
-      } catch {
-        logger.error("Unexpected error recording answer: \(error)")
-      }
+    do {
+      try studySession.recordAnswer(answer, studyTime: studyTime)
+    } catch {
+      logger.error("Unexpected error recording answer: \(error)")
     }
-    studySession.advance()
   }
 }

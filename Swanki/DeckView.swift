@@ -14,7 +14,7 @@ struct DeckView: View {
         Divider()
         ForEach(sortedDecks) { deckModel in
           VStack {
-            DeckRow(deckModel: deckModel).padding()
+            DeckRow(studySession: StudySession(collectionDatabase: self.collectionDatabase, deckModel: deckModel)).padding()
             Divider()
           }
         }
@@ -30,27 +30,33 @@ struct DeckView: View {
 }
 
 private struct DeckRow: View {
-  let deckModel: DeckModel
 
-  @EnvironmentObject var collectionDatabase: CollectionDatabase
+  @ObservedObject var studySession: StudySession
+
   @State private var studyViewNavigation = false
   @State private var browseNavigation = false
 
   var body: some View {
     ZStack {
-      NavigationLink(destination: self.studyView, isActive: self.$studyViewNavigation, label: { EmptyView() })
+      NavigationLink(destination: StudyView(studySession: studySession), isActive: self.$studyViewNavigation, label: { EmptyView() })
       NavigationLink(
         destination: NotesView(
           notesResults: ObservableDeck(
-            database: collectionDatabase,
-            deckID: deckModel.id
+            database: studySession.collectionDatabase,
+            deckID: studySession.deckModel.id
           ).fetch()
         ),
         isActive: self.$browseNavigation,
         label: { EmptyView() }
       )
       HStack {
-        Text(deckModel.name).lineLimit(1)
+        VStack(alignment: .leading) {
+          Text(studySession.deckModel.name).lineLimit(1).font(.headline)
+          HStack {
+            Text("Learning: \(studySession.learningCardCount)").foregroundColor(.green)
+            Text("New: \(studySession.newCardCount)").foregroundColor(.blue)
+          }.font(.subheadline)
+        }
         Spacer()
         Image(systemName: "info.circle").foregroundColor(.accentColor).onTapGesture(perform: { self.browseNavigation = true })
         Image(systemName: "chevron.right").foregroundColor(.secondary)
@@ -58,9 +64,5 @@ private struct DeckRow: View {
       .contentShape(Rectangle()) // You need this so the onTapGesture will work on the entire row, including padding
       .onTapGesture(perform: { self.studyViewNavigation = true })
     }
-  }
-
-  private var studyView: some View {
-    StudyView(studySession: StudySession(collectionDatabase: self.collectionDatabase, decks: [deckModel.id]))
   }
 }

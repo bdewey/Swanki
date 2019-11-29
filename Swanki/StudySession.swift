@@ -4,56 +4,59 @@ import Foundation
 
 /// Holds a collection of cards from a database to study.
 public final class StudySession: ObservableObject {
-  public init(collectionDatabase: CollectionDatabase, decks: [Int]) {
+  public init(collectionDatabase: CollectionDatabase, deckModel: DeckModel) {
     self.collectionDatabase = collectionDatabase
-    self.decks = decks
+    self.deckModel = deckModel
 
     do {
-      let learningCards = try decks.map { try collectionDatabase.fetchLearningCards(from: $0) }.joined()
-      logger.info("Found \(learningCards.count) learning card(s) for decks \(decks)")
-      self.learningCards = ArraySlice(learningCards)
-      let newCards = try decks.map { try collectionDatabase.fetchNewCards(from: $0) }.joined()
-      self.newCards = ArraySlice(newCards)
-      logger.info("Found \(newCards.count) new card(s) for decks \(decks)")
-      let reviewCards = try decks.map { try collectionDatabase.fetchReviewCards(from: $0) }.joined()
-      logger.info("Found \(reviewCards.count) review card(s) for decks \(decks)")
-      self.reviewCards = ArraySlice(reviewCards)
+      var learningCardCount = 0
+      var newCardCount = 0
+      var cards: [Card] = []
+      let learningCards = try collectionDatabase.fetchLearningCards(from: deckModel.id)
+      logger.info("Found \(learningCards.count) learning card(s) for decks \(deckModel.id)")
+      learningCardCount += learningCards.count
+      cards.append(contentsOf: learningCards)
+      let newCards = try collectionDatabase.fetchNewCards(from: deckModel.id)
+      cards.append(contentsOf: newCards)
+      newCardCount += newCards.count
+      logger.info("Found \(newCards.count) new card(s) for decks \(deckModel.id)")
+      let reviewCards = try collectionDatabase.fetchReviewCards(from: deckModel.id)
+      logger.info("Found \(reviewCards.count) review card(s) for decks \(deckModel.id)")
+      cards.append(contentsOf: reviewCards)
+      learningCardCount += reviewCards.count
+      self.learningCardCount = learningCardCount
+      self.newCardCount = newCardCount
+      self.cards = ArraySlice(cards)
     } catch {
       logger.error("Unexpected error building study sequence: \(error)")
-      self.learningCards = ArraySlice([])
-      self.newCards = ArraySlice([])
-      self.reviewCards = ArraySlice([])
+      self.cards = ArraySlice([])
+      self.learningCardCount = 0
+      self.newCardCount = 0
     }
-    advance()
+    assert(learningCardCount + newCardCount == cards.count)
   }
 
   /// The database.
   public let collectionDatabase: CollectionDatabase
 
   /// The specific decks from which to select study cards.
-  public let decks: [Int]
+  public let deckModel: DeckModel
 
-  @Published public private(set) var learningCards: ArraySlice<Card>
-  @Published public private(set) var newCards: ArraySlice<Card>
-  @Published public private(set) var reviewCards: ArraySlice<Card>
+  @Published public private(set) var learningCardCount: Int
+  @Published public private(set) var newCardCount: Int
 
-  @Published public private(set) var currentCard: Card?
+  @Published public private(set) var cards: ArraySlice<Card>
 
-  public func advance() {
-    currentCard = next()
-    logger.debug("Card id is now \(currentCard?.id ?? -1)")
-  }
-
-  private func next() -> Card? {
-    if let card = learningCards.popFirst() {
-      return card
+  public func recordAnswer(_ answer: CardAnswer, studyTime: TimeInterval) throws {
+    guard let currentCard = cards.popFirst() else {
+      return
     }
-    if let card = newCards.popFirst() {
-      return card
+    switch currentCard.queue {
+    case .new:
+      newCardCount -= 1
+    default:
+      learningCardCount -= 1
     }
-    if let card = reviewCards.popFirst() {
-      return card
-    }
-    return nil
+    try collectionDatabase.recordAnswer(answer, for: currentCard, studyTime: studyTime)
   }
 }

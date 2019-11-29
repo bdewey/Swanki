@@ -21,18 +21,26 @@ struct CardView: View {
 
   var body: some View {
     VStack {
-      HTMLView(title: "quiz", html: renderedSide, baseURL: properties.baseURL)
-        .onTapGesture {
-          self.flipToBack()
-        }
+      HTMLView(title: "quiz", html: renderedSide, baseURL: properties.baseURL, backgroundColor: .secondarySystemBackground)
       buttonRowOrEmpty
         .frame(height: 100.0)
     }
-    .padding()
+    .contentShape(Rectangle())
+    .onTapGesture {
+      self.flipToBack()
+    }
     .animation(.easeInOut)
     .onAppear {
       self.showedFront = CACurrentMediaTime()
     }
+    .padding(.all)
+    .background(
+      ZStack {
+        RoundedRectangle(cornerRadius: 20).fill(Color(UIColor.secondarySystemBackground))
+        RoundedRectangle(cornerRadius: 20).stroke(Color.black, lineWidth: 1)
+      }
+    )
+    .padding(.all)
   }
 
   var buttonRowOrEmpty: some View {

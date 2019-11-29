@@ -11,7 +11,7 @@ struct StudyView: View {
       if properties != nil {
         CardView(properties: properties!, didSelectAnswer: processAnswer)
       } else {
-        EmptyView()
+        Text("You are done!").font(.largeTitle)
       }
     }
     .animation(/*@START_MENU_TOKEN@*/.easeInOut/*@END_MENU_TOKEN@*/)

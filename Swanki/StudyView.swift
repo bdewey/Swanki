@@ -14,6 +14,7 @@ struct StudyView: View {
         EmptyView()
       }
     }
+    .animation(/*@START_MENU_TOKEN@*/.easeInOut/*@END_MENU_TOKEN@*/)
   }
 
   private func cardViewProperties(for card: Card) throws -> CardView.Properties {

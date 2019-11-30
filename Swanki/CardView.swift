@@ -7,6 +7,7 @@ struct CardView: View {
   struct Properties: Identifiable {
     var id: Int { card.id }
     let card: Card
+    let stackIndex: Int
     let answers: [(key: CardAnswer, value: SpacedRepetitionScheduler.Item)]
     let model: NoteModel
     let note: Note
@@ -57,6 +58,9 @@ struct CardView: View {
   }
 
   var renderedSide: String {
+    if properties.stackIndex > 0 {
+      return "\n"
+    }
     do {
       return try text(for: side)
     } catch {
@@ -114,6 +118,7 @@ struct CardView_Previews: PreviewProvider {
     let scheduler = SpacedRepetitionScheduler(learningIntervals: [.minute, 10 * .minute])
     return CardView(properties: CardView.Properties(
       card: Card.nileCard,
+      stackIndex: 0,
       answers: scheduler.scheduleItem(SpacedRepetitionScheduler.Item()),
       model: NoteModel.basic,
       note: Note.nileRiver,

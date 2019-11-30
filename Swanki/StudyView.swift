@@ -6,18 +6,20 @@ struct StudyView: View {
   @ObservedObject var studySession: StudySession
 
   var body: some View {
-    let properties = studySession.cards.first.flatMap { try? cardViewProperties(for: $0) }
-    return VStack {
-      if properties != nil {
-        CardView(properties: properties!, didSelectAnswer: processAnswer)
-      } else {
-        Text("You are done!").font(.largeTitle)
+    let cardProperties = studySession.cards.enumerated().compactMap { try? cardViewProperties(for: $1, stackIndex: $0) }
+    return ZStack {
+      Text("You are done!").font(.largeTitle)
+      ForEach(cardProperties.reversed()) { properties in
+        CardView(properties: properties, didSelectAnswer: self.processAnswer)
+          .scaleEffect(1.0 - CGFloat(properties.stackIndex) * 0.1)
+          .offset(x: 0.0, y: -1 * CGFloat(properties.stackIndex) * 24)
+          .hidden(properties.stackIndex >= 3)
       }
     }
-    .animation(/*@START_MENU_TOKEN@*/.easeInOut/*@END_MENU_TOKEN@*/)
+    .animation(.easeInOut)
   }
 
-  private func cardViewProperties(for card: Card) throws -> CardView.Properties {
+  private func cardViewProperties(for card: Card, stackIndex: Int) throws -> CardView.Properties {
     guard
       let note = try studySession.collectionDatabase.fetchNote(id: card.noteID)
     else {
@@ -34,7 +36,14 @@ struct StudyView: View {
     }
     let scheduler = SpacedRepetitionScheduler(config: config)
     let answers = scheduler.scheduleItem(scheduler.makeSchedulingItem(for: card))
-    return CardView.Properties(card: card, answers: answers, model: model, note: note, baseURL: studySession.collectionDatabase.url)
+    return CardView.Properties(
+      card: card,
+      stackIndex: stackIndex,
+      answers: answers,
+      model: model,
+      note: note,
+      baseURL: studySession.collectionDatabase.url
+    )
   }
 
   private func processAnswer(_ answer: CardAnswer, studyTime: TimeInterval) {
@@ -43,6 +52,16 @@ struct StudyView: View {
       try studySession.recordAnswer(answer, studyTime: studyTime)
     } catch {
       logger.error("Unexpected error recording answer: \(error)")
+    }
+  }
+}
+
+private extension View {
+  func hidden(_ hide: Bool) -> some View {
+    if hide {
+      return AnyView(hidden())
+    } else {
+      return AnyView(self)
     }
   }
 }

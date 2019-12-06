@@ -14,9 +14,9 @@ struct StudyView: View {
           .scaleEffect(1.0 - CGFloat(properties.stackIndex) * 0.1)
           .offset(x: 0.0, y: -1 * CGFloat(properties.stackIndex) * 24)
           .hidden(properties.stackIndex >= 3)
+          .zIndex(-1 * Double(properties.stackIndex))
       }
     }
-    .animation(.easeInOut)
   }
 
   private func cardViewProperties(for card: Card, stackIndex: Int) throws -> CardView.Properties {
@@ -49,7 +49,9 @@ struct StudyView: View {
   private func processAnswer(_ answer: CardAnswer, studyTime: TimeInterval) {
     logger.info("Card answer = \(answer)")
     do {
-      try studySession.recordAnswer(answer, studyTime: studyTime)
+      try withAnimation(.easeInOut(duration: 0.5)) {
+        try studySession.recordAnswer(answer, studyTime: studyTime)
+      }
     } catch {
       logger.error("Unexpected error recording answer: \(error)")
     }

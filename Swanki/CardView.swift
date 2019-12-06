@@ -3,6 +3,43 @@
 import Mustache
 import SwiftUI
 
+private extension CardAnswer {
+  var correctish: Bool {
+    switch self {
+    case .again, .hard:
+      return false
+    case .good, .easy:
+      return true
+    }
+  }
+}
+
+private struct ZIndexViewModifier: ViewModifier {
+  let zIndex: Double
+
+  func body(content: Content) -> some View {
+    content.zIndex(zIndex)
+  }
+}
+
+private extension AnyTransition {
+  static func zIndex(_ zIndex: Double) -> AnyTransition {
+    AnyTransition.modifier(
+      active: ZIndexViewModifier(zIndex: 0),
+      identity: ZIndexViewModifier(zIndex: zIndex)
+    )
+  }
+
+  static func cardTransition(answer: CardAnswer?) -> AnyTransition {
+    .asymmetric(
+      insertion: .opacity,
+      removal: AnyTransition
+        .move(edge: (answer?.correctish ?? false) ? .trailing : .leading)
+        .combined(with: .zIndex(1000))
+    )
+  }
+}
+
 struct CardView: View {
   struct Properties: Identifiable {
     var id: Int { card.id }
@@ -19,18 +56,23 @@ struct CardView: View {
 
   @State private var side = Side.front
   @State private var showedFront: CFTimeInterval = 0
+  @State private var answer: CardAnswer?
 
   var body: some View {
-    VStack {
-      HTMLView(title: "quiz", html: renderedSide, baseURL: properties.baseURL, backgroundColor: .secondarySystemBackground)
-      buttonRowOrEmpty
-        .frame(height: 100.0)
+    ScrollView {
+      VStack {
+        HTMLView(title: "quiz", html: renderedSide, baseURL: properties.baseURL, backgroundColor: .secondarySystemBackground)
+          .opacity(properties.stackIndex == 0 ? 1 : 0)
+        buttonRowOrEmpty
+          .frame(height: 100.0)
+      }
     }
     .contentShape(Rectangle())
     .onTapGesture {
-      self.flipToBack()
+      withAnimation {
+        self.flipToBack()
+      }
     }
-    .animation(.easeInOut)
     .onAppear {
       self.showedFront = CACurrentMediaTime()
     }
@@ -42,6 +84,7 @@ struct CardView: View {
       }
     )
     .padding(.all)
+    .transition(.cardTransition(answer: answer))
   }
 
   var buttonRowOrEmpty: some View {
@@ -49,6 +92,7 @@ struct CardView: View {
       if side == .back {
         CardAnswerButtonRow(answers: properties.answers, didSelectAnswer: {
           self.side = Side.front
+          self.answer = $0
           self.didSelectAnswer?($0, CACurrentMediaTime() - self.showedFront)
         })
       } else {

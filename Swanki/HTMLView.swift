@@ -10,6 +10,14 @@ private let layoutLogger: Logger = {
   return logger
 }()
 
+struct HTMLViewIdealHeightKey: PreferenceKey {
+  static var defaultValue: CGFloat = 0
+
+  static func reduce(value: inout CGFloat, nextValue: () -> CGFloat) {
+    value = max(value, nextValue())
+  }
+}
+
 struct HTMLView: View {
   /// Editable initializer.
   init(
@@ -60,14 +68,16 @@ struct HTMLView: View {
   @State private var desiredHeight: CGFloat = 100
 
   var body: some View {
-    AztecView(
+    logger.debug("Rendering HTMLView.body with desiredHeight = \(desiredHeight)")
+    return AztecView(
       html: $html,
       baseURL: baseURL,
       isEditable: isEditable,
       backgroundColor: backgroundColor,
       desiredHeight: $desiredHeight
     )
-    .frame(height: desiredHeight)
+    .frame(idealHeight: desiredHeight)
+    .preference(key: HTMLViewIdealHeightKey.self, value: desiredHeight)
     .accessibility(label: Text(verbatim: title))
   }
 }

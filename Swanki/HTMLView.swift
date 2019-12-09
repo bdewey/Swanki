@@ -114,7 +114,7 @@ private extension HTMLView {
     func updateUIView(_ textView: TextView, context: UIViewRepresentableContext<AztecView>) {
       if html != context.coordinator.html {
         context.coordinator.html = html
-        context.coordinator.suppressLayoutNotifications {
+        textView.suppressLayoutNotifications {
           textView.setHTML(html)
         }
       }
@@ -134,20 +134,11 @@ private extension HTMLView {
       /// The most recent raw HTML string set on `view`
       var html: String?
 
-      var updateViewAsynchronousCount = 0
-
       /// Weak reference to the assocated textView
       weak var textView: UITextView?
 
       init(_ view: AztecView) {
         self.view = view
-      }
-
-      /// Prevents layoutManager delegate notifications from being sent as a consequence of actions performed in `block`
-      func suppressLayoutNotifications(during block: () -> Void) {
-        updateViewAsynchronousCount += 1
-        block()
-        updateViewAsynchronousCount -= 1
       }
 
       func textView(
@@ -236,18 +227,18 @@ extension HTMLView.AztecView.Coordinator: NSLayoutManagerDelegate {
       textView.textContainerInset.top +
       textView.textContainerInset.bottom
     if containerHeight != view.desiredHeight {
-      let changeBlock: () -> Void = { [view] in
-        layoutLogger.debug("Changing height from \(view.desiredHeight) to \(containerHeight)")
-        view.desiredHeight = containerHeight
-      }
-      if updateViewAsynchronousCount > 0 {
-        DispatchQueue.main.async(execute: changeBlock)
-      } else {
-        changeBlock()
-      }
+      layoutLogger.debug("Changing height from \(view.desiredHeight) to \(containerHeight)")
+      view.desiredHeight = containerHeight
     }
   }
 }
 
 private extension TextView {
+  /// Prevents layoutManager delegate notifications from being sent as a consequence of actions performed in `block`
+  func suppressLayoutNotifications(during block: () -> Void) {
+    let existingDelegate = layoutManager.delegate
+    layoutManager.delegate = nil
+    block()
+    layoutManager.delegate = existingDelegate
+  }
 }

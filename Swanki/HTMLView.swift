@@ -10,14 +10,6 @@ private let layoutLogger: Logger = {
   return logger
 }()
 
-struct HTMLViewIdealHeightKey: PreferenceKey {
-  static var defaultValue: CGFloat = 0
-
-  static func reduce(value: inout CGFloat, nextValue: () -> CGFloat) {
-    value = max(value, nextValue())
-  }
-}
-
 struct HTMLView: View {
   /// Editable initializer.
   init(
@@ -76,8 +68,7 @@ struct HTMLView: View {
       backgroundColor: backgroundColor,
       desiredHeight: $desiredHeight
     )
-    .frame(idealHeight: desiredHeight)
-    .preference(key: HTMLViewIdealHeightKey.self, value: desiredHeight)
+    .frame(idealHeight: desiredHeight, maxHeight: desiredHeight)
     .accessibility(label: Text(verbatim: title))
   }
 }

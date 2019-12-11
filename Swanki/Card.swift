@@ -38,7 +38,8 @@ public struct Card: Codable, FetchableRecord, PersistableRecord, Identifiable, E
   public var lapses = 0
   public var left = 0
 
-  // MARK: Unused 
+  // MARK: Unused
+
   public let usn = 0
   public let odue = 0
   public let odid = 0

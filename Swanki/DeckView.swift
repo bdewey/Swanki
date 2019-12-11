@@ -30,7 +30,6 @@ struct DeckView: View {
 }
 
 private struct DeckRow: View {
-
   @ObservedObject var studySession: StudySession
 
   @State private var studyViewNavigation = false

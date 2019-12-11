@@ -57,51 +57,38 @@ struct CardView: View {
   @State private var side = Side.front
   @State private var showedFront: CFTimeInterval = 0
   @State private var answer: CardAnswer?
-  @State private var stackHeight: CGFloat = CGFloat.greatestFiniteMagnitude
 
   var body: some View {
-    GeometryReader { geometry in
-      return VStack {
-        HTMLView(title: "quiz", html: self.renderedSide, baseURL: self.properties.baseURL, backgroundColor: .secondarySystemBackground)
-          .opacity(self.properties.stackIndex == 0 ? 1 : 0)
-          .border(Color.purple, width: 2)
-        self.buttonRowOrEmpty
-          .frame(height: 100.0)
-          .border(Color.green, width: 2)
-          .layoutPriority(1)
+    VStack {
+      HTMLView(title: "quiz", html: self.renderedSide, baseURL: self.properties.baseURL, backgroundColor: .secondarySystemBackground)
+        .opacity(self.properties.stackIndex == 0 ? 1 : 0)
+      self.buttonRowOrEmpty
+        .layoutPriority(1)
+    }
+    .contentShape(Rectangle())
+    .onTapGesture {
+      withAnimation {
+        self.flipToBack()
       }
-      .onPreferenceChange(HTMLViewIdealHeightKey.self, perform: {
-        let stackHeight = min($0 + 100 + 5, geometry.size.height)
-        logger.debug("Setting stackHeight to \(stackHeight) on preference of \($0) \(geometry.size.height)")
-        self.stackHeight = stackHeight
-      })
-        .frame(maxHeight: self.stackHeight)
-        .contentShape(Rectangle())
-        .onTapGesture {
-          withAnimation {
-            self.flipToBack()
-          }
+    }
+    .onAppear {
+      self.showedFront = CACurrentMediaTime()
+    }
+    .padding(.all)
+    .background(
+      ZStack {
+        RoundedRectangle(cornerRadius: 20).fill(Color(UIColor.secondarySystemBackground))
+        RoundedRectangle(cornerRadius: 20).stroke(Color.black, lineWidth: 1)
       }
-      .onAppear {
-        self.showedFront = CACurrentMediaTime()
-      }
-      .padding(.all)
-      .background(
-        ZStack {
-          RoundedRectangle(cornerRadius: 20).fill(Color(UIColor.secondarySystemBackground))
-          RoundedRectangle(cornerRadius: 20).stroke(Color.black, lineWidth: 1)
-        }
-      )
-        .padding(.all)
-        .transition(.cardTransition(answer: self.answer))
-    }.border(Color.yellow, width: 2)
+    )
+    .padding(.all)
+    .transition(.cardTransition(answer: self.answer))
   }
 
   var buttonRowOrEmpty: some View {
     VStack {
       if side == .back {
         CardAnswerButtonRow(answers: properties.answers, didSelectAnswer: {
-          self.side = Side.front
           self.answer = $0
           self.didSelectAnswer?($0, CACurrentMediaTime() - self.showedFront)
         })

@@ -16,7 +16,7 @@ struct CardAnswerButtonRow: View {
       ForEach(buttonProperties, id: \.self) { properties in
         self.button(properties: properties)
       }
-    }
+    }.frame(height: 100)
   }
 
   private var buttonProperties: [ButtonProperties] {

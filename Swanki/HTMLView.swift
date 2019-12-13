@@ -96,23 +96,12 @@ private extension HTMLView {
         defaultFont: UIFont.preferredFont(forTextStyle: .body),
         defaultMissingImage: Images.defaultMissing
       )
-      textView.textAttachmentDelegate = context.coordinator
       context.coordinator.textView = textView
-      textView.delegate = context.coordinator
-      textView.layoutManager.delegate = context.coordinator
       return textView
     }
 
     func updateUIView(_ textView: TextView, context: UIViewRepresentableContext<AztecView>) {
-      context.coordinator.isInUpdateView = true
-      defer {
-        context.coordinator.isInUpdateView = false
-      }
-      if html != context.coordinator.html {
-        layoutLogger.debug("Changing HTML content")
-        context.coordinator.html = html
-        textView.setHTML(html)
-      }
+      context.coordinator.coordinatedHTMLUpdate(html)
       // Try to keep the bottom of the text in the viewport.
       // TODO: Should this be customizable behavior? What happens if the person starts
       // editing -- do they ever get tp see content that's scrolled off the top?
@@ -137,34 +126,27 @@ private extension HTMLView {
       var view: AztecView
 
       /// The most recent raw HTML string set on `view`
-      var html: String?
+      private var html: String?
 
-      /// Weak reference to the assocated textView
-      weak var textView: UITextView?
+      private var isSettingHTML = false
 
-      /// True if we are currently updating the view and need to defer state changes.
-      var isInUpdateView = false {
-        didSet {
-          if !isInUpdateView, let updateBlock = deferredUpdateBlock {
-            logger.debug("Scheduling a deferred update block")
-            DispatchQueue.main.async {
-              updateBlock(self.view)
-            }
-            deferredUpdateBlock = nil
-          }
-        }
+      func coordinatedHTMLUpdate(_ html: String) {
+        guard html != self.html else { return }
+        self.html = html
+        isSettingHTML = true
+        textView?.setHTML(html)
+        isSettingHTML = false
       }
 
-      /// Performs an update when it is safe to do so (the update will get dispatched to later if we are currently updating the view)
-      /// Multiple calls to this within a single `isInUpdateView` scope will get consolidated -- only the last one wins.
-      // TODO: Is there a way to make this generic? Is it even a good idea to do so? What about
-      // the consolidation -- this seems strange. Does the SwiftUI infrastructure properly handle this?
-      // Worth testing.
-      private func updateViewWhenSafe(_ updateBlock: @escaping (AztecView) -> Void) {
-        if isInUpdateView {
-          deferredUpdateBlock = updateBlock
-        } else {
-          updateBlock(view)
+      /// Our associated Aztec TextVieiiw
+      var textView: TextView! {
+        willSet {
+          assert(textView == nil)
+        }
+        didSet {
+          textView.textAttachmentDelegate = self
+          textView.delegate = self
+          textView.layoutManager.delegate = self
         }
       }
 
@@ -233,7 +215,7 @@ extension HTMLView.AztecView.Coordinator: UITextViewDelegate {
   func textViewDidChange(_ textView: UITextView) {
     // When we're inside the updateView call, we're going to get this callback. We'll get infinite
     // updates if we modify the HTML here.
-    guard !isInUpdateView, let htmlView = textView as? TextView else {
+    guard !isSettingHTML, let htmlView = textView as? TextView else {
       return
     }
     let html = htmlView.getHTML()
@@ -244,29 +226,23 @@ extension HTMLView.AztecView.Coordinator: UITextViewDelegate {
 }
 
 extension HTMLView.AztecView.Coordinator: NSLayoutManagerDelegate {
+  private func setDesiredHeightLayoutUsedRect(_ layoutUsedRect: CGRect) {
+    guard let textView = textView else { return }
+    let containerHeight = ceil(layoutUsedRect.height) +
+      textView.textContainerInset.top +
+      textView.textContainerInset.bottom
+    view.desiredHeight = containerHeight
+  }
+
   func layoutManager(
     _ layoutManager: NSLayoutManager,
     didCompleteLayoutFor textContainer: NSTextContainer?,
     atEnd layoutFinishedFlag: Bool
   ) {
-    guard layoutFinishedFlag else { return }
-    guard
-      let container = layoutManager.textContainers.first,
-      let textView = textView
-    else {
-      assertionFailure("Unexpected text container configuration")
-      return
-    }
-    let containerHeight = ceil(layoutManager.usedRect(for: container).height) +
-      textView.textContainerInset.top +
-      textView.textContainerInset.bottom
-    if containerHeight != view.desiredHeight {
-      updateViewWhenSafe { view in
-        if containerHeight != view.desiredHeight {
-          layoutLogger.debug("Changing height from \(view.desiredHeight) to \(containerHeight)")
-          view.desiredHeight = containerHeight
-        }
-      }
+    guard layoutFinishedFlag, let textContainer = textContainer else { return }
+    let layoutUsedRect = layoutManager.usedRect(for: textContainer)
+    DispatchQueue.main.async { [weak self] in
+      self?.setDesiredHeightLayoutUsedRect(layoutUsedRect)
     }
   }
 }

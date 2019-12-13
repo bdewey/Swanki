@@ -113,6 +113,15 @@ private extension HTMLView {
         context.coordinator.html = html
         textView.setHTML(html)
       }
+      // Try to keep the bottom of the text in the viewport.
+      // TODO: Should this be customizable behavior? What happens if the person starts
+      // editing -- do they ever get tp see content that's scrolled off the top?
+      // Needs experimentation.
+      let overflowY = max(0, textView.contentSize.height - textView.bounds.maxY)
+      if overflowY > 0 {
+        layoutLogger.debug("Adjusting Y offset by \(overflowY) points (bounds max = \(textView.bounds.maxY), content height = \(textView.contentSize.height))")
+        textView.contentOffset.y += overflowY
+      }
       textView.isEditable = isEditable
       textView.backgroundColor = backgroundColor
     }

@@ -91,6 +91,7 @@ private extension HTMLView {
     @Binding var desiredHeight: CGFloat
 
     func makeUIView(context: UIViewRepresentableContext<AztecView>) -> Aztec.TextView {
+      layoutLogger.debug("Making a new Aztec view")
       let textView = TextView(
         defaultFont: UIFont.preferredFont(forTextStyle: .body),
         defaultMissingImage: Images.defaultMissing
@@ -103,17 +104,21 @@ private extension HTMLView {
     }
 
     func updateUIView(_ textView: TextView, context: UIViewRepresentableContext<AztecView>) {
+      context.coordinator.isInUpdateView = true
+      defer {
+        context.coordinator.isInUpdateView = false
+      }
       if html != context.coordinator.html {
+        layoutLogger.debug("Changing HTML content")
         context.coordinator.html = html
-        textView.suppressLayoutNotifications {
-          textView.setHTML(html)
-        }
+        textView.setHTML(html)
       }
       textView.isEditable = isEditable
       textView.backgroundColor = backgroundColor
     }
 
     func makeCoordinator() -> Coordinator {
+      layoutLogger.debug("Making a new coordinator")
       return Coordinator(self)
     }
 
@@ -127,6 +132,34 @@ private extension HTMLView {
 
       /// Weak reference to the assocated textView
       weak var textView: UITextView?
+
+      /// True if we are currently updating the view and need to defer state changes.
+      var isInUpdateView = false {
+        didSet {
+          if !isInUpdateView, let updateBlock = deferredUpdateBlock {
+            logger.debug("Scheduling a deferred update block")
+            DispatchQueue.main.async {
+              updateBlock(self.view)
+            }
+            deferredUpdateBlock = nil
+          }
+        }
+      }
+
+      /// Performs an update when it is safe to do so (the update will get dispatched to later if we are currently updating the view)
+      /// Multiple calls to this within a single `isInUpdateView` scope will get consolidated -- only the last one wins.
+      // TODO: Is there a way to make this generic? Is it even a good idea to do so? What about
+      // the consolidation -- this seems strange. Does the SwiftUI infrastructure properly handle this?
+      // Worth testing.
+      private func updateViewWhenSafe(_ updateBlock: @escaping (AztecView) -> Void) {
+        if isInUpdateView {
+          deferredUpdateBlock = updateBlock
+        } else {
+          updateBlock(view)
+        }
+      }
+
+      var deferredUpdateBlock: ((AztecView) -> Void)?
 
       init(_ view: AztecView) {
         self.view = view
@@ -189,8 +222,9 @@ private extension HTMLView {
 
 extension HTMLView.AztecView.Coordinator: UITextViewDelegate {
   func textViewDidChange(_ textView: UITextView) {
-    guard let htmlView = textView as? TextView else {
-      assertionFailure("Expected an Aztec.TextView")
+    // When we're inside the updateView call, we're going to get this callback. We'll get infinite
+    // updates if we modify the HTML here.
+    guard !isInUpdateView, let htmlView = textView as? TextView else {
       return
     }
     let html = htmlView.getHTML()
@@ -218,18 +252,12 @@ extension HTMLView.AztecView.Coordinator: NSLayoutManagerDelegate {
       textView.textContainerInset.top +
       textView.textContainerInset.bottom
     if containerHeight != view.desiredHeight {
-      layoutLogger.debug("Changing height from \(view.desiredHeight) to \(containerHeight)")
-      view.desiredHeight = containerHeight
+      updateViewWhenSafe { view in
+        if containerHeight != view.desiredHeight {
+          layoutLogger.debug("Changing height from \(view.desiredHeight) to \(containerHeight)")
+          view.desiredHeight = containerHeight
+        }
+      }
     }
-  }
-}
-
-private extension TextView {
-  /// Prevents layoutManager delegate notifications from being sent as a consequence of actions performed in `block`
-  func suppressLayoutNotifications(during block: () -> Void) {
-    let existingDelegate = layoutManager.delegate
-    layoutManager.delegate = nil
-    block()
-    layoutManager.delegate = existingDelegate
   }
 }

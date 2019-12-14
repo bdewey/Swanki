@@ -16,7 +16,7 @@ struct NoteView: View {
               title: section.title,
               html: self.note?.field(at: section.index) ?? .constant("WTF"),
               baseURL: self.collectionDatabase.url,
-              backgroundColor: .secondarySystemBackground
+              backgroundColor: .secondarySystemGroupedBackground
             )
           }
         }

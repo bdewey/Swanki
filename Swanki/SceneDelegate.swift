@@ -8,13 +8,22 @@ final class SceneDelegate: UIResponder, UIWindowSceneDelegate {
   var collectionDatabase: CollectionDatabase?
   var window: UIWindow?
 
+  let databases: Databases = {
+    let databases = Databases()
+    databases.scanHomeDirectory()
+    return databases
+  }()
+
   func scene(
     _ scene: UIScene,
     willConnectTo session: UISceneSession,
     options connectionOptions: UIScene.ConnectionOptions
   ) {
-    // Create the SwiftUI view that provides the window contents.
-    let contentView = DeckView().environmentObject(makeCollectionDatabase())
+    if databases.contents.isEmpty {
+      // Create the SwiftUI view that provides the window contents.
+      databases.contents.append(makeDemoDatabase())
+    }
+    let contentView = DeckView(databases: databases)
 
     // Use a UIHostingController as window root view controller.
     if let windowScene = scene as? UIWindowScene {
@@ -55,8 +64,8 @@ final class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
   // MARK: - Private
 
-  private func makeCollectionDatabase() -> CollectionDatabase {
-    let homeDirectory = try! FileManager.default.url(for: .documentDirectory, in: .userDomainMask, appropriateFor: nil, create: true)
+  private func makeDemoDatabase() -> CollectionDatabase {
+    let homeDirectory = (try! FileManager.default.url(for: .documentDirectory, in: .userDomainMask, appropriateFor: nil, create: true)).appendingPathComponent("demo.swanki")
     do {
       let collectionDatabase = CollectionDatabase(url: homeDirectory)
       try collectionDatabase.openDatabase()
@@ -64,12 +73,12 @@ final class SceneDelegate: UIResponder, UIWindowSceneDelegate {
       return collectionDatabase
     } catch {
       let collectionDatabase = CollectionDatabase(url: homeDirectory)
-      rebuildCollectionDatabase(collectionDatabase)
+      rebuildDemoDatabase(collectionDatabase)
       return collectionDatabase
     }
   }
 
-  private func rebuildCollectionDatabase(_ collectionDatabase: CollectionDatabase) {
+  private func rebuildDemoDatabase(_ collectionDatabase: CollectionDatabase) {
     do {
       try collectionDatabase.emptyContainer()
       if let url = Bundle.main.url(forResource: "AncientHistory", withExtension: "apkg", subdirectory: "SampleData") {

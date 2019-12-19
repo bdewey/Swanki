@@ -21,7 +21,9 @@ public struct AnkiTemplate {
   public let template: String
 
   public func render(_ context: Any? = nil) throws -> String {
-    return Self.renderSections(template: template, context: context)
+    var result = Self.renderSections(template: template, context: context)
+    result = Self.renderTags(template: result, context: context)
+    return result
   }
 }
 
@@ -66,11 +68,26 @@ private extension AnkiTemplate {
     }
     return template
   }
+
+  private static func renderTags(template: String, context: Any?) -> String {
+    var template = template
+    while let result = RegularExpression.tag.firstMatch(in: template, options: [], range: template.entireRange) {
+      // If sectionRange or inner are nil, that's a programming error and not a template error.
+      // Crash instead of throw.
+      let sectionRange = Range(result.range(at: 0), in: template)!
+      let _ = result.captureGroup(in: 1, text: template)
+      let tagName = result.captureGroup(in: 2, text: template)!
+
+      let replacement = valueFromContext(context, name: tagName) ?? ""
+      template.replaceSubrange(sectionRange, with: replacement)
+    }
+    return template
+  }
 }
 
-private func valueFromContext(_ context: Any?, name: String) -> Any? {
-  if let dictionary = context as? [String: Any] {
-    return dictionary[name]
+private func valueFromContext(_ context: Any?, name: String) -> String? {
+  if let dictionary = context as? [String: Any], let value = dictionary[name] {
+    return String(describing: value)
   }
   return nil
 }

@@ -11,15 +11,6 @@
         }
       },
       {
-        "package": "Mustache",
-        "repositoryURL": "https://github.com/groue/GRMustache.swift",
-        "state": {
-          "branch": null,
-          "revision": "671e2c5234e829c1f337c9d300bd6d9b21d1c42a",
-          "version": "4.0.1"
-        }
-      },
-      {
         "package": "swift-log",
         "repositoryURL": "https://github.com/apple/swift-log.git",
         "state": {

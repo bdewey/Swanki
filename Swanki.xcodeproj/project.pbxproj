@@ -31,7 +31,6 @@
 		D392638D23A9B450008D09B2 /* AnkiStache.swift in Sources */ = {isa = PBXBuildFile; fileRef = D392638C23A9B450008D09B2 /* AnkiStache.swift */; };
 		D392638F23AA6000008D09B2 /* AnkiTemplateTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D392638E23AA6000008D09B2 /* AnkiTemplateTests.swift */; };
 		D396683F2364924A0015DB82 /* CardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D396683E2364924A0015DB82 /* CardView.swift */; };
-		D396684223650B940015DB82 /* Mustache in Frameworks */ = {isa = PBXBuildFile; productRef = D396684123650B940015DB82 /* Mustache */; };
 		D39668442365EE9D0015DB82 /* WebView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D39668432365EE9D0015DB82 /* WebView.swift */; };
 		D3966846236DDC9A0015DB82 /* CardAnswerButtonRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3966845236DDC9A0015DB82 /* CardAnswerButtonRow.swift */; };
 		D3966848236DECA40015DB82 /* CardAnswer.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3966847236DECA40015DB82 /* CardAnswer.swift */; };
@@ -136,7 +135,6 @@
 			files = (
 				D325FDB1235A8B92002AC9C9 /* GRDB in Frameworks */,
 				D325FDAB2359F288002AC9C9 /* Zipper in Frameworks */,
-				D396684223650B940015DB82 /* Mustache in Frameworks */,
 				63A505C423880E2400E93016 /* Aztec.framework in Frameworks */,
 				D325FDA523589F12002AC9C9 /* Logging in Frameworks */,
 			);
@@ -195,6 +193,7 @@
 		D32BCEA5235829750036768A /* Swanki */ = {
 			isa = PBXGroup;
 			children = (
+				D392638C23A9B450008D09B2 /* AnkiStache.swift */,
 				D32BCEA6235829750036768A /* AppDelegate.swift */,
 				D32BCEAC235829770036768A /* Assets.xcassets */,
 				D3B71451235C22B700F2AFB2 /* Card.swift */,
@@ -204,6 +203,7 @@
 				D3B7144D235BB5A500F2AFB2 /* CollectionDatabase.swift */,
 				D3B714592363212200F2AFB2 /* CollectionDatabase+Previews.swift */,
 				D325FDB4235B57AC002AC9C9 /* CollectionMetadata.swift */,
+				D392638A23A74E32008D09B2 /* Databases.swift */,
 				D3E159E42390790000940661 /* Date+Anki.swift */,
 				D3B7144F235C189300F2AFB2 /* DeckConfig.swift */,
 				D3B71457235DDB1C00F2AFB2 /* DeckView.swift */,
@@ -220,14 +220,12 @@
 				D3E159E0238E0EC200940661 /* ObservableDeck.swift */,
 				D32BCEAE235829770036768A /* Preview Content */,
 				D32BCEA8235829750036768A /* SceneDelegate.swift */,
-				D392638A23A74E32008D09B2 /* Databases.swift */,
 				D3E525AE2377221C00C1E549 /* SpacedRepetitionScheduler.swift */,
 				D351006E2378986600CE2D7E /* SpacedRepetitionScheduler+Card.swift */,
 				D3E159E6239083FA00940661 /* StudySession.swift */,
 				D3B71453235CB7D000F2AFB2 /* StudyView.swift */,
 				D351006C237897A500CE2D7E /* TimeInterval+Fuzzing.swift */,
 				D39668432365EE9D0015DB82 /* WebView.swift */,
-				D392638C23A9B450008D09B2 /* AnkiStache.swift */,
 			);
 			path = Swanki;
 			sourceTree = "<group>";
@@ -243,9 +241,9 @@
 		D32BCEBC235829770036768A /* SwankiTests */ = {
 			isa = PBXGroup;
 			children = (
+				D392638E23AA6000008D09B2 /* AnkiTemplateTests.swift */,
 				D32BCEBF235829770036768A /* Info.plist */,
 				D3E525B0237725A500C1E549 /* SpacedRepetitionSchedulerTests.swift */,
-				D392638E23AA6000008D09B2 /* AnkiTemplateTests.swift */,
 			);
 			path = SwankiTests;
 			sourceTree = "<group>";
@@ -280,7 +278,6 @@
 				D325FDA423589F12002AC9C9 /* Logging */,
 				D325FDAA2359F288002AC9C9 /* Zipper */,
 				D325FDB0235A8B92002AC9C9 /* GRDB */,
-				D396684123650B940015DB82 /* Mustache */,
 			);
 			productName = Swanki;
 			productReference = D32BCEA3235829750036768A /* Swanki.app */;
@@ -358,7 +355,6 @@
 				D325FDA323589F12002AC9C9 /* XCRemoteSwiftPackageReference "swift-log" */,
 				D325FDA92359F288002AC9C9 /* XCRemoteSwiftPackageReference "Zipper" */,
 				D325FDAF235A8B91002AC9C9 /* XCRemoteSwiftPackageReference "GRDB.swift" */,
-				D396684023650B940015DB82 /* XCRemoteSwiftPackageReference "GRMustache" */,
 			);
 			productRefGroup = D32BCEA4235829750036768A /* Products */;
 			projectDirPath = "";
@@ -800,14 +796,6 @@
 				minimumVersion = 4.5.0;
 			};
 		};
-		D396684023650B940015DB82 /* XCRemoteSwiftPackageReference "GRMustache" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/groue/GRMustache.swift";
-			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 4.0.1;
-			};
-		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -825,11 +813,6 @@
 			isa = XCSwiftPackageProductDependency;
 			package = D325FDAF235A8B91002AC9C9 /* XCRemoteSwiftPackageReference "GRDB.swift" */;
 			productName = GRDB;
-		};
-		D396684123650B940015DB82 /* Mustache */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = D396684023650B940015DB82 /* XCRemoteSwiftPackageReference "GRMustache" */;
-			productName = Mustache;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

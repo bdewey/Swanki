@@ -1,6 +1,5 @@
 // Copyright © 2019 Brian's Brain. All rights reserved.
 
-import Mustache
 import SwiftUI
 
 private extension CardAnswer {
@@ -121,23 +120,18 @@ private extension CardView {
   }
 
   func text(for side: Side) throws -> String {
-    let template = try Template(string: mustacheTemplate(for: side))
+    let template = AnkiTemplate(template: mustacheTemplate(for: side))
     var data = [String: Any]()
     for field in properties.model.fields {
       data[field.name] = properties.note.fieldsArray[field.ord]
     }
     if side == .back {
-      data["FrontSide"] = try Template(string: mustacheTemplate(for: .front)).render(data)
+      data["FrontSide"] = try AnkiTemplate(template: mustacheTemplate(for: .front)).render(data)
     }
     return try template.render(data)
   }
 
-  static let initializeMustache: Void = {
-    Mustache.DefaultConfiguration.contentType = .text
-  }()
-
   func mustacheTemplate(for side: Side) -> String {
-    _ = CardView.initializeMustache
     let template = properties.model.templates[properties.card.templateIndex]
     switch side {
     case .front:

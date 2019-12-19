@@ -91,6 +91,13 @@
 			<array/>
 			<key>UTTypeIdentifier</key>
 			<string>org.brians-brain.anki-package</string>
+			<key>UTTypeTagSpecification</key>
+			<dict>
+				<key>public.filename-extension</key>
+				<array>
+					<string>apkg</string>
+				</array>
+			</dict>
 		</dict>
 	</array>
 </dict>

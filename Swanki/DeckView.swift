@@ -4,7 +4,8 @@ import GRDB
 import SwiftUI
 
 struct DeckView: View {
-  @EnvironmentObject var collectionDatabase: CollectionDatabase
+  @ObservedObject var databases: Databases
+  @State private var showImporter = false
 
   var body: some View {
     NavigationView {
@@ -12,21 +13,34 @@ struct DeckView: View {
       // in buggy behavior when there's more than one tap action / button in the row.
       ScrollView {
         Divider()
-        ForEach(sortedDecks) { deckModel in
+        ForEach(sortedDecks) { databaseAndDeck in
           VStack {
-            DeckRow(studySession: StudySession(collectionDatabase: self.collectionDatabase, deckModel: deckModel)).padding()
+            DeckRow(studySession: StudySession(collectionDatabase: databaseAndDeck.database, deckModel: databaseAndDeck.deck)).padding()
             Divider()
           }
         }
       }
       .navigationBarTitle("Decks")
+      .navigationBarItems(trailing: Button(action: { self.showImporter = true }, label: { Image(systemName: "plus.circle").font(.title) }))
+      .sheet(isPresented: $showImporter, content: { ImportView(didPickURL: self.databases.importPackage) })
     }
     .navigationViewStyle(StackNavigationViewStyle())
   }
 
-  var sortedDecks: [DeckModel] {
-    Array(collectionDatabase.deckModels.values.sorted(by: { $0.name < $1.name }))
+  private var sortedDecks: [DatabaseAndDeck] {
+    let decks = databases.contents.map { database in
+      database.deckModels.map {
+        DatabaseAndDeck(database: database, deck: $0.value)
+      }
+    }.joined()
+    return Array(decks.sorted(by: { $0.deck.name < $1.deck.name }))
   }
+}
+
+private struct DatabaseAndDeck: Identifiable {
+  var id: Int { deck.id }
+  let database: CollectionDatabase
+  let deck: DeckModel
 }
 
 private struct DeckRow: View {
@@ -44,7 +58,7 @@ private struct DeckRow: View {
             database: studySession.collectionDatabase,
             deckID: studySession.deckModel.id
           ).fetch()
-        ),
+        ).environmentObject(studySession.collectionDatabase),
         isActive: self.$browseNavigation,
         label: { EmptyView() }
       )
@@ -63,5 +77,11 @@ private struct DeckRow: View {
       .contentShape(Rectangle()) // You need this so the onTapGesture will work on the entire row, including padding
       .onTapGesture(perform: { self.studyViewNavigation = true })
     }
+  }
+}
+
+struct DeckView_Previews: PreviewProvider {
+  static var previews: some View {
+    DeckView(databases: Databases([CollectionDatabase.testDatabase]))
   }
 }

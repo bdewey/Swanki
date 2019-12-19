@@ -43,7 +43,7 @@ struct NotesView: View {
   private var newNoteButton: some View {
     Button(action: newNoteAction) {
       Image(systemName: "plus.circle")
-    }
+    }.disabled(eligibleNoteModels.isEmpty)
   }
 
   private func deleteNotes(at indexes: IndexSet) {
@@ -51,10 +51,13 @@ struct NotesView: View {
     notesResults.deleteNotes(victims)
   }
 
-  private var noteActionSheet: ActionSheet {
-    var buttons = collectionDatabase.noteModels.values
-      .filter { $0.deckID == notesResults.deckID }
+  private var eligibleNoteModels: [NoteModel] {
+    collectionDatabase.noteModels.values
       .filter { $0.modelType == .standard }
+  }
+
+  private var noteActionSheet: ActionSheet {
+    var buttons = eligibleNoteModels
       .map { model in
         ActionSheet.Button.default(Text(verbatim: model.name), action: { self.draftNote = self.makeDraftNote(from: model) })
       }

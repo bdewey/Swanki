@@ -36,7 +36,7 @@ public final class CollectionDatabase: ObservableObject {
   /// Debug routine: Deletes everything that's currently in the container.
   public func emptyContainer() throws {
     precondition(dbQueue == nil)
-    let items = try FileManager.default.contentsOfDirectory(at: url, includingPropertiesForKeys: nil, options: [])
+    let items = (try? FileManager.default.contentsOfDirectory(at: url, includingPropertiesForKeys: nil, options: [])) ?? []
     for item in items {
       try FileManager.default.removeItem(at: item)
     }

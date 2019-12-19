@@ -22,7 +22,7 @@ public struct LapseConfig: Codable {
   public let minInt: Int
   public let delays: [Int]
   public let leechAction: Int
-  public let mult: Int
+  public let mult: Double
 }
 
 public struct RevConfig: Codable {

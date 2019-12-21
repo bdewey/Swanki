@@ -21,44 +21,37 @@ public final class ObservableDeck: ObservableObject {
   /// The deck we are viewing
   public let deckID: Int
 
-  /// The query.
-  public private(set) lazy var query: QueryInterfaceRequest<Note> = {
-    let ids = noteModels.map { $0.id }
-    return Note.filter(ids.contains(Column("mid")))
-  }()
-
   /// The actual notes.
   @Published public private(set) var notes: [Note] = []
-
-  /// All note models associated with this deck.
-  public private(set) lazy var noteModels: [NoteModel] = {
-    database.noteModels.compactMap { tuple in
-      let (_, value) = tuple
-      if value.deckID == deckID {
-        return value
-      } else {
-        return nil
-      }
-    }
-  }()
 
   /// Fetches the notes.
   @discardableResult
   public func fetch(completion: ((Result<[Note], Error>) -> Void)? = nil) -> Self {
     database.dbQueue!.asyncRead { databaseResult in
-      let queryResult = databaseResult.flatMap { db in
-        Result { try self.query.fetchAll(db) }
-      }
+      let queryResult = databaseResult
+        .flatMap { db in
+          Result {
+            try self.fetchNotes(from: db)
+          }
+        }
       self.updateNotes(queryResult, completion: completion)
     }
     return self
+  }
+
+  private func fetchNotes(from db: Database) throws -> [Note] {
+    let cards = try Card
+      .select(Column("nid"), as: Int.self).distinct()
+      .filter(Column("did") == self.deckID)
+      .fetchAll(db)
+    return try Note.filter(keys: cards).fetchAll(db)
   }
 
   /// Updates a note.
   public func updateNote(_ note: Note, completion: ((Result<[Note], Error>) -> Void)? = nil) {
     database.dbQueue!.asyncWrite({ db -> [Note] in
       try note.update(db)
-      return try self.query.fetchAll(db)
+      return try self.fetchNotes(from: db)
     }, completion: { _, result in
       self.updateNotes(result, completion: completion)
     })
@@ -99,7 +92,7 @@ public final class ObservableDeck: ObservableObject {
         try card.insert(db)
         newID += 1
       }
-      return try self.query.fetchAll(db)
+      return try self.fetchNotes(from: db)
     }, completion: { _, result in
       self.updateNotes(result, completion: completion)
     })
@@ -111,7 +104,7 @@ public final class ObservableDeck: ObservableObject {
         try Card.filter(Column("nid") == note.id).deleteAll(db)
       }
       try Note.deleteAll(db, keys: notes.map { $0.id })
-      return try self.query.fetchAll(db)
+      return try self.fetchNotes(from: db)
     }, completion: { _, result in
       self.updateNotes(result, completion: completion)
     })

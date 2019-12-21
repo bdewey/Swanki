@@ -26,6 +26,7 @@
 		D32BCEC9235829770036768A /* SwankiUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D32BCEC8235829770036768A /* SwankiUITests.swift */; };
 		D351006D237897A500CE2D7E /* TimeInterval+Fuzzing.swift in Sources */ = {isa = PBXBuildFile; fileRef = D351006C237897A500CE2D7E /* TimeInterval+Fuzzing.swift */; };
 		D351006F2378986600CE2D7E /* SpacedRepetitionScheduler+Card.swift in Sources */ = {isa = PBXBuildFile; fileRef = D351006E2378986600CE2D7E /* SpacedRepetitionScheduler+Card.swift */; };
+		D37E2A0923AD9A3600D7913F /* GRDBCombine in Frameworks */ = {isa = PBXBuildFile; productRef = D37E2A0823AD9A3600D7913F /* GRDBCombine */; };
 		D392638923A691E7008D09B2 /* ImportView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D392638823A691E7008D09B2 /* ImportView.swift */; };
 		D392638B23A74E32008D09B2 /* Databases.swift in Sources */ = {isa = PBXBuildFile; fileRef = D392638A23A74E32008D09B2 /* Databases.swift */; };
 		D392638D23A9B450008D09B2 /* AnkiStache.swift in Sources */ = {isa = PBXBuildFile; fileRef = D392638C23A9B450008D09B2 /* AnkiStache.swift */; };
@@ -134,6 +135,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				D325FDB1235A8B92002AC9C9 /* GRDB in Frameworks */,
+				D37E2A0923AD9A3600D7913F /* GRDBCombine in Frameworks */,
 				D325FDAB2359F288002AC9C9 /* Zipper in Frameworks */,
 				63A505C423880E2400E93016 /* Aztec.framework in Frameworks */,
 				D325FDA523589F12002AC9C9 /* Logging in Frameworks */,
@@ -278,6 +280,7 @@
 				D325FDA423589F12002AC9C9 /* Logging */,
 				D325FDAA2359F288002AC9C9 /* Zipper */,
 				D325FDB0235A8B92002AC9C9 /* GRDB */,
+				D37E2A0823AD9A3600D7913F /* GRDBCombine */,
 			);
 			productName = Swanki;
 			productReference = D32BCEA3235829750036768A /* Swanki.app */;
@@ -355,6 +358,7 @@
 				D325FDA323589F12002AC9C9 /* XCRemoteSwiftPackageReference "swift-log" */,
 				D325FDA92359F288002AC9C9 /* XCRemoteSwiftPackageReference "Zipper" */,
 				D325FDAF235A8B91002AC9C9 /* XCRemoteSwiftPackageReference "GRDB.swift" */,
+				D37E2A0723AD9A3600D7913F /* XCRemoteSwiftPackageReference "GRDBCombine" */,
 			);
 			productRefGroup = D32BCEA4235829750036768A /* Products */;
 			projectDirPath = "";
@@ -796,6 +800,14 @@
 				minimumVersion = 4.5.0;
 			};
 		};
+		D37E2A0723AD9A3600D7913F /* XCRemoteSwiftPackageReference "GRDBCombine" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/groue/GRDBCombine";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 0.7.1;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -813,6 +825,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = D325FDAF235A8B91002AC9C9 /* XCRemoteSwiftPackageReference "GRDB.swift" */;
 			productName = GRDB;
+		};
+		D37E2A0823AD9A3600D7913F /* GRDBCombine */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = D37E2A0723AD9A3600D7913F /* XCRemoteSwiftPackageReference "GRDBCombine" */;
+			productName = GRDBCombine;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

@@ -3,6 +3,7 @@
 import Combine
 import Foundation
 import GRDB
+import GRDBCombine
 import Logging
 import Zipper
 
@@ -28,9 +29,55 @@ public final class CollectionDatabase: ObservableObject {
   /// Queue for performing database I/O operations.
   public var dbQueue: DatabaseQueue?
 
+  /// If true, then this
+  public var hasUnsavedChanges = false {
+    willSet {
+      assert(Thread.isMainThread)
+    }
+    didSet {
+      logger.info("collectionDatabase hasUnsavedChanges = \(hasUnsavedChanges)")
+    }
+  }
+
+  private var databaseChangeObserver: AnyCancellable? {
+    willSet {
+      databaseChangeObserver?.cancel()
+    }
+  }
+
   public func openDatabase() throws {
+    assert(Thread.isMainThread)
     precondition(dbQueue == nil)
-    dbQueue = try DatabaseQueue(path: url.appendingPathComponent("collection.anki2").path)
+    let fileQueue = try DatabaseQueue(path: url.appendingPathComponent("collection.anki2").path)
+    let memoryQueue = try DatabaseQueue(path: ":memory:")
+    try fileQueue.backup(to: memoryQueue)
+
+    databaseChangeObserver = DatabaseRegionObservation(tracking: [Note.all(), LogEntry.all()])
+      .publisher(in: memoryQueue)
+      .receive(on: RunLoop.main)
+      .map { [weak self] _ in self?.hasUnsavedChanges = true }
+      .throttle(for: 50, scheduler: RunLoop.main, latest: true)
+      .sink(receiveCompletion: { _ in }, receiveValue: { [weak self] _ in
+        self?.saveIfNeededAndLogError()
+      })
+    dbQueue = memoryQueue
+  }
+
+  public func saveIfNeededAndLogError() {
+    do {
+      try saveIfNeeded()
+    } catch {
+      logger.error("collectionDatabase Unexpected error saving database: \(error)")
+    }
+  }
+
+  public func saveIfNeeded() throws {
+    assert(Thread.isMainThread)
+    guard hasUnsavedChanges, let memoryDatabase = dbQueue else { return }
+    let fileQueue = try DatabaseQueue(path: url.appendingPathComponent("collection.anki2").path)
+    try memoryDatabase.backup(to: fileQueue)
+    hasUnsavedChanges = false
+    logger.info("collectionDatabase Saved database")
   }
 
   /// Debug routine: Deletes everything that's currently in the container.

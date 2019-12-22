@@ -27,6 +27,7 @@
 		D351006D237897A500CE2D7E /* TimeInterval+Fuzzing.swift in Sources */ = {isa = PBXBuildFile; fileRef = D351006C237897A500CE2D7E /* TimeInterval+Fuzzing.swift */; };
 		D351006F2378986600CE2D7E /* SpacedRepetitionScheduler+Card.swift in Sources */ = {isa = PBXBuildFile; fileRef = D351006E2378986600CE2D7E /* SpacedRepetitionScheduler+Card.swift */; };
 		D37E2A0923AD9A3600D7913F /* GRDBCombine in Frameworks */ = {isa = PBXBuildFile; productRef = D37E2A0823AD9A3600D7913F /* GRDBCombine */; };
+		D37E2A0C23AF087800D7913F /* CloudKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D37E2A0B23AF087800D7913F /* CloudKit.framework */; };
 		D392638923A691E7008D09B2 /* ImportView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D392638823A691E7008D09B2 /* ImportView.swift */; };
 		D392638B23A74E32008D09B2 /* Databases.swift in Sources */ = {isa = PBXBuildFile; fileRef = D392638A23A74E32008D09B2 /* Databases.swift */; };
 		D392638D23A9B450008D09B2 /* AnkiStache.swift in Sources */ = {isa = PBXBuildFile; fileRef = D392638C23A9B450008D09B2 /* AnkiStache.swift */; };
@@ -105,6 +106,8 @@
 		D32BCECA235829770036768A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		D351006C237897A500CE2D7E /* TimeInterval+Fuzzing.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "TimeInterval+Fuzzing.swift"; sourceTree = "<group>"; };
 		D351006E2378986600CE2D7E /* SpacedRepetitionScheduler+Card.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SpacedRepetitionScheduler+Card.swift"; sourceTree = "<group>"; };
+		D37E2A0A23AF06CA00D7913F /* Swanki.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Swanki.entitlements; sourceTree = "<group>"; };
+		D37E2A0B23AF087800D7913F /* CloudKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CloudKit.framework; path = System/Library/Frameworks/CloudKit.framework; sourceTree = SDKROOT; };
 		D392638823A691E7008D09B2 /* ImportView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImportView.swift; sourceTree = "<group>"; };
 		D392638A23A74E32008D09B2 /* Databases.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Databases.swift; sourceTree = "<group>"; };
 		D392638C23A9B450008D09B2 /* AnkiStache.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnkiStache.swift; sourceTree = "<group>"; };
@@ -137,6 +140,7 @@
 				D325FDB1235A8B92002AC9C9 /* GRDB in Frameworks */,
 				D37E2A0923AD9A3600D7913F /* GRDBCombine in Frameworks */,
 				D325FDAB2359F288002AC9C9 /* Zipper in Frameworks */,
+				D37E2A0C23AF087800D7913F /* CloudKit.framework in Frameworks */,
 				63A505C423880E2400E93016 /* Aztec.framework in Frameworks */,
 				D325FDA523589F12002AC9C9 /* Logging in Frameworks */,
 			);
@@ -162,6 +166,7 @@
 		63A505C223880E2400E93016 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				D37E2A0B23AF087800D7913F /* CloudKit.framework */,
 				63A505CC2388145000E93016 /* libxml2.tbd */,
 				63A505C323880E2400E93016 /* Aztec.framework */,
 			);
@@ -195,6 +200,7 @@
 		D32BCEA5235829750036768A /* Swanki */ = {
 			isa = PBXGroup;
 			children = (
+				D37E2A0A23AF06CA00D7913F /* Swanki.entitlements */,
 				D392638C23A9B450008D09B2 /* AnkiStache.swift */,
 				D32BCEA6235829750036768A /* AppDelegate.swift */,
 				D32BCEAC235829770036768A /* Assets.xcassets */,
@@ -600,6 +606,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = Swanki/Swanki.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_ASSET_PATHS = "\"Swanki/Preview Content\"";
 				DEVELOPMENT_TEAM = K2UU8WDD8H;
@@ -626,6 +633,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = Swanki/Swanki.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_ASSET_PATHS = "\"Swanki/Preview Content\"";
 				DEVELOPMENT_TEAM = K2UU8WDD8H;

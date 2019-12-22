@@ -1,5 +1,6 @@
 // Copyright © 2019 Brian's Brain. All rights reserved.
 
+import Combine
 import Foundation
 
 /// Holds an observable array of CollectionDatabase objects.
@@ -10,19 +11,50 @@ final class Databases: ObservableObject {
 
   @Published var contents: [CollectionDatabase]
 
-  /// All Swanki databases are written in the user document directory.
-  private let homeDirectory = try! FileManager.default.url(
-    for: .documentDirectory,
-    in: .userDomainMask,
-    appropriateFor: nil,
-    create: true
-  )
+  /// Determines the home directory to use for databases -- either local to the iPhone or the ubiquitous store.
+  /// - note: Expensive; call on a background thread.
+  private static func determineHomeDirectory() -> URL {
+    assert(!Thread.isMainThread)
+    if let containerURL = FileManager.default.url(
+      forUbiquityContainerIdentifier: "iCloud.org.brians-brain.Swanki"
+    )?.appendingPathComponent("Documents") {
+      logger.info("Using iCloud: \(containerURL)")
+      return containerURL
+    }
+    let localURL = try! FileManager.default.url(
+      for: .documentDirectory,
+      in: .userDomainMask,
+      appropriateFor: nil,
+      create: true
+    )
+    logger.info("Using local URL: \(localURL)")
+    return localURL
+  }
 
-  func scanHomeDirectory() {
-    let homeDirectoryContents = (try? FileManager.default.contentsOfDirectory(at: homeDirectory, includingPropertiesForKeys: nil, options: [])) ?? []
-    let databaseURLs = homeDirectoryContents.filter { $0.pathExtension == "swanki" }
-    let openDatabases = databaseURLs.compactMap { try? openDatabase(at: $0) }
-    contents.append(contentsOf: openDatabases)
+  /// Determines which home directory to use in a background thread and provides its value to any subscriber.
+  private let homeDirectoryFuture = Future<URL, Never> { promise in
+    DispatchQueue.global(qos: .default).async {
+      let url = Databases.determineHomeDirectory()
+      promise(.success(url))
+    }
+  }
+
+  /// A place to store the cancellables used for reading the home directory.
+  private var cancellables = Set<AnyCancellable>()
+
+  /// Looks for existing databases in the home directory and adds them to `contents`.
+  /// Because determining the home directory is async,
+  func lookForExistingDatabases(completion: (([CollectionDatabase]) -> Void)? = nil) {
+    homeDirectoryFuture
+      .receive(on: RunLoop.main)
+      .sink { homeDirectory in
+        let homeDirectoryContents = (try? FileManager.default.contentsOfDirectory(at: homeDirectory, includingPropertiesForKeys: nil, options: [])) ?? []
+        let databaseURLs = homeDirectoryContents.filter { $0.pathExtension == "swanki" }
+        let openDatabases = databaseURLs.compactMap { try? self.openDatabase(at: $0) }
+        self.contents.append(contentsOf: openDatabases)
+        completion?(self.contents)
+      }
+      .store(in: &cancellables)
   }
 
   func openDatabase(at url: URL, importing importURL: URL? = nil) throws -> CollectionDatabase {
@@ -51,6 +83,15 @@ final class Databases: ObservableObject {
 
   /// Imports an Anki package (zipped "apkg" file) into a Swanki database.
   func importPackage(at url: URL) {
+    homeDirectoryFuture
+      .receive(on: RunLoop.main)
+      .sink { [weak self] homeDirectory in
+        self?.importPackage(at: url, to: homeDirectory)
+      }
+      .store(in: &cancellables)
+  }
+
+  private func importPackage(at url: URL, to homeDirectory: URL) {
     let bundleURL = homeDirectory
       .appendingPathComponent(url.lastPathComponent, isDirectory: true)
       .deletingPathExtension()
@@ -63,6 +104,42 @@ final class Databases: ObservableObject {
       logger.info("Imported \(bundleURL)")
     } catch {
       logger.error("Unexpected error importing \(url) to \(bundleURL): \(error)")
+    }
+  }
+
+  func makeDemoDatabase() {
+    homeDirectoryFuture
+      .receive(on: RunLoop.main)
+      .sink { [weak self] homeDirectory in
+        self?.makeDemoDatabase(in: homeDirectory)
+      }
+      .store(in: &cancellables)
+  }
+
+  private func makeDemoDatabase(in homeDirectory: URL) {
+    let demoURL = homeDirectory.appendingPathComponent("demo.swanki")
+    do {
+      let collectionDatabase = CollectionDatabase(url: demoURL)
+      try collectionDatabase.openDatabase()
+      try collectionDatabase.fetchMetadata()
+      contents.append(collectionDatabase)
+    } catch {
+      let collectionDatabase = CollectionDatabase(url: demoURL)
+      rebuildDemoDatabase(collectionDatabase)
+      contents.append(collectionDatabase)
+    }
+  }
+
+  private func rebuildDemoDatabase(_ collectionDatabase: CollectionDatabase) {
+    do {
+      try collectionDatabase.emptyContainer()
+      if let url = Bundle.main.url(forResource: "AncientHistory", withExtension: "apkg", subdirectory: "SampleData") {
+        try collectionDatabase.importPackage(url)
+      }
+      try collectionDatabase.openDatabase()
+      try collectionDatabase.fetchMetadata()
+    } catch {
+      fatalError("Could not create database: \(error)")
     }
   }
 }

@@ -10,7 +10,11 @@ final class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
   let databases: Databases = {
     let databases = Databases()
-    databases.scanHomeDirectory()
+    databases.lookForExistingDatabases { foundDatabases in
+      if foundDatabases.isEmpty {
+        databases.makeDemoDatabase()
+      }
+    }
     return databases
   }()
 
@@ -19,10 +23,6 @@ final class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     willConnectTo session: UISceneSession,
     options connectionOptions: UIScene.ConnectionOptions
   ) {
-    if databases.contents.isEmpty {
-      // Create the SwiftUI view that provides the window contents.
-      databases.contents.append(makeDemoDatabase())
-    }
     let contentView = DeckView(databases: databases)
 
     // Use a UIHostingController as window root view controller.
@@ -62,34 +62,5 @@ final class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     // Use this method to save data, release shared resources, and store enough scene-specific state information
     // to restore the scene back to its current state.
     databases.didEnterBackground()
-  }
-
-  // MARK: - Private
-
-  private func makeDemoDatabase() -> CollectionDatabase {
-    let homeDirectory = (try! FileManager.default.url(for: .documentDirectory, in: .userDomainMask, appropriateFor: nil, create: true)).appendingPathComponent("demo.swanki")
-    do {
-      let collectionDatabase = CollectionDatabase(url: homeDirectory)
-      try collectionDatabase.openDatabase()
-      try collectionDatabase.fetchMetadata()
-      return collectionDatabase
-    } catch {
-      let collectionDatabase = CollectionDatabase(url: homeDirectory)
-      rebuildDemoDatabase(collectionDatabase)
-      return collectionDatabase
-    }
-  }
-
-  private func rebuildDemoDatabase(_ collectionDatabase: CollectionDatabase) {
-    do {
-      try collectionDatabase.emptyContainer()
-      if let url = Bundle.main.url(forResource: "AncientHistory", withExtension: "apkg", subdirectory: "SampleData") {
-        try collectionDatabase.importPackage(url)
-      }
-      try collectionDatabase.openDatabase()
-      try collectionDatabase.fetchMetadata()
-    } catch {
-      fatalError("Could not create database: \(error)")
-    }
   }
 }

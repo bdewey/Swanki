@@ -57,7 +57,7 @@ public final class CollectionDatabase: NSObject, ObservableObject {
   public func openDatabase() throws {
     assert(Thread.isMainThread)
     precondition(dbQueue == nil)
-    let coordinator = NSFileCoordinator()
+    let coordinator = NSFileCoordinator(filePresenter: self)
     var coordinatorError: NSError?
     var result: Result<DatabaseQueue, Swift.Error>?
     coordinator.coordinate(readingItemAt: databaseURL, options: [], error: &coordinatorError) { coordinatedURL in
@@ -104,7 +104,7 @@ public final class CollectionDatabase: NSObject, ObservableObject {
     guard isWriteable, hasUnsavedChanges, let memoryDatabase = dbQueue else { return }
     var coordinatorError: NSError?
     var innerError: Swift.Error?
-    NSFileCoordinator().coordinate(writingItemAt: databaseURL, options: [], error: &coordinatorError) { coordinatedURL in
+    NSFileCoordinator(filePresenter: self).coordinate(writingItemAt: databaseURL, options: [], error: &coordinatorError) { coordinatedURL in
       do {
         let fileQueue = try DatabaseQueue(path: coordinatedURL.path)
         try memoryDatabase.backup(to: fileQueue)

@@ -8,7 +8,7 @@ import Logging
 import Zipper
 
 /// Holds the database containing the Anki collection.
-public final class CollectionDatabase: ObservableObject {
+public final class CollectionDatabase: NSObject, ObservableObject {
   public enum Error: Swift.Error {
     case couldNotLoadPackage
     case noDatabaseInPackage
@@ -21,21 +21,30 @@ public final class CollectionDatabase: ObservableObject {
   /// - parameter url: The container URL for the main database and all associated media.
   public init(url: URL) {
     self.url = url
+    self.databaseURL = url.appendingPathComponent("collection.anki2")
   }
 
   /// The URL that holds the main database and all associated media
   public let url: URL
+
+  /// The URL to the database within the the container
+  public let databaseURL: URL
 
   /// Queue for performing database I/O operations.
   public var dbQueue: DatabaseQueue?
 
   /// If true, then this
   public var hasUnsavedChanges = false {
-    willSet {
-      assert(Thread.isMainThread)
-    }
     didSet {
+      assert(Thread.isMainThread)
       logger.info("collectionDatabase hasUnsavedChanges = \(hasUnsavedChanges)")
+    }
+  }
+
+  private var isWriteable = true {
+    didSet {
+      assert(Thread.isMainThread)
+      logger.info("collectionDatabase isWriteable = \(isWriteable)")
     }
   }
 
@@ -48,19 +57,38 @@ public final class CollectionDatabase: ObservableObject {
   public func openDatabase() throws {
     assert(Thread.isMainThread)
     precondition(dbQueue == nil)
-    let fileQueue = try DatabaseQueue(path: url.appendingPathComponent("collection.anki2").path)
-    let memoryQueue = try DatabaseQueue(path: ":memory:")
-    try fileQueue.backup(to: memoryQueue)
+    let coordinator = NSFileCoordinator()
+    var coordinatorError: NSError?
+    var result: Result<DatabaseQueue, Swift.Error>?
+    coordinator.coordinate(readingItemAt: databaseURL, options: [], error: &coordinatorError) { coordinatedURL in
+      result = Result {
+        let fileQueue = try DatabaseQueue(path: coordinatedURL.path)
+        let queue = try DatabaseQueue(path: ":memory:")
+        try fileQueue.backup(to: queue)
+        return queue
+      }
+    }
 
-    databaseChangeObserver = DatabaseRegionObservation(tracking: [Note.all(), LogEntry.all()])
-      .publisher(in: memoryQueue)
-      .receive(on: RunLoop.main)
-      .map { [weak self] _ in self?.hasUnsavedChanges = true }
-      .throttle(for: 50, scheduler: RunLoop.main, latest: true)
-      .sink(receiveCompletion: { _ in }, receiveValue: { [weak self] _ in
-        self?.saveIfNeededAndLogError()
-      })
-    dbQueue = memoryQueue
+    if let coordinatorError = coordinatorError {
+      throw coordinatorError
+    }
+
+    switch result {
+    case .success(let memoryQueue):
+      databaseChangeObserver = DatabaseRegionObservation(tracking: [Note.all(), LogEntry.all()])
+        .publisher(in: memoryQueue)
+        .receive(on: RunLoop.main)
+        .map { [weak self] _ in self?.hasUnsavedChanges = true }
+        .throttle(for: 10, scheduler: RunLoop.main, latest: true)
+        .sink(receiveCompletion: { _ in }, receiveValue: { [weak self] _ in
+          self?.saveIfNeededAndLogError()
+        })
+      dbQueue = memoryQueue
+    case .failure(let error):
+      throw error
+    case .none:
+      throw Error.noDatabaseInPackage
+    }
   }
 
   public func saveIfNeededAndLogError() {
@@ -73,11 +101,25 @@ public final class CollectionDatabase: ObservableObject {
 
   public func saveIfNeeded() throws {
     assert(Thread.isMainThread)
-    guard hasUnsavedChanges, let memoryDatabase = dbQueue else { return }
-    let fileQueue = try DatabaseQueue(path: url.appendingPathComponent("collection.anki2").path)
-    try memoryDatabase.backup(to: fileQueue)
-    hasUnsavedChanges = false
-    logger.info("collectionDatabase Saved database")
+    guard isWriteable, hasUnsavedChanges, let memoryDatabase = dbQueue else { return }
+    var coordinatorError: NSError?
+    var innerError: Swift.Error?
+    NSFileCoordinator().coordinate(writingItemAt: databaseURL, options: [], error: &coordinatorError) { coordinatedURL in
+      do {
+        let fileQueue = try DatabaseQueue(path: coordinatedURL.path)
+        try memoryDatabase.backup(to: fileQueue)
+        hasUnsavedChanges = false
+        logger.info("collectionDatabase Saved database")
+      } catch {
+        innerError = error
+      }
+    }
+    if let coordinatorError = coordinatorError {
+      throw coordinatorError
+    }
+    if let innerError = innerError {
+      throw innerError
+    }
   }
 
   /// Debug routine: Deletes everything that's currently in the container.
@@ -220,6 +262,45 @@ public final class CollectionDatabase: ObservableObject {
       let logEntry = LogEntry(now: Date(), oldCard: card, newCard: newCard, answer: answer, studyTime: studyTime)
       try logEntry.insert(db)
     }
+  }
+}
+
+// MARK: - NSFilePresenter
+extension CollectionDatabase: NSFilePresenter {
+  public var presentedItemURL: URL? {
+    databaseURL
+  }
+
+  public var presentedItemOperationQueue: OperationQueue {
+    OperationQueue.main
+  }
+
+  public func savePresentedItemChanges(completionHandler: @escaping (Swift.Error?) -> Void) {
+    do {
+      try saveIfNeeded()
+      completionHandler(nil)
+    } catch {
+      completionHandler(error)
+    }
+  }
+
+  public func relinquishPresentedItem(toReader reader: @escaping ((() -> Void)?) -> Void) {
+    isWriteable = false
+    reader({
+      self.isWriteable = true
+    })
+  }
+
+  public func relinquishPresentedItem(toWriter writer: @escaping ((() -> Void)?) -> Void) {
+    isWriteable = false
+    writer({
+      self.isWriteable = true
+    })
+  }
+
+  public func presentedItemDidChange() {
+    // TODO: Check if this was a content change or an attribute change
+    try? openDatabase()
   }
 }
 

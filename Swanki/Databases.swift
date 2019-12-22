@@ -32,7 +32,21 @@ final class Databases: ObservableObject {
     }
     try database.openDatabase()
     try database.fetchMetadata()
+    NSFileCoordinator.addFilePresenter(database)
     return database
+  }
+
+  func didEnterBackground() {
+    for database in contents {
+      database.saveIfNeededAndLogError()
+      NSFileCoordinator.removeFilePresenter(database)
+    }
+  }
+
+  func willEnterForeground() {
+    for database in contents {
+      NSFileCoordinator.addFilePresenter(database)
+    }
   }
 
   /// Imports an Anki package (zipped "apkg" file) into a Swanki database.

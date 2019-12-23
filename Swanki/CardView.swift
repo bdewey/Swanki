@@ -90,7 +90,7 @@ struct CardView: View {
         CardAnswerButtonRow(answers: properties.answers, didSelectAnswer: {
           self.answer = $0
           self.didSelectAnswer?($0, CACurrentMediaTime() - self.showedFront)
-        })
+        }).transition(AnyTransition.opacity.combined(with: .scale(scale: 0.01, anchor: .top)))
       } else {
         /*@START_MENU_TOKEN@*/EmptyView()/*@END_MENU_TOKEN@*/
       }

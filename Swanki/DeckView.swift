@@ -21,7 +21,7 @@ struct DeckView: View {
         }
       }
       .navigationBarTitle("Decks")
-      .navigationBarItems(trailing: Button(action: { self.showImporter = true }, label: { Image(systemName: "plus.circle").font(.title) }))
+      .navigationBarItems(trailing: Button(action: { self.showImporter = true }, label: { Text("Import") }))
       .sheet(isPresented: $showImporter, content: { ImportView(didPickURL: self.databases.importPackage) })
     }
     .navigationViewStyle(StackNavigationViewStyle())

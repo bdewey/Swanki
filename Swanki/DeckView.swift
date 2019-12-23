@@ -29,9 +29,11 @@ struct DeckView: View {
 
   private var sortedDecks: [DatabaseAndDeck] {
     let decks = databases.contents.map { database in
-      database.deckModels.map {
-        DatabaseAndDeck(database: database, deck: $0.value)
-      }
+      database.deckModels
+        .filter { $0.key != 1 } // exclude "Default" decks
+        .map {
+          DatabaseAndDeck(database: database, deck: $0.value)
+        }
     }.joined()
     return Array(decks.sorted(by: { $0.deck.name < $1.deck.name }))
   }

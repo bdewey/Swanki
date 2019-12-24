@@ -48,11 +48,14 @@ struct NoteView: View {
   }
 
   private var keyCommands: [HTMLView.KeyCommand] {
-    [
+    var commands = [
       HTMLView.KeyCommand(input: String(.tab), modifierFlags: [], action: nextField),
       HTMLView.KeyCommand(input: String(.tab), modifierFlags: [.shift], action: previousField),
-      HTMLView.KeyCommand(input: String(.carriageReturn), modifierFlags: [], action: nextFieldOrDone),
     ]
+    commands.append(contentsOf: Character.paragraphBreakingCharacters.map {
+      HTMLView.KeyCommand(input: String($0), modifierFlags: [], action: nextFieldOrDone)
+    })
+    return commands
   }
 
   private var noteModel: NoteModel? {

@@ -263,6 +263,21 @@ private extension HTMLView {
 }
 
 extension HTMLView.AztecView.Coordinator: UITextViewDelegate {
+  // Need to explicitly look for text input that should be interpreted as commands instead to make
+  // the software keyboard work.
+  func textView(_ textView: UITextView, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
+    guard let keybindingTextView = textView as? HTMLView.KeybindingTextView else {
+      return true
+    }
+    if range.length == 0 {
+      for keyCommand in keybindingTextView.customKeyCommands where keyCommand.input == text {
+        keyCommand.action()
+        return false
+      }
+    }
+    return true
+  }
+
   func textViewDidChange(_ textView: UITextView) {
     // When we're inside the updateView call, we're going to get this callback. We'll get infinite
     // updates if we modify the HTML here.

@@ -41,6 +41,7 @@ public struct CollectionMetadata: Codable, FetchableRecord, PersistableRecord {
 public struct NoteModel {
   public let id: Int
   public let name: String
+  public let requirements: [TemplateRequirement]?
   public let css: String
   public let deckID: Int
   public let fields: [NoteField]
@@ -50,12 +51,49 @@ public struct NoteModel {
   enum CodingKeys: String, CodingKey {
     case id
     case name
+    case requirements = "req"
     case css
     case deckID = "did"
     case fields = "flds"
     case modelType = "type"
     case templates = "tmpls"
   }
+}
+
+public struct TemplateRequirement: Codable {
+  public enum RequirementType: String, Codable {
+    case none
+    case all
+    case any
+  }
+
+  public init(
+    templateId: Int,
+    requirementType: RequirementType,
+    fields: [Int]
+  ) {
+    self.templateId = templateId
+    self.requirementType = requirementType
+    self.fields = fields
+  }
+
+  public init(from decoder: Decoder) throws {
+    var container = try decoder.unkeyedContainer()
+    self.templateId = try container.decode(Int.self)
+    self.requirementType = try container.decode(RequirementType.self)
+    self.fields = try container.decode([Int].self)
+  }
+
+  public func encode(to encoder: Encoder) throws {
+    var container = encoder.unkeyedContainer()
+    try container.encode(templateId)
+    try container.encode(requirementType)
+    try container.encode(fields)
+  }
+
+  public let templateId: Int
+  public let requirementType: RequirementType
+  public let fields: [Int]
 }
 
 extension NoteModel: Codable {
@@ -77,6 +115,7 @@ extension NoteModel: Codable {
       }
     }
     self.name = try values.decode(String.self, forKey: .name)
+    self.requirements = try values.decodeIfPresent([TemplateRequirement].self, forKey: .requirements)
     self.css = try values.decode(String.self, forKey: .css)
     self.deckID = try values.decode(Int.self, forKey: .deckID)
     self.fields = try values.decode([NoteField].self, forKey: .fields)

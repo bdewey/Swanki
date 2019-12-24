@@ -6,6 +6,7 @@ import SwiftUI
 struct NoteView: View {
   @EnvironmentObject var collectionDatabase: CollectionDatabase
   @Binding var note: DraftNote?
+  @State var firstResponderIndex = 0
 
   var body: some View {
     NavigationView {
@@ -16,7 +17,9 @@ struct NoteView: View {
               title: section.title,
               html: self.note?.field(at: section.index) ?? .constant("WTF"),
               baseURL: self.collectionDatabase.url,
-              backgroundColor: .secondarySystemGroupedBackground
+              backgroundColor: .secondarySystemGroupedBackground,
+              keyCommands: self.keyCommands,
+              shouldBeFirstResponder: self.firstResponderIndex == section.index
             )
           }
         }
@@ -44,12 +47,42 @@ struct NoteView: View {
       .map { $0.name }
   }
 
+  private var keyCommands: [HTMLView.KeyCommand] {
+    [
+      HTMLView.KeyCommand(input: String(.tab), modifierFlags: [], action: nextField),
+      HTMLView.KeyCommand(input: String(.tab), modifierFlags: [.shift], action: previousField),
+      HTMLView.KeyCommand(input: String(.carriageReturn), modifierFlags: [], action: nextFieldOrDone),
+    ]
+  }
+
+  private var noteModel: NoteModel? {
+    guard let note = note else { return nil }
+    return collectionDatabase.noteModels[note.id]
+  }
+
+  private func nextField() {
+    firstResponderIndex = min(firstResponderIndex + 1, sections.count - 1)
+  }
+
+  private func nextFieldOrDone() {
+    if firstResponderIndex == sections.count - 1, (note?.completeCardCount ?? 0) > 0 {
+      saveNote()
+    } else {
+      nextField()
+    }
+  }
+
+  private func previousField() {
+    firstResponderIndex = max(firstResponderIndex - 1, 0)
+  }
+
   private var cancelButton: some View {
     Button(action: { self.note = nil }, label: { Text("Cancel") })
   }
 
   private var doneButton: some View {
     Button(action: saveNote, label: { Text("Done").bold() })
+      .disabled((note?.completeCardCount ?? 0) == 0)
   }
 
   private func saveNote() {

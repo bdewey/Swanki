@@ -21,11 +21,17 @@ struct NotesView: View {
         }
         .contentShape(Rectangle())
         .onTapGesture {
-          self.draftNote = DraftNote(
-            title: "Edit",
-            note: note,
-            commitAction: { self.notesResults.updateNote($0) }
-          )
+          do {
+            let noteModel = try self.collectionDatabase.noteModel(for: note)
+            self.draftNote = DraftNote(
+              title: "Edit",
+              note: note,
+              noteModel: noteModel,
+              commitAction: { self.notesResults.updateNote($0) }
+            )
+          } catch {
+            logger.error("Unexpected error preparing draft note: \(error)")
+          }
         }
       }
       .onDelete(perform: deleteNotes)
@@ -67,7 +73,7 @@ struct NotesView: View {
 
   private func makeDraftNote(from model: NoteModel) -> DraftNote {
     let note = Note.makeEmptyNote(modelID: model.id, fieldCount: model.fields.count)
-    return DraftNote(title: "New", note: note) { updatedNote in
+    return DraftNote(title: "New", note: note, noteModel: model) { updatedNote in
       self.notesResults.insertNote(updatedNote, model: model)
     }
   }

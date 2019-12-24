@@ -161,6 +161,13 @@ public final class CollectionDatabase: NSObject, ObservableObject {
   public private(set) var deckModels: [Int: DeckModel] = [:]
   public private(set) var deckConfigs: [Int: DeckConfig] = [:]
 
+  public func noteModel(for note: Note) throws -> NoteModel {
+    guard let model = noteModels[note.modelID] else {
+      throw Error.unknownNoteModel(modelID: note.modelID)
+    }
+    return model
+  }
+
   public func fetchMetadata() throws {
     guard let collectionMetadata = try dbQueue!.read({ db -> CollectionMetadata? in
       try CollectionMetadata.fetchOne(db)

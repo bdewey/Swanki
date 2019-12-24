@@ -11,17 +11,27 @@ private let layoutLogger: Logger = {
 }()
 
 struct HTMLView: View {
+  struct KeyCommand {
+    let input: String
+    let modifierFlags: UIKeyModifierFlags
+    let action: () -> Void
+  }
+
   /// Editable initializer.
   init(
     title: String,
     html: Binding<String>,
     baseURL: URL?,
-    backgroundColor: UIColor = .systemBackground
+    backgroundColor: UIColor = .systemBackground,
+    keyCommands: [KeyCommand] = [],
+    shouldBeFirstResponder: Bool = false
   ) {
     self.title = title
     self._html = html
     self.baseURL = baseURL
     self.backgroundColor = backgroundColor
+    self.keyCommands = keyCommands
+    self.shouldBeFirstResponder = shouldBeFirstResponder
 
     self.isEditable = true
   }
@@ -31,12 +41,16 @@ struct HTMLView: View {
     title: String,
     html: String,
     baseURL: URL?,
-    backgroundColor: UIColor = .systemBackground
+    backgroundColor: UIColor = .systemBackground,
+    keyCommands: [KeyCommand] = [],
+    shouldBeFirstResponder: Bool = false
   ) {
     self.title = title
     self._html = .constant(html)
     self.baseURL = baseURL
     self.backgroundColor = backgroundColor
+    self.keyCommands = keyCommands
+    self.shouldBeFirstResponder = shouldBeFirstResponder
 
     self.isEditable = false
   }
@@ -56,6 +70,12 @@ struct HTMLView: View {
   /// Background color for the editor.
   var backgroundColor: UIColor = .systemBackground
 
+  /// Key commands active in this view.
+  let keyCommands: [KeyCommand]
+
+  /// If true, we should make this view firstResponder if it isn't already.
+  let shouldBeFirstResponder: Bool
+
   /// Holds the height of the view. Will adjust to the content size of the actual content.
   @State private var desiredHeight: CGFloat = 100
 
@@ -66,6 +86,8 @@ struct HTMLView: View {
       baseURL: baseURL,
       isEditable: isEditable,
       backgroundColor: backgroundColor,
+      keyCommands: keyCommands,
+      shouldBeFirstResponder: shouldBeFirstResponder,
       desiredHeight: $desiredHeight
     )
     .frame(idealHeight: desiredHeight, maxHeight: desiredHeight)
@@ -87,12 +109,14 @@ private extension HTMLView {
     let isEditable: Bool
 
     let backgroundColor: UIColor
+    let keyCommands: [KeyCommand]
+    let shouldBeFirstResponder: Bool
 
     @Binding var desiredHeight: CGFloat
 
-    func makeUIView(context: UIViewRepresentableContext<AztecView>) -> Aztec.TextView {
+    func makeUIView(context: UIViewRepresentableContext<AztecView>) -> KeybindingTextView {
       layoutLogger.debug("Making a new Aztec view")
-      let textView = TextView(
+      let textView = KeybindingTextView(
         defaultFont: UIFont.preferredFont(forTextStyle: .body),
         defaultMissingImage: Images.defaultMissing
       )
@@ -100,7 +124,7 @@ private extension HTMLView {
       return textView
     }
 
-    func updateUIView(_ textView: TextView, context: UIViewRepresentableContext<AztecView>) {
+    func updateUIView(_ textView: KeybindingTextView, context: UIViewRepresentableContext<AztecView>) {
       context.coordinator.coordinatedHTMLUpdate(html)
       // Try to keep the bottom of the text in the viewport.
       // TODO: Should this be customizable behavior? What happens if the person starts
@@ -113,6 +137,10 @@ private extension HTMLView {
       }
       textView.isEditable = isEditable
       textView.backgroundColor = backgroundColor
+      textView.customKeyCommands = keyCommands
+      if shouldBeFirstResponder, !context.coordinator.isFirstResponder {
+        textView.becomeFirstResponder()
+      }
     }
 
     func makeCoordinator() -> Coordinator {
@@ -124,6 +152,8 @@ private extension HTMLView {
     final class Coordinator: NSObject, TextViewAttachmentDelegate {
       /// The associated view.
       var view: AztecView
+
+      var isFirstResponder = false
 
       /// The most recent raw HTML string set on `view`
       private var html: String?
@@ -211,6 +241,27 @@ private extension HTMLView {
   }
 }
 
+private extension HTMLView {
+  final class KeybindingTextView: Aztec.TextView {
+    var customKeyCommands: [KeyCommand] = []
+
+    override var keyCommands: [UIKeyCommand]? {
+      guard !customKeyCommands.isEmpty else {
+        return super.keyCommands
+      }
+      return customKeyCommands.map {
+        UIKeyCommand(input: $0.input, modifierFlags: $0.modifierFlags, action: #selector(handleCustomKeyCommand(command:)))
+      }
+    }
+
+    @objc func handleCustomKeyCommand(command: UIKeyCommand) {
+      for customCommand in customKeyCommands where command.input == customCommand.input && command.modifierFlags == customCommand.modifierFlags {
+        customCommand.action()
+      }
+    }
+  }
+}
+
 extension HTMLView.AztecView.Coordinator: UITextViewDelegate {
   func textViewDidChange(_ textView: UITextView) {
     // When we're inside the updateView call, we're going to get this callback. We'll get infinite
@@ -222,6 +273,14 @@ extension HTMLView.AztecView.Coordinator: UITextViewDelegate {
     // Avoid update loops by remembering this HTML
     self.html = html
     view.html = html
+  }
+
+  func textViewDidBeginEditing(_ textView: UITextView) {
+    isFirstResponder = true
+  }
+
+  func textViewDidEndEditing(_ textView: UITextView) {
+    isFirstResponder = false
   }
 }
 

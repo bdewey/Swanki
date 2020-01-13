@@ -1,5 +1,6 @@
 // Copyright © 2019 Brian's Brain. All rights reserved.
 
+import SpacedRepetitionScheduler
 import SwiftUI
 
 struct CardAnswerButtonRow: View {

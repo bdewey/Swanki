@@ -2,6 +2,7 @@
 
 import Foundation
 import GRDB
+import SpacedRepetitionScheduler
 
 /// A study record in the revlog table.
 public struct LogEntry: Codable, FetchableRecord, PersistableRecord {

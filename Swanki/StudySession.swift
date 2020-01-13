@@ -1,6 +1,7 @@
 // Copyright © 2019 Brian's Brain. All rights reserved.
 
 import Foundation
+import SpacedRepetitionScheduler
 
 /// Holds a collection of cards from a database to study.
 public final class StudySession: ObservableObject {

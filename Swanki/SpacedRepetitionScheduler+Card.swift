@@ -1,6 +1,7 @@
 // Copyright © 2019 Brian's Brain. All rights reserved.
 
 import Foundation
+import SpacedRepetitionScheduler
 
 /// Bridges between `Card` and `SpacedRepetitionScheduler`
 public extension SpacedRepetitionScheduler {

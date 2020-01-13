@@ -5,6 +5,7 @@ import Foundation
 import GRDB
 import GRDBCombine
 import Logging
+import SpacedRepetitionScheduler
 import Zipper
 
 /// Holds the database containing the Anki collection.

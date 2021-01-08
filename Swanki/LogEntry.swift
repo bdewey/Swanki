@@ -1,4 +1,4 @@
-// Copyright © 2019 Brian's Brain. All rights reserved.
+// Copyright © 2019-present Brian Dewey.
 
 import Foundation
 import GRDB
@@ -31,9 +31,9 @@ public struct LogEntry: Codable, FetchableRecord, PersistableRecord {
   }
 }
 
-extension LogEntry {
+public extension LogEntry {
   /// Initializes a log entry recording the state change from an old card to a new card.
-  public init(now: Date, oldCard: Card, newCard: Card, answer: CardAnswer, studyTime: TimeInterval) {
+  init(now: Date, oldCard: Card, newCard: Card, answer: CardAnswer, studyTime: TimeInterval) {
     precondition(oldCard.id == newCard.id)
     self.id = Int(floor(now.timeIntervalSince1970 * 1000)) // millisecond timestamp
     self.cardID = oldCard.id

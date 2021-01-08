@@ -1,4 +1,4 @@
-// Copyright © 2019 Brian's Brain. All rights reserved.
+// Copyright © 2019-present Brian Dewey.
 
 import XCTest
 

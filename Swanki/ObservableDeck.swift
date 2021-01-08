@@ -1,4 +1,4 @@
-// Copyright © 2019 Brian's Brain. All rights reserved.
+// Copyright © 2019-present Brian Dewey.
 
 import Foundation
 import GRDB
@@ -42,7 +42,7 @@ public final class ObservableDeck: ObservableObject {
   private func fetchNotes(from db: Database) throws -> [Note] {
     let cards = try Card
       .select(Column("nid"), as: Int.self).distinct()
-      .filter(Column("did") == self.deckID)
+      .filter(Column("did") == deckID)
       .fetchAll(db)
     return try Note.filter(keys: cards).fetchAll(db)
   }

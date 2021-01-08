@@ -1,4 +1,4 @@
-// Copyright © 2019 Brian's Brain. All rights reserved.
+// Copyright © 2019-present Brian Dewey.
 
 import Aztec
 import Logging
@@ -194,7 +194,7 @@ private extension HTMLView {
         onFailure failure: @escaping () -> Void
       ) {
         guard
-          let resolvedURL = URL(string: url.relativeString, relativeTo: self.view.baseURL)
+          let resolvedURL = URL(string: url.relativeString, relativeTo: view.baseURL)
         else {
           failure()
           return

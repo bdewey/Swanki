@@ -1,4 +1,4 @@
-// Copyright © 2019 Brian's Brain. All rights reserved.
+// Copyright © 2019-present Brian Dewey.
 
 import Combine
 import Foundation
@@ -274,6 +274,7 @@ public final class CollectionDatabase: NSObject, ObservableObject {
 }
 
 // MARK: - NSFilePresenter
+
 extension CollectionDatabase: NSFilePresenter {
   public var presentedItemURL: URL? {
     databaseURL
@@ -294,16 +295,16 @@ extension CollectionDatabase: NSFilePresenter {
 
   public func relinquishPresentedItem(toReader reader: @escaping ((() -> Void)?) -> Void) {
     isWriteable = false
-    reader({
+    reader {
       self.isWriteable = true
-    })
+    }
   }
 
   public func relinquishPresentedItem(toWriter writer: @escaping ((() -> Void)?) -> Void) {
     isWriteable = false
-    writer({
+    writer {
       self.isWriteable = true
-    })
+    }
   }
 
   public func presentedItemDidChange() {

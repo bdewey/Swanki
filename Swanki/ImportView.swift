@@ -1,4 +1,4 @@
-// Copyright © 2019 Brian's Brain. All rights reserved.
+// Copyright © 2019-present Brian Dewey.
 
 import SwiftUI
 
@@ -40,7 +40,7 @@ struct ImportView: UIViewControllerRepresentable {
 }
 
 struct ImportView_Previews: PreviewProvider {
-    static var previews: some View {
-        ImportView()
-    }
+  static var previews: some View {
+    ImportView()
+  }
 }

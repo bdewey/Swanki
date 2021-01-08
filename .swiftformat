@@ -1,7 +1,7 @@
 --binarygrouping none
 --decimalgrouping none
 --exclude Pods
---header "Copyright © 2019 Brian's Brain. All rights reserved."
+--header "Copyright © 2019-present Brian Dewey."
 --hexgrouping none
 --indent 2
 --octalgrouping none

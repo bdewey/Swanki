@@ -2,6 +2,15 @@
   "object": {
     "pins": [
       {
+        "package": "Aztec",
+        "repositoryURL": "https://github.com/bdewey/AztecEditor-iOS",
+        "state": {
+          "branch": "swift-package-manager",
+          "revision": "d01712395ac5f08c4471b405d8e523fffe281af5",
+          "version": null
+        }
+      },
+      {
         "package": "CombineExpectations",
         "repositoryURL": "https://github.com/groue/CombineExpectations.git",
         "state": {

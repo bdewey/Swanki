@@ -1,4 +1,4 @@
-// Copyright © 2019 Brian's Brain. All rights reserved.
+// Copyright © 2019-present Brian Dewey.
 
 import Foundation
 
@@ -40,7 +40,7 @@ private extension AnkiTemplate {
       try! NSRegularExpression(
         pattern: sectionPattern,
         options: []
-    )
+      )
 
     static let tag = try! NSRegularExpression(
       pattern: #"\#(Delimiter.opening.quoted)(#|=|&|!|>|\{)?(.+?)\1?\#(Delimiter.closing.quoted)"#,
@@ -75,7 +75,7 @@ private extension AnkiTemplate {
       // If sectionRange or inner are nil, that's a programming error and not a template error.
       // Crash instead of throw.
       let sectionRange = Range(result.range(at: 0), in: template)!
-      let _ = result.captureGroup(in: 1, text: template)
+      _ = result.captureGroup(in: 1, text: template)
       let tagName = result.captureGroup(in: 2, text: template)!
 
       let replacement = valueFromContext(context, name: tagName) ?? ""

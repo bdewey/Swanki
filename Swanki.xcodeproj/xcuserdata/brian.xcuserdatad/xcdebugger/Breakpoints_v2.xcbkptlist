@@ -35,5 +35,84 @@
             type = "65535">
          </BreakpointContent>
       </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "139F8537-032B-4650-A01B-2FDCD2037AD0"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Swanki/Databases.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "108"
+            endingLineNumber = "108"
+            landmarkName = "importPackage(at:to:)"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  uuid = "139F8537-032B-4650-A01B-2FDCD2037AD0 - e36d1170f9b21ab1"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "Swanki.Databases.importPackage(at: Foundation.URL, to: Foundation.URL) -&gt; ()"
+                  moduleName = "Swanki"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/brian/Swanki/Swanki/Databases.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "108"
+                  endingLineNumber = "108"
+                  offsetFromSymbolStart = "1800">
+               </Location>
+               <Location
+                  uuid = "139F8537-032B-4650-A01B-2FDCD2037AD0 - e36d1170f9b21ad0"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "Swanki.Databases.importPackage(at: Foundation.URL, to: Foundation.URL) -&gt; ()"
+                  moduleName = "Swanki"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/brian/Swanki/Swanki/Databases.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "107"
+                  endingLineNumber = "107"
+                  offsetFromSymbolStart = "820">
+               </Location>
+               <Location
+                  uuid = "139F8537-032B-4650-A01B-2FDCD2037AD0 - e36d1170f9b21ab1"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "Swanki.Databases.importPackage(at: Foundation.URL, to: Foundation.URL) -&gt; ()"
+                  moduleName = "Swanki"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/brian/Swanki/Swanki/Databases.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "108"
+                  endingLineNumber = "108"
+                  offsetFromSymbolStart = "820">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "C211B19B-0170-4BBD-B9D0-F55319BABC47"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Swanki/CollectionDatabase.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "156"
+            endingLineNumber = "156"
+            landmarkName = "importPackage(_:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
    </Breakpoints>
 </Bucket>

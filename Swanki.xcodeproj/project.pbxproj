@@ -3,14 +3,13 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 52;
+	objectVersion = 54;
 	objects = {
 
 /* Begin PBXBuildFile section */
 		63A505C82388106000E93016 /* HTMLView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63A505C72388106000E93016 /* HTMLView.swift */; };
 		63C984B32385583700E5CAFE /* NotesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63C984B22385583700E5CAFE /* NotesView.swift */; };
 		63C984B5238566A400E5CAFE /* NoteView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63C984B4238566A400E5CAFE /* NoteView.swift */; };
-		D311777625A8A9C200E473FD /* Aztec in Frameworks */ = {isa = PBXBuildFile; productRef = D311777525A8A9C200E473FD /* Aztec */; };
 		D325FDA22358966F002AC9C9 /* SampleData in Resources */ = {isa = PBXBuildFile; fileRef = D325FDA12358966F002AC9C9 /* SampleData */; };
 		D325FDA523589F12002AC9C9 /* Logging in Frameworks */ = {isa = PBXBuildFile; productRef = D325FDA423589F12002AC9C9 /* Logging */; };
 		D325FDAB2359F288002AC9C9 /* Zipper in Frameworks */ = {isa = PBXBuildFile; productRef = D325FDAA2359F288002AC9C9 /* Zipper */; };
@@ -27,6 +26,7 @@
 		D3557FEE23CCAF3800E12244 /* SpacedRepetitionScheduler in Frameworks */ = {isa = PBXBuildFile; productRef = D3557FED23CCAF3800E12244 /* SpacedRepetitionScheduler */; };
 		D37E2A0923AD9A3600D7913F /* GRDBCombine in Frameworks */ = {isa = PBXBuildFile; productRef = D37E2A0823AD9A3600D7913F /* GRDBCombine */; };
 		D37E2A0C23AF087800D7913F /* CloudKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D37E2A0B23AF087800D7913F /* CloudKit.framework */; };
+		D38C80092B00302300C619E6 /* Aztec in Frameworks */ = {isa = PBXBuildFile; productRef = D38C80082B00302300C619E6 /* Aztec */; };
 		D392638923A691E7008D09B2 /* ImportView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D392638823A691E7008D09B2 /* ImportView.swift */; };
 		D392638B23A74E32008D09B2 /* Databases.swift in Sources */ = {isa = PBXBuildFile; fileRef = D392638A23A74E32008D09B2 /* Databases.swift */; };
 		D392638D23A9B450008D09B2 /* AnkiStache.swift in Sources */ = {isa = PBXBuildFile; fileRef = D392638C23A9B450008D09B2 /* AnkiStache.swift */; };
@@ -123,7 +123,7 @@
 				D37E2A0C23AF087800D7913F /* CloudKit.framework in Frameworks */,
 				D3557FEE23CCAF3800E12244 /* SpacedRepetitionScheduler in Frameworks */,
 				D325FDA523589F12002AC9C9 /* Logging in Frameworks */,
-				D311777625A8A9C200E473FD /* Aztec in Frameworks */,
+				D38C80092B00302300C619E6 /* Aztec in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -265,7 +265,7 @@
 				D325FDB0235A8B92002AC9C9 /* GRDB */,
 				D37E2A0823AD9A3600D7913F /* GRDBCombine */,
 				D3557FED23CCAF3800E12244 /* SpacedRepetitionScheduler */,
-				D311777525A8A9C200E473FD /* Aztec */,
+				D38C80082B00302300C619E6 /* Aztec */,
 			);
 			productName = Swanki;
 			productReference = D32BCEA3235829750036768A /* Swanki.app */;
@@ -345,7 +345,7 @@
 				D325FDAF235A8B91002AC9C9 /* XCRemoteSwiftPackageReference "GRDB.swift" */,
 				D37E2A0723AD9A3600D7913F /* XCRemoteSwiftPackageReference "GRDBCombine" */,
 				D3557FEC23CCAF3800E12244 /* XCRemoteSwiftPackageReference "SpacedRepetitionScheduler" */,
-				D311777425A8A9C200E473FD /* XCRemoteSwiftPackageReference "AztecEditor-iOS" */,
+				D38C80072B00302300C619E6 /* XCRemoteSwiftPackageReference "AztecEditor-iOS" */,
 			);
 			productRefGroup = D32BCEA4235829750036768A /* Products */;
 			projectDirPath = "";
@@ -764,14 +764,6 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
-		D311777425A8A9C200E473FD /* XCRemoteSwiftPackageReference "AztecEditor-iOS" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/bdewey/AztecEditor-iOS";
-			requirement = {
-				branch = "swift-package-manager";
-				kind = branch;
-			};
-		};
 		D325FDA323589F12002AC9C9 /* XCRemoteSwiftPackageReference "swift-log" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/apple/swift-log.git";
@@ -812,14 +804,17 @@
 				minimumVersion = 0.7.1;
 			};
 		};
+		D38C80072B00302300C619E6 /* XCRemoteSwiftPackageReference "AztecEditor-iOS" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/bdewey/AztecEditor-iOS";
+			requirement = {
+				branch = "swift-package-manager";
+				kind = branch;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
-		D311777525A8A9C200E473FD /* Aztec */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = D311777425A8A9C200E473FD /* XCRemoteSwiftPackageReference "AztecEditor-iOS" */;
-			productName = Aztec;
-		};
 		D325FDA423589F12002AC9C9 /* Logging */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = D325FDA323589F12002AC9C9 /* XCRemoteSwiftPackageReference "swift-log" */;
@@ -844,6 +839,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = D37E2A0723AD9A3600D7913F /* XCRemoteSwiftPackageReference "GRDBCombine" */;
 			productName = GRDBCombine;
+		};
+		D38C80082B00302300C619E6 /* Aztec */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = D38C80072B00302300C619E6 /* XCRemoteSwiftPackageReference "AztecEditor-iOS" */;
+			productName = Aztec;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

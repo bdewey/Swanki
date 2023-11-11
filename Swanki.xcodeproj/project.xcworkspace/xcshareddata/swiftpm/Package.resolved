@@ -1,70 +1,68 @@
 {
-  "object": {
-    "pins": [
-      {
-        "package": "Aztec",
-        "repositoryURL": "https://github.com/bdewey/AztecEditor-iOS",
-        "state": {
-          "branch": "swift-package-manager",
-          "revision": "d01712395ac5f08c4471b405d8e523fffe281af5",
-          "version": null
-        }
-      },
-      {
-        "package": "CombineExpectations",
-        "repositoryURL": "https://github.com/groue/CombineExpectations.git",
-        "state": {
-          "branch": null,
-          "revision": "40d564be8decfc9a3e8acfec56a42dd845e5c420",
-          "version": "0.3.0"
-        }
-      },
-      {
-        "package": "GRDB",
-        "repositoryURL": "https://github.com/groue/GRDB.swift.git",
-        "state": {
-          "branch": null,
-          "revision": "89bc509170f91e8f593ed1b96cc2ba2c0a236760",
-          "version": "4.5.0"
-        }
-      },
-      {
-        "package": "GRDBCombine",
-        "repositoryURL": "https://github.com/groue/GRDBCombine",
-        "state": {
-          "branch": null,
-          "revision": "c155a5738448490832c068427b5eec2e4b5f65e3",
-          "version": "0.7.1"
-        }
-      },
-      {
-        "package": "SpacedRepetitionScheduler",
-        "repositoryURL": "https://github.com/bdewey/SpacedRepetitionScheduler.git",
-        "state": {
-          "branch": null,
-          "revision": "8e9b117b69b8038127b0eb25704e3f121edd7a34",
-          "version": "0.1.0"
-        }
-      },
-      {
-        "package": "swift-log",
-        "repositoryURL": "https://github.com/apple/swift-log.git",
-        "state": {
-          "branch": null,
-          "revision": "e8aabbe95db22e064ad42f1a4a9f8982664c70ed",
-          "version": "1.1.1"
-        }
-      },
-      {
-        "package": "Zipper",
-        "repositoryURL": "https://github.com/bdewey/Zipper",
-        "state": {
-          "branch": "xcode-integration",
-          "revision": "f5c6eeb715aee1e79d233b4139d46363801ae993",
-          "version": null
-        }
+  "pins" : [
+    {
+      "identity" : "azteceditor-ios",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/bdewey/AztecEditor-iOS",
+      "state" : {
+        "branch" : "swift-package-manager",
+        "revision" : "e2d8e0b90d32f8ba640277cb38019055af0c01f2"
       }
-    ]
-  },
-  "version": 1
+    },
+    {
+      "identity" : "combineexpectations",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/groue/CombineExpectations.git",
+      "state" : {
+        "revision" : "40d564be8decfc9a3e8acfec56a42dd845e5c420",
+        "version" : "0.3.0"
+      }
+    },
+    {
+      "identity" : "grdb.swift",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/groue/GRDB.swift.git",
+      "state" : {
+        "revision" : "89bc509170f91e8f593ed1b96cc2ba2c0a236760",
+        "version" : "4.5.0"
+      }
+    },
+    {
+      "identity" : "grdbcombine",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/groue/GRDBCombine",
+      "state" : {
+        "revision" : "c155a5738448490832c068427b5eec2e4b5f65e3",
+        "version" : "0.7.1"
+      }
+    },
+    {
+      "identity" : "spacedrepetitionscheduler",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/bdewey/SpacedRepetitionScheduler.git",
+      "state" : {
+        "revision" : "8e9b117b69b8038127b0eb25704e3f121edd7a34",
+        "version" : "0.1.0"
+      }
+    },
+    {
+      "identity" : "swift-log",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/apple/swift-log.git",
+      "state" : {
+        "revision" : "e8aabbe95db22e064ad42f1a4a9f8982664c70ed",
+        "version" : "1.1.1"
+      }
+    },
+    {
+      "identity" : "zipper",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/bdewey/Zipper",
+      "state" : {
+        "branch" : "xcode-integration",
+        "revision" : "f5c6eeb715aee1e79d233b4139d46363801ae993"
+      }
+    }
+  ],
+  "version" : 2
 }

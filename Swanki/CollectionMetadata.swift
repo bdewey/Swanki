@@ -43,7 +43,7 @@ public struct NoteModel {
   public let name: String
   public let requirements: [TemplateRequirement]?
   public let css: String
-  public let deckID: Int
+  public let deckID: Int?
   public let fields: [NoteField]
   public let modelType: ModelType
   public let templates: [CardTemplate]
@@ -117,7 +117,7 @@ extension NoteModel: Codable {
     self.name = try values.decode(String.self, forKey: .name)
     self.requirements = try values.decodeIfPresent([TemplateRequirement].self, forKey: .requirements)
     self.css = try values.decode(String.self, forKey: .css)
-    self.deckID = try values.decode(Int.self, forKey: .deckID)
+    self.deckID = try values.decode(Int?.self, forKey: .deckID)
     self.fields = try values.decode([NoteField].self, forKey: .fields)
     self.modelType = try values.decode(ModelType.self, forKey: .modelType)
     self.templates = try values.decode([CardTemplate].self, forKey: .templates)

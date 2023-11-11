@@ -50,7 +50,15 @@ final class Databases: ObservableObject {
       .sink { homeDirectory in
         let homeDirectoryContents = (try? FileManager.default.contentsOfDirectory(at: homeDirectory, includingPropertiesForKeys: nil, options: [])) ?? []
         let databaseURLs = homeDirectoryContents.filter { $0.pathExtension == "swanki" }
-        let openDatabases = databaseURLs.compactMap { try? self.openDatabase(at: $0) }
+        let openDatabases = databaseURLs.compactMap {
+          do {
+            return try self.openDatabase(at: $0)
+            logger.info("Successfully opened database at \($0)")
+          } catch {
+            logger.error("Error opening database \($0): \(error)")
+            return nil
+          }
+        }
         self.contents.append(contentsOf: openDatabases)
         completion?(self.contents)
       }

@@ -29,15 +29,15 @@ public struct RevConfig: Codable {
   public let perDay: Int
   public let ivlFct: Int
   public let maxIvl: Int
-  public let minSpace: Int
+  public let minSpace: Int?
   public let ease4: Double
-  public let fuzz: Double
+  public let fuzz: Double?
 }
 
 public struct NewConfig: Codable {
   public let perDay: Int
   public let delays: [Int]
-  public let separate: Bool
+  public let separate: Bool?
   public let ints: [Int]
   public let initialFactor: Int
   public let order: Int

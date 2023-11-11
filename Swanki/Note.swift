@@ -64,7 +64,7 @@ public extension Note {
   /// Makes new Card structures from this note.
   func cards(model: NoteModel) -> [Card] {
     model.templates.map { template -> Card in
-      Card(noteID: self.id, deckID: model.deckID, templateIndex: template.ord)
+      Card(noteID: self.id, deckID: model.deckID ?? 312, templateIndex: template.ord)
     }
   }
 }

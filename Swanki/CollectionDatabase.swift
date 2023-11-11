@@ -57,7 +57,7 @@ public final class CollectionDatabase: NSObject, ObservableObject {
 
   public func openDatabase() throws {
     assert(Thread.isMainThread)
-    precondition(dbQueue == nil)
+//    precondition(dbQueue == nil)
     let coordinator = NSFileCoordinator(filePresenter: self)
     var coordinatorError: NSError?
     var result: Result<DatabaseQueue, Swift.Error>?
@@ -144,7 +144,7 @@ public final class CollectionDatabase: NSObject, ObservableObject {
     var didExtractDatabase = false
     for entry in zipper {
       logger.debug("\(entry.path)")
-      if entry.path == "collection.anki2" {
+      if entry.path == "collection.anki21" {
         _ = try zipper.extract(entry, to: url.appendingPathComponent("collection.anki2"))
         didExtractDatabase = true
       }

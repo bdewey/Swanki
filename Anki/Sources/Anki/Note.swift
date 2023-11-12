@@ -4,6 +4,17 @@ import Foundation
 import GRDB
 
 public struct Note: Codable, FetchableRecord, PersistableRecord, Identifiable {
+  public init(id: Int, guid: String, modelID: Int, modifiedTimestampSeconds: Int, usn: Int, tags: String, encodedFields: String, sortFields: String = "") {
+    self.id = id
+    self.guid = guid
+    self.modelID = modelID
+    self.modifiedTimestampSeconds = modifiedTimestampSeconds
+    self.usn = usn
+    self.tags = tags
+    self.encodedFields = encodedFields
+    self.sortFields = sortFields
+  }
+  
   public static var databaseTableName: String { "notes" }
   public var id: Int
   public let guid: String

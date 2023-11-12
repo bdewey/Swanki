@@ -4,6 +4,22 @@ import Foundation
 import GRDB
 
 public struct Card: Codable, FetchableRecord, PersistableRecord, Identifiable, Equatable {
+  public init(id: Int = 0, noteID: Int, deckID: Int, templateIndex: Int, modificationTimeSeconds: Int = 0, queue: Card.CardQueue = CardQueue.new, due: Int = 0, type: Card.CardType = CardType.new, interval: Int = 0, factor: Int = 0, reps: Int = 0, lapses: Int = 0, left: Int = 0) {
+    self.id = id
+    self.noteID = noteID
+    self.deckID = deckID
+    self.templateIndex = templateIndex
+    self.modificationTimeSeconds = modificationTimeSeconds
+    self.queue = queue
+    self.due = due
+    self.type = type
+    self.interval = interval
+    self.factor = factor
+    self.reps = reps
+    self.lapses = lapses
+    self.left = left
+  }
+  
   public enum CardType: Int, Codable {
     case new, learning, due, filtered
   }

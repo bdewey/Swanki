@@ -39,6 +39,17 @@ public struct CollectionMetadata: Codable, FetchableRecord, PersistableRecord {
 }
 
 public struct NoteModel {
+  public init(id: Int, name: String, requirements: [TemplateRequirement]? = nil, css: String, deckID: Int? = nil, fields: [NoteField], modelType: ModelType, templates: [CardTemplate]) {
+    self.id = id
+    self.name = name
+    self.requirements = requirements
+    self.css = css
+    self.deckID = deckID
+    self.fields = fields
+    self.modelType = modelType
+    self.templates = templates
+  }
+  
   public let id: Int
   public let name: String
   public let requirements: [TemplateRequirement]?
@@ -125,6 +136,15 @@ extension NoteModel: Codable {
 }
 
 public struct CardTemplate: Codable {
+  public init(name: String, afmt: String, bafmt: String, bqfmt: String, ord: Int, qfmt: String) {
+    self.name = name
+    self.afmt = afmt
+    self.bafmt = bafmt
+    self.bqfmt = bqfmt
+    self.ord = ord
+    self.qfmt = qfmt
+  }
+  
   public let name: String
   public let afmt: String
   public let bafmt: String
@@ -139,6 +159,12 @@ public enum ModelType: Int, Codable {
 }
 
 public struct NoteField: Codable {
+  public init(font: String, name: String, ord: Int) {
+    self.font = font
+    self.name = name
+    self.ord = ord
+  }
+  
   public let font: String
   public let name: String
   public let ord: Int

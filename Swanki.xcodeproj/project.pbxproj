@@ -15,8 +15,6 @@
 		D325FDB1235A8B92002AC9C9 /* GRDB in Frameworks */ = {isa = PBXBuildFile; productRef = D325FDB0235A8B92002AC9C9 /* GRDB */; };
 		D325FDB3235A9A1E002AC9C9 /* Note.swift in Sources */ = {isa = PBXBuildFile; fileRef = D325FDB2235A9A1E002AC9C9 /* Note.swift */; };
 		D325FDB5235B57AC002AC9C9 /* CollectionMetadata.swift in Sources */ = {isa = PBXBuildFile; fileRef = D325FDB4235B57AC002AC9C9 /* CollectionMetadata.swift */; };
-		D32BCEA7235829750036768A /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D32BCEA6235829750036768A /* AppDelegate.swift */; };
-		D32BCEA9235829750036768A /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D32BCEA8235829750036768A /* SceneDelegate.swift */; };
 		D32BCEAD235829770036768A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D32BCEAC235829770036768A /* Assets.xcassets */; };
 		D32BCEB0235829770036768A /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D32BCEAF235829770036768A /* Preview Assets.xcassets */; };
 		D32BCEB3235829770036768A /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D32BCEB1235829770036768A /* LaunchScreen.storyboard */; };
@@ -26,6 +24,7 @@
 		D37E2A0923AD9A3600D7913F /* GRDBCombine in Frameworks */ = {isa = PBXBuildFile; productRef = D37E2A0823AD9A3600D7913F /* GRDBCombine */; };
 		D37E2A0C23AF087800D7913F /* CloudKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D37E2A0B23AF087800D7913F /* CloudKit.framework */; };
 		D38C80092B00302300C619E6 /* Aztec in Frameworks */ = {isa = PBXBuildFile; productRef = D38C80082B00302300C619E6 /* Aztec */; };
+		D38C800D2B00608800C619E6 /* Application.swift in Sources */ = {isa = PBXBuildFile; fileRef = D38C800C2B00608800C619E6 /* Application.swift */; };
 		D392638923A691E7008D09B2 /* ImportView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D392638823A691E7008D09B2 /* ImportView.swift */; };
 		D392638B23A74E32008D09B2 /* Databases.swift in Sources */ = {isa = PBXBuildFile; fileRef = D392638A23A74E32008D09B2 /* Databases.swift */; };
 		D392638D23A9B450008D09B2 /* AnkiStache.swift in Sources */ = {isa = PBXBuildFile; fileRef = D392638C23A9B450008D09B2 /* AnkiStache.swift */; };
@@ -75,8 +74,6 @@
 		D325FDB2235A9A1E002AC9C9 /* Note.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Note.swift; sourceTree = "<group>"; };
 		D325FDB4235B57AC002AC9C9 /* CollectionMetadata.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionMetadata.swift; sourceTree = "<group>"; };
 		D32BCEA3235829750036768A /* Swanki.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Swanki.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		D32BCEA6235829750036768A /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		D32BCEA8235829750036768A /* SceneDelegate.swift */ = {isa = PBXFileReference; indentWidth = 2; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; tabWidth = 2; };
 		D32BCEAC235829770036768A /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		D32BCEAF235829770036768A /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		D32BCEB2235829770036768A /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -89,6 +86,7 @@
 		D351006E2378986600CE2D7E /* SpacedRepetitionScheduler+Card.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SpacedRepetitionScheduler+Card.swift"; sourceTree = "<group>"; };
 		D37E2A0A23AF06CA00D7913F /* Swanki.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Swanki.entitlements; sourceTree = "<group>"; };
 		D37E2A0B23AF087800D7913F /* CloudKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CloudKit.framework; path = System/Library/Frameworks/CloudKit.framework; sourceTree = SDKROOT; };
+		D38C800C2B00608800C619E6 /* Application.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Application.swift; sourceTree = "<group>"; };
 		D392638823A691E7008D09B2 /* ImportView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImportView.swift; sourceTree = "<group>"; };
 		D392638A23A74E32008D09B2 /* Databases.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Databases.swift; sourceTree = "<group>"; };
 		D392638C23A9B450008D09B2 /* AnkiStache.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnkiStache.swift; sourceTree = "<group>"; };
@@ -179,9 +177,8 @@
 		D32BCEA5235829750036768A /* Swanki */ = {
 			isa = PBXGroup;
 			children = (
-				D37E2A0A23AF06CA00D7913F /* Swanki.entitlements */,
 				D392638C23A9B450008D09B2 /* AnkiStache.swift */,
-				D32BCEA6235829750036768A /* AppDelegate.swift */,
+				D38C800C2B00608800C619E6 /* Application.swift */,
 				D32BCEAC235829770036768A /* Assets.xcassets */,
 				D3B71451235C22B700F2AFB2 /* Card.swift */,
 				D3966845236DDC9A0015DB82 /* CardAnswerButtonRow.swift */,
@@ -205,10 +202,10 @@
 				63C984B4238566A400E5CAFE /* NoteView.swift */,
 				D3E159E0238E0EC200940661 /* ObservableDeck.swift */,
 				D32BCEAE235829770036768A /* Preview Content */,
-				D32BCEA8235829750036768A /* SceneDelegate.swift */,
 				D351006E2378986600CE2D7E /* SpacedRepetitionScheduler+Card.swift */,
 				D3E159E6239083FA00940661 /* StudySession.swift */,
 				D3B71453235CB7D000F2AFB2 /* StudyView.swift */,
+				D37E2A0A23AF06CA00D7913F /* Swanki.entitlements */,
 				D39668432365EE9D0015DB82 /* WebView.swift */,
 			);
 			path = Swanki;
@@ -388,11 +385,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				D3B71450235C189300F2AFB2 /* DeckConfig.swift in Sources */,
-				D32BCEA7235829750036768A /* AppDelegate.swift in Sources */,
 				63C984B32385583700E5CAFE /* NotesView.swift in Sources */,
 				D351006F2378986600CE2D7E /* SpacedRepetitionScheduler+Card.swift in Sources */,
 				D3E159DF238C14AA00940661 /* DraftNote.swift in Sources */,
-				D32BCEA9235829750036768A /* SceneDelegate.swift in Sources */,
 				D392638B23A74E32008D09B2 /* Databases.swift in Sources */,
 				63C984B5238566A400E5CAFE /* NoteView.swift in Sources */,
 				D392638923A691E7008D09B2 /* ImportView.swift in Sources */,
@@ -412,6 +407,7 @@
 				D3B71452235C22B700F2AFB2 /* Card.swift in Sources */,
 				D3B71458235DDB1C00F2AFB2 /* DeckView.swift in Sources */,
 				D39668442365EE9D0015DB82 /* WebView.swift in Sources */,
+				D38C800D2B00608800C619E6 /* Application.swift in Sources */,
 				D3E159E7239083FA00940661 /* StudySession.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

@@ -22,3 +22,9 @@ public extension Date {
     Int(floor(timeIntervalSinceReferenceDate / .day))
   }
 }
+
+private extension TimeInterval {
+  static let minute: TimeInterval = 60
+  static let day: TimeInterval = 60 * 60 * 24
+}
+

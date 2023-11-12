@@ -1,10 +1,6 @@
 // Copyright © 2019-present Brian Dewey.
 
 import Foundation
-import Logging
+import os
 
-let logger: Logger = {
-  var logger = Logger(label: "org.brians-brain.Swanki")
-  logger.logLevel = .debug
-  return logger
-}()
+let logger = Logger(subsystem: Bundle.main.bundleIdentifier!, category: "general")

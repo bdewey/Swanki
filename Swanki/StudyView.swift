@@ -48,7 +48,7 @@ struct StudyView: View {
   }
 
   private func processAnswer(_ answer: CardAnswer, studyTime: TimeInterval) {
-    logger.info("Card answer = \(answer)")
+    logger.info("Card answer = \(answer.localizedName)")
     do {
       try withAnimation(.easeInOut(duration: 0.5)) {
         try studySession.recordAnswer(answer, studyTime: studyTime)

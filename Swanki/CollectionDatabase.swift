@@ -4,7 +4,6 @@ import Combine
 import Foundation
 import GRDB
 import GRDBCombine
-import Logging
 import SpacedRepetitionScheduler
 import Zipper
 
@@ -38,14 +37,14 @@ public final class CollectionDatabase: NSObject, ObservableObject {
   public var hasUnsavedChanges = false {
     didSet {
       assert(Thread.isMainThread)
-      logger.info("collectionDatabase hasUnsavedChanges = \(hasUnsavedChanges)")
+      logger.info("collectionDatabase hasUnsavedChanges = \(self.hasUnsavedChanges)")
     }
   }
 
   private var isWriteable = true {
     didSet {
       assert(Thread.isMainThread)
-      logger.info("collectionDatabase isWriteable = \(isWriteable)")
+      logger.info("collectionDatabase isWriteable = \(self.isWriteable)")
     }
   }
 

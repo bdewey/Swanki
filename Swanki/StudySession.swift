@@ -14,15 +14,15 @@ public final class StudySession: ObservableObject {
       var newCardCount = 0
       var cards: [Card] = []
       let learningCards = try collectionDatabase.fetchLearningCards(from: deckModel.id)
-      logger.info("Found \(learningCards.count) learning card(s) for decks \(deckModel.id)")
+      logger.info("Found \(learningCards.count) learning card(s) for decks \(String(format: "%ld", deckModel.id))")
       learningCardCount += learningCards.count
       cards.append(contentsOf: learningCards)
       let newCards = try collectionDatabase.fetchNewCards(from: deckModel.id)
       cards.append(contentsOf: newCards)
       newCardCount += newCards.count
-      logger.info("Found \(newCards.count) new card(s) for decks \(deckModel.id)")
+      logger.info("Found \(newCards.count) new card(s) for decks \(String(format: "%ld", deckModel.id))")
       let reviewCards = try collectionDatabase.fetchReviewCards(from: deckModel.id)
-      logger.info("Found \(reviewCards.count) review card(s) for decks \(deckModel.id)")
+      logger.info("Found \(reviewCards.count) review card(s) for decks \(String(format: "%ld", deckModel.id))")
       cards.append(contentsOf: reviewCards)
       learningCardCount += reviewCards.count
       self.learningCardCount = learningCardCount

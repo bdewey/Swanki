@@ -1,14 +1,10 @@
 // Copyright © 2019-present Brian Dewey.
 
 import Aztec
-import Logging
+import os
 import SwiftUI
 
-private let layoutLogger: Logger = {
-  var logger = Logger(label: "org.brians-brain.HTMLView.layout")
-  logger.logLevel = .debug
-  return logger
-}()
+private let layoutLogger = Logger(subsystem: Bundle.main.bundleIdentifier!, category: "org.brians-brain.HTMLView.layout")
 
 struct HTMLView: View {
   struct KeyCommand {
@@ -204,7 +200,7 @@ private extension HTMLView {
           DispatchQueue.main.async {
             if let image = image {
               success(image)
-              logger.debug("Finished loading image, size = \(image.size)")
+              logger.debug("Finished loading image, size = \(String(describing: image.size), privacy: .public)")
             } else {
               failure()
             }

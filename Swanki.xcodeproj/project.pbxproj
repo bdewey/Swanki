@@ -11,7 +11,6 @@
 		63C984B32385583700E5CAFE /* NotesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63C984B22385583700E5CAFE /* NotesView.swift */; };
 		63C984B5238566A400E5CAFE /* NoteView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63C984B4238566A400E5CAFE /* NoteView.swift */; };
 		D325FDA22358966F002AC9C9 /* SampleData in Resources */ = {isa = PBXBuildFile; fileRef = D325FDA12358966F002AC9C9 /* SampleData */; };
-		D325FDA523589F12002AC9C9 /* Logging in Frameworks */ = {isa = PBXBuildFile; productRef = D325FDA423589F12002AC9C9 /* Logging */; };
 		D325FDAB2359F288002AC9C9 /* Zipper in Frameworks */ = {isa = PBXBuildFile; productRef = D325FDAA2359F288002AC9C9 /* Zipper */; };
 		D325FDB1235A8B92002AC9C9 /* GRDB in Frameworks */ = {isa = PBXBuildFile; productRef = D325FDB0235A8B92002AC9C9 /* GRDB */; };
 		D325FDB3235A9A1E002AC9C9 /* Note.swift in Sources */ = {isa = PBXBuildFile; fileRef = D325FDB2235A9A1E002AC9C9 /* Note.swift */; };
@@ -122,7 +121,6 @@
 				D325FDAB2359F288002AC9C9 /* Zipper in Frameworks */,
 				D37E2A0C23AF087800D7913F /* CloudKit.framework in Frameworks */,
 				D3557FEE23CCAF3800E12244 /* SpacedRepetitionScheduler in Frameworks */,
-				D325FDA523589F12002AC9C9 /* Logging in Frameworks */,
 				D38C80092B00302300C619E6 /* Aztec in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -260,7 +258,6 @@
 			);
 			name = Swanki;
 			packageProductDependencies = (
-				D325FDA423589F12002AC9C9 /* Logging */,
 				D325FDAA2359F288002AC9C9 /* Zipper */,
 				D325FDB0235A8B92002AC9C9 /* GRDB */,
 				D37E2A0823AD9A3600D7913F /* GRDBCombine */,
@@ -340,7 +337,6 @@
 			);
 			mainGroup = D32BCE9A235829750036768A;
 			packageReferences = (
-				D325FDA323589F12002AC9C9 /* XCRemoteSwiftPackageReference "swift-log" */,
 				D325FDA92359F288002AC9C9 /* XCRemoteSwiftPackageReference "Zipper" */,
 				D325FDAF235A8B91002AC9C9 /* XCRemoteSwiftPackageReference "GRDB.swift" */,
 				D37E2A0723AD9A3600D7913F /* XCRemoteSwiftPackageReference "GRDBCombine" */,
@@ -595,6 +591,7 @@
 				);
 				HEADER_SEARCH_PATHS = /usr/include/libxml2;
 				INFOPLIST_FILE = Swanki/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -623,6 +620,7 @@
 				);
 				HEADER_SEARCH_PATHS = /usr/include/libxml2;
 				INFOPLIST_FILE = Swanki/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -764,14 +762,6 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
-		D325FDA323589F12002AC9C9 /* XCRemoteSwiftPackageReference "swift-log" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/apple/swift-log.git";
-			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 1.1.1;
-			};
-		};
 		D325FDA92359F288002AC9C9 /* XCRemoteSwiftPackageReference "Zipper" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/bdewey/Zipper";
@@ -815,11 +805,6 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
-		D325FDA423589F12002AC9C9 /* Logging */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = D325FDA323589F12002AC9C9 /* XCRemoteSwiftPackageReference "swift-log" */;
-			productName = Logging;
-		};
 		D325FDAA2359F288002AC9C9 /* Zipper */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = D325FDA92359F288002AC9C9 /* XCRemoteSwiftPackageReference "Zipper" */;

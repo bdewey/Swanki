@@ -67,7 +67,7 @@ final class Databases: ObservableObject {
 
   func openDatabase(at url: URL, importing importURL: URL? = nil) throws -> CollectionDatabase {
     let database = CollectionDatabase(url: url)
-    if let importURL = importURL {
+    if let importURL {
       try database.importPackage(importURL)
     }
     try database.openDatabase()

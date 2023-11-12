@@ -15,11 +15,11 @@ struct NoteView: View {
           Section(header: Text(section.title)) {
             HTMLView(
               title: section.title,
-              html: self.note?.field(at: section.index) ?? .constant("WTF"),
-              baseURL: self.collectionDatabase.url,
+              html: note?.field(at: section.index) ?? .constant("WTF"),
+              baseURL: collectionDatabase.url,
               backgroundColor: .secondarySystemGroupedBackground,
-              keyCommands: self.keyCommands,
-              shouldBeFirstResponder: self.firstResponderIndex == section.index
+              keyCommands: keyCommands,
+              shouldBeFirstResponder: firstResponderIndex == section.index
             )
           }
         }
@@ -37,14 +37,14 @@ struct NoteView: View {
 
   private var fieldsNames: [String] {
     guard
-      let note = note,
+      let note,
       let noteModel = collectionDatabase.noteModels[note.modelID]
     else {
       return []
     }
     return noteModel.fields
       .sorted(by: { $0.ord < $1.ord })
-      .map { $0.name }
+      .map(\.name)
   }
 
   private var keyCommands: [HTMLView.KeyCommand] {
@@ -59,7 +59,7 @@ struct NoteView: View {
   }
 
   private var noteModel: NoteModel? {
-    guard let note = note else { return nil }
+    guard let note else { return nil }
     return collectionDatabase.noteModels[note.id]
   }
 
@@ -80,7 +80,7 @@ struct NoteView: View {
   }
 
   private var cancelButton: some View {
-    Button(action: { self.note = nil }, label: { Text("Cancel") })
+    Button(action: { note = nil }, label: { Text("Cancel") })
   }
 
   private var doneButton: some View {

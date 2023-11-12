@@ -103,7 +103,7 @@ public final class ObservableDeck: ObservableObject {
       for note in notes {
         try Card.filter(Column("nid") == note.id).deleteAll(db)
       }
-      try Note.deleteAll(db, keys: notes.map { $0.id })
+      try Note.deleteAll(db, keys: notes.map(\.id))
       return try self.fetchNotes(from: db)
     }, completion: { _, result in
       self.updateNotes(result, completion: completion)

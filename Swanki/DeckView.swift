@@ -21,8 +21,8 @@ struct DeckView: View {
         }
       }
       .navigationBarTitle("Decks")
-      .navigationBarItems(trailing: Button(action: { self.showImporter = true }, label: { Text("Import") }))
-      .sheet(isPresented: $showImporter, content: { ImportView(didPickURL: self.databases.importPackage) })
+      .navigationBarItems(trailing: Button(action: { showImporter = true }, label: { Text("Import") }))
+      .sheet(isPresented: $showImporter, content: { ImportView(didPickURL: databases.importPackage) })
     }
     .navigationViewStyle(StackNavigationViewStyle())
   }
@@ -53,7 +53,7 @@ private struct DeckRow: View {
 
   var body: some View {
     ZStack {
-      NavigationLink(destination: StudyView(studySession: studySession), isActive: self.$studyViewNavigation, label: { EmptyView() })
+      NavigationLink(destination: StudyView(studySession: studySession), isActive: $studyViewNavigation, label: { EmptyView() })
       NavigationLink(
         destination: NotesView(
           notesResults: ObservableDeck(
@@ -61,7 +61,7 @@ private struct DeckRow: View {
             deckID: studySession.deckModel.id
           ).fetch()
         ).environmentObject(studySession.collectionDatabase),
-        isActive: self.$browseNavigation,
+        isActive: $browseNavigation,
         label: { EmptyView() }
       )
       HStack {
@@ -73,11 +73,11 @@ private struct DeckRow: View {
           }.font(.subheadline)
         }
         Spacer()
-        Image(systemName: "info.circle").foregroundColor(.accentColor).onTapGesture(perform: { self.browseNavigation = true })
+        Image(systemName: "info.circle").foregroundColor(.accentColor).onTapGesture(perform: { browseNavigation = true })
         Image(systemName: "chevron.right").foregroundColor(.secondary)
       }
       .contentShape(Rectangle()) // You need this so the onTapGesture will work on the entire row, including padding
-      .onTapGesture(perform: { self.studyViewNavigation = true })
+      .onTapGesture(perform: { studyViewNavigation = true })
     }
   }
 }

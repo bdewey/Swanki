@@ -28,11 +28,11 @@ public extension SpacedRepetitionScheduler {
   func learningState(for card: Card) -> Item.LearningState {
     switch card.queue {
     case .new:
-      return .learning(step: 0)
+      .learning(step: 0)
     case .learning, .futureLearning:
-      return .learning(step: max(0, learningIntervals.count - card.left))
+      .learning(step: max(0, learningIntervals.count - card.left))
     case .due:
-      return .review
+      .review
     default:
       preconditionFailure("Trying to schedule an unschedulable card")
     }

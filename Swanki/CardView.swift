@@ -7,9 +7,9 @@ private extension CardAnswer {
   var correctish: Bool {
     switch self {
     case .again, .hard:
-      return false
+      false
     case .good, .easy:
-      return true
+      true
     }
   }
 }
@@ -60,19 +60,19 @@ struct CardView: View {
 
   var body: some View {
     VStack {
-      HTMLView(title: "quiz", html: self.renderedSide, baseURL: self.properties.baseURL, backgroundColor: .secondarySystemBackground)
-        .opacity(self.properties.stackIndex == 0 ? 1 : 0)
-      self.buttonRowOrEmpty
+      HTMLView(title: "quiz", html: renderedSide, baseURL: properties.baseURL, backgroundColor: .secondarySystemBackground)
+        .opacity(properties.stackIndex == 0 ? 1 : 0)
+      buttonRowOrEmpty
         .layoutPriority(1)
     }
     .contentShape(Rectangle())
     .onTapGesture {
       withAnimation {
-        self.flipToBack()
+        flipToBack()
       }
     }
     .onAppear {
-      self.showedFront = CACurrentMediaTime()
+      showedFront = CACurrentMediaTime()
     }
     .padding(.all)
     .background(
@@ -82,15 +82,15 @@ struct CardView: View {
       }
     )
     .padding(.all)
-    .transition(.cardTransition(answer: self.answer))
+    .transition(.cardTransition(answer: answer))
   }
 
   var buttonRowOrEmpty: some View {
     VStack {
       if side == .back {
         CardAnswerButtonRow(answers: properties.answers, didSelectAnswer: {
-          self.answer = $0
-          self.didSelectAnswer?($0, CACurrentMediaTime() - self.showedFront)
+          answer = $0
+          didSelectAnswer?($0, CACurrentMediaTime() - showedFront)
         }).transition(AnyTransition.opacity.combined(with: .scale(scale: 0.01, anchor: .top)))
       } else {
         /*@START_MENU_TOKEN@*/EmptyView()/*@END_MENU_TOKEN@*/

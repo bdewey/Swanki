@@ -15,7 +15,7 @@ struct CardAnswerButtonRow: View {
   var body: some View {
     HStack {
       ForEach(buttonProperties, id: \.self) { properties in
-        self.button(properties: properties)
+        button(properties: properties)
       }
     }.frame(height: 100)
   }
@@ -27,8 +27,8 @@ struct CardAnswerButtonRow: View {
   }
 
   func button(properties: ButtonProperties) -> some View {
-    Button(action: { self.didSelectAnswer?(properties.answer) }) {
-      Text(self.buttonLabel(properties: properties))
+    Button(action: { didSelectAnswer?(properties.answer) }) {
+      Text(buttonLabel(properties: properties))
         .foregroundColor(Color.white)
         .padding(.all)
     }
@@ -44,13 +44,13 @@ struct CardAnswerButtonRow: View {
   func buttonColor(for answer: CardAnswer) -> Color {
     switch answer {
     case .again:
-      return .red
+      .red
     case .hard:
-      return .orange
+      .orange
     case .good:
-      return .blue
+      .blue
     case .easy:
-      return .green
+      .green
     }
   }
 }

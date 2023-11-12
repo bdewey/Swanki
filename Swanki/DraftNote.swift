@@ -56,7 +56,7 @@ public final class DraftNote: ObservableObject, Identifiable {
   }
 
   public func field(at index: Int) -> Binding<String> {
-    return Binding<String>(
+    Binding<String>(
       get: { self.note.fieldsArray[index] },
       set: { self.note.setField(at: index, to: $0) }
     )

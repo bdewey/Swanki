@@ -57,7 +57,7 @@ public extension Note {
       modifiedTimestampSeconds: 0,
       usn: 0,
       tags: "",
-      encodedFields: String(repeating: Self.fieldSeparator, count: fieldCount - 1)
+      encodedFields: String(repeating: fieldSeparator, count: fieldCount - 1)
     )
   }
 

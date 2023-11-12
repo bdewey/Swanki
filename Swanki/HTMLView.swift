@@ -198,7 +198,7 @@ private extension HTMLView {
         DispatchQueue.global(qos: .default).async {
           let image = (try? Data(contentsOf: resolvedURL)).flatMap { UIImage(data: $0) }
           DispatchQueue.main.async {
-            if let image = image {
+            if let image {
               success(image)
               logger.debug("Finished loading image, size = \(String(describing: image.size), privacy: .public)")
             } else {
@@ -210,11 +210,11 @@ private extension HTMLView {
       }
 
       func textView(_ textView: TextView, urlFor imageAttachment: ImageAttachment) -> URL? {
-        return nil
+        nil
       }
 
       func textView(_ textView: TextView, placeholderFor attachment: NSTextAttachment) -> UIImage {
-        return Images.placeholder
+        Images.placeholder
       }
 
       func textView(_ textView: TextView, deletedAttachment attachment: MediaAttachment) {
@@ -297,7 +297,7 @@ extension HTMLView.AztecView.Coordinator: UITextViewDelegate {
 
 extension HTMLView.AztecView.Coordinator: NSLayoutManagerDelegate {
   private func setDesiredHeightLayoutUsedRect(_ layoutUsedRect: CGRect) {
-    guard let textView = textView else { return }
+    guard let textView else { return }
     let containerHeight = ceil(layoutUsedRect.height) +
       textView.textContainerInset.top +
       textView.textContainerInset.bottom
@@ -309,7 +309,7 @@ extension HTMLView.AztecView.Coordinator: NSLayoutManagerDelegate {
     didCompleteLayoutFor textContainer: NSTextContainer?,
     atEnd layoutFinishedFlag: Bool
   ) {
-    guard layoutFinishedFlag, let textContainer = textContainer else { return }
+    guard layoutFinishedFlag, let textContainer else { return }
     let layoutUsedRect = layoutManager.usedRect(for: textContainer)
     DispatchQueue.main.async { [weak self] in
       self?.setDesiredHeightLayoutUsedRect(layoutUsedRect)

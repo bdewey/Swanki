@@ -18,7 +18,7 @@ public struct CollectionMetadata: Codable, FetchableRecord, PersistableRecord {
     let decoder = JSONDecoder()
     let data = models.data(using: .utf8)!
     let keysAndValues = try decoder.decode([String: NoteModel].self, from: data)
-      .map { (key, value) -> (key: Int, value: NoteModel) in
+      .map { key, value -> (key: Int, value: NoteModel) in
         guard let intKey = Int(key) else {
           throw Error.cannotConvertKeyToInt(key)
         }

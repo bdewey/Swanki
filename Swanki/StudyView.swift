@@ -11,7 +11,7 @@ struct StudyView: View {
     return ZStack {
       Text("You are done!").font(.largeTitle)
       ForEach(cardProperties.reversed()) { properties in
-        CardView(properties: properties, didSelectAnswer: self.processAnswer)
+        CardView(properties: properties, didSelectAnswer: processAnswer)
           .scaleEffect(1.0 - CGFloat(properties.stackIndex) * 0.1)
           .offset(x: 0.0, y: -1 * CGFloat(properties.stackIndex) * 24)
           .hidden(properties.stackIndex >= 3)
@@ -62,9 +62,9 @@ struct StudyView: View {
 private extension View {
   func hidden(_ hide: Bool) -> some View {
     if hide {
-      return AnyView(hidden())
+      AnyView(hidden())
     } else {
-      return AnyView(self)
+      AnyView(self)
     }
   }
 }

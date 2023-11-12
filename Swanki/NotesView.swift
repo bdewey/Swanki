@@ -22,12 +22,12 @@ struct NotesView: View {
         .contentShape(Rectangle())
         .onTapGesture {
           do {
-            let noteModel = try self.collectionDatabase.noteModel(for: note)
-            self.draftNote = DraftNote(
+            let noteModel = try collectionDatabase.noteModel(for: note)
+            draftNote = DraftNote(
               title: "Edit",
               note: note,
               noteModel: noteModel,
-              commitAction: { self.notesResults.updateNote($0) }
+              commitAction: { notesResults.updateNote($0) }
             )
           } catch {
             logger.error("Unexpected error preparing draft note: \(error)")
@@ -39,10 +39,10 @@ struct NotesView: View {
     .navigationBarTitle("Notes", displayMode: .inline)
     .sheet(item: $draftNote) { _ in
       NoteView(
-        note: self.$draftNote
-      ).environmentObject(self.collectionDatabase)
+        note: $draftNote
+      ).environmentObject(collectionDatabase)
     }
-    .actionSheet(isPresented: $showNoteTypeSheet, content: { self.noteActionSheet })
+    .actionSheet(isPresented: $showNoteTypeSheet, content: { noteActionSheet })
     .navigationBarItems(trailing: newNoteButton)
   }
 
@@ -65,7 +65,7 @@ struct NotesView: View {
   private var noteActionSheet: ActionSheet {
     var buttons = eligibleNoteModels
       .map { model in
-        ActionSheet.Button.default(Text(verbatim: model.name), action: { self.draftNote = self.makeDraftNote(from: model) })
+        ActionSheet.Button.default(Text(verbatim: model.name), action: { draftNote = makeDraftNote(from: model) })
       }
     buttons.append(.cancel())
     return ActionSheet(title: Text("Type"), message: nil, buttons: buttons)
@@ -74,7 +74,7 @@ struct NotesView: View {
   private func makeDraftNote(from model: NoteModel) -> DraftNote {
     let note = Note.makeEmptyNote(modelID: model.id, fieldCount: model.fields.count)
     return DraftNote(title: "New", note: note, noteModel: model) { updatedNote in
-      self.notesResults.insertNote(updatedNote, model: model)
+      notesResults.insertNote(updatedNote, model: model)
     }
   }
 

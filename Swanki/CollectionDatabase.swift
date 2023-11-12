@@ -69,7 +69,7 @@ public final class CollectionDatabase: NSObject, ObservableObject {
       }
     }
 
-    if let coordinatorError = coordinatorError {
+    if let coordinatorError {
       throw coordinatorError
     }
 
@@ -114,10 +114,10 @@ public final class CollectionDatabase: NSObject, ObservableObject {
         innerError = error
       }
     }
-    if let coordinatorError = coordinatorError {
+    if let coordinatorError {
       throw coordinatorError
     }
-    if let innerError = innerError {
+    if let innerError {
       throw innerError
     }
   }
@@ -333,13 +333,13 @@ private extension CardAnswer {
   var factor: Int {
     switch self {
     case .again:
-      return 0
+      0
     case .hard:
-      return -150
+      -150
     case .good:
-      return 0
+      0
     case .easy:
-      return 150
+      150
     }
   }
 }

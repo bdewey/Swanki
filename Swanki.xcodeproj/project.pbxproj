@@ -25,7 +25,6 @@
 		D37E2A0C23AF087800D7913F /* CloudKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D37E2A0B23AF087800D7913F /* CloudKit.framework */; };
 		D38C80092B00302300C619E6 /* Aztec in Frameworks */ = {isa = PBXBuildFile; productRef = D38C80082B00302300C619E6 /* Aztec */; };
 		D38C800D2B00608800C619E6 /* Application.swift in Sources */ = {isa = PBXBuildFile; fileRef = D38C800C2B00608800C619E6 /* Application.swift */; };
-		D392638923A691E7008D09B2 /* ImportView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D392638823A691E7008D09B2 /* ImportView.swift */; };
 		D392638B23A74E32008D09B2 /* Databases.swift in Sources */ = {isa = PBXBuildFile; fileRef = D392638A23A74E32008D09B2 /* Databases.swift */; };
 		D392638D23A9B450008D09B2 /* AnkiStache.swift in Sources */ = {isa = PBXBuildFile; fileRef = D392638C23A9B450008D09B2 /* AnkiStache.swift */; };
 		D392638F23AA6000008D09B2 /* AnkiTemplateTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D392638E23AA6000008D09B2 /* AnkiTemplateTests.swift */; };
@@ -87,7 +86,6 @@
 		D37E2A0A23AF06CA00D7913F /* Swanki.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Swanki.entitlements; sourceTree = "<group>"; };
 		D37E2A0B23AF087800D7913F /* CloudKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CloudKit.framework; path = System/Library/Frameworks/CloudKit.framework; sourceTree = SDKROOT; };
 		D38C800C2B00608800C619E6 /* Application.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Application.swift; sourceTree = "<group>"; };
-		D392638823A691E7008D09B2 /* ImportView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImportView.swift; sourceTree = "<group>"; };
 		D392638A23A74E32008D09B2 /* Databases.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Databases.swift; sourceTree = "<group>"; };
 		D392638C23A9B450008D09B2 /* AnkiStache.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnkiStache.swift; sourceTree = "<group>"; };
 		D392638E23AA6000008D09B2 /* AnkiTemplateTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnkiTemplateTests.swift; sourceTree = "<group>"; };
@@ -192,7 +190,6 @@
 				D3B71457235DDB1C00F2AFB2 /* DeckView.swift */,
 				D3E159DE238C14AA00940661 /* DraftNote.swift */,
 				63A505C72388106000E93016 /* HTMLView.swift */,
-				D392638823A691E7008D09B2 /* ImportView.swift */,
 				D32BCEB4235829770036768A /* Info.plist */,
 				D32BCEB1235829770036768A /* LaunchScreen.storyboard */,
 				D3E159E2239059DC00940661 /* LogEntry.swift */,
@@ -390,7 +387,6 @@
 				D3E159DF238C14AA00940661 /* DraftNote.swift in Sources */,
 				D392638B23A74E32008D09B2 /* Databases.swift in Sources */,
 				63C984B5238566A400E5CAFE /* NoteView.swift in Sources */,
-				D392638923A691E7008D09B2 /* ImportView.swift in Sources */,
 				D3B7145A2363212200F2AFB2 /* CollectionDatabase+Previews.swift in Sources */,
 				D3B71454235CB7D000F2AFB2 /* StudyView.swift in Sources */,
 				D3B71456235D211B00F2AFB2 /* Logger.swift in Sources */,

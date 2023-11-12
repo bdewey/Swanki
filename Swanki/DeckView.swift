@@ -2,6 +2,11 @@
 
 import GRDB
 import SwiftUI
+import UniformTypeIdentifiers
+
+extension UTType {
+  static let ankiPackage = UTType("org.brians-brain.anki-package")!
+}
 
 struct DeckView: View {
   @ObservedObject var databases: Databases
@@ -22,7 +27,16 @@ struct DeckView: View {
       }
       .navigationBarTitle("Decks")
       .navigationBarItems(trailing: Button(action: { showImporter = true }, label: { Text("Import") }))
-      .sheet(isPresented: $showImporter, content: { ImportView(didPickURL: databases.importPackage) })
+      .fileImporter(isPresented: $showImporter, allowedContentTypes: [.ankiPackage], onCompletion: { result in
+        switch result {
+        case .success(let url):
+          Task {
+            await databases.importPackage(at: url)
+          }
+        case .failure(let failure):
+          logger.error("Failure on import: \(failure)")
+        }
+      })
     }
     .navigationViewStyle(StackNavigationViewStyle())
   }

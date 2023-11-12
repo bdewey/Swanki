@@ -43,7 +43,6 @@
 		D3E159E3239059DC00940661 /* LogEntry.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3E159E2239059DC00940661 /* LogEntry.swift */; };
 		D3E159E52390790000940661 /* Date+Anki.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3E159E42390790000940661 /* Date+Anki.swift */; };
 		D3E159E7239083FA00940661 /* StudySession.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3E159E6239083FA00940661 /* StudySession.swift */; };
-		D3E525B1237725A500C1E549 /* SpacedRepetitionSchedulerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3E525B0237725A500C1E549 /* SpacedRepetitionSchedulerTests.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -104,7 +103,6 @@
 		D3E159E2239059DC00940661 /* LogEntry.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogEntry.swift; sourceTree = "<group>"; };
 		D3E159E42390790000940661 /* Date+Anki.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+Anki.swift"; sourceTree = "<group>"; };
 		D3E159E6239083FA00940661 /* StudySession.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StudySession.swift; sourceTree = "<group>"; };
-		D3E525B0237725A500C1E549 /* SpacedRepetitionSchedulerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpacedRepetitionSchedulerTests.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -221,7 +219,6 @@
 			children = (
 				D392638E23AA6000008D09B2 /* AnkiTemplateTests.swift */,
 				D32BCEBF235829770036768A /* Info.plist */,
-				D3E525B0237725A500C1E549 /* SpacedRepetitionSchedulerTests.swift */,
 			);
 			path = SwankiTests;
 			sourceTree = "<group>";
@@ -413,7 +410,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				D392638F23AA6000008D09B2 /* AnkiTemplateTests.swift in Sources */,
-				D3E525B1237725A500C1E549 /* SpacedRepetitionSchedulerTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -635,7 +631,7 @@
 				DEVELOPMENT_TEAM = K2UU8WDD8H;
 				HEADER_SEARCH_PATHS = /usr/include/libxml2;
 				INFOPLIST_FILE = SwankiTests/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -658,7 +654,7 @@
 				DEVELOPMENT_TEAM = K2UU8WDD8H;
 				HEADER_SEARCH_PATHS = /usr/include/libxml2;
 				INFOPLIST_FILE = SwankiTests/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",

@@ -73,7 +73,7 @@ struct NotesView: View {
   }
 
   private func makeDraftNote(from model: NoteModel) -> DraftNote {
-    let note = Note.makeEmptyNote(modelID: model.id, fieldCount: model.fields.count)
+    let note = Anki.Note.makeEmptyNote(modelID: model.id, fieldCount: model.fields.count)
     return DraftNote(title: "New", note: note, noteModel: model) { updatedNote in
       notesResults.insertNote(updatedNote, model: model)
     }

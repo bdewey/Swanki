@@ -9,9 +9,9 @@ import SwiftUI
 public final class DraftNote: ObservableObject, Identifiable {
   public init(
     title: LocalizedStringKey,
-    note: Note,
+    note: Anki.Note,
     noteModel: NoteModel,
-    commitAction: @escaping (Note) -> Void
+    commitAction: @escaping (Anki.Note) -> Void
   ) {
     self.title = title
     self.note = note
@@ -20,9 +20,9 @@ public final class DraftNote: ObservableObject, Identifiable {
   }
 
   public let title: LocalizedStringKey
-  @Published public var note: Note
+  @Published public var note: Anki.Note
   public let noteModel: NoteModel
-  public let commitAction: (Note) -> Void
+  public let commitAction: (Anki.Note) -> Void
 
   public var id: Int { note.id }
 
@@ -64,7 +64,7 @@ public final class DraftNote: ObservableObject, Identifiable {
   }
 
   /// Allow read-only access to all of the wrapped `note` properties.
-  public subscript<T>(dynamicMember keyPath: KeyPath<Note, T>) -> T {
+  public subscript<T>(dynamicMember keyPath: KeyPath<Anki.Note, T>) -> T {
     note[keyPath: keyPath]
   }
 }

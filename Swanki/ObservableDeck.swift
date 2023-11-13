@@ -23,11 +23,11 @@ public final class ObservableDeck: ObservableObject {
   public let deckID: Int
 
   /// The actual notes.
-  @Published public private(set) var notes: [Note] = []
+  @Published public private(set) var notes: [Anki.Note] = []
 
   /// Fetches the notes.
   @discardableResult
-  public func fetch(completion: ((Result<[Note], Error>) -> Void)? = nil) -> Self {
+  public func fetch(completion: ((Result<[Anki.Note], Error>) -> Void)? = nil) -> Self {
     database.dbQueue!.asyncRead { databaseResult in
       let queryResult = databaseResult
         .flatMap { db in
@@ -40,17 +40,17 @@ public final class ObservableDeck: ObservableObject {
     return self
   }
 
-  private func fetchNotes(from db: Database) throws -> [Note] {
-    let cards = try Card
+  private func fetchNotes(from db: Database) throws -> [Anki.Note] {
+    let cards = try Anki.Card
       .select(Column("nid"), as: Int.self).distinct()
       .filter(Column("did") == deckID)
       .fetchAll(db)
-    return try Note.filter(keys: cards).fetchAll(db)
+    return try Anki.Note.filter(keys: cards).fetchAll(db)
   }
 
   /// Updates a note.
-  public func updateNote(_ note: Note, completion: ((Result<[Note], Error>) -> Void)? = nil) {
-    database.dbQueue!.asyncWrite({ db -> [Note] in
+  public func updateNote(_ note: Anki.Note, completion: ((Result<[Anki.Note], Error>) -> Void)? = nil) {
+    database.dbQueue!.asyncWrite({ db -> [Anki.Note] in
       try note.update(db)
       return try self.fetchNotes(from: db)
     }, completion: { _, result in
@@ -58,7 +58,7 @@ public final class ObservableDeck: ObservableObject {
     })
   }
 
-  public func insertNote(_ note: Note, model: NoteModel, completion: ((Result<[Note], Error>) -> Void)? = nil) {
+  public func insertNote(_ note: Anki.Note, model: NoteModel, completion: ((Result<[Anki.Note], Error>) -> Void)? = nil) {
     guard
       let deckModel = database.deckModels[deckID],
       let deckConfig = database.deckConfigs[deckModel.configID]
@@ -66,12 +66,12 @@ public final class ObservableDeck: ObservableObject {
       assertionFailure()
       return
     }
-    database.dbQueue!.asyncWrite({ db -> [Note] in
+    database.dbQueue!.asyncWrite({ db -> [Anki.Note] in
       // Create a mutable copy.
       var note = note
       let now = Date().timeIntervalSince1970
       var newID = Int(floor(now * 1000)) // Start with integer milliseconds since the epoch
-      while try Note.filter(key: newID).fetchCount(db) != 0 {
+      while try Anki.Note.filter(key: newID).fetchCount(db) != 0 {
         newID += 1
       }
       note.id = newID
@@ -82,7 +82,7 @@ public final class ObservableDeck: ObservableObject {
       newID += 1
       for card in note.cards(model: model) {
         var card = card
-        while try Card.filter(key: newID).fetchCount(db) != 0 {
+        while try Anki.Card.filter(key: newID).fetchCount(db) != 0 {
           newID += 1
         }
         card.id = newID
@@ -99,12 +99,12 @@ public final class ObservableDeck: ObservableObject {
     })
   }
 
-  public func deleteNotes(_ notes: [Note], completion: ((Result<[Note], Error>) -> Void)? = nil) {
-    database.dbQueue!.asyncWrite({ db -> [Note] in
+  public func deleteNotes(_ notes: [Anki.Note], completion: ((Result<[Anki.Note], Error>) -> Void)? = nil) {
+    database.dbQueue!.asyncWrite({ db -> [Anki.Note] in
       for note in notes {
-        try Card.filter(Column("nid") == note.id).deleteAll(db)
+        try Anki.Card.filter(Column("nid") == note.id).deleteAll(db)
       }
-      try Note.deleteAll(db, keys: notes.map(\.id))
+      try Anki.Note.deleteAll(db, keys: notes.map(\.id))
       return try self.fetchNotes(from: db)
     }, completion: { _, result in
       self.updateNotes(result, completion: completion)
@@ -115,8 +115,8 @@ public final class ObservableDeck: ObservableObject {
 private extension ObservableDeck {
   /// Updates the notes array with a new result.
   private func updateNotes(
-    _ result: Result<[Note], Error>,
-    completion: ((Result<[Note], Error>) -> Void)?
+    _ result: Result<[Anki.Note], Error>,
+    completion: ((Result<[Anki.Note], Error>) -> Void)?
   ) {
     guard Thread.isMainThread else {
       DispatchQueue.main.async {

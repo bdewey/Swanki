@@ -23,7 +23,7 @@ extension CollectionDatabase {
 }
 
 extension Card {
-  static let nileCard = Card(
+  static let nileCard = Anki.Card(
     id: 1334609482913,
     noteID: 1334609482913,
     deckID: 1342706224003,
@@ -41,7 +41,7 @@ extension Card {
 }
 
 extension Note {
-  static let nileRiver = Note(
+  static let nileRiver = Anki.Note(
     id: 1334609482913,
     guid: "abcdefg",
     modelID: 1342706223926,

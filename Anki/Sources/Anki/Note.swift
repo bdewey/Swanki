@@ -14,7 +14,7 @@ public struct Note: Codable, FetchableRecord, PersistableRecord, Identifiable {
     self.encodedFields = encodedFields
     self.sortFields = sortFields
   }
-  
+
   public static var databaseTableName: String { "notes" }
   public var id: Int
   public let guid: String

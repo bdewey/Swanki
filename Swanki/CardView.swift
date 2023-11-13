@@ -44,11 +44,11 @@ private extension AnyTransition {
 struct CardView: View {
   struct Properties: Identifiable {
     var id: Int { card.id }
-    let card: Card
+    let card: Anki.Card
     let stackIndex: Int
     let answers: [(key: CardAnswer, value: SpacedRepetitionScheduler.Item)]
     let model: NoteModel
-    let note: Note
+    let note: Anki.Note
     let baseURL: URL?
   }
 

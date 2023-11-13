@@ -21,7 +21,7 @@ struct StudyView: View {
     }
   }
 
-  private func cardViewProperties(for card: Card, stackIndex: Int) throws -> CardView.Properties {
+  private func cardViewProperties(for card: Anki.Card, stackIndex: Int) throws -> CardView.Properties {
     guard
       let note = try studySession.collectionDatabase.fetchNote(id: card.noteID)
     else {

@@ -133,48 +133,48 @@ private extension String {
 }
 
 // MARK: - String helpers
+
 // Copied from Aztec. Investigate getting rid of this.
 
 private extension NSTextCheckingResult {
-
-    /// Returns the match for the corresponding capture group position in a text
-    ///
-    /// - Parameters:
-    ///   - position: the capture group position
-    ///   - text: the string where the match was detected
-    /// - Returns: the string with the captured group text
-    ///
-    func captureGroup(in position: Int, text: String) -> String? {
-        guard position < numberOfRanges else {
-            return nil
-        }
-
-        #if swift(>=4.0)
-            let nsrange = self.range(at: position)
-        #else
-            let nsrange = self.rangeAt(position)
-        #endif
-
-        guard nsrange.location != NSNotFound else {
-            return nil
-        }
-
-        let range = text.range(fromUTF16NSRange: nsrange)
-
-        #if swift(>=4.0)
-            let captureGroup = String(text[range])
-        #else
-            let captureGroup = text.substring(with: range)
-        #endif
-
-        return captureGroup
+  /// Returns the match for the corresponding capture group position in a text
+  ///
+  /// - Parameters:
+  ///   - position: the capture group position
+  ///   - text: the string where the match was detected
+  /// - Returns: the string with the captured group text
+  ///
+  func captureGroup(in position: Int, text: String) -> String? {
+    guard position < numberOfRanges else {
+      return nil
     }
+
+    #if swift(>=4.0)
+      let nsrange = range(at: position)
+    #else
+      let nsrange = rangeAt(position)
+    #endif
+
+    guard nsrange.location != NSNotFound else {
+      return nil
+    }
+
+    let range = text.range(fromUTF16NSRange: nsrange)
+
+    #if swift(>=4.0)
+      let captureGroup = String(text[range])
+    #else
+      let captureGroup = text.substring(with: range)
+    #endif
+
+    return captureGroup
+  }
 }
 
 private extension String {
   func range(fromUTF16NSRange utf16NSRange: NSRange) -> Range<String.Index> {
-      let swiftUTF16Range = utf16.range(from: utf16NSRange)
-      return range(from: swiftUTF16Range)
+    let swiftUTF16Range = utf16.range(from: utf16NSRange)
+    return range(from: swiftUTF16Range)
   }
 
   /// Converts a `Range<String.UTF16View.Index>` into a `Range<String.Index>` for this string.
@@ -185,11 +185,10 @@ private extension String {
   /// - Returns: the requested `Range<String.Index>`
   ///
   func range(from utf16Range: Range<String.UTF16View.Index>) -> Range<String.Index> {
+    let start = findValidLowerBound(for: utf16Range)
+    let end = findValidUpperBound(for: utf16Range)
 
-      let start = self.findValidLowerBound(for: utf16Range)
-      let end = self.findValidUpperBound(for: utf16Range)
-
-      return start ..< end
+    return start ..< end
   }
 
   /// Converts the lower bound of a `Range<String.UTF16View.Index>` into a valid `String.Index` for this string.
@@ -201,12 +200,11 @@ private extension String {
   /// - Returns: A valid lower bound represented as a `String.Index`
   ///
   private func findValidLowerBound(for utf16Range: Range<String.UTF16View.Index>) -> String.Index {
+    guard utf16.count >= utf16Range.lowerBound.utf16Offset(in: self) else {
+      return String.UTF16View.Index(utf16Offset: 0, in: self)
+    }
 
-      guard self.utf16.count >= utf16Range.lowerBound.utf16Offset(in: self) else {
-          return String.UTF16View.Index(utf16Offset: 0, in: self)
-      }
-
-      return findValidBound(for: utf16Range.lowerBound, using: -)
+    return findValidBound(for: utf16Range.lowerBound, using: -)
   }
 
   /// Converts the upper bound of a `Range<String.UTF16View.Index>` into a valid `String.Index` for this string.
@@ -218,12 +216,11 @@ private extension String {
   /// - Returns: A valid upper bound represented as a `String.Index`
   ///
   private func findValidUpperBound(for utf16Range: Range<String.UTF16View.Index>) -> String.Index {
+    guard utf16.count >= utf16Range.upperBound.utf16Offset(in: self) else {
+      return String.Index(utf16Offset: utf16.count, in: self)
+    }
 
-      guard self.utf16.count >= utf16Range.upperBound.utf16Offset(in: self) else {
-          return String.Index(utf16Offset: self.utf16.count, in: self)
-      }
-
-      return findValidBound(for: utf16Range.upperBound, using: +)
+    return findValidBound(for: utf16Range.upperBound, using: +)
   }
 
   /// Finds a valid UTF-8 `String.Index` matching the bound of a `String.UTF16View.Index`
@@ -239,38 +236,34 @@ private extension String {
   /// - Returns: A corresponding `String.Index`
   ///
   private func findValidBound(for bound: String.UTF16View.Index, using method: (Int, Int) -> Int) -> String.Index {
+    var newBound = bound.samePosition(in: self) // nil if we're inside a grapheme cluster
+    var i = 1
 
-      var newBound = bound.samePosition(in: self) // nil if we're inside a grapheme cluster
-      var i = 1
+    while newBound == nil {
+      let newOffset = method(bound.utf16Offset(in: self), i)
+      let newIndex = String.UTF16View.Index(utf16Offset: newOffset, in: self)
+      newBound = newIndex.samePosition(in: self)
+      i += 1
+    }
 
-      while(newBound == nil) {
-          let newOffset = method(bound.utf16Offset(in: self), i)
-          let newIndex = String.UTF16View.Index(utf16Offset: newOffset, in: self)
-          newBound = newIndex.samePosition(in: self)
-          i += 1
-      }
-
-      // We've verified aboe that this is a valid bound, so force upwrapping it is ok
-      return newBound!
+    // We've verified aboe that this is a valid bound, so force upwrapping it is ok
+    return newBound!
   }
-
-
 }
 
 private extension String.UTF16View {
+  /// Converts a UTF16 `NSRange` into a `Range<String.UTF16View.Index>` for this string.
+  ///
+  /// - Parameters:
+  ///     - nsRange: the UTF16 NSRange to convert.
+  ///
+  /// - Returns: the requested `Range<String.UTF16View.Index>` or `nil` if the conversion fails.
+  ///
+  func range(from nsRange: NSRange) -> Range<String.UTF16View.Index> {
+    let start = index(startIndex, offsetBy: nsRange.location)
+    let offset = count < nsRange.length ? count : nsRange.length
+    let end = index(start, offsetBy: offset)
 
-    /// Converts a UTF16 `NSRange` into a `Range<String.UTF16View.Index>` for this string.
-    ///
-    /// - Parameters:
-    ///     - nsRange: the UTF16 NSRange to convert.
-    ///
-    /// - Returns: the requested `Range<String.UTF16View.Index>` or `nil` if the conversion fails.
-    ///
-    func range(from nsRange: NSRange) -> Range<String.UTF16View.Index> {
-        let start = index(startIndex, offsetBy: nsRange.location)
-        let offset = count < nsRange.length ? count : nsRange.length
-        let end = index(start, offsetBy: offset)
-
-        return start ..< end
-    }
+    return start ..< end
+  }
 }

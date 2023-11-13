@@ -37,6 +37,9 @@
 		D3E159E1238E0EC200940661 /* ObservableDeck.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3E159E0238E0EC200940661 /* ObservableDeck.swift */; };
 		D3E159E7239083FA00940661 /* StudySession.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3E159E6239083FA00940661 /* StudySession.swift */; };
 		D3E8A3A22B01267100C8522C /* SwankiTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3E8A3A12B01267100C8522C /* SwankiTests.swift */; };
+		D3E8A3A52B02678300C8522C /* Deck.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3E8A3A42B02678300C8522C /* Deck.swift */; };
+		D3E8A3A72B02687B00C8522C /* Card.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3E8A3A62B02687B00C8522C /* Card.swift */; };
+		D3E8A3A92B026A1400C8522C /* Note.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3E8A3A82B026A1400C8522C /* Note.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -91,6 +94,9 @@
 		D3E159E0238E0EC200940661 /* ObservableDeck.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObservableDeck.swift; sourceTree = "<group>"; };
 		D3E159E6239083FA00940661 /* StudySession.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StudySession.swift; sourceTree = "<group>"; };
 		D3E8A3A12B01267100C8522C /* SwankiTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwankiTests.swift; sourceTree = "<group>"; };
+		D3E8A3A42B02678300C8522C /* Deck.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Deck.swift; sourceTree = "<group>"; };
+		D3E8A3A62B02687B00C8522C /* Card.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Card.swift; sourceTree = "<group>"; };
+		D3E8A3A82B026A1400C8522C /* Note.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Note.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -163,6 +169,7 @@
 		D32BCEA5235829750036768A /* Swanki */ = {
 			isa = PBXGroup;
 			children = (
+				D3E8A3A32B02677500C8522C /* Model */,
 				D38C800C2B00608800C619E6 /* Application.swift */,
 				D32BCEAC235829770036768A /* Assets.xcassets */,
 				D3966845236DDC9A0015DB82 /* CardAnswerButtonRow.swift */,
@@ -213,6 +220,16 @@
 				D32BCECA235829770036768A /* Info.plist */,
 			);
 			path = SwankiUITests;
+			sourceTree = "<group>";
+		};
+		D3E8A3A32B02677500C8522C /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				D3E8A3A42B02678300C8522C /* Deck.swift */,
+				D3E8A3A62B02687B00C8522C /* Card.swift */,
+				D3E8A3A82B026A1400C8522C /* Note.swift */,
+			);
+			path = Model;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -363,7 +380,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D3E8A3A52B02678300C8522C /* Deck.swift in Sources */,
 				63C984B32385583700E5CAFE /* NotesView.swift in Sources */,
+				D3E8A3A72B02687B00C8522C /* Card.swift in Sources */,
 				D351006F2378986600CE2D7E /* SpacedRepetitionScheduler+Card.swift in Sources */,
 				D3E159DF238C14AA00940661 /* DraftNote.swift in Sources */,
 				D392638B23A74E32008D09B2 /* Databases.swift in Sources */,
@@ -376,6 +395,7 @@
 				D3966846236DDC9A0015DB82 /* CardAnswerButtonRow.swift in Sources */,
 				D3B7144E235BB5A500F2AFB2 /* CollectionDatabase.swift in Sources */,
 				D3E159E1238E0EC200940661 /* ObservableDeck.swift in Sources */,
+				D3E8A3A92B026A1400C8522C /* Note.swift in Sources */,
 				D3B71458235DDB1C00F2AFB2 /* DeckView.swift in Sources */,
 				D39668442365EE9D0015DB82 /* WebView.swift in Sources */,
 				D38C800D2B00608800C619E6 /* Application.swift in Sources */,

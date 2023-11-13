@@ -16,7 +16,7 @@ public extension SpacedRepetitionScheduler {
   }
 
   /// Creates a `SpacedRepetitionScheduler.Item` corresponding to this Card.
-  func makeSchedulingItem(for card: Card) -> Item {
+  func makeSchedulingItem(for card: Anki.Card) -> Item {
     Item(
       learningState: learningState(for: card),
       reviewCount: card.reps,
@@ -26,7 +26,7 @@ public extension SpacedRepetitionScheduler {
     )
   }
 
-  func learningState(for card: Card) -> Item.LearningState {
+  func learningState(for card: Anki.Card) -> Item.LearningState {
     switch card.queue {
     case .new:
       .learning(step: 0)
@@ -39,7 +39,7 @@ public extension SpacedRepetitionScheduler {
     }
   }
 
-  func applyItem(_ item: Item, to card: inout Card, now: Date = Date()) {
+  func applyItem(_ item: Item, to card: inout Anki.Card, now: Date = Date()) {
     switch item.learningState {
     case .learning(step: let step):
       card.queue = .learning

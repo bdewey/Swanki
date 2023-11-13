@@ -49,7 +49,7 @@ public struct NoteModel {
     self.modelType = modelType
     self.templates = templates
   }
-  
+
   public let id: Int
   public let name: String
   public let requirements: [TemplateRequirement]?
@@ -144,7 +144,7 @@ public struct CardTemplate: Codable {
     self.ord = ord
     self.qfmt = qfmt
   }
-  
+
   public let name: String
   public let afmt: String
   public let bafmt: String
@@ -164,7 +164,7 @@ public struct NoteField: Codable {
     self.name = name
     self.ord = ord
   }
-  
+
   public let font: String
   public let name: String
   public let ord: Int

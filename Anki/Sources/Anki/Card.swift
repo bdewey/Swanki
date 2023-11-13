@@ -19,7 +19,7 @@ public struct Card: Codable, FetchableRecord, PersistableRecord, Identifiable, E
     self.lapses = lapses
     self.left = left
   }
-  
+
   public enum CardType: Int, Codable {
     case new, learning, due, filtered
   }

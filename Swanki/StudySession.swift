@@ -13,7 +13,7 @@ public final class StudySession: ObservableObject {
     do {
       var learningCardCount = 0
       var newCardCount = 0
-      var cards: [Card] = []
+      var cards: [Anki.Card] = []
       let learningCards = try collectionDatabase.fetchLearningCards(from: deckModel.id)
       logger.info("Found \(learningCards.count) learning card(s) for decks \(String(format: "%ld", deckModel.id))")
       learningCardCount += learningCards.count
@@ -47,7 +47,7 @@ public final class StudySession: ObservableObject {
   @Published public private(set) var learningCardCount: Int
   @Published public private(set) var newCardCount: Int
 
-  @Published public private(set) var cards: ArraySlice<Card>
+  @Published public private(set) var cards: ArraySlice<Anki.Card>
 
   public func recordAnswer(_ answer: CardAnswer, studyTime: TimeInterval) throws {
     guard let currentCard = cards.popFirst() else {

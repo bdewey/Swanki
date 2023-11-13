@@ -76,7 +76,7 @@ public final class CollectionDatabase: NSObject, ObservableObject {
 
     switch result {
     case .success(let memoryQueue):
-      databaseChangeObserver = DatabaseRegionObservation(tracking: [Note.all(), LogEntry.all()])
+      databaseChangeObserver = DatabaseRegionObservation(tracking: [Anki.Note.all(), LogEntry.all()])
         .publisher(in: memoryQueue)
         .receive(on: RunLoop.main)
         .map { [weak self] _ in self?.hasUnsavedChanges = true }
@@ -162,7 +162,7 @@ public final class CollectionDatabase: NSObject, ObservableObject {
   public private(set) var deckModels: [Int: DeckModel] = [:]
   public private(set) var deckConfigs: [Int: DeckConfig] = [:]
 
-  public func noteModel(for note: Note) throws -> NoteModel {
+  public func noteModel(for note: Anki.Note) throws -> NoteModel {
     guard let model = noteModels[note.modelID] else {
       throw Error.unknownNoteModel(modelID: note.modelID)
     }
@@ -185,18 +185,18 @@ public final class CollectionDatabase: NSObject, ObservableObject {
     self.deckConfigs = deckConfigs
   }
 
-  public func fetchNote(id: Int) throws -> Note? {
-    try dbQueue!.read { db -> Note? in
-      try Note
+  public func fetchNote(id: Int) throws -> Anki.Note? {
+    try dbQueue!.read { db -> Anki.Note? in
+      try Anki.Note
         .filter(Column("id") == id)
         .fetchOne(db)
     }
   }
 
-  public func fetchNewCards(from deckID: Int) throws -> [Card] {
+  public func fetchNewCards(from deckID: Int) throws -> [Anki.Card] {
     let limit = try newCardLimit(for: deckID)
-    return try dbQueue!.read { db -> [Card] in
-      try Card
+    return try dbQueue!.read { db -> [Anki.Card] in
+      try Anki.Card
         .filter(Column("did") == deckID)
         .filter(Column("queue") == Card.CardQueue.new.rawValue)
         .order(Column("due").asc)
@@ -205,10 +205,10 @@ public final class CollectionDatabase: NSObject, ObservableObject {
     }
   }
 
-  public func fetchLearningCards(from deckID: Int) throws -> [Card] {
+  public func fetchLearningCards(from deckID: Int) throws -> [Anki.Card] {
     let dueTime = Date().secondsRelativeFormat
-    return try dbQueue!.read { db -> [Card] in
-      try Card
+    return try dbQueue!.read { db -> [Anki.Card] in
+      try Anki.Card
         .filter(Column("did") == deckID)
         .filter(Column("queue") == Card.CardQueue.learning.rawValue || Column("queue") == Card.CardQueue.futureLearning.rawValue)
         .filter(Column("due") <= dueTime)
@@ -217,11 +217,11 @@ public final class CollectionDatabase: NSObject, ObservableObject {
     }
   }
 
-  public func fetchReviewCards(from deckID: Int) throws -> [Card] {
+  public func fetchReviewCards(from deckID: Int) throws -> [Anki.Card] {
     let limit = try reviewCardLimit(for: deckID)
     let dueTime = Date().dayRelativeFormat
-    return try dbQueue!.read { db -> [Card] in
-      try Card
+    return try dbQueue!.read { db -> [Anki.Card] in
+      try Anki.Card
         .filter(Column("did") == deckID)
         .filter(Column("queue") == Card.CardQueue.due.rawValue)
         .filter(Column("due") <= dueTime)
@@ -253,7 +253,7 @@ public final class CollectionDatabase: NSObject, ObservableObject {
     return config.rev.perDay
   }
 
-  public func recordAnswer(_ answer: CardAnswer, for card: Card, studyTime: TimeInterval) throws {
+  public func recordAnswer(_ answer: CardAnswer, for card: Anki.Card, studyTime: TimeInterval) throws {
     guard
       let model = deckModels[card.deckID],
       let config = deckConfigs[model.configID]

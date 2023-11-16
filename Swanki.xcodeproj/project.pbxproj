@@ -26,7 +26,6 @@
 		D38C80132B0121DB00C619E6 /* Anki in Frameworks */ = {isa = PBXBuildFile; productRef = D38C80122B0121DB00C619E6 /* Anki */; };
 		D392638B23A74E32008D09B2 /* Databases.swift in Sources */ = {isa = PBXBuildFile; fileRef = D392638A23A74E32008D09B2 /* Databases.swift */; };
 		D396683F2364924A0015DB82 /* CardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D396683E2364924A0015DB82 /* CardView.swift */; };
-		D39668442365EE9D0015DB82 /* WebView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D39668432365EE9D0015DB82 /* WebView.swift */; };
 		D3966846236DDC9A0015DB82 /* CardAnswerButtonRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3966845236DDC9A0015DB82 /* CardAnswerButtonRow.swift */; };
 		D3B7144E235BB5A500F2AFB2 /* CollectionDatabase.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3B7144D235BB5A500F2AFB2 /* CollectionDatabase.swift */; };
 		D3B71454235CB7D000F2AFB2 /* StudyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3B71453235CB7D000F2AFB2 /* StudyView.swift */; };
@@ -85,7 +84,6 @@
 		D38C80112B0120E800C619E6 /* Anki */ = {isa = PBXFileReference; lastKnownFileType = wrapper; path = Anki; sourceTree = "<group>"; };
 		D392638A23A74E32008D09B2 /* Databases.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Databases.swift; sourceTree = "<group>"; };
 		D396683E2364924A0015DB82 /* CardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardView.swift; sourceTree = "<group>"; };
-		D39668432365EE9D0015DB82 /* WebView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebView.swift; sourceTree = "<group>"; };
 		D3966845236DDC9A0015DB82 /* CardAnswerButtonRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardAnswerButtonRow.swift; sourceTree = "<group>"; };
 		D3B7144D235BB5A500F2AFB2 /* CollectionDatabase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionDatabase.swift; sourceTree = "<group>"; };
 		D3B71453235CB7D000F2AFB2 /* StudyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StudyView.swift; sourceTree = "<group>"; };
@@ -195,7 +193,6 @@
 				D3E159E6239083FA00940661 /* StudySession.swift */,
 				D3B71453235CB7D000F2AFB2 /* StudyView.swift */,
 				D37E2A0A23AF06CA00D7913F /* Swanki.entitlements */,
-				D39668432365EE9D0015DB82 /* WebView.swift */,
 				D3E8A3AA2B02FF0900C8522C /* NewDecksView.swift */,
 			);
 			path = Swanki;
@@ -405,7 +402,6 @@
 				D3E159E1238E0EC200940661 /* ObservableDeck.swift in Sources */,
 				D3E8A3A92B026A1400C8522C /* Note.swift in Sources */,
 				D3B71458235DDB1C00F2AFB2 /* DeckView.swift in Sources */,
-				D39668442365EE9D0015DB82 /* WebView.swift in Sources */,
 				D38C800D2B00608800C619E6 /* Application.swift in Sources */,
 				D3E159E7239083FA00940661 /* StudySession.swift in Sources */,
 			);

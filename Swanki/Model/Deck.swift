@@ -10,11 +10,11 @@ public final class Deck {
     self.name = name
   }
 
-  public var name: String
+  public var name: String = "Untitled"
 
   @Relationship(deleteRule: .cascade, inverse: \Card.deck)
-  public var cards: [Card] = []
+  public var cards: [Card]? = []
 
   @Relationship(deleteRule: .cascade, inverse: \Note.deck)
-  public var notes: [Note] = []
+  public var notes: [Note]? = []
 }

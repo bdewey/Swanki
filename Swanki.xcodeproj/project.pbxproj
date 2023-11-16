@@ -40,6 +40,8 @@
 		D3E8A3A52B02678300C8522C /* Deck.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3E8A3A42B02678300C8522C /* Deck.swift */; };
 		D3E8A3A72B02687B00C8522C /* Card.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3E8A3A62B02687B00C8522C /* Card.swift */; };
 		D3E8A3A92B026A1400C8522C /* Note.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3E8A3A82B026A1400C8522C /* Note.swift */; };
+		D3E8A3AB2B02FF0900C8522C /* NewDecksView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3E8A3AA2B02FF0900C8522C /* NewDecksView.swift */; };
+		D3E8A3AD2B0307B100C8522C /* ModelContainer+Previews.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3E8A3AC2B0307B100C8522C /* ModelContainer+Previews.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -97,6 +99,8 @@
 		D3E8A3A42B02678300C8522C /* Deck.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Deck.swift; sourceTree = "<group>"; };
 		D3E8A3A62B02687B00C8522C /* Card.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Card.swift; sourceTree = "<group>"; };
 		D3E8A3A82B026A1400C8522C /* Note.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Note.swift; sourceTree = "<group>"; };
+		D3E8A3AA2B02FF0900C8522C /* NewDecksView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewDecksView.swift; sourceTree = "<group>"; };
+		D3E8A3AC2B0307B100C8522C /* ModelContainer+Previews.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ModelContainer+Previews.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -192,6 +196,7 @@
 				D3B71453235CB7D000F2AFB2 /* StudyView.swift */,
 				D37E2A0A23AF06CA00D7913F /* Swanki.entitlements */,
 				D39668432365EE9D0015DB82 /* WebView.swift */,
+				D3E8A3AA2B02FF0900C8522C /* NewDecksView.swift */,
 			);
 			path = Swanki;
 			sourceTree = "<group>";
@@ -228,6 +233,7 @@
 				D3E8A3A42B02678300C8522C /* Deck.swift */,
 				D3E8A3A62B02687B00C8522C /* Card.swift */,
 				D3E8A3A82B026A1400C8522C /* Note.swift */,
+				D3E8A3AC2B0307B100C8522C /* ModelContainer+Previews.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -385,8 +391,10 @@
 				D3E8A3A72B02687B00C8522C /* Card.swift in Sources */,
 				D351006F2378986600CE2D7E /* SpacedRepetitionScheduler+Card.swift in Sources */,
 				D3E159DF238C14AA00940661 /* DraftNote.swift in Sources */,
+				D3E8A3AB2B02FF0900C8522C /* NewDecksView.swift in Sources */,
 				D392638B23A74E32008D09B2 /* Databases.swift in Sources */,
 				63C984B5238566A400E5CAFE /* NoteView.swift in Sources */,
+				D3E8A3AD2B0307B100C8522C /* ModelContainer+Previews.swift in Sources */,
 				D3B7145A2363212200F2AFB2 /* CollectionDatabase+Previews.swift in Sources */,
 				D3B71454235CB7D000F2AFB2 /* StudyView.swift in Sources */,
 				D3B71456235D211B00F2AFB2 /* Logger.swift in Sources */,

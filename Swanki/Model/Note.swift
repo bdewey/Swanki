@@ -15,7 +15,7 @@ public final class Note {
     self.fields = fields
   }
 
-  public var deck: Deck
+  public var deck: Deck?
   public var modificationTime = Date.distantPast
   public var fields: [String] = []
 }

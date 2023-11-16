@@ -44,7 +44,7 @@ public final class Card {
     case futureLearning = 3
   }
 
-  public var deck: Deck
+  public var deck: Deck?
   public var modificationTime = Date.distantPast
   public var queue = CardQueue.new
 

@@ -5,10 +5,11 @@ import SwiftUI
 
 struct CardAnswerButtonRow: View {
   let answers: [(key: CardAnswer, value: SpacedRepetitionScheduler.Item)]
-  var didSelectAnswer: ((CardAnswer) -> Void)?
+  var didSelectAnswer: ((CardAnswer, SpacedRepetitionScheduler.Item) -> Void)?
 
   struct ButtonProperties: Hashable {
     let answer: CardAnswer
+    let item: SpacedRepetitionScheduler.Item
     let interval: TimeInterval
   }
 
@@ -22,12 +23,12 @@ struct CardAnswerButtonRow: View {
 
   private var buttonProperties: [ButtonProperties] {
     answers.map {
-      ButtonProperties(answer: $0.key, interval: $0.value.interval)
+      ButtonProperties(answer: $0.key, item: $0.value, interval: $0.value.interval)
     }
   }
 
   func button(properties: ButtonProperties) -> some View {
-    Button(action: { didSelectAnswer?(properties.answer) }) {
+    Button(action: { didSelectAnswer?(properties.answer, properties.item) }) {
       Text(buttonLabel(properties: properties))
         .foregroundColor(Color.white)
         .padding(.all)

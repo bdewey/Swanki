@@ -18,4 +18,14 @@ public final class Note {
   public var deck: Deck?
   public var modificationTime = Date.distantPast
   public var fields: [String] = []
+
+  @Relationship(deleteRule: .cascade, inverse: \Card.note)
+  public var cards: [Card]? = []
+
+  public func field(at index: Int) -> String? {
+    guard fields.indices.contains(index) else {
+      return nil
+    }
+    return fields[index]
+  }
 }

@@ -33,6 +33,7 @@ struct NewDecksView: View {
       NavigationStack {
         EditDeckView(deck: nil)
       }
+      .modelContext(modelContext)
     }
     .navigationTitle("Decks")
     .toolbar {
@@ -68,7 +69,7 @@ struct EditDeckView: View {
           }
           dismiss()
         } label: {
-          Text("OK")
+          Text("Done")
         }
       }
       ToolbarItem(placement: .cancellationAction) {

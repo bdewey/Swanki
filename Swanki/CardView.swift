@@ -89,9 +89,8 @@ struct CardView: View {
   var buttonRowOrEmpty: some View {
     VStack {
       if side == .back {
-        CardAnswerButtonRow(answers: properties.answers, didSelectAnswer: {
-          answer = $0
-          didSelectAnswer?($0, CACurrentMediaTime() - showedFront)
+        CardAnswerButtonRow(answers: properties.answers, didSelectAnswer: { answer, _ in
+          didSelectAnswer?(answer, CACurrentMediaTime() - showedFront)
         }).transition(AnyTransition.opacity.combined(with: .scale(scale: 0.01, anchor: .top)))
       } else {
         /*@START_MENU_TOKEN@*/EmptyView()/*@END_MENU_TOKEN@*/

@@ -198,7 +198,7 @@ public final class CollectionDatabase: NSObject, ObservableObject {
     return try dbQueue!.read { db -> [Anki.Card] in
       try Anki.Card
         .filter(Column("did") == deckID)
-        .filter(Column("queue") == Card.CardQueue.new.rawValue)
+        .filter(Column("queue") == Anki.Card.CardQueue.new.rawValue)
         .order(Column("due").asc)
         .limit(limit)
         .fetchAll(db)
@@ -210,7 +210,7 @@ public final class CollectionDatabase: NSObject, ObservableObject {
     return try dbQueue!.read { db -> [Anki.Card] in
       try Anki.Card
         .filter(Column("did") == deckID)
-        .filter(Column("queue") == Card.CardQueue.learning.rawValue || Column("queue") == Card.CardQueue.futureLearning.rawValue)
+        .filter(Column("queue") == Anki.Card.CardQueue.learning.rawValue || Column("queue") == Anki.Card.CardQueue.futureLearning.rawValue)
         .filter(Column("due") <= dueTime)
         .order(Column("due").asc)
         .fetchAll(db)
@@ -223,7 +223,7 @@ public final class CollectionDatabase: NSObject, ObservableObject {
     return try dbQueue!.read { db -> [Anki.Card] in
       try Anki.Card
         .filter(Column("did") == deckID)
-        .filter(Column("queue") == Card.CardQueue.due.rawValue)
+        .filter(Column("queue") == Anki.Card.CardQueue.due.rawValue)
         .filter(Column("due") <= dueTime)
         .order(Column("due").asc)
         .limit(limit)

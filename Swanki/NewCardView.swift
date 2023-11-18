@@ -1,10 +1,4 @@
-//
-//  CardTemplate.swift
-//  Swanki
-//
-//  Created by Brian Dewey on 11/16/23.
-//  Copyright © 2023 Brian's Brain. All rights reserved.
-//
+// Copyright © 2019-present Brian Dewey.
 
 import Foundation
 import SpacedRepetitionScheduler

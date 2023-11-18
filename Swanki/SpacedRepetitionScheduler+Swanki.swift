@@ -1,10 +1,4 @@
-//
-//  SpacedRepetitionScheduler+Swanki.swift
-//  Swanki
-//
-//  Created by Brian Dewey on 11/16/23.
-//  Copyright © 2023 Brian's Brain. All rights reserved.
-//
+// Copyright © 2019-present Brian Dewey.
 
 import Foundation
 import SpacedRepetitionScheduler
@@ -28,9 +22,9 @@ extension SpacedRepetitionScheduler.Item {
 extension Card {
   var learningState: SpacedRepetitionScheduler.Item.LearningState {
     if let learningStep {
-      return .learning(step: learningStep)
+      .learning(step: learningStep)
     } else {
-      return .review
+      .review
     }
   }
 

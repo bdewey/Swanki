@@ -33,7 +33,6 @@ struct NewDecksView: View {
       NavigationStack {
         EditDeckView(deck: nil)
       }
-      .modelContext(modelContext)
     }
     .navigationTitle("Decks")
     .toolbar {

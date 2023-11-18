@@ -33,6 +33,7 @@
 		D3B7145A2363212200F2AFB2 /* CollectionDatabase+Previews.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3B714592363212200F2AFB2 /* CollectionDatabase+Previews.swift */; };
 		D3D518B02B06824B003D6A53 /* NewCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3D518AF2B06824B003D6A53 /* NewCardView.swift */; };
 		D3D518B22B0691F1003D6A53 /* SpacedRepetitionScheduler+Swanki.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3D518B12B0691F1003D6A53 /* SpacedRepetitionScheduler+Swanki.swift */; };
+		D3D518B42B093E42003D6A53 /* NewNotesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3D518B32B093E42003D6A53 /* NewNotesView.swift */; };
 		D3E159DF238C14AA00940661 /* DraftNote.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3E159DE238C14AA00940661 /* DraftNote.swift */; };
 		D3E159E1238E0EC200940661 /* ObservableDeck.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3E159E0238E0EC200940661 /* ObservableDeck.swift */; };
 		D3E159E7239083FA00940661 /* StudySession.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3E159E6239083FA00940661 /* StudySession.swift */; };
@@ -92,6 +93,7 @@
 		D3B714592363212200F2AFB2 /* CollectionDatabase+Previews.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CollectionDatabase+Previews.swift"; sourceTree = "<group>"; };
 		D3D518AF2B06824B003D6A53 /* NewCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewCardView.swift; sourceTree = "<group>"; };
 		D3D518B12B0691F1003D6A53 /* SpacedRepetitionScheduler+Swanki.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SpacedRepetitionScheduler+Swanki.swift"; sourceTree = "<group>"; };
+		D3D518B32B093E42003D6A53 /* NewNotesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewNotesView.swift; sourceTree = "<group>"; };
 		D3E159DE238C14AA00940661 /* DraftNote.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DraftNote.swift; sourceTree = "<group>"; };
 		D3E159E0238E0EC200940661 /* ObservableDeck.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObservableDeck.swift; sourceTree = "<group>"; };
 		D3E159E6239083FA00940661 /* StudySession.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StudySession.swift; sourceTree = "<group>"; };
@@ -197,6 +199,7 @@
 				D3E8A3AA2B02FF0900C8522C /* NewDecksView.swift */,
 				D3D518AF2B06824B003D6A53 /* NewCardView.swift */,
 				D3D518B12B0691F1003D6A53 /* SpacedRepetitionScheduler+Swanki.swift */,
+				D3D518B32B093E42003D6A53 /* NewNotesView.swift */,
 			);
 			path = Swanki;
 			sourceTree = "<group>";
@@ -404,6 +407,7 @@
 				D3B7144E235BB5A500F2AFB2 /* CollectionDatabase.swift in Sources */,
 				D3E159E1238E0EC200940661 /* ObservableDeck.swift in Sources */,
 				D3E8A3A92B026A1400C8522C /* Note.swift in Sources */,
+				D3D518B42B093E42003D6A53 /* NewNotesView.swift in Sources */,
 				D3B71458235DDB1C00F2AFB2 /* DeckView.swift in Sources */,
 				D38C800D2B00608800C619E6 /* Application.swift in Sources */,
 				D3D518B22B0691F1003D6A53 /* SpacedRepetitionScheduler+Swanki.swift in Sources */,

@@ -13,10 +13,19 @@ struct NewDecksView: View {
   var body: some View {
     List {
       ForEach(decks) { deck in
-        Text(deck.name)
-          .onTapGesture {
-            editingDeck = deck
+        NavigationLink {
+          NewNotesView(deck: deck)
+        } label: {
+          HStack {
+            Text(deck.name)
+            Spacer()
+            Button {
+              editingDeck = deck
+            } label: {
+              Image(systemName: "info.circle")
+            }
           }
+        }
       }
       .onDelete(perform: { indexSet in
         for index in indexSet {

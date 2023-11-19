@@ -31,7 +31,7 @@
 		D3B71456235D211B00F2AFB2 /* Logger.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3B71455235D211B00F2AFB2 /* Logger.swift */; };
 		D3B71458235DDB1C00F2AFB2 /* DeckView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3B71457235DDB1C00F2AFB2 /* DeckView.swift */; };
 		D3B7145A2363212200F2AFB2 /* CollectionDatabase+Previews.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3B714592363212200F2AFB2 /* CollectionDatabase+Previews.swift */; };
-		D3D518B02B06824B003D6A53 /* NewCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3D518AF2B06824B003D6A53 /* NewCardView.swift */; };
+		D3D518B02B06824B003D6A53 /* CardQuizView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3D518AF2B06824B003D6A53 /* CardQuizView.swift */; };
 		D3D518B22B0691F1003D6A53 /* SpacedRepetitionScheduler+Swanki.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3D518B12B0691F1003D6A53 /* SpacedRepetitionScheduler+Swanki.swift */; };
 		D3D518B42B093E42003D6A53 /* NewNotesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3D518B32B093E42003D6A53 /* NewNotesView.swift */; };
 		D3E159DF238C14AA00940661 /* DraftNote.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3E159DE238C14AA00940661 /* DraftNote.swift */; };
@@ -91,7 +91,7 @@
 		D3B71455235D211B00F2AFB2 /* Logger.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Logger.swift; sourceTree = "<group>"; };
 		D3B71457235DDB1C00F2AFB2 /* DeckView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeckView.swift; sourceTree = "<group>"; };
 		D3B714592363212200F2AFB2 /* CollectionDatabase+Previews.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CollectionDatabase+Previews.swift"; sourceTree = "<group>"; };
-		D3D518AF2B06824B003D6A53 /* NewCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewCardView.swift; sourceTree = "<group>"; };
+		D3D518AF2B06824B003D6A53 /* CardQuizView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardQuizView.swift; sourceTree = "<group>"; };
 		D3D518B12B0691F1003D6A53 /* SpacedRepetitionScheduler+Swanki.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SpacedRepetitionScheduler+Swanki.swift"; sourceTree = "<group>"; };
 		D3D518B32B093E42003D6A53 /* NewNotesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewNotesView.swift; sourceTree = "<group>"; };
 		D3E159DE238C14AA00940661 /* DraftNote.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DraftNote.swift; sourceTree = "<group>"; };
@@ -197,7 +197,7 @@
 				D3B71453235CB7D000F2AFB2 /* StudyView.swift */,
 				D37E2A0A23AF06CA00D7913F /* Swanki.entitlements */,
 				D3E8A3AA2B02FF0900C8522C /* NewDecksView.swift */,
-				D3D518AF2B06824B003D6A53 /* NewCardView.swift */,
+				D3D518AF2B06824B003D6A53 /* CardQuizView.swift */,
 				D3D518B12B0691F1003D6A53 /* SpacedRepetitionScheduler+Swanki.swift */,
 				D3D518B32B093E42003D6A53 /* NewNotesView.swift */,
 			);
@@ -401,7 +401,7 @@
 				D3B71454235CB7D000F2AFB2 /* StudyView.swift in Sources */,
 				D3B71456235D211B00F2AFB2 /* Logger.swift in Sources */,
 				63A505C82388106000E93016 /* HTMLView.swift in Sources */,
-				D3D518B02B06824B003D6A53 /* NewCardView.swift in Sources */,
+				D3D518B02B06824B003D6A53 /* CardQuizView.swift in Sources */,
 				D396683F2364924A0015DB82 /* CardView.swift in Sources */,
 				D3966846236DDC9A0015DB82 /* CardAnswerButtonRow.swift in Sources */,
 				D3B7144E235BB5A500F2AFB2 /* CollectionDatabase.swift in Sources */,

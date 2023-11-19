@@ -96,7 +96,6 @@ struct EditNoteView: View {
           let n = confirmationNote
           n.fields = [front, back]
           n.modificationTime = .now
-          try? modelContext.save()
           dismiss()
         } label: {
           Text("Done")

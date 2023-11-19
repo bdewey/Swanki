@@ -9,6 +9,7 @@ public final class Card {
   public init(
     deck: Deck,
     note: Note,
+    type: CardType,
     modificationTime: Date = .distantPast,
     learningStep: Int? = 0,
     due: Date? = nil,
@@ -20,6 +21,7 @@ public final class Card {
   ) {
     self.deck = deck
     self.note = note
+    self.type = type
     self.modificationTime = modificationTime
     self.learningStep = learningStep
     self.due = due
@@ -32,6 +34,7 @@ public final class Card {
 
   public var deck: Deck?
   public var note: Note?
+  public var type: CardType
   public var modificationTime = Date.distantPast
   public var learningStep: Int?
 

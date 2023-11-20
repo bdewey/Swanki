@@ -34,6 +34,9 @@
 		D3D518B02B06824B003D6A53 /* CardQuizView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3D518AF2B06824B003D6A53 /* CardQuizView.swift */; };
 		D3D518B22B0691F1003D6A53 /* SpacedRepetitionScheduler+Swanki.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3D518B12B0691F1003D6A53 /* SpacedRepetitionScheduler+Swanki.swift */; };
 		D3D518B42B093E42003D6A53 /* NewNotesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3D518B32B093E42003D6A53 /* NewNotesView.swift */; };
+		D3D518B62B0A415C003D6A53 /* NewStudySession.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3D518B52B0A415C003D6A53 /* NewStudySession.swift */; };
+		D3D518B82B0A585D003D6A53 /* LogEntry.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3D518B72B0A585D003D6A53 /* LogEntry.swift */; };
+		D3D518BA2B0A66FD003D6A53 /* NewStudySessionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3D518B92B0A66FD003D6A53 /* NewStudySessionTests.swift */; };
 		D3E159DF238C14AA00940661 /* DraftNote.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3E159DE238C14AA00940661 /* DraftNote.swift */; };
 		D3E159E1238E0EC200940661 /* ObservableDeck.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3E159E0238E0EC200940661 /* ObservableDeck.swift */; };
 		D3E159E7239083FA00940661 /* StudySession.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3E159E6239083FA00940661 /* StudySession.swift */; };
@@ -94,6 +97,9 @@
 		D3D518AF2B06824B003D6A53 /* CardQuizView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardQuizView.swift; sourceTree = "<group>"; };
 		D3D518B12B0691F1003D6A53 /* SpacedRepetitionScheduler+Swanki.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SpacedRepetitionScheduler+Swanki.swift"; sourceTree = "<group>"; };
 		D3D518B32B093E42003D6A53 /* NewNotesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewNotesView.swift; sourceTree = "<group>"; };
+		D3D518B52B0A415C003D6A53 /* NewStudySession.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewStudySession.swift; sourceTree = "<group>"; };
+		D3D518B72B0A585D003D6A53 /* LogEntry.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogEntry.swift; sourceTree = "<group>"; };
+		D3D518B92B0A66FD003D6A53 /* NewStudySessionTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewStudySessionTests.swift; sourceTree = "<group>"; };
 		D3E159DE238C14AA00940661 /* DraftNote.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DraftNote.swift; sourceTree = "<group>"; };
 		D3E159E0238E0EC200940661 /* ObservableDeck.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObservableDeck.swift; sourceTree = "<group>"; };
 		D3E159E6239083FA00940661 /* StudySession.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StudySession.swift; sourceTree = "<group>"; };
@@ -200,6 +206,7 @@
 				D3D518AF2B06824B003D6A53 /* CardQuizView.swift */,
 				D3D518B12B0691F1003D6A53 /* SpacedRepetitionScheduler+Swanki.swift */,
 				D3D518B32B093E42003D6A53 /* NewNotesView.swift */,
+				D3D518B52B0A415C003D6A53 /* NewStudySession.swift */,
 			);
 			path = Swanki;
 			sourceTree = "<group>";
@@ -217,6 +224,7 @@
 			children = (
 				D32BCEBF235829770036768A /* Info.plist */,
 				D3E8A3A12B01267100C8522C /* SwankiTests.swift */,
+				D3D518B92B0A66FD003D6A53 /* NewStudySessionTests.swift */,
 			);
 			path = SwankiTests;
 			sourceTree = "<group>";
@@ -237,6 +245,7 @@
 				D3E8A3A62B02687B00C8522C /* Card.swift */,
 				D3E8A3A82B026A1400C8522C /* Note.swift */,
 				D3E8A3AC2B0307B100C8522C /* ModelContainer+Previews.swift */,
+				D3D518B72B0A585D003D6A53 /* LogEntry.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -397,6 +406,7 @@
 				D392638B23A74E32008D09B2 /* Databases.swift in Sources */,
 				63C984B5238566A400E5CAFE /* NoteView.swift in Sources */,
 				D3E8A3AD2B0307B100C8522C /* ModelContainer+Previews.swift in Sources */,
+				D3D518B82B0A585D003D6A53 /* LogEntry.swift in Sources */,
 				D3B7145A2363212200F2AFB2 /* CollectionDatabase+Previews.swift in Sources */,
 				D3B71454235CB7D000F2AFB2 /* StudyView.swift in Sources */,
 				D3B71456235D211B00F2AFB2 /* Logger.swift in Sources */,
@@ -404,6 +414,7 @@
 				D3D518B02B06824B003D6A53 /* CardQuizView.swift in Sources */,
 				D396683F2364924A0015DB82 /* CardView.swift in Sources */,
 				D3966846236DDC9A0015DB82 /* CardAnswerButtonRow.swift in Sources */,
+				D3D518B62B0A415C003D6A53 /* NewStudySession.swift in Sources */,
 				D3B7144E235BB5A500F2AFB2 /* CollectionDatabase.swift in Sources */,
 				D3E159E1238E0EC200940661 /* ObservableDeck.swift in Sources */,
 				D3E8A3A92B026A1400C8522C /* Note.swift in Sources */,
@@ -420,6 +431,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				D3E8A3A22B01267100C8522C /* SwankiTests.swift in Sources */,
+				D3D518BA2B0A66FD003D6A53 /* NewStudySessionTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

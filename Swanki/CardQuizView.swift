@@ -18,7 +18,7 @@ struct CardQuizView: View {
         NewCardView(card: card, showFront: false)
         CardAnswerButtonRow(answers: possibleAnswers) { answer, item in
           logger.info("Selected answer \(answer.localizedName)")
-          card.applySchedulingItem(item)
+          card.applySchedulingItem(item, currentDate: .now)
         }
       }
     }

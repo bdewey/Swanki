@@ -76,7 +76,7 @@ public final class CollectionDatabase: NSObject, ObservableObject {
 
     switch result {
     case .success(let memoryQueue):
-      databaseChangeObserver = DatabaseRegionObservation(tracking: [Anki.Note.all(), LogEntry.all()])
+      databaseChangeObserver = DatabaseRegionObservation(tracking: [Anki.Note.all(), Anki.LogEntry.all()])
         .publisher(in: memoryQueue)
         .receive(on: RunLoop.main)
         .map { [weak self] _ in self?.hasUnsavedChanges = true }
@@ -267,7 +267,7 @@ public final class CollectionDatabase: NSObject, ObservableObject {
     scheduler.applyItem(nextItem, to: &newCard)
     try dbQueue?.write { db in
       try newCard.update(db)
-      let logEntry = LogEntry(now: Date(), oldCard: card, newCard: newCard, answer: answer, studyTime: studyTime)
+      let logEntry = Anki.LogEntry(now: Date(), oldCard: card, newCard: newCard, answer: answer, studyTime: studyTime)
       try logEntry.insert(db)
     }
   }

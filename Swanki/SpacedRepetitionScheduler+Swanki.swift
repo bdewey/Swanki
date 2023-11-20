@@ -28,7 +28,7 @@ extension Card {
     }
   }
 
-  func applySchedulingItem(_ item: SpacedRepetitionScheduler.Item) {
+  func applySchedulingItem(_ item: SpacedRepetitionScheduler.Item, currentDate: Date) {
     switch item.learningState {
     case .learning(step: let step):
       learningStep = step
@@ -38,6 +38,7 @@ extension Card {
     reps = item.reviewCount
     lapses = item.lapseCount
     interval = item.interval
+    due = currentDate.addingTimeInterval(item.interval)
     factor = item.factor
   }
 }

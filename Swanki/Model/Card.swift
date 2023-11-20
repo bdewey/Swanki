@@ -7,8 +7,9 @@ import SwiftData
 /// A Card is an individual fact to study.
 public final class Card {
   public init(
-    deck: Deck,
-    note: Note,
+    id: UUID = .init(),
+    deck: Deck? = nil,
+    note: Note? = nil,
     type: CardType,
     modificationTime: Date = .distantPast,
     learningStep: Int? = 0,
@@ -19,6 +20,7 @@ public final class Card {
     lapses: Int = 0,
     left: Int = 0
   ) {
+    self.id = id
     self.deck = deck
     self.note = note
     self.type = type
@@ -32,9 +34,13 @@ public final class Card {
     self.left = left
   }
 
+  public var id: UUID
   public var deck: Deck?
   public var note: Note?
   public var type: CardType
+
+  @Relationship(deleteRule: .cascade, inverse: \LogEntry.card)
+  public var logEntries: [LogEntry]?
   public var modificationTime = Date.distantPast
   public var learningStep: Int?
 
@@ -48,4 +54,17 @@ public final class Card {
   public var reps = 0
   public var lapses = 0
   public var left = 0
+
+  public static var newCards: Predicate<Card> {
+    #Predicate { card in
+      card.reps == 0
+    }
+  }
+
+  public static func cardsDue(before date: Date) -> Predicate<Card> {
+    let defaultDeadline = Date.distantFuture
+    return #Predicate { card in
+      (card.due ?? defaultDeadline) <= date
+    }
+  }
 }

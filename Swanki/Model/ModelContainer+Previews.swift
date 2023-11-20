@@ -16,6 +16,20 @@ extension ModelContainer {
     container.mainContext.insert(note)
     container.mainContext.insert(card)
     container.mainContext.insert(reversedCard)
+
+    // Create a bunch of dummy cards
+    for i in 1 ... 40 {
+      let dummyNote = Note(deck: deck, modificationTime: .now, fields: ["Dummy front \(i)", "Dummy back \(i)"])
+      let dummyCard = Card(type: .frontThenBack)
+      let dummyReversedCard = Card(type: .backThenFront)
+      container.mainContext.insert(dummyNote)
+      container.mainContext.insert(dummyCard)
+      container.mainContext.insert(dummyReversedCard)
+      dummyCard.deck = deck
+      dummyCard.note = dummyNote
+      dummyReversedCard.deck = deck
+      dummyReversedCard.note = dummyNote
+    }
     return container
   }()
 }

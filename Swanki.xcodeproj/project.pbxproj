@@ -137,21 +137,20 @@
 		D32BCEA5235829750036768A /* Swanki */ = {
 			isa = PBXGroup;
 			children = (
-				D3E8A3A32B02677500C8522C /* Model */,
 				D38C800C2B00608800C619E6 /* Application.swift */,
 				D32BCEAC235829770036768A /* Assets.xcassets */,
 				D3966845236DDC9A0015DB82 /* CardAnswerButtonRow.swift */,
+				D3D518AF2B06824B003D6A53 /* CardQuizView.swift */,
+				D3E8A3AA2B02FF0900C8522C /* DecksView.swift */,
+				D3600B982B0BB83300356187 /* EditDeckView.swift */,
 				D32BCEB4235829770036768A /* Info.plist */,
 				D3B71455235D211B00F2AFB2 /* Logger.swift */,
-				D32BCEAE235829770036768A /* Preview Content */,
-				D37E2A0A23AF06CA00D7913F /* Swanki.entitlements */,
-				D3E8A3AA2B02FF0900C8522C /* DecksView.swift */,
-				D3D518AF2B06824B003D6A53 /* CardQuizView.swift */,
-				D3D518B12B0691F1003D6A53 /* SpacedRepetitionScheduler+Swanki.swift */,
+				D3E8A3A32B02677500C8522C /* Model */,
 				D3D518B32B093E42003D6A53 /* NewNotesView.swift */,
 				D3D518B52B0A415C003D6A53 /* NewStudySession.swift */,
-				D3D518BB2B0B9B78003D6A53 /* AnkiPackageImporter.swift */,
-				D3600B982B0BB83300356187 /* EditDeckView.swift */,
+				D32BCEAE235829770036768A /* Preview Content */,
+				D3D518B12B0691F1003D6A53 /* SpacedRepetitionScheduler+Swanki.swift */,
+				D37E2A0A23AF06CA00D7913F /* Swanki.entitlements */,
 			);
 			path = Swanki;
 			sourceTree = "<group>";
@@ -176,6 +175,7 @@
 		D3E8A3A32B02677500C8522C /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				D3D518BB2B0B9B78003D6A53 /* AnkiPackageImporter.swift */,
 				D3E8A3A42B02678300C8522C /* Deck.swift */,
 				D3E8A3A62B02687B00C8522C /* Card.swift */,
 				D3E8A3A82B026A1400C8522C /* Note.swift */,

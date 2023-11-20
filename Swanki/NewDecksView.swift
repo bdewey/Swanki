@@ -9,6 +9,7 @@ struct NewDecksView: View {
   @Environment(\.modelContext) private var modelContext
   @State private var editingDeck: Deck?
   @State private var shouldShowNewDeck = false
+  @State private var shouldShowFileImporter = false
 
   var body: some View {
     List {
@@ -49,12 +50,41 @@ struct NewDecksView: View {
       }
     }
     .navigationTitle("Decks")
+    .fileImporter(isPresented: $shouldShowFileImporter, allowedContentTypes: [.ankiPackage], onCompletion: { result in
+      guard let url = try? result.get() else { return }
+      importPackage(at: url)
+    })
+    .onOpenURL(perform: { url in
+      logger.info("Trying to open url \(url)")
+      importPackage(at: url)
+    })
     .toolbar {
-      Button {
-        shouldShowNewDeck = true
-      } label: {
-        Label("Add", systemImage: "plus")
+      ToolbarItem(placement: .primaryAction) {
+        Button {
+          shouldShowNewDeck = true
+        } label: {
+          Label("Add", systemImage: "plus")
+        }
       }
+      ToolbarItem(placement: .secondaryAction) {
+        Button {
+          logger.debug("Presenting file importer. Home directory is \(URL.homeDirectory.path)")
+          shouldShowFileImporter = true
+        } label: {
+          Label("Import", systemImage: "square.and.arrow.down.on.square")
+        }
+      }
+    }
+  }
+
+  private func importPackage(at url: URL) {
+    logger.info("Trying to import Anki package at url \(url)")
+    let importer = AnkiPackageImporter(packageURL: url, modelContext: modelContext)
+    do {
+      try importer.importPackage()
+      logger.info("Import complete")
+    } catch {
+      logger.error("Error importing package at \(url): \(error)")
     }
   }
 }

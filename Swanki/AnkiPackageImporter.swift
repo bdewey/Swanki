@@ -5,7 +5,12 @@ import Foundation
 import GRDB
 import os
 import SwiftData
+import UniformTypeIdentifiers
 import Zipper
+
+extension UTType {
+  static let ankiPackage = UTType("org.brians-brain.anki-package")!
+}
 
 /// Imports an Anki package into the Swanki native SwiftData format.
 ///

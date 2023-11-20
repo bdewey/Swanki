@@ -1,15 +1,6 @@
 {
   "pins" : [
     {
-      "identity" : "azteceditor-ios",
-      "kind" : "remoteSourceControl",
-      "location" : "https://github.com/bdewey/AztecEditor-iOS",
-      "state" : {
-        "branch" : "swift-package-manager",
-        "revision" : "e2d8e0b90d32f8ba640277cb38019055af0c01f2"
-      }
-    },
-    {
       "identity" : "combineexpectations",
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/groue/CombineExpectations.git",

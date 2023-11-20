@@ -15,7 +15,6 @@
 		D325FDB1235A8B92002AC9C9 /* GRDB in Frameworks */ = {isa = PBXBuildFile; productRef = D325FDB0235A8B92002AC9C9 /* GRDB */; };
 		D32BCEAD235829770036768A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D32BCEAC235829770036768A /* Assets.xcassets */; };
 		D32BCEB0235829770036768A /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D32BCEAF235829770036768A /* Preview Assets.xcassets */; };
-		D32BCEC9235829770036768A /* SwankiUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D32BCEC8235829770036768A /* SwankiUITests.swift */; };
 		D351006F2378986600CE2D7E /* SpacedRepetitionScheduler+Card.swift in Sources */ = {isa = PBXBuildFile; fileRef = D351006E2378986600CE2D7E /* SpacedRepetitionScheduler+Card.swift */; };
 		D3557FEE23CCAF3800E12244 /* SpacedRepetitionScheduler in Frameworks */ = {isa = PBXBuildFile; productRef = D3557FED23CCAF3800E12244 /* SpacedRepetitionScheduler */; };
 		D37E2A0923AD9A3600D7913F /* GRDBCombine in Frameworks */ = {isa = PBXBuildFile; productRef = D37E2A0823AD9A3600D7913F /* GRDBCombine */; };
@@ -41,7 +40,6 @@
 		D3E159DF238C14AA00940661 /* DraftNote.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3E159DE238C14AA00940661 /* DraftNote.swift */; };
 		D3E159E1238E0EC200940661 /* ObservableDeck.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3E159E0238E0EC200940661 /* ObservableDeck.swift */; };
 		D3E159E7239083FA00940661 /* StudySession.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3E159E6239083FA00940661 /* StudySession.swift */; };
-		D3E8A3A22B01267100C8522C /* SwankiTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3E8A3A12B01267100C8522C /* SwankiTests.swift */; };
 		D3E8A3A52B02678300C8522C /* Deck.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3E8A3A42B02678300C8522C /* Deck.swift */; };
 		D3E8A3A72B02687B00C8522C /* Card.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3E8A3A62B02687B00C8522C /* Card.swift */; };
 		D3E8A3A92B026A1400C8522C /* Note.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3E8A3A82B026A1400C8522C /* Note.swift */; };
@@ -51,13 +49,6 @@
 
 /* Begin PBXContainerItemProxy section */
 		D32BCEBA235829770036768A /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = D32BCE9B235829750036768A /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = D32BCEA2235829750036768A;
-			remoteInfo = Swanki;
-		};
-		D32BCEC5235829770036768A /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = D32BCE9B235829750036768A /* Project object */;
 			proxyType = 1;
@@ -79,9 +70,6 @@
 		D32BCEB4235829770036768A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		D32BCEB9235829770036768A /* SwankiTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SwankiTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		D32BCEBF235829770036768A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		D32BCEC4235829770036768A /* SwankiUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SwankiUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		D32BCEC8235829770036768A /* SwankiUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwankiUITests.swift; sourceTree = "<group>"; };
-		D32BCECA235829770036768A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		D351006E2378986600CE2D7E /* SpacedRepetitionScheduler+Card.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SpacedRepetitionScheduler+Card.swift"; sourceTree = "<group>"; };
 		D37E2A0A23AF06CA00D7913F /* Swanki.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Swanki.entitlements; sourceTree = "<group>"; };
 		D37E2A0B23AF087800D7913F /* CloudKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CloudKit.framework; path = System/Library/Frameworks/CloudKit.framework; sourceTree = SDKROOT; };
@@ -105,7 +93,6 @@
 		D3E159DE238C14AA00940661 /* DraftNote.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DraftNote.swift; sourceTree = "<group>"; };
 		D3E159E0238E0EC200940661 /* ObservableDeck.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObservableDeck.swift; sourceTree = "<group>"; };
 		D3E159E6239083FA00940661 /* StudySession.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StudySession.swift; sourceTree = "<group>"; };
-		D3E8A3A12B01267100C8522C /* SwankiTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwankiTests.swift; sourceTree = "<group>"; };
 		D3E8A3A42B02678300C8522C /* Deck.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Deck.swift; sourceTree = "<group>"; };
 		D3E8A3A62B02687B00C8522C /* Card.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Card.swift; sourceTree = "<group>"; };
 		D3E8A3A82B026A1400C8522C /* Note.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Note.swift; sourceTree = "<group>"; };
@@ -135,13 +122,6 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		D32BCEC1235829770036768A /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
@@ -162,7 +142,6 @@
 				D32BCEA5235829750036768A /* Swanki */,
 				D325FDA12358966F002AC9C9 /* SampleData */,
 				D32BCEBC235829770036768A /* SwankiTests */,
-				D32BCEC7235829770036768A /* SwankiUITests */,
 				D32BCEA4235829750036768A /* Products */,
 				63A505C223880E2400E93016 /* Frameworks */,
 			);
@@ -175,7 +154,6 @@
 			children = (
 				D32BCEA3235829750036768A /* Swanki.app */,
 				D32BCEB9235829770036768A /* SwankiTests.xctest */,
-				D32BCEC4235829770036768A /* SwankiUITests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -226,19 +204,9 @@
 			isa = PBXGroup;
 			children = (
 				D32BCEBF235829770036768A /* Info.plist */,
-				D3E8A3A12B01267100C8522C /* SwankiTests.swift */,
 				D3D518B92B0A66FD003D6A53 /* NewStudySessionTests.swift */,
 			);
 			path = SwankiTests;
-			sourceTree = "<group>";
-		};
-		D32BCEC7235829770036768A /* SwankiUITests */ = {
-			isa = PBXGroup;
-			children = (
-				D32BCEC8235829770036768A /* SwankiUITests.swift */,
-				D32BCECA235829770036768A /* Info.plist */,
-			);
-			path = SwankiUITests;
 			sourceTree = "<group>";
 		};
 		D3E8A3A32B02677500C8522C /* Model */ = {
@@ -299,24 +267,6 @@
 			productReference = D32BCEB9235829770036768A /* SwankiTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
-		D32BCEC3235829770036768A /* SwankiUITests */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = D32BCED3235829770036768A /* Build configuration list for PBXNativeTarget "SwankiUITests" */;
-			buildPhases = (
-				D32BCEC0235829770036768A /* Sources */,
-				D32BCEC1235829770036768A /* Frameworks */,
-				D32BCEC2235829770036768A /* Resources */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-				D32BCEC6235829770036768A /* PBXTargetDependency */,
-			);
-			name = SwankiUITests;
-			productName = SwankiUITests;
-			productReference = D32BCEC4235829770036768A /* SwankiUITests.xctest */;
-			productType = "com.apple.product-type.bundle.ui-testing";
-		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -333,10 +283,6 @@
 					D32BCEB8235829770036768A = {
 						CreatedOnToolsVersion = 11.0;
 						LastSwiftMigration = 1500;
-						TestTargetID = D32BCEA2235829750036768A;
-					};
-					D32BCEC3235829770036768A = {
-						CreatedOnToolsVersion = 11.0;
 						TestTargetID = D32BCEA2235829750036768A;
 					};
 				};
@@ -363,7 +309,6 @@
 			targets = (
 				D32BCEA2235829750036768A /* Swanki */,
 				D32BCEB8235829770036768A /* SwankiTests */,
-				D32BCEC3235829770036768A /* SwankiUITests */,
 			);
 		};
 /* End PBXProject section */
@@ -380,13 +325,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 		D32BCEB7235829770036768A /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		D32BCEC2235829770036768A /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -434,16 +372,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				D3E8A3A22B01267100C8522C /* SwankiTests.swift in Sources */,
 				D3D518BA2B0A66FD003D6A53 /* NewStudySessionTests.swift in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		D32BCEC0235829770036768A /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				D32BCEC9235829770036768A /* SwankiUITests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -454,11 +383,6 @@
 			isa = PBXTargetDependency;
 			target = D32BCEA2235829750036768A /* Swanki */;
 			targetProxy = D32BCEBA235829770036768A /* PBXContainerItemProxy */;
-		};
-		D32BCEC6235829770036768A /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = D32BCEA2235829750036768A /* Swanki */;
-			targetProxy = D32BCEC5235829770036768A /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -686,46 +610,6 @@
 			};
 			name = Release;
 		};
-		D32BCED4235829770036768A /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
-				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = K2UU8WDD8H;
-				INFOPLIST_FILE = SwankiUITests/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-					"@loader_path/Frameworks",
-				);
-				PRODUCT_BUNDLE_IDENTIFIER = "org.brians-brain.SwankiUITests";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_TARGET_NAME = Swanki;
-			};
-			name = Debug;
-		};
-		D32BCED5235829770036768A /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
-				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = K2UU8WDD8H;
-				INFOPLIST_FILE = SwankiUITests/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-					"@loader_path/Frameworks",
-				);
-				PRODUCT_BUNDLE_IDENTIFIER = "org.brians-brain.SwankiUITests";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_TARGET_NAME = Swanki;
-			};
-			name = Release;
-		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -752,15 +636,6 @@
 			buildConfigurations = (
 				D32BCED1235829770036768A /* Debug */,
 				D32BCED2235829770036768A /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		D32BCED3235829770036768A /* Build configuration list for PBXNativeTarget "SwankiUITests" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				D32BCED4235829770036768A /* Debug */,
-				D32BCED5235829770036768A /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

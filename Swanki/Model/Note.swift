@@ -9,7 +9,7 @@ import SwiftData
 /// For example, when studying foreign language vocabulary, the `Note` will contain the vocabulary pair,
 /// and from this we can derive two cards, one for each direction of the pair (Spanish from English, Engish from Spanish).
 public final class Note {
-  public init(deck: Deck, modificationTime: Date = Date.distantPast, fields: [String] = []) {
+  public init(deck: Deck? = nil, modificationTime: Date = Date.distantPast, fields: [String] = []) {
     self.deck = deck
     self.modificationTime = modificationTime
     self.fields = fields
@@ -27,5 +27,16 @@ public final class Note {
       return nil
     }
     return fields[index]
+  }
+
+  @discardableResult
+  public func addCard(_ factory: () -> Card) -> Card {
+    let card = factory()
+    if let modelContext {
+      modelContext.insert(card)
+    }
+    card.deck = deck
+    card.note = self
+    return card
   }
 }

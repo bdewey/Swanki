@@ -19,4 +19,14 @@ public final class Deck {
 
   @Relationship(deleteRule: .cascade, inverse: \Note.deck)
   public var notes: [Note]? = []
+
+  @discardableResult
+  public func addNote(_ factory: () -> Note = { Note() }) -> Note {
+    let note = factory()
+    if let modelContext {
+      modelContext.insert(note)
+    }
+    note.deck = self
+    return note
+  }
 }

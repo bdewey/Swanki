@@ -176,16 +176,13 @@ struct EditNoteView: View {
     if let note {
       return note
     } else {
-      let note = Note(deck: deck)
-      modelContext.insert(note)
-      let frontCard = Card(type: .frontThenBack, modificationTime: .now)
-      modelContext.insert(frontCard)
-      frontCard.deck = deck
-      frontCard.note = note
-      let backCard = Card(type: .backThenFront, modificationTime: .now)
-      modelContext.insert(backCard)
-      backCard.deck = deck
-      backCard.note = note
+      let note = deck.addNote()
+      note.addCard {
+        Card(type: .frontThenBack)
+      }
+      note.addCard {
+        Card(type: .backThenFront)
+      }
       return note
     }
   }

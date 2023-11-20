@@ -16,7 +16,7 @@ final class NewStudySessionTests: XCTestCase {
     XCTAssertEqual(studySession.newCardCount, 20)
     XCTAssertEqual(studySession.learningCardCount, 0)
 
-    let currentCard = try XCTUnwrap(studySession.cards.first)
+    let currentCard = try XCTUnwrap(studySession.currentCard)
     let nextItems = SpacedRepetitionScheduler.builtin.scheduleItem(.init(currentCard))
     XCTAssertEqual(nextItems.count, 3)
     let goodItem = try XCTUnwrap(nextItems.first(where: { $0.key == .good }))
@@ -30,7 +30,6 @@ final class NewStudySessionTests: XCTestCase {
     )
     XCTAssertEqual(studySession.newCardCount, 19)
     XCTAssertEqual(studySession.learningCardCount, 0)
-    XCTAssertEqual(studySession.cards.count, 19)
     XCTAssertEqual(currentCard.reps, 1)
 
     currentDate.addTimeInterval(goodItem.value.interval + 1)

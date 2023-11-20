@@ -12,13 +12,16 @@ struct StudySessionView: View {
   var body: some View {
     ZStack {
       if let card = studySession.currentCard {
-        CardQuizView(card: card) { answer, item, studyTime in
+        CardQuizView(card: card, didSelectAnswer: { answer, item, studyTime in
           do {
-            try studySession.updateCurrentCardSchedule(answer: answer, schedulingItem: item, studyTime: studyTime, currentDate: .now)
+            try withAnimation {
+              try studySession.updateCurrentCardSchedule(answer: answer, schedulingItem: item, studyTime: studyTime, currentDate: .now)
+            }
           } catch {
             logger.error("Unexpected error scheduling card \(card.id) and answer \(answer.localizedName): \(error)")
           }
-        }
+        })
+        .id(card.id)
       } else {
         ContentUnavailableView {
           Label("Nothing to study!", systemImage: "nosign")

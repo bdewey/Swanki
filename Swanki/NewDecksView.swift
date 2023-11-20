@@ -23,7 +23,12 @@ struct NewDecksView: View {
               editingDeck = deck
             } label: {
               Image(systemName: "info.circle")
+                // Needs an explicit foregroundColor because of the PlainButtonStyle
+                .foregroundColor(.accentColor)
             }
+            // You need PlainButtonStyle() to keep the button from conflicting with
+            // the tap handling for the navigation.
+            .buttonStyle(PlainButtonStyle())
           }
         }
       }

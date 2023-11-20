@@ -22,6 +22,7 @@ struct NewNotesView: View {
 
   @State private var editingNote: Note?
   @State private var isShowingNewNote = false
+  @State private var isShowingStudySession = false
   @Environment(\.modelContext) private var modelContext
 
   @Query private var notes: [Note]
@@ -56,12 +57,72 @@ struct NewNotesView: View {
         EditNoteView(deck: deck)
       }
     }
+    .sheet(isPresented: $isShowingStudySession) {
+      StudySessionLoader(deck: deck)
+    }
     .toolbar {
       ToolbarItem(placement: .primaryAction) {
         Button {
           isShowingNewNote = true
         } label: {
           Label("New", systemImage: "plus")
+        }
+      }
+      ToolbarItem(placement: .secondaryAction) {
+        Button {
+          isShowingStudySession = true
+        } label: {
+          Label("Study", systemImage: "rectangle.on.rectangle.angled")
+        }
+      }
+    }
+  }
+}
+
+struct StudySessionLoader: View {
+  let deck: Deck
+  @State private var studySession: NewStudySession?
+  @Environment(\.modelContext) private var modelContext
+
+  var body: some View {
+    ZStack {
+      if let studySession {
+        StudySessionView(studySession: studySession)
+      } else {
+        ProgressView()
+      }
+    }
+    .onAppear {
+      studySession = NewStudySession(modelContext: modelContext, newCardLimit: 20)
+      do {
+        try studySession?.loadCards(dueBefore: .now)
+      } catch {
+        logger.error("Unexpected error loading cards: \(error)")
+      }
+    }
+  }
+}
+
+@MainActor
+struct StudySessionView: View {
+  var studySession: NewStudySession
+
+  var body: some View {
+    Self._printChanges()
+    return ZStack {
+      if let card = studySession.currentCard {
+        CardQuizView(card: card) { answer, item, studyTime in
+          do {
+            try studySession.updateCurrentCardSchedule(answer: answer, schedulingItem: item, studyTime: studyTime, currentDate: .now)
+          } catch {
+            logger.error("Unexpected error scheduling card \(card.id) and answer \(answer.localizedName): \(error)")
+          }
+        }
+      } else {
+        ContentUnavailableView {
+          Label("Nothing to study!", systemImage: "nosign")
+        } description: {
+          Text("No more cards!")
         }
       }
     }
@@ -117,6 +178,14 @@ struct EditNoteView: View {
     } else {
       let note = Note(deck: deck)
       modelContext.insert(note)
+      let frontCard = Card(type: .frontThenBack, modificationTime: .now)
+      modelContext.insert(frontCard)
+      frontCard.deck = deck
+      frontCard.note = note
+      let backCard = Card(type: .backThenFront, modificationTime: .now)
+      modelContext.insert(backCard)
+      backCard.deck = deck
+      backCard.note = note
       return note
     }
   }

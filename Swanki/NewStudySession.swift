@@ -6,6 +6,7 @@ import SpacedRepetitionScheduler
 import SwiftData
 
 @MainActor
+@Observable
 public final class NewStudySession {
   public enum Error: Swift.Error {
     case noCard
@@ -19,24 +20,27 @@ public final class NewStudySession {
   public let modelContext: ModelContext
   public let newCardLimit: Int
 
-  public private(set) var cards: ArraySlice<Card> = []
+  public private(set) var currentCard: Card?
   public private(set) var newCardCount = 0
   public private(set) var learningCardCount = 0
 
   public func loadCards(dueBefore dueDate: Date) throws {
+    let previousCardID = currentCard?.id.description
+    currentCard = nil
     let newCardsLearnedToday = try modelContext.fetchCount(FetchDescriptor(predicate: LogEntry.newCardsLearned(on: dueDate)))
     if newCardsLearnedToday < newCardLimit {
       let newCards = try modelContext.fetch(FetchDescriptor(predicate: Card.newCards)).prefix(newCardLimit - newCardsLearnedToday)
       newCardCount = newCards.count
-      cards = newCards
+      currentCard = newCards.first
     } else {
       newCardCount = 0
-      cards = []
     }
     let learningCards = try modelContext.fetch(FetchDescriptor(predicate: Card.cardsDue(before: dueDate)))
     learningCardCount = learningCards.count
     logger.debug("Looking for cards due before \(ISO8601DateFormatter().string(from: dueDate)): Found \(self.newCardCount) new, \(self.learningCardCount) learning")
-    cards += learningCards
+    currentCard = currentCard ?? learningCards.first
+    let currentCardID = currentCard?.id.description
+    logger.debug("Current card was \(previousCardID ?? "nil"), is now \(currentCardID ?? "nil")")
   }
 
   public func updateCurrentCardSchedule(
@@ -45,7 +49,7 @@ public final class NewStudySession {
     studyTime: TimeInterval,
     currentDate: Date
   ) throws {
-    guard let card = cards.popFirst() else {
+    guard let card = currentCard else {
       throw Error.noCard
     }
     // The new entry needs to be added to the model context before we can create the relationship to `card`
@@ -53,7 +57,7 @@ public final class NewStudySession {
     modelContext.insert(entry)
     entry.card = card
     card.applySchedulingItem(schedulingItem, currentDate: currentDate)
-    logger.debug("Finished scheduling card \(card.id), due \(card.due.flatMap { ISO8601DateFormatter().string(from: $0) } ?? "nil")")
+    logger.debug("Finished scheduling card \(card.id) studyTime \(studyTime), due \(card.due.flatMap { ISO8601DateFormatter().string(from: $0) } ?? "nil")")
     try loadCards(dueBefore: .now)
   }
 }

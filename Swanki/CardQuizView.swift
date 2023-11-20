@@ -7,24 +7,35 @@ import SwiftUI
 
 struct CardQuizView: View {
   var card: Card
+  var didSelectAnswer: ((CardAnswer, SpacedRepetitionScheduler.Item, TimeInterval) -> Void)?
 
+  @State private var viewDidAppearTime: Date?
   @State private var isShowingBack = false
 
   var body: some View {
-    VStack {
+    Self._printChanges()
+    return VStack {
       NewCardView(card: card, showFront: true)
       if isShowingBack {
         Divider()
         NewCardView(card: card, showFront: false)
         CardAnswerButtonRow(answers: possibleAnswers) { answer, item in
-          logger.info("Selected answer \(answer.localizedName)")
-          card.applySchedulingItem(item, currentDate: .now)
+          let duration = viewDidAppearTime.flatMap { Date.now.timeIntervalSince($0) } ?? 2
+          didSelectAnswer?(answer, item, duration)
         }
       }
     }
     .onTapGesture {
       withAnimation {
         isShowingBack = true
+      }
+    }
+    .onAppear {
+      viewDidAppearTime = .now
+    }
+    .onChange(of: card.id) {
+      withAnimation {
+        isShowingBack = false
       }
     }
   }

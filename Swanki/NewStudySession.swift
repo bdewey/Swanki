@@ -12,12 +12,14 @@ public final class NewStudySession {
     case noCard
   }
 
-  public init(modelContext: ModelContext, newCardLimit: Int) {
+  public init(modelContext: ModelContext, deck: Deck? = nil, newCardLimit: Int) {
     self.modelContext = modelContext
+    self.deck = deck
     self.newCardLimit = newCardLimit
   }
 
   public let modelContext: ModelContext
+  public let deck: Deck?
   public let newCardLimit: Int
 
   public private(set) var currentCard: Card?
@@ -29,13 +31,13 @@ public final class NewStudySession {
     currentCard = nil
     let newCardsLearnedToday = try modelContext.fetchCount(FetchDescriptor(predicate: LogEntry.newCardsLearned(on: dueDate)))
     if newCardsLearnedToday < newCardLimit {
-      let newCards = try modelContext.fetch(FetchDescriptor(predicate: Card.newCards)).prefix(newCardLimit - newCardsLearnedToday)
+      let newCards = try modelContext.fetch(FetchDescriptor(predicate: Card.newCards(deck: deck))).prefix(newCardLimit - newCardsLearnedToday)
       newCardCount = newCards.count
       currentCard = newCards.first
     } else {
       newCardCount = 0
     }
-    let learningCards = try modelContext.fetch(FetchDescriptor(predicate: Card.cardsDue(before: dueDate)))
+    let learningCards = try modelContext.fetch(FetchDescriptor(predicate: Card.cardsDue(before: dueDate, deck: deck)))
     learningCardCount = learningCards.count
     logger.debug("Looking for cards due before \(ISO8601DateFormatter().string(from: dueDate)): Found \(self.newCardCount) new, \(self.learningCardCount) learning")
     currentCard = currentCard ?? learningCards.first

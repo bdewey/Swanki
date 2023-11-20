@@ -55,16 +55,29 @@ public final class Card {
   public var lapses = 0
   public var left = 0
 
-  public static var newCards: Predicate<Card> {
-    #Predicate { card in
-      card.reps == 0
+  public static func newCards(deck: Deck? = nil) -> Predicate<Card> {
+    if let deck {
+      let deckID = deck.id
+      return #Predicate { card in
+        card.reps == 0 && card.deck?.id == deckID
+      }
+    } else {
+      return #Predicate { card in
+        card.reps == 0
+      }
     }
   }
 
-  public static func cardsDue(before date: Date) -> Predicate<Card> {
+  public static func cardsDue(before date: Date, deck: Deck? = nil) -> Predicate<Card> {
     let defaultDeadline = Date.distantFuture
-    return #Predicate { card in
-      (card.due ?? defaultDeadline) <= date
+    if let deckID = deck?.id {
+      return #Predicate { card in
+        (card.due ?? defaultDeadline) <= date && card.deck?.id == deckID
+      }
+    } else {
+      return #Predicate { card in
+        (card.due ?? defaultDeadline) <= date
+      }
     }
   }
 }

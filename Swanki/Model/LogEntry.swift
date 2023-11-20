@@ -15,12 +15,13 @@ public final class LogEntry {
   }
 
   public var card: Card?
+  public var deck: Deck?
   public var timestamp: Date
   public var answer: CardAnswer
   public var oldReps: Int
   public var studyTime: TimeInterval
 
-  public static func newCardsLearned(on date: Date) -> Predicate<LogEntry> {
+  public static func newCardsLearned(on date: Date, deck: Deck? = nil) -> Predicate<LogEntry> {
     let tomorrow = Calendar.current.date(byAdding: .day, value: 1, to: date)!
 
     // NOTE: You can't refer to `dateRange.lowerBound` or `dateRange.upperBound` directly in the predicate,
@@ -28,8 +29,15 @@ public final class LogEntry {
     let lowerBound = Calendar.current.startOfDay(for: date)
     let upperBound = Calendar.current.startOfDay(for: tomorrow)
 
-    return #Predicate { entry in
-      entry.timestamp >= lowerBound && entry.timestamp < upperBound && entry.oldReps == 0
+    if let deck {
+      let deckID = deck.id
+      return #Predicate { entry in
+        entry.timestamp >= lowerBound && entry.timestamp < upperBound && entry.oldReps == 0 && entry.deck?.id == deckID
+      }
+    } else {
+      return #Predicate { entry in
+        entry.timestamp >= lowerBound && entry.timestamp < upperBound && entry.oldReps == 0
+      }
     }
   }
 }

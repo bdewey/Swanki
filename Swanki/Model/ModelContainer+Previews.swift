@@ -7,19 +7,17 @@ extension ModelContainer {
   @MainActor
   static let previews: ModelContainer = {
     let container = try! ModelContainer(for: Deck.self, configurations: ModelConfiguration(isStoredInMemoryOnly: true))
+    container.createSampleDeck(named: "Sample Data")
+    return container
+  }()
 
-    let deck = Deck(name: "Sample Data")
-    container.mainContext.insert(deck)
-    let note = Note(deck: deck, modificationTime: .now, fields: ["Front text", "Back text"])
-    note.addCard {
-      Card(type: .frontThenBack)
-    }
-    note.addCard {
-      Card(type: .backThenFront)
-    }
+  @MainActor @discardableResult
+  func createSampleDeck(named deckName: String, noteCount: Int = 40) -> Deck {
+    let deck = Deck(name: deckName)
+    mainContext.insert(deck)
 
     // Create a bunch of dummy cards
-    for i in 1 ... 40 {
+    for i in 1 ... noteCount {
       let dummyNote = deck.addNote {
         Note(modificationTime: .now, fields: ["Dummy front \(i)", "Dummy back \(i)"])
       }
@@ -30,6 +28,6 @@ extension ModelContainer {
         Card(type: .backThenFront)
       }
     }
-    return container
-  }()
+    return deck
+  }
 }

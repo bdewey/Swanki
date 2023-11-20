@@ -93,7 +93,7 @@ struct StudySessionLoader: View {
       }
     }
     .onAppear {
-      studySession = NewStudySession(modelContext: modelContext, newCardLimit: 20)
+      studySession = NewStudySession(modelContext: modelContext, deck: deck, newCardLimit: 20)
       do {
         try studySession?.loadCards(dueBefore: .now)
       } catch {

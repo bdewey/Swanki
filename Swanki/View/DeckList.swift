@@ -4,7 +4,7 @@ import SwiftData
 import SwiftUI
 
 /// Show all of the decks in a database.
-struct DecksView: View {
+struct DeckList: View {
   @Query private var decks: [Deck]
   @Environment(\.modelContext) private var modelContext
   @State private var editingDeck: Deck?
@@ -15,7 +15,7 @@ struct DecksView: View {
     List {
       ForEach(decks) { deck in
         NavigationLink {
-          NewNotesView(deck: deck)
+          NoteListView(deck: deck)
         } label: {
           HStack {
             Text(deck.name)
@@ -40,10 +40,10 @@ struct DecksView: View {
       })
     }
     .sheet(item: $editingDeck) { deck in
-      EditDeckView(deck: deck)
+      DeckEditor(deck: deck)
     }
     .sheet(isPresented: $shouldShowNewDeck) {
-      EditDeckView(deck: nil)
+      DeckEditor(deck: nil)
     }
     .navigationTitle("Decks")
     .fileImporter(isPresented: $shouldShowFileImporter, allowedContentTypes: [.ankiPackage], onCompletion: { result in
@@ -87,7 +87,7 @@ struct DecksView: View {
 
 #Preview {
   NavigationStack {
-    DecksView()
+    DeckList()
   }
   .modelContainer(.previews)
 }

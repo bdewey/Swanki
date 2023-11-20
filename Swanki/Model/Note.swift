@@ -39,4 +39,11 @@ public final class Note {
     card.note = self
     return card
   }
+
+  static func forDeck(_ deck: Deck) -> Predicate<Note> {
+    let id = deck.id
+    return #Predicate<Note> { note in
+      note.deck?.id == id
+    }
+  }
 }

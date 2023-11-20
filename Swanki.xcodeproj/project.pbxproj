@@ -13,12 +13,15 @@
 		D32BCEAD235829770036768A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D32BCEAC235829770036768A /* Assets.xcassets */; };
 		D32BCEB0235829770036768A /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D32BCEAF235829770036768A /* Preview Assets.xcassets */; };
 		D3557FEE23CCAF3800E12244 /* SpacedRepetitionScheduler in Frameworks */ = {isa = PBXBuildFile; productRef = D3557FED23CCAF3800E12244 /* SpacedRepetitionScheduler */; };
-		D3600B992B0BB83300356187 /* EditDeckView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3600B982B0BB83300356187 /* EditDeckView.swift */; };
+		D3600B992B0BB83300356187 /* DeckEditor.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3600B982B0BB83300356187 /* DeckEditor.swift */; };
 		D3600B9B2B0BBB2500356187 /* CardType.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3600B9A2B0BBB2500356187 /* CardType.swift */; };
 		D3600B9D2B0BBC1B00356187 /* CardSide.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3600B9C2B0BBC1B00356187 /* CardSide.swift */; };
 		D3600BA12B0BBD7900356187 /* GenericCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3600BA02B0BBD7900356187 /* GenericCardView.swift */; };
 		D3600BA32B0BBDA500356187 /* FrontThenBackCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3600BA22B0BBDA500356187 /* FrontThenBackCard.swift */; };
 		D3600BA52B0BBDBC00356187 /* BackThenFrontCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3600BA42B0BBDBC00356187 /* BackThenFrontCard.swift */; };
+		D3600BA72B0BBF9500356187 /* StudySessionLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3600BA62B0BBF9500356187 /* StudySessionLoader.swift */; };
+		D3600BA92B0BC03300356187 /* StudySessionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3600BA82B0BC03300356187 /* StudySessionView.swift */; };
+		D3600BAB2B0BC0CF00356187 /* NoteEditor.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3600BAA2B0BC0CF00356187 /* NoteEditor.swift */; };
 		D37E2A0923AD9A3600D7913F /* GRDBCombine in Frameworks */ = {isa = PBXBuildFile; productRef = D37E2A0823AD9A3600D7913F /* GRDBCombine */; };
 		D37E2A0C23AF087800D7913F /* CloudKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D37E2A0B23AF087800D7913F /* CloudKit.framework */; };
 		D38C80092B00302300C619E6 /* Aztec in Frameworks */ = {isa = PBXBuildFile; productRef = D38C80082B00302300C619E6 /* Aztec */; };
@@ -28,15 +31,15 @@
 		D3B71456235D211B00F2AFB2 /* Logger.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3B71455235D211B00F2AFB2 /* Logger.swift */; };
 		D3D518B02B06824B003D6A53 /* CardQuizView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3D518AF2B06824B003D6A53 /* CardQuizView.swift */; };
 		D3D518B22B0691F1003D6A53 /* SpacedRepetitionScheduler+Swanki.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3D518B12B0691F1003D6A53 /* SpacedRepetitionScheduler+Swanki.swift */; };
-		D3D518B42B093E42003D6A53 /* NewNotesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3D518B32B093E42003D6A53 /* NewNotesView.swift */; };
-		D3D518B62B0A415C003D6A53 /* NewStudySession.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3D518B52B0A415C003D6A53 /* NewStudySession.swift */; };
+		D3D518B42B093E42003D6A53 /* NoteListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3D518B32B093E42003D6A53 /* NoteListView.swift */; };
+		D3D518B62B0A415C003D6A53 /* StudySession.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3D518B52B0A415C003D6A53 /* StudySession.swift */; };
 		D3D518B82B0A585D003D6A53 /* LogEntry.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3D518B72B0A585D003D6A53 /* LogEntry.swift */; };
 		D3D518BA2B0A66FD003D6A53 /* NewStudySessionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3D518B92B0A66FD003D6A53 /* NewStudySessionTests.swift */; };
 		D3D518BC2B0B9B78003D6A53 /* AnkiPackageImporter.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3D518BB2B0B9B78003D6A53 /* AnkiPackageImporter.swift */; };
 		D3E8A3A52B02678300C8522C /* Deck.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3E8A3A42B02678300C8522C /* Deck.swift */; };
 		D3E8A3A72B02687B00C8522C /* Card.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3E8A3A62B02687B00C8522C /* Card.swift */; };
 		D3E8A3A92B026A1400C8522C /* Note.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3E8A3A82B026A1400C8522C /* Note.swift */; };
-		D3E8A3AB2B02FF0900C8522C /* DecksView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3E8A3AA2B02FF0900C8522C /* DecksView.swift */; };
+		D3E8A3AB2B02FF0900C8522C /* DeckList.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3E8A3AA2B02FF0900C8522C /* DeckList.swift */; };
 		D3E8A3AD2B0307B100C8522C /* ModelContainer+Previews.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3E8A3AC2B0307B100C8522C /* ModelContainer+Previews.swift */; };
 /* End PBXBuildFile section */
 
@@ -60,12 +63,15 @@
 		D32BCEB4235829770036768A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		D32BCEB9235829770036768A /* SwankiTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SwankiTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		D32BCEBF235829770036768A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		D3600B982B0BB83300356187 /* EditDeckView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditDeckView.swift; sourceTree = "<group>"; };
+		D3600B982B0BB83300356187 /* DeckEditor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeckEditor.swift; sourceTree = "<group>"; };
 		D3600B9A2B0BBB2500356187 /* CardType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardType.swift; sourceTree = "<group>"; };
 		D3600B9C2B0BBC1B00356187 /* CardSide.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardSide.swift; sourceTree = "<group>"; };
 		D3600BA02B0BBD7900356187 /* GenericCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GenericCardView.swift; sourceTree = "<group>"; };
 		D3600BA22B0BBDA500356187 /* FrontThenBackCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FrontThenBackCard.swift; sourceTree = "<group>"; };
 		D3600BA42B0BBDBC00356187 /* BackThenFrontCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BackThenFrontCard.swift; sourceTree = "<group>"; };
+		D3600BA62B0BBF9500356187 /* StudySessionLoader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StudySessionLoader.swift; sourceTree = "<group>"; };
+		D3600BA82B0BC03300356187 /* StudySessionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StudySessionView.swift; sourceTree = "<group>"; };
+		D3600BAA2B0BC0CF00356187 /* NoteEditor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoteEditor.swift; sourceTree = "<group>"; };
 		D37E2A0A23AF06CA00D7913F /* Swanki.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Swanki.entitlements; sourceTree = "<group>"; };
 		D37E2A0B23AF087800D7913F /* CloudKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CloudKit.framework; path = System/Library/Frameworks/CloudKit.framework; sourceTree = SDKROOT; };
 		D38C800C2B00608800C619E6 /* Application.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Application.swift; sourceTree = "<group>"; };
@@ -74,15 +80,15 @@
 		D3B71455235D211B00F2AFB2 /* Logger.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Logger.swift; sourceTree = "<group>"; };
 		D3D518AF2B06824B003D6A53 /* CardQuizView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardQuizView.swift; sourceTree = "<group>"; };
 		D3D518B12B0691F1003D6A53 /* SpacedRepetitionScheduler+Swanki.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SpacedRepetitionScheduler+Swanki.swift"; sourceTree = "<group>"; };
-		D3D518B32B093E42003D6A53 /* NewNotesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewNotesView.swift; sourceTree = "<group>"; };
-		D3D518B52B0A415C003D6A53 /* NewStudySession.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewStudySession.swift; sourceTree = "<group>"; };
+		D3D518B32B093E42003D6A53 /* NoteListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoteListView.swift; sourceTree = "<group>"; };
+		D3D518B52B0A415C003D6A53 /* StudySession.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StudySession.swift; sourceTree = "<group>"; };
 		D3D518B72B0A585D003D6A53 /* LogEntry.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogEntry.swift; sourceTree = "<group>"; };
 		D3D518B92B0A66FD003D6A53 /* NewStudySessionTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewStudySessionTests.swift; sourceTree = "<group>"; };
 		D3D518BB2B0B9B78003D6A53 /* AnkiPackageImporter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnkiPackageImporter.swift; sourceTree = "<group>"; };
 		D3E8A3A42B02678300C8522C /* Deck.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Deck.swift; sourceTree = "<group>"; };
 		D3E8A3A62B02687B00C8522C /* Card.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Card.swift; sourceTree = "<group>"; };
 		D3E8A3A82B026A1400C8522C /* Note.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Note.swift; sourceTree = "<group>"; };
-		D3E8A3AA2B02FF0900C8522C /* DecksView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DecksView.swift; sourceTree = "<group>"; };
+		D3E8A3AA2B02FF0900C8522C /* DeckList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeckList.swift; sourceTree = "<group>"; };
 		D3E8A3AC2B0307B100C8522C /* ModelContainer+Previews.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ModelContainer+Previews.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -153,8 +159,7 @@
 				D32BCEB4235829770036768A /* Info.plist */,
 				D3B71455235D211B00F2AFB2 /* Logger.swift */,
 				D3E8A3A32B02677500C8522C /* Model */,
-				D3D518B32B093E42003D6A53 /* NewNotesView.swift */,
-				D3D518B52B0A415C003D6A53 /* NewStudySession.swift */,
+				D3D518B52B0A415C003D6A53 /* StudySession.swift */,
 				D32BCEAE235829770036768A /* Preview Content */,
 				D3D518B12B0691F1003D6A53 /* SpacedRepetitionScheduler+Swanki.swift */,
 				D37E2A0A23AF06CA00D7913F /* Swanki.entitlements */,
@@ -182,11 +187,15 @@
 		D3600B9E2B0BBD5400356187 /* View */ = {
 			isa = PBXGroup;
 			children = (
-				D3600B9C2B0BBC1B00356187 /* CardSide.swift */,
 				D3966845236DDC9A0015DB82 /* CardAnswerButtonRow.swift */,
-				D3E8A3AA2B02FF0900C8522C /* DecksView.swift */,
-				D3600B982B0BB83300356187 /* EditDeckView.swift */,
 				D3600B9F2B0BBD5C00356187 /* Cards */,
+				D3600B9C2B0BBC1B00356187 /* CardSide.swift */,
+				D3600B982B0BB83300356187 /* DeckEditor.swift */,
+				D3E8A3AA2B02FF0900C8522C /* DeckList.swift */,
+				D3600BAA2B0BC0CF00356187 /* NoteEditor.swift */,
+				D3D518B32B093E42003D6A53 /* NoteListView.swift */,
+				D3600BA62B0BBF9500356187 /* StudySessionLoader.swift */,
+				D3600BA82B0BC03300356187 /* StudySessionView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -336,22 +345,25 @@
 				D3600BA12B0BBD7900356187 /* GenericCardView.swift in Sources */,
 				D3E8A3A52B02678300C8522C /* Deck.swift in Sources */,
 				D3E8A3A72B02687B00C8522C /* Card.swift in Sources */,
-				D3E8A3AB2B02FF0900C8522C /* DecksView.swift in Sources */,
+				D3E8A3AB2B02FF0900C8522C /* DeckList.swift in Sources */,
 				D3E8A3AD2B0307B100C8522C /* ModelContainer+Previews.swift in Sources */,
+				D3600BA72B0BBF9500356187 /* StudySessionLoader.swift in Sources */,
 				D3D518B82B0A585D003D6A53 /* LogEntry.swift in Sources */,
 				D3600B9B2B0BBB2500356187 /* CardType.swift in Sources */,
 				D3B71456235D211B00F2AFB2 /* Logger.swift in Sources */,
 				D3600BA32B0BBDA500356187 /* FrontThenBackCard.swift in Sources */,
 				D3D518B02B06824B003D6A53 /* CardQuizView.swift in Sources */,
 				D3966846236DDC9A0015DB82 /* CardAnswerButtonRow.swift in Sources */,
-				D3600B992B0BB83300356187 /* EditDeckView.swift in Sources */,
-				D3D518B62B0A415C003D6A53 /* NewStudySession.swift in Sources */,
+				D3600B992B0BB83300356187 /* DeckEditor.swift in Sources */,
+				D3D518B62B0A415C003D6A53 /* StudySession.swift in Sources */,
 				D3600BA52B0BBDBC00356187 /* BackThenFrontCard.swift in Sources */,
 				D3600B9D2B0BBC1B00356187 /* CardSide.swift in Sources */,
 				D3E8A3A92B026A1400C8522C /* Note.swift in Sources */,
-				D3D518B42B093E42003D6A53 /* NewNotesView.swift in Sources */,
+				D3D518B42B093E42003D6A53 /* NoteListView.swift in Sources */,
 				D38C800D2B00608800C619E6 /* Application.swift in Sources */,
+				D3600BA92B0BC03300356187 /* StudySessionView.swift in Sources */,
 				D3D518B22B0691F1003D6A53 /* SpacedRepetitionScheduler+Swanki.swift in Sources */,
+				D3600BAB2B0BC0CF00356187 /* NoteEditor.swift in Sources */,
 				D3D518BC2B0B9B78003D6A53 /* AnkiPackageImporter.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

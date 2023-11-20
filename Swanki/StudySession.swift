@@ -7,7 +7,7 @@ import SwiftData
 
 @MainActor
 @Observable
-public final class NewStudySession {
+public final class StudySession {
   public enum Error: Swift.Error {
     case noCard
   }

@@ -6,7 +6,7 @@ import SwiftUI
 /// A view for either editing or creating a new deck.
 ///
 /// Expected to be presented in a sheet and creates its own NavigationStack for toolbars.
-struct EditDeckView: View {
+struct DeckEditor: View {
   var deck: Deck?
 
   @State private var name: String = ""
@@ -51,6 +51,6 @@ struct EditDeckView: View {
 }
 
 #Preview {
-  EditDeckView()
+  DeckEditor()
     .modelContainer(.previews)
 }

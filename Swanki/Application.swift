@@ -8,7 +8,7 @@ struct Application: App {
   var body: some Scene {
     WindowGroup {
       NavigationStack {
-        DecksView()
+        DeckList()
       }
       .modelContainer(for: Deck.self)
     }

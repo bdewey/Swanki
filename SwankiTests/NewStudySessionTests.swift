@@ -9,7 +9,7 @@ import XCTest
 final class NewStudySessionTests: XCTestCase {
   func testBasicStudySession() throws {
     let container = ModelContainer.previews
-    let studySession = NewStudySession(modelContext: container.mainContext, newCardLimit: 20)
+    let studySession = StudySession(modelContext: container.mainContext, newCardLimit: 20)
 
     var currentDate = Date.now
     try studySession.loadCards(dueBefore: currentDate)
@@ -49,7 +49,7 @@ final class NewStudySessionTests: XCTestCase {
     let deck = container.createSampleDeck(named: "Sample data", noteCount: 2)
     let decoy = container.createSampleDeck(named: "Decoy", noteCount: 2)
 
-    let studySession = NewStudySession(modelContext: container.mainContext, deck: deck, newCardLimit: 20)
+    let studySession = StudySession(modelContext: container.mainContext, deck: deck, newCardLimit: 20)
     var currentDate = Date.now
     try studySession.loadCards(dueBefore: currentDate)
     XCTAssertEqual(studySession.newCardCount, 4)
@@ -65,7 +65,7 @@ final class NewStudySessionTests: XCTestCase {
     )
     XCTAssertEqual(studySession.newCardCount, 3)
     XCTAssertEqual(studySession.learningCardCount, 0)
-    let decoyStudySession = NewStudySession(modelContext: container.mainContext, deck: decoy, newCardLimit: 20)
+    let decoyStudySession = StudySession(modelContext: container.mainContext, deck: decoy, newCardLimit: 20)
     try decoyStudySession.loadCards(dueBefore: currentDate)
     XCTAssertEqual(decoyStudySession.newCardCount, 4)
     XCTAssertEqual(decoyStudySession.learningCardCount, 0)
@@ -79,7 +79,7 @@ final class NewStudySessionTests: XCTestCase {
     XCTAssertEqual(decoyStudySession.newCardCount, 4)
     XCTAssertEqual(decoyStudySession.learningCardCount, 0)
 
-    let unfilteredStudySession = NewStudySession(modelContext: container.mainContext, newCardLimit: 20)
+    let unfilteredStudySession = StudySession(modelContext: container.mainContext, newCardLimit: 20)
     try unfilteredStudySession.loadCards(dueBefore: currentDate)
     XCTAssertEqual(unfilteredStudySession.newCardCount, 7)
     XCTAssertEqual(unfilteredStudySession.learningCardCount, 1)

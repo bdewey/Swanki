@@ -1,63 +1,65 @@
 // Copyright © 2019-present Brian Dewey.
 
 import Foundation
+import Observation
 import SpacedRepetitionScheduler
+import SwiftData
 
-/// Holds a collection of cards from a database to study.
-public final class StudySession: ObservableObject {
-  public init(collectionDatabase: CollectionDatabase, deckModel: DeckModel) {
-    self.collectionDatabase = collectionDatabase
-    self.deckModel = deckModel
-
-    do {
-      var learningCardCount = 0
-      var newCardCount = 0
-      var cards: [Card] = []
-      let learningCards = try collectionDatabase.fetchLearningCards(from: deckModel.id)
-      logger.info("Found \(learningCards.count) learning card(s) for decks \(String(format: "%ld", deckModel.id))")
-      learningCardCount += learningCards.count
-      cards.append(contentsOf: learningCards)
-      let newCards = try collectionDatabase.fetchNewCards(from: deckModel.id)
-      cards.append(contentsOf: newCards)
-      newCardCount += newCards.count
-      logger.info("Found \(newCards.count) new card(s) for decks \(String(format: "%ld", deckModel.id))")
-      let reviewCards = try collectionDatabase.fetchReviewCards(from: deckModel.id)
-      logger.info("Found \(reviewCards.count) review card(s) for decks \(String(format: "%ld", deckModel.id))")
-      cards.append(contentsOf: reviewCards)
-      learningCardCount += reviewCards.count
-      self.learningCardCount = learningCardCount
-      self.newCardCount = newCardCount
-      self.cards = ArraySlice(cards)
-    } catch {
-      logger.error("Unexpected error building study sequence: \(error)")
-      self.cards = ArraySlice([])
-      self.learningCardCount = 0
-      self.newCardCount = 0
-    }
-    assert(learningCardCount + newCardCount == cards.count)
+@MainActor
+@Observable
+public final class StudySession {
+  public enum Error: Swift.Error {
+    case noCard
   }
 
-  /// The database.
-  public let collectionDatabase: CollectionDatabase
+  public init(modelContext: ModelContext, deck: Deck? = nil, newCardLimit: Int) {
+    self.modelContext = modelContext
+    self.deck = deck
+    self.newCardLimit = newCardLimit
+  }
 
-  /// The specific decks from which to select study cards.
-  public let deckModel: DeckModel
+  public let modelContext: ModelContext
+  public let deck: Deck?
+  public let newCardLimit: Int
 
-  @Published public private(set) var learningCardCount: Int
-  @Published public private(set) var newCardCount: Int
+  public private(set) var currentCard: Card?
+  public private(set) var newCardCount = 0
+  public private(set) var learningCardCount = 0
 
-  @Published public private(set) var cards: ArraySlice<Card>
-
-  public func recordAnswer(_ answer: CardAnswer, studyTime: TimeInterval) throws {
-    guard let currentCard = cards.popFirst() else {
-      return
+  public func loadCards(dueBefore dueDate: Date) throws {
+    let previousCardID = currentCard?.id.description
+    currentCard = nil
+    let newCardsLearnedToday = try modelContext.fetchCount(FetchDescriptor(predicate: LogEntry.newCardsLearned(on: dueDate)))
+    if newCardsLearnedToday < newCardLimit {
+      let newCards = try modelContext.fetch(FetchDescriptor(predicate: Card.newCards(deck: deck))).prefix(newCardLimit - newCardsLearnedToday)
+      newCardCount = newCards.count
+      currentCard = newCards.first
+    } else {
+      newCardCount = 0
     }
-    switch currentCard.queue {
-    case .new:
-      newCardCount -= 1
-    default:
-      learningCardCount -= 1
+    let learningCards = try modelContext.fetch(FetchDescriptor(predicate: Card.cardsDue(before: dueDate, deck: deck)))
+    learningCardCount = learningCards.count
+    logger.debug("Looking for cards due before \(ISO8601DateFormatter().string(from: dueDate)): Found \(self.newCardCount) new, \(self.learningCardCount) learning")
+    currentCard = currentCard ?? learningCards.first
+    let currentCardID = currentCard?.id.description
+    logger.debug("Current card was \(previousCardID ?? "nil"), is now \(currentCardID ?? "nil")")
+  }
+
+  public func updateCurrentCardSchedule(
+    answer: CardAnswer,
+    schedulingItem: SpacedRepetitionScheduler.Item,
+    studyTime: TimeInterval,
+    currentDate: Date
+  ) throws {
+    guard let card = currentCard else {
+      throw Error.noCard
     }
-    try collectionDatabase.recordAnswer(answer, for: currentCard, studyTime: studyTime)
+    // The new entry needs to be added to the model context before we can create the relationship to `card`
+    let entry = LogEntry(timestamp: currentDate, answer: answer, oldReps: card.reps, studyTime: studyTime)
+    modelContext.insert(entry)
+    entry.card = card
+    card.applySchedulingItem(schedulingItem, currentDate: currentDate)
+    logger.debug("Finished scheduling card \(card.id) studyTime \(studyTime), due \(card.due.flatMap { ISO8601DateFormatter().string(from: $0) } ?? "nil")")
+    try loadCards(dueBefore: .now)
   }
 }

@@ -1,6 +1,6 @@
 // Copyright © 2019-present Brian Dewey.
 
-import Swanki
+import Anki
 import XCTest
 
 final class AnkiTemplateTests: XCTestCase {

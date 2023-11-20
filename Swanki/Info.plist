@@ -36,12 +36,12 @@
 			<array>
 				<string>org.brians-brain.swanki-deck</string>
 			</array>
+			<key>LSTypeIsPackage</key>
+			<true/>
 			<key>UTTypeConformsTo</key>
 			<array>
 				<string>com.apple.package</string>
 			</array>
-			<key>LSTypeIsPackage</key>
-			<true/>
 			<key>UTTypeIdentifier</key>
 			<string>org.brians-brain.swanki-deck</string>
 			<key>UTTypeTagSpecification</key>
@@ -69,6 +69,16 @@
 	<string>1</string>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
+	<key>NSUbiquitousContainers</key>
+	<dict>
+		<key>iCloud.org.brians-brain.Swanki</key>
+		<dict>
+			<key>NSUbiquitousContainerIsDocumentScopePublic</key>
+			<true/>
+			<key>NSUbiquitousContainerSupportedFolderLevels</key>
+			<string>None</string>
+		</dict>
+	</dict>
 	<key>UIApplicationSceneManifest</key>
 	<dict>
 		<key>UIApplicationSupportsMultipleScenes</key>
@@ -86,16 +96,8 @@
 			</array>
 		</dict>
 	</dict>
-	<key>NSUbiquitousContainers</key>
-	<dict>
-		<key>iCloud.org.brians-brain.Swanki</key>
-		<dict>
-			<key>NSUbiquitousContainerIsDocumentScopePublic</key>
-			<true/>
-			<key>NSUbiquitousContainerSupportedFolderLevels</key>
-			<string>None</string>
-		</dict>
-	</dict>
+	<key>UIBackgroundModes</key>
+	<array/>
 	<key>UILaunchStoryboardName</key>
 	<string>LaunchScreen</string>
 	<key>UIRequiredDeviceCapabilities</key>

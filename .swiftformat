@@ -11,4 +11,4 @@
 --wrapcollections beforefirst
 --self init-only
 --swiftversion 5.9
---selfrequired info
+--selfrequired info, debug

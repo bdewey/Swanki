@@ -151,16 +151,16 @@
 		D32BCEA5235829750036768A /* Swanki */ = {
 			isa = PBXGroup;
 			children = (
-				D3600B9E2B0BBD5400356187 /* View */,
 				D38C800C2B00608800C619E6 /* Application.swift */,
 				D32BCEAC235829770036768A /* Assets.xcassets */,
 				D32BCEB4235829770036768A /* Info.plist */,
 				D3B71455235D211B00F2AFB2 /* Logger.swift */,
 				D3E8A3A32B02677500C8522C /* Model */,
-				D3D518B52B0A415C003D6A53 /* StudySession.swift */,
 				D32BCEAE235829770036768A /* Preview Content */,
 				D3D518B12B0691F1003D6A53 /* SpacedRepetitionScheduler+Swanki.swift */,
+				D3D518B52B0A415C003D6A53 /* StudySession.swift */,
 				D37E2A0A23AF06CA00D7913F /* Swanki.entitlements */,
+				D3600B9E2B0BBD5400356187 /* View */,
 			);
 			path = Swanki;
 			sourceTree = "<group>";

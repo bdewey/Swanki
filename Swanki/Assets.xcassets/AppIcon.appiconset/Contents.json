@@ -5,6 +5,66 @@
       "idiom" : "universal",
       "platform" : "ios",
       "size" : "1024x1024"
+    },
+    {
+      "filename" : "DALL·E 2023-11-11 17.24.37 - A large, sleek, and abstract design that suggests a stack of flashcards, focusing on the use of gradients to create a subtle 3D effect without any sha-16.png",
+      "idiom" : "mac",
+      "scale" : "1x",
+      "size" : "16x16"
+    },
+    {
+      "filename" : "DALL·E 2023-11-11 17.24.37 - A large, sleek, and abstract design that suggests a stack of flashcards, focusing on the use of gradients to create a subtle 3D effect without any sha-32 1.png",
+      "idiom" : "mac",
+      "scale" : "2x",
+      "size" : "16x16"
+    },
+    {
+      "filename" : "DALL·E 2023-11-11 17.24.37 - A large, sleek, and abstract design that suggests a stack of flashcards, focusing on the use of gradients to create a subtle 3D effect without any sha-32.png",
+      "idiom" : "mac",
+      "scale" : "1x",
+      "size" : "32x32"
+    },
+    {
+      "filename" : "DALL·E 2023-11-11 17.24.37 - A large, sleek, and abstract design that suggests a stack of flashcards, focusing on the use of gradients to create a subtle 3D effect without any sha-64.png",
+      "idiom" : "mac",
+      "scale" : "2x",
+      "size" : "32x32"
+    },
+    {
+      "filename" : "DALL·E 2023-11-11 17.24.37 - A large, sleek, and abstract design that suggests a stack of flashcards, focusing on the use of gradients to create a subtle 3D effect without any sha-128.png",
+      "idiom" : "mac",
+      "scale" : "1x",
+      "size" : "128x128"
+    },
+    {
+      "filename" : "DALL·E 2023-11-11 17.24.37 - A large, sleek, and abstract design that suggests a stack of flashcards, focusing on the use of gradients to create a subtle 3D effect without any sha-256 1.png",
+      "idiom" : "mac",
+      "scale" : "2x",
+      "size" : "128x128"
+    },
+    {
+      "filename" : "DALL·E 2023-11-11 17.24.37 - A large, sleek, and abstract design that suggests a stack of flashcards, focusing on the use of gradients to create a subtle 3D effect without any sha-256.png",
+      "idiom" : "mac",
+      "scale" : "1x",
+      "size" : "256x256"
+    },
+    {
+      "filename" : "DALL·E 2023-11-11 17.24.37 - A large, sleek, and abstract design that suggests a stack of flashcards, focusing on the use of gradients to create a subtle 3D effect without any sha-512 1.png",
+      "idiom" : "mac",
+      "scale" : "2x",
+      "size" : "256x256"
+    },
+    {
+      "filename" : "DALL·E 2023-11-11 17.24.37 - A large, sleek, and abstract design that suggests a stack of flashcards, focusing on the use of gradients to create a subtle 3D effect without any sha-512.png",
+      "idiom" : "mac",
+      "scale" : "1x",
+      "size" : "512x512"
+    },
+    {
+      "filename" : "DALL·E 2023-11-11 17.24.37 - A large, sleek, and abstract design that suggests a stack of flashcards, focusing on the use of gradients to create a subtle 3D effect without any sha 1.png",
+      "idiom" : "mac",
+      "scale" : "2x",
+      "size" : "512x512"
     }
   ],
   "info" : {

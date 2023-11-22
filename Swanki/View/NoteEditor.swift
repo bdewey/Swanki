@@ -7,10 +7,9 @@ import SwiftUI
 /// - warning: Right now the only "shape" of a ``Note`` that we support is one with a "front" and "back" field and that has two associated ``Card`` objects.
 struct NoteEditor: View {
   var deck: Deck
-  var note: Note? = nil
+  @Binding var note: Note?
 
   @Environment(\.modelContext) private var modelContext
-  @Environment(\.dismiss) private var dismiss
 
   @State private var front: String = ""
   @State private var back: String = ""
@@ -21,7 +20,7 @@ struct NoteEditor: View {
       TextField("Back", text: $back)
     }
     .navigationTitle(note == nil ? "New Note" : "Edit Note")
-    .onAppear {
+    .onChange(of: note, initial: true) {
       if let note {
         front = note.field(at: 0) ?? ""
         back = note.field(at: 1) ?? ""
@@ -33,14 +32,14 @@ struct NoteEditor: View {
           let n = confirmationNote
           n.fields = [front, back]
           n.modificationTime = .now
-          dismiss()
+          note = nil
         } label: {
           Text("Done")
         }
       }
       ToolbarItem(placement: .cancellationAction) {
         Button {
-          dismiss()
+          note = nil
         } label: {
           Text("Cancel")
         }

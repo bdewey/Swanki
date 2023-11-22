@@ -5,13 +5,15 @@ import SwiftUI
 
 /// Displays the list of ``Note`` objects in a ``Deck``.
 struct NoteListView: View {
-  init(deck: Deck) {
+  init(deck: Deck, selectedNote: Binding<Note?>) {
     self.deck = deck
+    self._selectedNote = selectedNote
     self._notes = Query(filter: Note.forDeck(deck))
   }
 
   /// The ``Deck`` we are examining.
   var deck: Deck
+  @Binding var selectedNote: Note?
 
   @State private var editingNote: Note?
   @State private var isShowingNewNote = false
@@ -21,17 +23,9 @@ struct NoteListView: View {
   @Query private var notes: [Note]
 
   var body: some View {
-    List {
+    List(selection: $selectedNote) {
       ForEach(notes) { note in
-        HStack {
-          Text(note.fields.first ?? "??")
-          Spacer()
-          Button {
-            editingNote = note
-          } label: {
-            Image(systemName: "info.circle")
-          }
-        }
+        Text(note.fields.first ?? "??").tag(note)
       }
       .onDelete(perform: { indexSet in
         for index in indexSet {
@@ -40,14 +34,9 @@ struct NoteListView: View {
       })
     }
     .navigationTitle(deck.name)
-    .sheet(item: $editingNote) { note in
-      NavigationStack {
-        NoteEditor(deck: deck, note: note)
-      }
-    }
     .sheet(isPresented: $isShowingNewNote) {
       NavigationStack {
-        NoteEditor(deck: deck)
+        NoteEditor(deck: deck, note: .constant(nil))
       }
     }
     .sheet(isPresented: $isShowingStudySession) {
@@ -77,7 +66,7 @@ private struct SelectDeckView: View {
 
   var body: some View {
     if decks.count > 0 {
-      NoteListView(deck: decks[0])
+      NoteListView(deck: decks[0], selectedNote: .constant(nil))
     }
   }
 }

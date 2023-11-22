@@ -5,6 +5,7 @@ import SwiftUI
 
 /// Show all of the decks in a database.
 struct DeckList: View {
+  @Binding var selectedDeck: Deck?
   @Query private var decks: [Deck]
   @Environment(\.modelContext) private var modelContext
   @State private var editingDeck: Deck?
@@ -12,26 +13,23 @@ struct DeckList: View {
   @State private var shouldShowFileImporter = false
 
   var body: some View {
-    List {
+    List(selection: $selectedDeck) {
       ForEach(decks) { deck in
-        NavigationLink {
-          NoteListView(deck: deck)
-        } label: {
-          HStack {
-            Text(deck.name)
-            Spacer()
-            Button {
-              editingDeck = deck
-            } label: {
-              Image(systemName: "info.circle")
-                // Needs an explicit foregroundColor because of the PlainButtonStyle
-                .foregroundColor(.accentColor)
-            }
-            // You need PlainButtonStyle() to keep the button from conflicting with
-            // the tap handling for the navigation.
-            .buttonStyle(PlainButtonStyle())
+        HStack {
+          Text(deck.name)
+          Spacer()
+          Button {
+            editingDeck = deck
+          } label: {
+            Image(systemName: "info.circle")
+              // Needs an explicit foregroundColor because of the PlainButtonStyle
+              .foregroundColor(.accentColor)
           }
+          // You need PlainButtonStyle() to keep the button from conflicting with
+          // the tap handling for the navigation.
+          .buttonStyle(PlainButtonStyle())
         }
+        .tag(deck)
       }
       .onDelete(perform: { indexSet in
         for index in indexSet {
@@ -39,6 +37,9 @@ struct DeckList: View {
         }
       })
     }
+    .onChange(of: selectedDeck, initial: false, { oldValue, newValue in
+      print("Selected deck changed")
+    })
     .sheet(item: $editingDeck) { deck in
       DeckEditor(deck: deck)
     }
@@ -87,7 +88,7 @@ struct DeckList: View {
 
 #Preview {
   NavigationStack {
-    DeckList()
+    DeckList(selectedDeck: .constant(nil))
   }
   .modelContainer(.previews)
 }

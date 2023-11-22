@@ -26,6 +26,13 @@ struct CardQuizView: View {
           let duration = viewDidAppearTime.flatMap { Date.now.timeIntervalSince($0) } ?? 2
           didSelectAnswer?(answer, item, duration)
         }
+      } else {
+        Button("Reveal Answer", systemImage: "arrow.uturn.left") {
+          withAnimation {
+            isShowingBack = true
+          }
+        }
+        .keyboardShortcut(" ", modifiers: [])
       }
     }
     .onTapGesture {
@@ -60,5 +67,6 @@ private struct SelectCardView: View {
 
 #Preview {
   SelectCardView()
+    .frame(width: 400, height: 300)
     .modelContainer(.previews)
 }

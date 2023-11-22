@@ -1,5 +1,6 @@
 // Copyright © 2019-present Brian Dewey.
 
+import AVFoundation
 import Foundation
 import SwiftData
 
@@ -58,5 +59,11 @@ extension Note {
     set {
       fields["back"] = newValue
     }
+  }
+
+  func speakSpanish() {
+    let utterance = AVSpeechUtterance(string: front)
+    utterance.voice = .init(language: "es")
+    AVSpeechSynthesizer.shared.speak(utterance)
   }
 }

@@ -1,17 +1,33 @@
 // Copyright © 2019-present Brian Dewey.
 
+import AVFoundation
 import SwiftUI
+
+extension AVSpeechSynthesizer {
+  static let shared = AVSpeechSynthesizer()
+}
 
 struct FrontThenBackCard: View {
   var card: Card
   var cardSide: CardSide
 
   var body: some View {
-    switch cardSide {
-    case .front:
-      Text(card.note?.front ?? "")
-    case .back:
-      Text(card.note?.back ?? "")
+    ZStack {
+      switch cardSide {
+      case .front:
+        HStack {
+          Text(card.note?.front ?? "")
+          Button("Speak", systemImage: "speaker.wave.2") {
+            card.note?.speakSpanish()
+          }
+          .labelStyle(.iconOnly)
+        }
+      case .back:
+        Text(card.note?.back ?? "")
+      }
     }
+    .onAppear(perform: {
+      card.note?.speakSpanish()
+    })
   }
 }

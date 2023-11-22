@@ -15,19 +15,29 @@ struct CardAnswerButtonRow: View {
     let answer: CardAnswer
     let item: SpacedRepetitionScheduler.Item
     let interval: TimeInterval
+    let shortcut: String
   }
 
   var body: some View {
     HStack {
       ForEach(buttonProperties, id: \.self) { properties in
-        button(properties: properties)
+        VStack {
+          button(properties: properties)
+          Text(properties.shortcut)
+            .foregroundColor(.secondary)
+        }
       }
     }.frame(height: 100)
   }
 
   private var buttonProperties: [ButtonProperties] {
-    answers.map {
-      ButtonProperties(answer: $0.key, item: $0.value, interval: $0.value.interval)
+    answers.enumerated().map { index, tuple in
+      ButtonProperties(
+        answer: tuple.key,
+        item: tuple.value,
+        interval: tuple.value.interval,
+        shortcut: String(index + 1)
+      )
     }
   }
 
@@ -40,6 +50,7 @@ struct CardAnswerButtonRow: View {
     .buttonStyle(.plain)
     .background(buttonColor(for: properties.answer))
     .cornerRadius(10)
+    .keyboardShortcut(KeyEquivalent(properties.shortcut.first!), modifiers: [])
   }
 
   private func buttonLabel(properties: ButtonProperties) -> String {

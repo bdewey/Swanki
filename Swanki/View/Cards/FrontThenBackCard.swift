@@ -9,9 +9,9 @@ struct FrontThenBackCard: View {
   var body: some View {
     switch cardSide {
     case .front:
-      Text(card.note?.field(at: 0) ?? "")
+      Text(card.note?.front ?? "")
     case .back:
-      Text(card.note?.field(at: 1) ?? "")
+      Text(card.note?.back ?? "")
     }
   }
 }

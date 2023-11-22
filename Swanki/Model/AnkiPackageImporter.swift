@@ -72,7 +72,14 @@ public struct AnkiPackageImporter {
       for ankiNote in ankiNotes {
         if ankiNote.fieldsArray.count == 2 {
           let note = deck.addNote {
-            Note(modificationTime: Date(timeIntervalSince1970: TimeInterval(ankiNote.modifiedTimestampSeconds)), fields: ankiNote.fieldsArray)
+            Note(
+              modificationTime: Date(
+                timeIntervalSince1970: TimeInterval(
+                  ankiNote.modifiedTimestampSeconds
+                )
+              ),
+              fields: ["front": ankiNote.fieldsArray[0], "back": ankiNote.fieldsArray[1]]
+            )
           }
           note.addCard {
             Card(type: .frontThenBack)

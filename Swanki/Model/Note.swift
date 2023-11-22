@@ -9,7 +9,7 @@ import SwiftData
 /// For example, when studying foreign language vocabulary, the `Note` will contain the vocabulary pair,
 /// and from this we can derive two cards, one for each direction of the pair (Spanish from English, Engish from Spanish).
 public final class Note {
-  public init(deck: Deck? = nil, modificationTime: Date = Date.distantPast, fields: [String] = []) {
+  public init(deck: Deck? = nil, modificationTime: Date = Date.distantPast, fields: [String: String] = [:]) {
     self.deck = deck
     self.modificationTime = modificationTime
     self.fields = fields
@@ -17,29 +17,10 @@ public final class Note {
 
   public var deck: Deck?
   public var modificationTime = Date.distantPast
-  public var fields: [String] = []
+  public var fields: [String: String] = [:]
 
   @Relationship(deleteRule: .cascade, inverse: \Card.note)
   public var cards: [Card]? = []
-
-  public func field(at index: Int) -> String? {
-    guard fields.indices.contains(index) else {
-      return nil
-    }
-    return fields[index]
-  }
-
-  public func setField(_ newValue: String, at index: Int) {
-    if fields.indices.contains(index) {
-      fields[index] = newValue
-    } else {
-      let countOfBlankFields = index - fields.count
-      if countOfBlankFields > 0 {
-        fields.append(contentsOf: Array(repeating: "", count: countOfBlankFields))
-      }
-      fields.append(newValue)
-    }
-  }
 
   @discardableResult
   public func addCard(_ factory: () -> Card) -> Card {
@@ -63,19 +44,19 @@ public final class Note {
 extension Note {
   var front: String {
     get {
-      field(at: 0) ?? ""
+      fields["front"] ?? ""
     }
     set {
-      setField(newValue, at: 0)
+      fields["front"] = newValue
     }
   }
 
   var back: String {
     get {
-      field(at: 1) ?? ""
+      fields["back"] ?? ""
     }
     set {
-      setField(newValue, at: 1)
+      fields["back"] = newValue
     }
   }
 }

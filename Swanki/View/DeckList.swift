@@ -37,9 +37,6 @@ struct DeckList: View {
         }
       })
     }
-    .onChange(of: selectedDeck, initial: false, { oldValue, newValue in
-      print("Selected deck changed")
-    })
     .sheet(item: $editingDeck) { deck in
       DeckEditor(deck: deck)
     }

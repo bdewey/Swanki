@@ -22,6 +22,7 @@
 		D3600BA72B0BBF9500356187 /* StudySessionLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3600BA62B0BBF9500356187 /* StudySessionLoader.swift */; };
 		D3600BA92B0BC03300356187 /* StudySessionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3600BA82B0BC03300356187 /* StudySessionView.swift */; };
 		D3600BAB2B0BC0CF00356187 /* NoteEditor.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3600BAA2B0BC0CF00356187 /* NoteEditor.swift */; };
+		D37AB0B52B0ECBDF00070E99 /* AVSpeechSynthesizer+Shared.swift in Sources */ = {isa = PBXBuildFile; fileRef = D37AB0B42B0ECBDF00070E99 /* AVSpeechSynthesizer+Shared.swift */; };
 		D37E2A0923AD9A3600D7913F /* GRDBCombine in Frameworks */ = {isa = PBXBuildFile; productRef = D37E2A0823AD9A3600D7913F /* GRDBCombine */; };
 		D37E2A0C23AF087800D7913F /* CloudKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D37E2A0B23AF087800D7913F /* CloudKit.framework */; };
 		D38C800D2B00608800C619E6 /* Application.swift in Sources */ = {isa = PBXBuildFile; fileRef = D38C800C2B00608800C619E6 /* Application.swift */; };
@@ -71,6 +72,7 @@
 		D3600BA62B0BBF9500356187 /* StudySessionLoader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StudySessionLoader.swift; sourceTree = "<group>"; };
 		D3600BA82B0BC03300356187 /* StudySessionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StudySessionView.swift; sourceTree = "<group>"; };
 		D3600BAA2B0BC0CF00356187 /* NoteEditor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoteEditor.swift; sourceTree = "<group>"; };
+		D37AB0B42B0ECBDF00070E99 /* AVSpeechSynthesizer+Shared.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AVSpeechSynthesizer+Shared.swift"; sourceTree = "<group>"; };
 		D37E2A0A23AF06CA00D7913F /* Swanki.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Swanki.entitlements; sourceTree = "<group>"; };
 		D37E2A0B23AF087800D7913F /* CloudKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CloudKit.framework; path = System/Library/Frameworks/CloudKit.framework; sourceTree = SDKROOT; };
 		D38C800C2B00608800C619E6 /* Application.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Application.swift; sourceTree = "<group>"; };
@@ -153,6 +155,7 @@
 			children = (
 				D38C800C2B00608800C619E6 /* Application.swift */,
 				D32BCEAC235829770036768A /* Assets.xcassets */,
+				D37AB0B42B0ECBDF00070E99 /* AVSpeechSynthesizer+Shared.swift */,
 				D32BCEB4235829770036768A /* Info.plist */,
 				D3B71455235D211B00F2AFB2 /* Logger.swift */,
 				D3E8A3A32B02677500C8522C /* Model */,
@@ -338,6 +341,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D37AB0B52B0ECBDF00070E99 /* AVSpeechSynthesizer+Shared.swift in Sources */,
 				D3600BA12B0BBD7900356187 /* GenericCardView.swift in Sources */,
 				D3E8A3A52B02678300C8522C /* Deck.swift in Sources */,
 				D3E8A3A72B02687B00C8522C /* Card.swift in Sources */,

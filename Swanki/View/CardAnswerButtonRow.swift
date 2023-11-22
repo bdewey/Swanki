@@ -37,6 +37,7 @@ struct CardAnswerButtonRow: View {
         .foregroundColor(Color.white)
         .padding(.all)
     }
+    .buttonStyle(.plain)
     .background(buttonColor(for: properties.answer))
     .cornerRadius(10)
   }

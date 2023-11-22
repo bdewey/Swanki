@@ -29,6 +29,18 @@ public final class Note {
     return fields[index]
   }
 
+  public func setField(_ newValue: String, at index: Int) {
+    if fields.indices.contains(index) {
+      fields[index] = newValue
+    } else {
+      let countOfBlankFields = index - fields.count
+      if countOfBlankFields > 0 {
+        fields.append(contentsOf: Array(repeating: "", count: countOfBlankFields))
+      }
+      fields.append(newValue)
+    }
+  }
+
   @discardableResult
   public func addCard(_ factory: () -> Card) -> Card {
     let card = factory()
@@ -44,6 +56,26 @@ public final class Note {
     let id = deck.id
     return #Predicate<Note> { note in
       note.deck?.id == id
+    }
+  }
+}
+
+extension Note {
+  var front: String {
+    get {
+      field(at: 0) ?? ""
+    }
+    set {
+      setField(newValue, at: 0)
+    }
+  }
+
+  var back: String {
+    get {
+      field(at: 1) ?? ""
+    }
+    set {
+      setField(newValue, at: 1)
     }
   }
 }

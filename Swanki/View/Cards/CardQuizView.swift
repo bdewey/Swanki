@@ -18,14 +18,11 @@ struct CardQuizView: View {
 
   var body: some View {
     VStack {
+      Spacer()
       GenericCardView(card: card, cardSide: .front)
       if isShowingBack {
         Divider()
         GenericCardView(card: card, cardSide: .back)
-        CardAnswerButtonRow(answers: possibleAnswers) { answer, item in
-          let duration = viewDidAppearTime.flatMap { Date.now.timeIntervalSince($0) } ?? 2
-          didSelectAnswer?(answer, item, duration)
-        }
       } else {
         Button("Reveal Answer", systemImage: "arrow.uturn.left") {
           withAnimation {
@@ -34,6 +31,12 @@ struct CardQuizView: View {
         }
         .keyboardShortcut(" ", modifiers: [])
       }
+      Spacer()
+      CardAnswerButtonRow(answers: possibleAnswers) { answer, item in
+        let duration = viewDidAppearTime.flatMap { Date.now.timeIntervalSince($0) } ?? 2
+        didSelectAnswer?(answer, item, duration)
+      }
+      .hidden(!isShowingBack)
     }
     .onTapGesture {
       withAnimation {
@@ -52,6 +55,24 @@ struct CardQuizView: View {
 
   private var possibleAnswers: [(key: CardAnswer, value: SpacedRepetitionScheduler.Item)] {
     SpacedRepetitionScheduler.builtin.scheduleItem(.init(card))
+  }
+}
+
+private struct ConditionalHidden: ViewModifier {
+  let isHidden: Bool
+
+  func body(content: Content) -> some View {
+    if isHidden {
+      content.hidden()
+    } else {
+      content
+    }
+  }
+}
+
+extension View {
+  func hidden(_ shouldHide: Bool) -> some View {
+    modifier(ConditionalHidden(isHidden: shouldHide))
   }
 }
 

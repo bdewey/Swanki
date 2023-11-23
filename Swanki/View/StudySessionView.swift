@@ -9,10 +9,14 @@ import SwiftUI
 struct StudySessionView: View {
   var studySession: StudySession
 
+  @State private var answerCount = 0
+
   var body: some View {
-    ZStack {
+    VStack {
+      ProgressView(value: progress)
       if let card = studySession.currentCard {
         CardQuizView(card: card, didSelectAnswer: { answer, item, studyTime in
+          answerCount += 1
           do {
             try withAnimation {
               try studySession.updateCurrentCardSchedule(answer: answer, schedulingItem: item, studyTime: studyTime)
@@ -33,5 +37,40 @@ struct StudySessionView: View {
         }
       }
     }
+    .padding()
   }
+
+  private var progress: Double {
+    let denominator = Double(answerCount + studySession.newCardCount + studySession.learningCardCount)
+    if denominator > 0 {
+      return Double(answerCount) / denominator
+    } else {
+      return 0
+    }
+  }
+}
+
+private struct StudySessionView_Preview: View {
+  @State private var applicationNavigation = ApplicationNavigation()
+
+  var body: some View {
+    StudySessionPlucker()
+      .withStudySession()
+      .environment(applicationNavigation)
+      .modelContainer(.previews)
+  }
+}
+
+private struct StudySessionPlucker: View {
+  @Environment(StudySession.self) private var studySession: StudySession?
+
+  var body: some View {
+    if let studySession {
+      StudySessionView(studySession: studySession)
+    }
+  }
+}
+
+#Preview {
+  StudySessionView_Preview()
 }

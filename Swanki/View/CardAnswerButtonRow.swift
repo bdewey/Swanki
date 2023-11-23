@@ -43,19 +43,18 @@ struct CardAnswerButtonRow: View {
 
   private func button(properties: ButtonProperties) -> some View {
     Button(action: { didSelectAnswer?(properties.answer, properties.item) }) {
-      Text(buttonLabel(properties: properties))
-        .foregroundColor(Color.white)
-        .padding(.all)
+      VStack {
+        Text(properties.answer.localizedName)
+        Text(DateComponentsFormatter.intervalFormatter.string(from: properties.interval)!)
+          .font(.caption)
+          .foregroundColor(.secondary)
+      }
+      .padding(.all)
     }
     .buttonStyle(.plain)
-    .background(buttonColor(for: properties.answer))
+    .background(buttonColor(for: properties.answer).opacity(0.4))
     .cornerRadius(10)
     .keyboardShortcut(KeyEquivalent(properties.shortcut.first!), modifiers: [])
-  }
-
-  private func buttonLabel(properties: ButtonProperties) -> String {
-    let intervalString = DateComponentsFormatter.intervalFormatter.string(from: properties.interval)!
-    return intervalString + "\n" + properties.answer.localizedName
   }
 
   func buttonColor(for answer: CardAnswer) -> Color {

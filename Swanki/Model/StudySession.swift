@@ -12,7 +12,7 @@ public final class StudySession {
   public enum Error: Swift.Error {
     case noCard
   }
-  
+
   /// Designated initializer.
   /// - Parameters:
   ///   - modelContext: The model context to query for ``Card`` models.

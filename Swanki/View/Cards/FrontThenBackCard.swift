@@ -3,10 +3,6 @@
 import AVFoundation
 import SwiftUI
 
-extension AVSpeechSynthesizer {
-  static let shared = AVSpeechSynthesizer()
-}
-
 struct FrontThenBackCard: View {
   var card: Card
   var cardSide: CardSide

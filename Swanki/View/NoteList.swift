@@ -4,42 +4,45 @@ import SwiftData
 import SwiftUI
 
 /// Displays the list of ``Note`` objects in a ``Deck``.
-struct NoteListView: View {
-  init(deck: Deck, selectedNote: Binding<PersistentIdentifier?>) {
+struct NoteList: View {
+  init(deck: Deck) {
     self.deck = deck
-    self._selectedNote = selectedNote
     self._notes = Query(filter: Note.forDeck(deck))
   }
 
   /// The ``Deck`` we are examining.
   var deck: Deck
-  @Binding var selectedNote: PersistentIdentifier?
 
   @State private var editingNote: Note?
   @State private var isShowingNewNote = false
   @State private var isShowingStudySession = false
   @State private var isShowingInspector = false
   @Environment(\.modelContext) private var modelContext
+  @Environment(ApplicationNavigation.self) private var applicationNavigation
+  @Environment(StudySession.self) private var studySession: StudySession?
 
   @Query private var notes: [Note]
 
   var body: some View {
-    Table(notes, selection: $selectedNote) {
+    @Bindable var applicationNavigation = applicationNavigation
+    Table(notes, selection: $applicationNavigation.selectedNote) {
       TableColumn("Spanish", value: \.front)
       TableColumn("English", value: \.back)
     }
     .navigationTitle(deck.name)
     .inspector(isPresented: $isShowingInspector, content: {
-      NoteInspector(deck: deck, persistentIdentifier: selectedNote)
+      NoteInspector(deck: deck, persistentIdentifier: applicationNavigation.selectedNote)
     })
     .sheet(isPresented: $isShowingStudySession) {
-      StudySessionLoader(deck: deck)
+      if let studySession {
+        StudySessionView(studySession: studySession)
+      }
     }
     .toolbar {
       ToolbarItem(placement: .primaryAction) {
         Button {
           let newNote = makeNewNote()
-          selectedNote = newNote.id
+          applicationNavigation.selectedNote = newNote.id
         } label: {
           Label("New", systemImage: "plus")
         }
@@ -50,13 +53,14 @@ struct NoteListView: View {
         } label: {
           Label("Study", systemImage: "rectangle.on.rectangle.angled")
         }
+        .disabled(studySession == nil)
       }
       ToolbarItem(placement: .secondaryAction) {
         Toggle("Info", systemImage: "info.circle", isOn: $isShowingInspector)
       }
       ToolbarItem(placement: .secondaryAction) {
         Button {
-          guard let selectedNote else {
+          guard let selectedNote = applicationNavigation.selectedNote else {
             return
           }
           let model = modelContext.model(for: selectedNote)
@@ -65,7 +69,7 @@ struct NoteListView: View {
           Label("Delete", systemImage: "trash")
         }
         .keyboardShortcut(.delete)
-        .disabled(selectedNote == nil)
+        .disabled(applicationNavigation.selectedNote == nil)
       }
     }
   }
@@ -103,7 +107,7 @@ private struct SelectDeckView: View {
 
   var body: some View {
     if decks.count > 0 {
-      NoteListView(deck: decks[0], selectedNote: .constant(nil))
+      NoteList(deck: decks[0])
     }
   }
 }
@@ -112,5 +116,6 @@ private struct SelectDeckView: View {
   NavigationStack {
     SelectDeckView()
   }
+  .environment(ApplicationNavigation.previews)
   .modelContainer(.previews)
 }

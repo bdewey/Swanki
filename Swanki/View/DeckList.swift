@@ -9,15 +9,15 @@ struct DeckList: View {
   @Environment(\.modelContext) private var modelContext
   @State private var editingDeck: Deck?
   @State private var shouldShowNewDeck = false
-  @Environment(ApplicationState.self) private var applicationState
+  @Environment(ApplicationNavigation.self) private var applicationNavigation
   @Environment(FileImportNavigation.self) private var fileImporterNavigation
   @Environment(StudySession.self) private var studySession: StudySession?
 
   var body: some View {
-    @Bindable var applicationState = applicationState
+    @Bindable var applicationNavigation = applicationNavigation
     @Bindable var fileImporterNavigation = fileImporterNavigation
     VStack {
-      List(selection: $applicationState.selectedDeck) {
+      List(selection: $applicationNavigation.selectedDeck) {
         ForEach(decks) { deck in
           HStack {
             Text(deck.name)
@@ -86,14 +86,14 @@ struct DeckList: View {
   }
 }
 
-extension ApplicationState {
-  static let previews = ApplicationState()
+extension ApplicationNavigation {
+  static let previews = ApplicationNavigation()
 }
 
 #Preview {
   NavigationStack {
     DeckList()
   }
-  .environment(ApplicationState.previews)
+  .environment(ApplicationNavigation.previews)
   .modelContainer(.previews)
 }

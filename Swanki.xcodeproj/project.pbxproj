@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		D32039F42B0EEC4600B06FF8 /* FileImportNavigation.swift in Sources */ = {isa = PBXBuildFile; fileRef = D32039F32B0EEC4600B06FF8 /* FileImportNavigation.swift */; };
+		D32039F62B0F92E200B06FF8 /* ApplicationNavigation.swift in Sources */ = {isa = PBXBuildFile; fileRef = D32039F52B0F92E200B06FF8 /* ApplicationNavigation.swift */; };
 		D325FDA22358966F002AC9C9 /* SampleData in Resources */ = {isa = PBXBuildFile; fileRef = D325FDA12358966F002AC9C9 /* SampleData */; };
 		D325FDAB2359F288002AC9C9 /* Zipper in Frameworks */ = {isa = PBXBuildFile; productRef = D325FDAA2359F288002AC9C9 /* Zipper */; };
 		D325FDB1235A8B92002AC9C9 /* GRDB in Frameworks */ = {isa = PBXBuildFile; productRef = D325FDB0235A8B92002AC9C9 /* GRDB */; };
@@ -58,6 +59,7 @@
 		63A505C323880E2400E93016 /* Aztec.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Aztec.framework; path = Carthage/Build/iOS/Aztec.framework; sourceTree = "<group>"; };
 		63A505CC2388145000E93016 /* libxml2.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libxml2.tbd; path = usr/lib/libxml2.tbd; sourceTree = SDKROOT; };
 		D32039F32B0EEC4600B06FF8 /* FileImportNavigation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileImportNavigation.swift; sourceTree = "<group>"; };
+		D32039F52B0F92E200B06FF8 /* ApplicationNavigation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApplicationNavigation.swift; sourceTree = "<group>"; };
 		D325FDA12358966F002AC9C9 /* SampleData */ = {isa = PBXFileReference; lastKnownFileType = folder; path = SampleData; sourceTree = "<group>"; };
 		D32BCEA3235829750036768A /* Swanki.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Swanki.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D32BCEAC235829770036768A /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -218,6 +220,7 @@
 			isa = PBXGroup;
 			children = (
 				D3D518BB2B0B9B78003D6A53 /* AnkiPackageImporter.swift */,
+				D32039F52B0F92E200B06FF8 /* ApplicationNavigation.swift */,
 				D3E8A3A62B02687B00C8522C /* Card.swift */,
 				D3600B9A2B0BBB2500356187 /* CardType.swift */,
 				D3E8A3A42B02678300C8522C /* Deck.swift */,
@@ -350,6 +353,7 @@
 				D3E8A3A72B02687B00C8522C /* Card.swift in Sources */,
 				D3E8A3AB2B02FF0900C8522C /* DeckList.swift in Sources */,
 				D3E8A3AD2B0307B100C8522C /* ModelContainer+Previews.swift in Sources */,
+				D32039F62B0F92E200B06FF8 /* ApplicationNavigation.swift in Sources */,
 				D3600BA72B0BBF9500356187 /* StudySessionLoader.swift in Sources */,
 				D3D518B82B0A585D003D6A53 /* LogEntry.swift in Sources */,
 				D3600B9B2B0BBB2500356187 /* CardType.swift in Sources */,

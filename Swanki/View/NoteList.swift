@@ -18,20 +18,20 @@ struct NoteList: View {
   @State private var isShowingStudySession = false
   @State private var isShowingInspector = false
   @Environment(\.modelContext) private var modelContext
-  @Environment(ApplicationState.self) private var applicationState
+  @Environment(ApplicationNavigation.self) private var applicationNavigation
   @Environment(StudySession.self) private var studySession: StudySession?
 
   @Query private var notes: [Note]
 
   var body: some View {
-    @Bindable var applicationState = applicationState
-    Table(notes, selection: $applicationState.selectedNote) {
+    @Bindable var applicationNavigation = applicationNavigation
+    Table(notes, selection: $applicationNavigation.selectedNote) {
       TableColumn("Spanish", value: \.front)
       TableColumn("English", value: \.back)
     }
     .navigationTitle(deck.name)
     .inspector(isPresented: $isShowingInspector, content: {
-      NoteInspector(deck: deck, persistentIdentifier: applicationState.selectedNote)
+      NoteInspector(deck: deck, persistentIdentifier: applicationNavigation.selectedNote)
     })
     .sheet(isPresented: $isShowingStudySession) {
       if let studySession {
@@ -42,7 +42,7 @@ struct NoteList: View {
       ToolbarItem(placement: .primaryAction) {
         Button {
           let newNote = makeNewNote()
-          applicationState.selectedNote = newNote.id
+          applicationNavigation.selectedNote = newNote.id
         } label: {
           Label("New", systemImage: "plus")
         }
@@ -60,7 +60,7 @@ struct NoteList: View {
       }
       ToolbarItem(placement: .secondaryAction) {
         Button {
-          guard let selectedNote = applicationState.selectedNote else {
+          guard let selectedNote = applicationNavigation.selectedNote else {
             return
           }
           let model = modelContext.model(for: selectedNote)
@@ -69,7 +69,7 @@ struct NoteList: View {
           Label("Delete", systemImage: "trash")
         }
         .keyboardShortcut(.delete)
-        .disabled(applicationState.selectedNote == nil)
+        .disabled(applicationNavigation.selectedNote == nil)
       }
     }
   }
@@ -116,6 +116,6 @@ private struct SelectDeckView: View {
   NavigationStack {
     SelectDeckView()
   }
-  .environment(ApplicationState.previews)
+  .environment(ApplicationNavigation.previews)
   .modelContainer(.previews)
 }

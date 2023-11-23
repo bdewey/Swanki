@@ -4,7 +4,7 @@ import SwiftUI
 
 /// A view modifier installs a ``StudySession`` into the environment that matches the current deck.
 struct StudySessionLoader: ViewModifier {
-  @Environment(ApplicationState.self) private var applicationState
+  @Environment(ApplicationNavigation.self) private var applicationNavigation
   @State private var studySession: StudySession?
   @Environment(\.modelContext) private var modelContext
 
@@ -16,8 +16,8 @@ struct StudySessionLoader: ViewModifier {
         content
       }
     }
-    .onChange(of: applicationState.selectedDeck, initial: true) {
-      studySession = StudySession(modelContext: modelContext, deck: applicationState.selectedDeck, newCardLimit: 20)
+    .onChange(of: applicationNavigation.selectedDeck, initial: true) {
+      studySession = StudySession(modelContext: modelContext, deck: applicationNavigation.selectedDeck, newCardLimit: 20)
       do {
         try studySession?.loadCards(dueBefore: .now)
       } catch {

@@ -31,29 +31,17 @@ struct Application: App {
 ///
 /// My intent here was to create a separate `ApplicationState` instance per window but I'm not sure if that's working.
 struct ApplicationContentView: View {
-  @State private var applicationState = ApplicationState()
+  @State private var applicationNavigation = ApplicationNavigation()
 
   var body: some View {
     NavigationSplitView {
       DeckList()
     } detail: {
-      if let selectedDeck = applicationState.selectedDeck {
+      if let selectedDeck = applicationNavigation.selectedDeck {
         NoteList(deck: selectedDeck)
       }
     }
     .withStudySession()
-    .environment(applicationState)
+    .environment(applicationNavigation)
   }
-}
-
-@Observable
-/// The main "application state" -- needs a better name
-final class ApplicationState {
-  var selectedDeck: Deck? {
-    didSet {
-      selectedNote = nil
-    }
-  }
-
-  var selectedNote: PersistentIdentifier?
 }

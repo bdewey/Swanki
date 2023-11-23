@@ -164,6 +164,7 @@
 				D32BCEAE235829770036768A /* Preview Content */,
 				D3D518B12B0691F1003D6A53 /* SpacedRepetitionScheduler+Swanki.swift */,
 				D3D518B52B0A415C003D6A53 /* StudySession.swift */,
+				D3600BA62B0BBF9500356187 /* StudySessionLoader.swift */,
 				D37E2A0A23AF06CA00D7913F /* Swanki.entitlements */,
 				D3600B9E2B0BBD5400356187 /* View */,
 			);
@@ -197,7 +198,6 @@
 				D3E8A3AA2B02FF0900C8522C /* DeckList.swift */,
 				D3600BAA2B0BC0CF00356187 /* NoteEditor.swift */,
 				D3D518B32B093E42003D6A53 /* NoteList.swift */,
-				D3600BA62B0BBF9500356187 /* StudySessionLoader.swift */,
 				D3600BA82B0BC03300356187 /* StudySessionView.swift */,
 			);
 			path = View;

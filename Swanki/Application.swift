@@ -41,6 +41,7 @@ struct ApplicationContentView: View {
         NoteList(deck: selectedDeck)
       }
     }
+    .withStudySession()
     .environment(applicationState)
   }
 }

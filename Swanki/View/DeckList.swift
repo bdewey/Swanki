@@ -11,6 +11,7 @@ struct DeckList: View {
   @State private var shouldShowNewDeck = false
   @Environment(ApplicationState.self) private var applicationState
   @Environment(FileImportNavigation.self) private var fileImporterNavigation
+  @Environment(StudySession.self) private var studySession: StudySession?
 
   var body: some View {
     @Bindable var applicationState = applicationState
@@ -41,7 +42,9 @@ struct DeckList: View {
         })
       }
       .listStyle(.sidebar)
-      Text("Hi there")
+      if let studySession {
+        Text("New = \(studySession.newCardCount) Learning = \(studySession.learningCardCount)")
+      }
     }
     .sheet(item: $editingDeck) { deck in
       DeckEditor(deck: deck)

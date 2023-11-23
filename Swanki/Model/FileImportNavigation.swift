@@ -2,6 +2,7 @@
 
 import Foundation
 import Observation
+import SwiftData
 import SwiftUI
 
 @Observable
@@ -57,8 +58,8 @@ struct AllowFileImportsModifier: ViewModifier {
   private func importChatGPTJSON(url: URL) async throws {
     let (data, _) = try await URLSession.shared.data(from: url)
     let json = try JSONDecoder().decode(ChatGPTVocabulary.self, from: data)
-    let deck = Deck(name: "ChatGPT")
-    modelContext.insert(deck)
+
+    let deck = try Deck.spanishDeck(in: modelContext)
     for vocabularyItem in json.vocabulary {
       let note = deck.addNote {
         Note(

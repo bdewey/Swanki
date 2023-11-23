@@ -67,7 +67,7 @@ struct CardQuizView: View {
     }
     .onChange(of: isShowingBack, initial: false) {
       if isShowingBack {
-        speakSampleSentence()
+        speakSampleSentence(delay: 0.2)
       }
     }
     .onAppear {
@@ -80,13 +80,15 @@ struct CardQuizView: View {
     }
   }
 
-  private func speakSampleSentence() {
-    guard let exampleSentence = card.note?.exampleSentence else {
+  private func speakSampleSentence(delay: TimeInterval = 0.0) {
+    guard let exampleSentence = card.note?.exampleSentence,
+          let attributedSentence = try? NSAttributedString(markdown: exampleSentence) else {
       return
     }
-    let utterance = AVSpeechUtterance(string: exampleSentence)
+    let utterance = AVSpeechUtterance(attributedString: attributedSentence)
     utterance.voice = .init(language: "es")
     utterance.rate = AVSpeechUtteranceDefaultSpeechRate * 0.6
+    utterance.preUtteranceDelay = delay
     AVSpeechSynthesizer.shared.speak(utterance)
   }
 

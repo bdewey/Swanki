@@ -20,24 +20,59 @@ struct AllowFileImportsModifier: ViewModifier {
 
   func body(content: Content) -> some View {
     content
-      .fileImporter(isPresented: $fileImportNavigation.isShowingFileImporter, allowedContentTypes: [.ankiPackage]) { result in
+      .fileImporter(isPresented: $fileImportNavigation.isShowingFileImporter, allowedContentTypes: [.ankiPackage, .json]) { result in
         guard let url = try? result.get() else { return }
-        importPackage(at: url)
+        Task {
+          await importPackage(at: url)
+        }
       }
       .onOpenURL { url in
         logger.info("Trying to open url \(url)")
-        importPackage(at: url)
+        Task {
+          await importPackage(at: url)
+        }
       }
   }
 
-  private func importPackage(at url: URL) {
-    logger.info("Trying to import Anki package at url \(url)")
-    let importer = AnkiPackageImporter(packageURL: url, modelContext: modelContext)
+  private func importPackage(at url: URL) async {
     do {
-      try importer.importPackage()
-      logger.info("Import complete")
+      switch url.pathExtension {
+      case "apkg":
+        logger.info("Trying to import Anki package at url \(url)")
+        let importer = AnkiPackageImporter(packageURL: url, modelContext: modelContext)
+        try importer.importPackage()
+        logger.info("Import complete")
+      case "json":
+        logger.info("Trying to import ChatGPT JSON from url \(url)")
+        try await importChatGPTJSON(url: url)
+      default:
+        logger.warning("Unrecognized url extension \(url.pathExtension) from \(url)")
+      }
     } catch {
       logger.error("Error importing package at \(url): \(error)")
+    }
+  }
+
+  @MainActor
+  private func importChatGPTJSON(url: URL) async throws {
+    let (data, _) = try await URLSession.shared.data(from: url)
+    let json = try JSONDecoder().decode(ChatGPTVocabulary.self, from: data)
+    let deck = Deck(name: "ChatGPT")
+    modelContext.insert(deck)
+    for vocabularyItem in json.vocabulary {
+      let note = deck.addNote {
+        Note(
+          modificationTime: .now,
+          fields: [
+            "front": vocabularyItem.spanish,
+            "back": vocabularyItem.english,
+            "exampleSentenceSpanish": vocabularyItem.exampleSentenceSpanish,
+            "exampleSentenceEnglish": vocabularyItem.exampleSentenceEnglish,
+          ]
+        )
+      }
+      note.addCard(.frontThenBack)
+      note.addCard(.backThenFront)
     }
   }
 }

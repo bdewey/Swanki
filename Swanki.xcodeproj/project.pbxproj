@@ -24,6 +24,7 @@
 		D3600BA72B0BBF9500356187 /* StudySessionLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3600BA62B0BBF9500356187 /* StudySessionLoader.swift */; };
 		D3600BA92B0BC03300356187 /* StudySessionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3600BA82B0BC03300356187 /* StudySessionView.swift */; };
 		D3600BAB2B0BC0CF00356187 /* NoteEditor.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3600BAA2B0BC0CF00356187 /* NoteEditor.swift */; };
+		D36AD9CC2B0FF1E100FEA67B /* ChatGPTVocabulary.swift in Sources */ = {isa = PBXBuildFile; fileRef = D36AD9CB2B0FF1E100FEA67B /* ChatGPTVocabulary.swift */; };
 		D37AB0B52B0ECBDF00070E99 /* AVSpeechSynthesizer+Shared.swift in Sources */ = {isa = PBXBuildFile; fileRef = D37AB0B42B0ECBDF00070E99 /* AVSpeechSynthesizer+Shared.swift */; };
 		D37E2A0923AD9A3600D7913F /* GRDBCombine in Frameworks */ = {isa = PBXBuildFile; productRef = D37E2A0823AD9A3600D7913F /* GRDBCombine */; };
 		D37E2A0C23AF087800D7913F /* CloudKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D37E2A0B23AF087800D7913F /* CloudKit.framework */; };
@@ -76,6 +77,7 @@
 		D3600BA62B0BBF9500356187 /* StudySessionLoader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StudySessionLoader.swift; sourceTree = "<group>"; };
 		D3600BA82B0BC03300356187 /* StudySessionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StudySessionView.swift; sourceTree = "<group>"; };
 		D3600BAA2B0BC0CF00356187 /* NoteEditor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoteEditor.swift; sourceTree = "<group>"; };
+		D36AD9CB2B0FF1E100FEA67B /* ChatGPTVocabulary.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatGPTVocabulary.swift; sourceTree = "<group>"; };
 		D37AB0B42B0ECBDF00070E99 /* AVSpeechSynthesizer+Shared.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AVSpeechSynthesizer+Shared.swift"; sourceTree = "<group>"; };
 		D37E2A0A23AF06CA00D7913F /* Swanki.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Swanki.entitlements; sourceTree = "<group>"; };
 		D37E2A0B23AF087800D7913F /* CloudKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CloudKit.framework; path = System/Library/Frameworks/CloudKit.framework; sourceTree = SDKROOT; };
@@ -222,6 +224,7 @@
 				D32039F52B0F92E200B06FF8 /* ApplicationNavigation.swift */,
 				D3E8A3A62B02687B00C8522C /* Card.swift */,
 				D3600B9A2B0BBB2500356187 /* CardType.swift */,
+				D36AD9CB2B0FF1E100FEA67B /* ChatGPTVocabulary.swift */,
 				D3E8A3A42B02678300C8522C /* Deck.swift */,
 				D32039F32B0EEC4600B06FF8 /* FileImportNavigation.swift */,
 				D3D518B72B0A585D003D6A53 /* LogEntry.swift */,
@@ -372,6 +375,7 @@
 				D3600BA92B0BC03300356187 /* StudySessionView.swift in Sources */,
 				D3D518B22B0691F1003D6A53 /* SpacedRepetitionScheduler+Swanki.swift in Sources */,
 				D3600BAB2B0BC0CF00356187 /* NoteEditor.swift in Sources */,
+				D36AD9CC2B0FF1E100FEA67B /* ChatGPTVocabulary.swift in Sources */,
 				D3D518BC2B0B9B78003D6A53 /* AnkiPackageImporter.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

@@ -46,7 +46,7 @@ public final class StudySession {
   public func loadCards(dueBefore dueDate: Date) throws {
     let previousCardID = currentCard?.id.description
     currentCard = nil
-    let newCardsLearnedToday = try modelContext.fetchCount(FetchDescriptor(predicate: LogEntry.newCardsLearned(on: dueDate)))
+    let newCardsLearnedToday = try modelContext.fetchCount(FetchDescriptor(predicate: LogEntry.newCardsLearned(on: dueDate, deck: deck)))
     if newCardsLearnedToday < newCardLimit {
       let newCards = try modelContext.fetch(FetchDescriptor(predicate: Card.newCards(deck: deck))).prefix(newCardLimit - newCardsLearnedToday)
       newCardCount = newCards.count

@@ -34,6 +34,13 @@ public final class Note {
     return card
   }
 
+  @discardableResult
+  public func addCard(_ cardType: CardType) -> Card {
+    addCard {
+      Card(type: cardType)
+    }
+  }
+
   static func forDeck(_ deck: Deck) -> Predicate<Note> {
     let id = deck.id
     return #Predicate<Note> { note in
@@ -58,6 +65,26 @@ extension Note {
     }
     set {
       fields["back"] = newValue
+    }
+  }
+
+  var exampleSentence: String {
+    get {
+      (fields["exampleSentenceSpanish"] ?? "")
+        .replacingOccurrences(of: "{{", with: "**")
+        .replacingOccurrences(of: "}}", with: "**")
+    }
+    set {
+      fields["exampleSentenceSpanish"] = newValue
+    }
+  }
+
+  var exampleSentenceEnglish: String {
+    get {
+      fields["exampleSentenceEnglish"] ?? ""
+    }
+    set {
+      fields["exampleSentenceEnglish"] = newValue
     }
   }
 

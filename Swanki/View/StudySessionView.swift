@@ -15,7 +15,7 @@ struct StudySessionView: View {
         CardQuizView(card: card, didSelectAnswer: { answer, item, studyTime in
           do {
             try withAnimation {
-              try studySession.updateCurrentCardSchedule(answer: answer, schedulingItem: item, studyTime: studyTime, currentDate: .now)
+              try studySession.updateCurrentCardSchedule(answer: answer, schedulingItem: item, studyTime: studyTime)
             }
           } catch {
             logger.error("Unexpected error scheduling card \(card.id) and answer \(answer.localizedName): \(error)")

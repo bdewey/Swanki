@@ -165,7 +165,6 @@
 				D3E8A3A32B02677500C8522C /* Model */,
 				D32BCEAE235829770036768A /* Preview Content */,
 				D3D518B12B0691F1003D6A53 /* SpacedRepetitionScheduler+Swanki.swift */,
-				D3D518B52B0A415C003D6A53 /* StudySession.swift */,
 				D3600BA62B0BBF9500356187 /* StudySessionLoader.swift */,
 				D37E2A0A23AF06CA00D7913F /* Swanki.entitlements */,
 				D3600B9E2B0BBD5400356187 /* View */,
@@ -228,6 +227,7 @@
 				D3D518B72B0A585D003D6A53 /* LogEntry.swift */,
 				D3E8A3AC2B0307B100C8522C /* ModelContainer+Previews.swift */,
 				D3E8A3A82B026A1400C8522C /* Note.swift */,
+				D3D518B52B0A415C003D6A53 /* StudySession.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -585,7 +585,7 @@
 				DEVELOPMENT_TEAM = K2UU8WDD8H;
 				HEADER_SEARCH_PATHS = /usr/include/libxml2;
 				INFOPLIST_FILE = SwankiTests/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.2;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -610,7 +610,7 @@
 				DEVELOPMENT_TEAM = K2UU8WDD8H;
 				HEADER_SEARCH_PATHS = /usr/include/libxml2;
 				INFOPLIST_FILE = SwankiTests/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.2;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",

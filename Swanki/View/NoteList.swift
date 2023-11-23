@@ -4,33 +4,33 @@ import SwiftData
 import SwiftUI
 
 /// Displays the list of ``Note`` objects in a ``Deck``.
-struct NoteListView: View {
-  init(deck: Deck, selectedNote: Binding<PersistentIdentifier?>) {
+struct NoteList: View {
+  init(deck: Deck) {
     self.deck = deck
-    self._selectedNote = selectedNote
     self._notes = Query(filter: Note.forDeck(deck))
   }
 
   /// The ``Deck`` we are examining.
   var deck: Deck
-  @Binding var selectedNote: PersistentIdentifier?
 
   @State private var editingNote: Note?
   @State private var isShowingNewNote = false
   @State private var isShowingStudySession = false
   @State private var isShowingInspector = false
   @Environment(\.modelContext) private var modelContext
+  @Environment(ApplicationState.self) private var applicationState
 
   @Query private var notes: [Note]
 
   var body: some View {
-    Table(notes, selection: $selectedNote) {
+    @Bindable var applicationState = applicationState
+    Table(notes, selection: $applicationState.selectedNote) {
       TableColumn("Spanish", value: \.front)
       TableColumn("English", value: \.back)
     }
     .navigationTitle(deck.name)
     .inspector(isPresented: $isShowingInspector, content: {
-      NoteInspector(deck: deck, persistentIdentifier: selectedNote)
+      NoteInspector(deck: deck, persistentIdentifier: applicationState.selectedNote)
     })
     .sheet(isPresented: $isShowingStudySession) {
       StudySessionLoader(deck: deck)
@@ -39,7 +39,7 @@ struct NoteListView: View {
       ToolbarItem(placement: .primaryAction) {
         Button {
           let newNote = makeNewNote()
-          selectedNote = newNote.id
+          applicationState.selectedNote = newNote.id
         } label: {
           Label("New", systemImage: "plus")
         }
@@ -56,7 +56,7 @@ struct NoteListView: View {
       }
       ToolbarItem(placement: .secondaryAction) {
         Button {
-          guard let selectedNote else {
+          guard let selectedNote = applicationState.selectedNote else {
             return
           }
           let model = modelContext.model(for: selectedNote)
@@ -65,7 +65,7 @@ struct NoteListView: View {
           Label("Delete", systemImage: "trash")
         }
         .keyboardShortcut(.delete)
-        .disabled(selectedNote == nil)
+        .disabled(applicationState.selectedNote == nil)
       }
     }
   }
@@ -103,7 +103,7 @@ private struct SelectDeckView: View {
 
   var body: some View {
     if decks.count > 0 {
-      NoteListView(deck: decks[0], selectedNote: .constant(nil))
+      NoteList(deck: decks[0])
     }
   }
 }
@@ -112,5 +112,6 @@ private struct SelectDeckView: View {
   NavigationStack {
     SelectDeckView()
   }
+  .environment(ApplicationState.previews)
   .modelContainer(.previews)
 }

@@ -5,37 +5,43 @@ import SwiftUI
 
 /// Show all of the decks in a database.
 struct DeckList: View {
-  @Binding var selectedDeck: Deck?
   @Query private var decks: [Deck]
   @Environment(\.modelContext) private var modelContext
   @State private var editingDeck: Deck?
   @State private var shouldShowNewDeck = false
-  @State private var shouldShowFileImporter = false
+  @Environment(ApplicationState.self) private var applicationState
+  @Environment(FileImportNavigation.self) private var fileImporterNavigation
 
   var body: some View {
-    List(selection: $selectedDeck) {
-      ForEach(decks) { deck in
-        HStack {
-          Text(deck.name)
-          Spacer()
-          Button {
-            editingDeck = deck
-          } label: {
-            Image(systemName: "info.circle")
-              // Needs an explicit foregroundColor because of the PlainButtonStyle
-              .foregroundColor(.accentColor)
+    @Bindable var applicationState = applicationState
+    @Bindable var fileImporterNavigation = fileImporterNavigation
+    VStack {
+      List(selection: $applicationState.selectedDeck) {
+        ForEach(decks) { deck in
+          HStack {
+            Text(deck.name)
+            Spacer()
+            Button {
+              editingDeck = deck
+            } label: {
+              Image(systemName: "info.circle")
+                // Needs an explicit foregroundColor because of the PlainButtonStyle
+                .foregroundColor(.accentColor)
+            }
+            // You need PlainButtonStyle() to keep the button from conflicting with
+            // the tap handling for the navigation.
+            .buttonStyle(PlainButtonStyle())
           }
-          // You need PlainButtonStyle() to keep the button from conflicting with
-          // the tap handling for the navigation.
-          .buttonStyle(PlainButtonStyle())
+          .tag(deck)
         }
-        .tag(deck)
+        .onDelete(perform: { indexSet in
+          for index in indexSet {
+            modelContext.delete(decks[index])
+          }
+        })
       }
-      .onDelete(perform: { indexSet in
-        for index in indexSet {
-          modelContext.delete(decks[index])
-        }
-      })
+      .listStyle(.sidebar)
+      Text("Hi there")
     }
     .sheet(item: $editingDeck) { deck in
       DeckEditor(deck: deck)
@@ -44,14 +50,6 @@ struct DeckList: View {
       DeckEditor(deck: nil)
     }
     .navigationTitle("Decks")
-    .fileImporter(isPresented: $shouldShowFileImporter, allowedContentTypes: [.ankiPackage], onCompletion: { result in
-      guard let url = try? result.get() else { return }
-      importPackage(at: url)
-    })
-    .onOpenURL(perform: { url in
-      logger.info("Trying to open url \(url)")
-      importPackage(at: url)
-    })
     .toolbar {
       ToolbarItem(placement: .primaryAction) {
         Button {
@@ -60,14 +58,16 @@ struct DeckList: View {
           Label("Add", systemImage: "plus")
         }
       }
-      ToolbarItem(placement: .secondaryAction) {
-        Button {
-          logger.debug("Presenting file importer. Home directory is \(URL.homeDirectory.path)")
-          shouldShowFileImporter = true
-        } label: {
-          Label("Import", systemImage: "square.and.arrow.down.on.square")
+      #if !os(macOS)
+        ToolbarItem(placement: .secondaryAction) {
+          Button {
+            logger.debug("Presenting file importer. Home directory is \(URL.homeDirectory.path)")
+            fileImporterNavigation.isShowingFileImporter = true
+          } label: {
+            Label("Import", systemImage: "square.and.arrow.down.on.square")
+          }
         }
-      }
+      #endif
     }
   }
 
@@ -83,9 +83,14 @@ struct DeckList: View {
   }
 }
 
+extension ApplicationState {
+  static let previews = ApplicationState()
+}
+
 #Preview {
   NavigationStack {
-    DeckList(selectedDeck: .constant(nil))
+    DeckList()
   }
+  .environment(ApplicationState.previews)
   .modelContainer(.previews)
 }

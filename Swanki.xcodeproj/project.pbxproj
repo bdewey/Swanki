@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		D32039F42B0EEC4600B06FF8 /* FileImportNavigation.swift in Sources */ = {isa = PBXBuildFile; fileRef = D32039F32B0EEC4600B06FF8 /* FileImportNavigation.swift */; };
 		D325FDA22358966F002AC9C9 /* SampleData in Resources */ = {isa = PBXBuildFile; fileRef = D325FDA12358966F002AC9C9 /* SampleData */; };
 		D325FDAB2359F288002AC9C9 /* Zipper in Frameworks */ = {isa = PBXBuildFile; productRef = D325FDAA2359F288002AC9C9 /* Zipper */; };
 		D325FDB1235A8B92002AC9C9 /* GRDB in Frameworks */ = {isa = PBXBuildFile; productRef = D325FDB0235A8B92002AC9C9 /* GRDB */; };
@@ -31,7 +32,7 @@
 		D3B71456235D211B00F2AFB2 /* Logger.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3B71455235D211B00F2AFB2 /* Logger.swift */; };
 		D3D518B02B06824B003D6A53 /* CardQuizView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3D518AF2B06824B003D6A53 /* CardQuizView.swift */; };
 		D3D518B22B0691F1003D6A53 /* SpacedRepetitionScheduler+Swanki.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3D518B12B0691F1003D6A53 /* SpacedRepetitionScheduler+Swanki.swift */; };
-		D3D518B42B093E42003D6A53 /* NoteListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3D518B32B093E42003D6A53 /* NoteListView.swift */; };
+		D3D518B42B093E42003D6A53 /* NoteList.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3D518B32B093E42003D6A53 /* NoteList.swift */; };
 		D3D518B62B0A415C003D6A53 /* StudySession.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3D518B52B0A415C003D6A53 /* StudySession.swift */; };
 		D3D518B82B0A585D003D6A53 /* LogEntry.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3D518B72B0A585D003D6A53 /* LogEntry.swift */; };
 		D3D518BA2B0A66FD003D6A53 /* NewStudySessionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3D518B92B0A66FD003D6A53 /* NewStudySessionTests.swift */; };
@@ -56,6 +57,7 @@
 /* Begin PBXFileReference section */
 		63A505C323880E2400E93016 /* Aztec.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Aztec.framework; path = Carthage/Build/iOS/Aztec.framework; sourceTree = "<group>"; };
 		63A505CC2388145000E93016 /* libxml2.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libxml2.tbd; path = usr/lib/libxml2.tbd; sourceTree = SDKROOT; };
+		D32039F32B0EEC4600B06FF8 /* FileImportNavigation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileImportNavigation.swift; sourceTree = "<group>"; };
 		D325FDA12358966F002AC9C9 /* SampleData */ = {isa = PBXFileReference; lastKnownFileType = folder; path = SampleData; sourceTree = "<group>"; };
 		D32BCEA3235829750036768A /* Swanki.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Swanki.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D32BCEAC235829770036768A /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -81,7 +83,7 @@
 		D3B71455235D211B00F2AFB2 /* Logger.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Logger.swift; sourceTree = "<group>"; };
 		D3D518AF2B06824B003D6A53 /* CardQuizView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardQuizView.swift; sourceTree = "<group>"; };
 		D3D518B12B0691F1003D6A53 /* SpacedRepetitionScheduler+Swanki.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SpacedRepetitionScheduler+Swanki.swift"; sourceTree = "<group>"; };
-		D3D518B32B093E42003D6A53 /* NoteListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoteListView.swift; sourceTree = "<group>"; };
+		D3D518B32B093E42003D6A53 /* NoteList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoteList.swift; sourceTree = "<group>"; };
 		D3D518B52B0A415C003D6A53 /* StudySession.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StudySession.swift; sourceTree = "<group>"; };
 		D3D518B72B0A585D003D6A53 /* LogEntry.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogEntry.swift; sourceTree = "<group>"; };
 		D3D518B92B0A66FD003D6A53 /* NewStudySessionTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewStudySessionTests.swift; sourceTree = "<group>"; };
@@ -194,7 +196,7 @@
 				D3600B982B0BB83300356187 /* DeckEditor.swift */,
 				D3E8A3AA2B02FF0900C8522C /* DeckList.swift */,
 				D3600BAA2B0BC0CF00356187 /* NoteEditor.swift */,
-				D3D518B32B093E42003D6A53 /* NoteListView.swift */,
+				D3D518B32B093E42003D6A53 /* NoteList.swift */,
 				D3600BA62B0BBF9500356187 /* StudySessionLoader.swift */,
 				D3600BA82B0BC03300356187 /* StudySessionView.swift */,
 			);
@@ -216,12 +218,13 @@
 			isa = PBXGroup;
 			children = (
 				D3D518BB2B0B9B78003D6A53 /* AnkiPackageImporter.swift */,
-				D3E8A3A42B02678300C8522C /* Deck.swift */,
 				D3E8A3A62B02687B00C8522C /* Card.swift */,
-				D3E8A3A82B026A1400C8522C /* Note.swift */,
-				D3E8A3AC2B0307B100C8522C /* ModelContainer+Previews.swift */,
-				D3D518B72B0A585D003D6A53 /* LogEntry.swift */,
 				D3600B9A2B0BBB2500356187 /* CardType.swift */,
+				D3E8A3A42B02678300C8522C /* Deck.swift */,
+				D32039F32B0EEC4600B06FF8 /* FileImportNavigation.swift */,
+				D3D518B72B0A585D003D6A53 /* LogEntry.swift */,
+				D3E8A3AC2B0307B100C8522C /* ModelContainer+Previews.swift */,
+				D3E8A3A82B026A1400C8522C /* Note.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -350,6 +353,7 @@
 				D3600BA72B0BBF9500356187 /* StudySessionLoader.swift in Sources */,
 				D3D518B82B0A585D003D6A53 /* LogEntry.swift in Sources */,
 				D3600B9B2B0BBB2500356187 /* CardType.swift in Sources */,
+				D32039F42B0EEC4600B06FF8 /* FileImportNavigation.swift in Sources */,
 				D3B71456235D211B00F2AFB2 /* Logger.swift in Sources */,
 				D3600BA32B0BBDA500356187 /* FrontThenBackCard.swift in Sources */,
 				D3D518B02B06824B003D6A53 /* CardQuizView.swift in Sources */,
@@ -359,7 +363,7 @@
 				D3600BA52B0BBDBC00356187 /* BackThenFrontCard.swift in Sources */,
 				D3600B9D2B0BBC1B00356187 /* CardSide.swift in Sources */,
 				D3E8A3A92B026A1400C8522C /* Note.swift in Sources */,
-				D3D518B42B093E42003D6A53 /* NoteListView.swift in Sources */,
+				D3D518B42B093E42003D6A53 /* NoteList.swift in Sources */,
 				D38C800D2B00608800C619E6 /* Application.swift in Sources */,
 				D3600BA92B0BC03300356187 /* StudySessionView.swift in Sources */,
 				D3D518B22B0691F1003D6A53 /* SpacedRepetitionScheduler+Swanki.swift in Sources */,

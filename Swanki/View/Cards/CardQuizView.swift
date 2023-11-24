@@ -82,7 +82,8 @@ struct CardQuizView: View {
 
   private func speakSampleSentence(delay: TimeInterval = 0.0) {
     guard let exampleSentence = card.note?.exampleSentence,
-          let attributedSentence = try? NSAttributedString(markdown: exampleSentence) else {
+          let attributedSentence = try? NSAttributedString(markdown: exampleSentence)
+    else {
       return
     }
     let utterance = AVSpeechUtterance(attributedString: attributedSentence)

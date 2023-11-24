@@ -65,10 +65,10 @@ struct AllowFileImportsModifier: ViewModifier {
         Note(
           modificationTime: .now,
           fields: [
-            "front": vocabularyItem.spanish,
-            "back": vocabularyItem.english,
-            "exampleSentenceSpanish": vocabularyItem.exampleSentenceSpanish,
-            "exampleSentenceEnglish": vocabularyItem.exampleSentenceEnglish,
+            Note.Key.front.rawValue: vocabularyItem.spanish,
+            Note.Key.back.rawValue: vocabularyItem.english,
+            Note.Key.exampleSentenceSpanish.rawValue: vocabularyItem.exampleSentenceSpanish,
+            Note.Key.exampleSentenceEnglish.rawValue: vocabularyItem.exampleSentenceEnglish,
           ]
         )
       }

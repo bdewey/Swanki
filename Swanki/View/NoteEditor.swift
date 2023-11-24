@@ -11,13 +11,10 @@ struct NoteEditor: View {
 
   @Environment(\.modelContext) private var modelContext
 
-  @State private var front: String = ""
-  @State private var back: String = ""
-
   var body: some View {
     Form {
-      TextField("Front", text: $note.front)
-      TextField("Back", text: $note.back)
+      TextField("Front", text: $note.front.defaultEmpty)
+      TextField("Back", text: $note.back.defaultEmpty)
     }
   }
 }

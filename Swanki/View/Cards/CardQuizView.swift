@@ -1,5 +1,6 @@
 // Copyright © 2019-present Brian Dewey.
 
+import AVFoundation
 import Foundation
 import SpacedRepetitionScheduler
 import SwiftData
@@ -32,6 +33,27 @@ struct CardQuizView: View {
         .keyboardShortcut(" ", modifiers: [])
       }
       Spacer()
+      if let exampleSentence = card.note?.exampleSentence,
+         let attributedSentence = try? AttributedString(markdown: exampleSentence),
+         !exampleSentence.isEmpty
+      {
+        HStack {
+          VStack(alignment: .leading) {
+            Text(attributedSentence)
+              .font(.caption)
+            if let english = card.note?.exampleSentenceEnglish, !english.isEmpty {
+              Text(english)
+                .font(.caption.italic())
+            }
+          }
+          .foregroundColor(.secondary)
+          Button("Speak", systemImage: "speaker.wave.2") {
+            speakSampleSentence()
+          }
+          .labelStyle(.iconOnly)
+        }
+        .hidden(!isShowingBack)
+      }
       CardAnswerButtonRow(answers: possibleAnswers) { answer, item in
         let duration = viewDidAppearTime.flatMap { Date.now.timeIntervalSince($0) } ?? 2
         didSelectAnswer?(answer, item, duration)
@@ -43,6 +65,11 @@ struct CardQuizView: View {
         isShowingBack = true
       }
     }
+    .onChange(of: isShowingBack, initial: false) {
+      if isShowingBack {
+        speakSampleSentence(delay: 0.2)
+      }
+    }
     .onAppear {
       viewDidAppearTime = .now
     }
@@ -51,6 +78,19 @@ struct CardQuizView: View {
         isShowingBack = false
       }
     }
+  }
+
+  private func speakSampleSentence(delay: TimeInterval = 0.0) {
+    guard let exampleSentence = card.note?.exampleSentence,
+          let attributedSentence = try? NSAttributedString(markdown: exampleSentence)
+    else {
+      return
+    }
+    let utterance = AVSpeechUtterance(attributedString: attributedSentence)
+    utterance.voice = .init(language: "es")
+    utterance.rate = AVSpeechUtteranceDefaultSpeechRate * 0.6
+    utterance.preUtteranceDelay = delay
+    AVSpeechSynthesizer.shared.speak(utterance)
   }
 
   private var possibleAnswers: [(key: CardAnswer, value: SpacedRepetitionScheduler.Item)] {

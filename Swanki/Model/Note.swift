@@ -20,6 +20,19 @@ public final class Note {
   public var modificationTime = Date.distantPast
   public var fields: [String: String] = [:]
 
+  /// A type that identifies a value inside of ``Note/fields``
+  public struct Key: RawRepresentable, ExpressibleByStringLiteral {
+    public let rawValue: String
+
+    public init(rawValue: String) {
+      self.rawValue = rawValue
+    }
+
+    public init(stringLiteral value: StringLiteralType) {
+      self.rawValue = value
+    }
+  }
+
   @Relationship(deleteRule: .cascade, inverse: \Card.note)
   public var cards: [Card]? = []
 
@@ -34,36 +47,27 @@ public final class Note {
     return card
   }
 
-  static func forDeck(_ deck: Deck) -> Predicate<Note> {
+  @discardableResult
+  public func addCard(_ cardType: CardType) -> Card {
+    addCard {
+      Card(type: cardType)
+    }
+  }
+
+  public static func forDeck(_ deck: Deck) -> Predicate<Note> {
     let id = deck.id
     return #Predicate<Note> { note in
       note.deck?.id == id
     }
   }
-}
 
-extension Note {
-  var front: String {
+  /// Gets/sets the corresponding value in ``fields``
+  public subscript(key: Key) -> String? {
     get {
-      fields["front"] ?? ""
+      fields[key.rawValue]
     }
     set {
-      fields["front"] = newValue
+      fields[key.rawValue] = newValue
     }
-  }
-
-  var back: String {
-    get {
-      fields["back"] ?? ""
-    }
-    set {
-      fields["back"] = newValue
-    }
-  }
-
-  func speakSpanish() {
-    let utterance = AVSpeechUtterance(string: front)
-    utterance.voice = .init(language: "es")
-    AVSpeechSynthesizer.shared.speak(utterance)
   }
 }

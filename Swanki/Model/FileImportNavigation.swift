@@ -2,6 +2,7 @@
 
 import Foundation
 import Observation
+import SwiftData
 import SwiftUI
 
 @Observable
@@ -20,24 +21,70 @@ struct AllowFileImportsModifier: ViewModifier {
 
   func body(content: Content) -> some View {
     content
-      .fileImporter(isPresented: $fileImportNavigation.isShowingFileImporter, allowedContentTypes: [.ankiPackage]) { result in
+      .fileImporter(isPresented: $fileImportNavigation.isShowingFileImporter, allowedContentTypes: [.ankiPackage, .json]) { result in
         guard let url = try? result.get() else { return }
-        importPackage(at: url)
+        Task {
+          await importPackage(at: url)
+        }
       }
       .onOpenURL { url in
         logger.info("Trying to open url \(url)")
-        importPackage(at: url)
+        Task {
+          await importPackage(at: url)
+        }
       }
   }
 
-  private func importPackage(at url: URL) {
-    logger.info("Trying to import Anki package at url \(url)")
-    let importer = AnkiPackageImporter(packageURL: url, modelContext: modelContext)
+  private func importPackage(at url: URL) async {
     do {
-      try importer.importPackage()
-      logger.info("Import complete")
+      switch url.pathExtension {
+      case "apkg":
+        logger.info("Trying to import Anki package at url \(url)")
+        let importer = AnkiPackageImporter(packageURL: url, modelContext: modelContext)
+        try importer.importPackage()
+        logger.info("Import complete")
+      case "json":
+        logger.info("Trying to import ChatGPT JSON from url \(url)")
+        try await importChatGPTJSON(url: url)
+      default:
+        logger.warning("Unrecognized url extension \(url.pathExtension) from \(url)")
+      }
     } catch {
       logger.error("Error importing package at \(url): \(error)")
+    }
+  }
+
+  private func makeNotesAndCards(json: ChatGPTVocabulary, deck: Deck) {
+    for vocabularyItem in json.vocabulary {
+      let note = deck.addNote {
+        Note(
+          modificationTime: .now,
+          fields: [
+            Note.Key.front.rawValue: vocabularyItem.spanish,
+            Note.Key.back.rawValue: vocabularyItem.english,
+            Note.Key.exampleSentenceSpanish.rawValue: vocabularyItem.exampleSentenceSpanish,
+            Note.Key.exampleSentenceEnglish.rawValue: vocabularyItem.exampleSentenceEnglish,
+          ]
+        )
+      }
+      note.addCard(.frontThenBack)
+      note.addCard(.backThenFront)
+    }
+  }
+  
+  @MainActor
+  private func importChatGPTJSON(url: URL) async throws {
+    let deck = try Deck.spanishDeck(in: modelContext)
+    let (data, _) = try await URLSession.shared.data(from: url)
+
+    do {
+      let json = try JSONDecoder().decode(ChatGPTVocabulary.self, from: data)
+      makeNotesAndCards(json: json, deck: deck)
+    } catch {
+      let jsonArray = try JSONDecoder().decode([ChatGPTVocabulary].self, from: data)
+      for json in jsonArray {
+        makeNotesAndCards(json: json, deck: deck)
+      }
     }
   }
 }

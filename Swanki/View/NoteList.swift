@@ -26,8 +26,8 @@ struct NoteList: View {
   var body: some View {
     @Bindable var applicationNavigation = applicationNavigation
     Table(notes, selection: $applicationNavigation.selectedNote) {
-      TableColumn("Spanish", value: \.front)
-      TableColumn("English", value: \.back)
+      TableColumn("Spanish", value: \.front.defaultEmpty)
+      TableColumn("English", value: \.back.defaultEmpty)
     }
     .navigationTitle(deck.name)
     .inspector(isPresented: $isShowingInspector, content: {

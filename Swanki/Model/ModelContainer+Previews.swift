@@ -19,7 +19,7 @@ extension ModelContainer {
     // Create a bunch of dummy cards
     for i in 1 ... noteCount {
       let dummyNote = deck.addNote {
-        Note(modificationTime: .now, fields: ["front": "Dummy front \(i)", "back": "Dummy back \(i)"])
+        Note(modificationTime: .now, fields: ["front": "Dummy front \(i)", "back": "Dummy back \(i)", "exampleSentenceSpanish": "Hola {{señor}}."])
       }
       dummyNote.addCard {
         Card(type: .frontThenBack)

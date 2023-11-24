@@ -54,12 +54,7 @@ struct AllowFileImportsModifier: ViewModifier {
     }
   }
 
-  @MainActor
-  private func importChatGPTJSON(url: URL) async throws {
-    let (data, _) = try await URLSession.shared.data(from: url)
-    let json = try JSONDecoder().decode(ChatGPTVocabulary.self, from: data)
-
-    let deck = try Deck.spanishDeck(in: modelContext)
+  private func makeNotesAndCards(json: ChatGPTVocabulary, deck: Deck) {
     for vocabularyItem in json.vocabulary {
       let note = deck.addNote {
         Note(
@@ -74,6 +69,22 @@ struct AllowFileImportsModifier: ViewModifier {
       }
       note.addCard(.frontThenBack)
       note.addCard(.backThenFront)
+    }
+  }
+  
+  @MainActor
+  private func importChatGPTJSON(url: URL) async throws {
+    let deck = try Deck.spanishDeck(in: modelContext)
+    let (data, _) = try await URLSession.shared.data(from: url)
+
+    do {
+      let json = try JSONDecoder().decode(ChatGPTVocabulary.self, from: data)
+      makeNotesAndCards(json: json, deck: deck)
+    } catch {
+      let jsonArray = try JSONDecoder().decode([ChatGPTVocabulary].self, from: data)
+      for json in jsonArray {
+        makeNotesAndCards(json: json, deck: deck)
+      }
     }
   }
 }

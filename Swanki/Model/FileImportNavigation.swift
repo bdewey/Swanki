@@ -33,6 +33,29 @@ struct AllowFileImportsModifier: ViewModifier {
           await importPackage(at: url)
         }
       }
+      .task {
+        do {
+          try await makeDefaultContent()
+        } catch {
+          logger.error("Error creating default content: \(error)")
+        }
+      }
+  }
+
+  enum ImportError: Error {
+    case noDefaultContent
+  }
+
+  private func makeDefaultContent() async throws {
+    let deck = try Deck.spanishDeck(in: modelContext)
+    if deck.notes?.isEmpty == false {
+      logger.debug("No need to make default content because the Spanish deck has notes")
+      return
+    }
+    guard let defaultContentURL = Bundle.main.url(forResource: "spanish-lesson-2", withExtension: "json", subdirectory: "SampleData") else {
+      throw ImportError.noDefaultContent
+    }
+    try await importChatGPTJSON(url: defaultContentURL)
   }
 
   private func importPackage(at url: URL) async {

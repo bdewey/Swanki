@@ -1,0 +1,574 @@
+[
+  {
+    "vocabulary": [
+      {
+        "spanish": "la aplicación",
+        "english": "the application (app)",
+        "example_sentence_spanish": "Descargué {{una aplicación}} para aprender español.",
+        "example_sentence_english": "I downloaded an application to learn Spanish."
+      },
+      {
+        "spanish": "la cámara digital",
+        "english": "the digital camera",
+        "example_sentence_spanish": "Ella toma fotos con {{su cámara digital}}.",
+        "example_sentence_english": "She takes photos with her digital camera."
+      },
+      {
+        "spanish": "el canal",
+        "english": "the channel",
+        "example_sentence_spanish": "Mi programa favorito está en {{el canal}} cinco.",
+        "example_sentence_english": "My favorite show is on channel five."
+      },
+      {
+        "spanish": "el cargador",
+        "english": "the charger",
+        "example_sentence_spanish": "Necesito encontrar {{el cargador}} de mi teléfono.",
+        "example_sentence_english": "I need to find my phone charger."
+      },
+      {
+        "spanish": "el cibercafé",
+        "english": "the cybercafe",
+        "example_sentence_spanish": "Voy al {{cibercafé}} para usar el internet.",
+        "example_sentence_english": "I go to the cybercafe to use the internet."
+      },
+      {
+        "spanish": "el control remoto",
+        "english": "the remote control",
+        "example_sentence_spanish": "¿Dónde está {{el control remoto}} del televisor?",
+        "example_sentence_english": "Where is the TV remote control?"
+      },
+      {
+        "spanish": "el correo de voz",
+        "english": "the voicemail",
+        "example_sentence_spanish": "Dejé un mensaje en {{tu correo de voz}}.",
+        "example_sentence_english": "I left a message on your voicemail."
+      },
+      {
+        "spanish": "el estéreo",
+        "english": "the stereo",
+        "example_sentence_spanish": "Puse mi canción favorita en {{el estéreo}}.",
+        "example_sentence_english": "I played my favorite song on the stereo."
+      },
+      {
+        "spanish": "la pantalla táctil",
+        "english": "the touchscreen",
+        "example_sentence_spanish": "Mi teléfono tiene {{una pantalla táctil}} muy sensible.",
+        "example_sentence_english": "My phone has a very sensitive touchscreen."
+      },
+      {
+        "spanish": "el radio",
+        "english": "the radio",
+        "example_sentence_spanish": "Escuchamos música en {{el radio}} del coche.",
+        "example_sentence_english": "We listen to music on the car radio."
+      },
+      {
+        "spanish": "el celular",
+        "english": "the cell phone",
+        "example_sentence_spanish": "Perdí {{mi celular}} ayer.",
+        "example_sentence_english": "I lost my cell phone yesterday."
+      },
+      {
+        "spanish": "la tableta",
+        "english": "the tablet",
+        "example_sentence_spanish": "Compré {{una tableta}} para leer libros electrónicos.",
+        "example_sentence_english": "I bought a tablet to read electronic books."
+      },
+      {
+        "spanish": "el televisor",
+        "english": "the television",
+        "example_sentence_spanish": "{{El televisor}} está en la sala de estar.",
+        "example_sentence_english": "The television is in the living room."
+      }
+    ]
+  },
+  {
+    "vocabulary": [
+      {
+        "spanish": "apagar",
+        "english": "to turn off",
+        "example_sentence_spanish": "Voy a {{apagar}} la computadora antes de dormir.",
+        "example_sentence_english": "I am going to turn off the computer before sleeping."
+      },
+      {
+        "spanish": "funcionar",
+        "english": "to function, to work",
+        "example_sentence_spanish": "Mi teléfono no {{funciona}} bien hoy.",
+        "example_sentence_english": "My phone is not working well today."
+      },
+      {
+        "spanish": "llamar",
+        "english": "to call",
+        "example_sentence_spanish": "Voy a {{llamar}} a mi amigo con mi celular.",
+        "example_sentence_english": "I am going to call my friend with my cell phone."
+      },
+      {
+        "spanish": "poner",
+        "english": "to put, to turn on",
+        "example_sentence_spanish": "Puedes {{poner}} música en el estéreo.",
+        "example_sentence_english": "You can turn on music on the stereo."
+      },
+      {
+        "spanish": "prender",
+        "english": "to turn on",
+        "example_sentence_spanish": "Necesito {{prender}} la luz para leer.",
+        "example_sentence_english": "I need to turn on the light to read."
+      },
+      {
+        "spanish": "sonar",
+        "english": "to ring, to sound",
+        "example_sentence_spanish": "El teléfono está {{sonando}}.",
+        "example_sentence_english": "The phone is ringing."
+      },
+      {
+        "spanish": "descompuesto",
+        "english": "broken",
+        "example_sentence_spanish": "Mi computadora está {{descompuesta}}.",
+        "example_sentence_english": "My computer is broken."
+      },
+      {
+        "spanish": "lento",
+        "english": "slow",
+        "example_sentence_spanish": "Este programa está muy {{lento}}.",
+        "example_sentence_english": "This program is very slow."
+      },
+      {
+        "spanish": "lleno",
+        "english": "full",
+        "example_sentence_spanish": "El disco duro está {{lleno}} de archivos.",
+        "example_sentence_english": "The hard drive is full of files."
+      }
+    ]
+  },
+  {
+    "vocabulary": [
+      {
+        "spanish": "abrazarse",
+        "english": "to hug each other",
+        "example_sentence_spanish": "Los amigos se {{abrazan}} para saludarse.",
+        "example_sentence_english": "Friends hug each other to greet."
+      },
+      {
+        "spanish": "ayudarse",
+        "english": "to help each other",
+        "example_sentence_spanish": "Es importante {{ayudarse}} mutuamente.",
+        "example_sentence_english": "It is important to help each other."
+      },
+      {
+        "spanish": "besarse",
+        "english": "to kiss each other",
+        "example_sentence_spanish": "Se vieron y se {{besaron}}.",
+        "example_sentence_english": "They saw each other and kissed."
+      },
+      {
+        "spanish": "encontrarse",
+        "english": "to meet each other",
+        "example_sentence_spanish": "Nos vamos a {{encontrar}} en el parque.",
+        "example_sentence_english": "We are going to meet at the park."
+      },
+      {
+        "spanish": "saludarse",
+        "english": "to greet each other",
+        "example_sentence_spanish": "Siempre nos {{saludamos}} con una sonrisa.",
+        "example_sentence_english": "We always greet each other with a smile."
+      }
+    ]
+  },
+  {
+    "vocabulary": [
+      {
+        "spanish": "el archivo",
+        "english": "the file",
+        "example_sentence_spanish": "Guardé {{el archivo}} en mi computadora.",
+        "example_sentence_english": "I saved the file on my computer."
+      },
+      {
+        "spanish": "la arroba",
+        "english": "the at sign (@)",
+        "example_sentence_spanish": "Mi dirección de correo electrónico tiene una {{arroba}}.",
+        "example_sentence_english": "My email address has an at sign (@)."
+      },
+      {
+        "spanish": "el blog",
+        "english": "the blog",
+        "example_sentence_spanish": "Escribí un artículo para {{mi blog}}.",
+        "example_sentence_english": "I wrote an article for my blog."
+      },
+      {
+        "spanish": "el buscador",
+        "english": "the search engine",
+        "example_sentence_spanish": "Utilizo un {{buscador}} para encontrar información en Internet.",
+        "example_sentence_english": "I use a search engine to find information on the Internet."
+      },
+      {
+        "spanish": "la computadora portátil",
+        "english": "the laptop",
+        "example_sentence_spanish": "Mi {{computadora portátil}} es muy rápida.",
+        "example_sentence_english": "My laptop is very fast."
+      },
+      {
+        "spanish": "la conexión inalámbrica",
+        "english": "the wireless connection",
+        "example_sentence_spanish": "La {{conexión inalámbrica}} en esta cafetería es excelente.",
+        "example_sentence_english": "The wireless connection in this coffee shop is excellent."
+      },
+      {
+        "spanish": "la dirección electrónica",
+        "english": "the email address",
+        "example_sentence_spanish": "Te enviaré el documento a tu {{dirección electrónica}}.",
+        "example_sentence_english": "I will send the document to your email address."
+      },
+      {
+        "spanish": "la impresora",
+        "english": "the printer",
+        "example_sentence_spanish": "Necesito {{la impresora}} para imprimir mi tarea.",
+        "example_sentence_english": "I need the printer to print my homework."
+      },
+      {
+        "spanish": "Internet",
+        "english": "the Internet",
+        "example_sentence_spanish": "Busco toda mi información en {{Internet}}.",
+        "example_sentence_english": "I search all my information on the Internet."
+      },
+      {
+        "spanish": "el mensaje de texto",
+        "english": "the text message",
+        "example_sentence_spanish": "Recibí un {{mensaje de texto}} importante.",
+        "example_sentence_english": "I received an important text message."
+      },
+      {
+        "spanish": "el monitor",
+        "english": "the monitor",
+        "example_sentence_spanish": "El {{monitor}} de mi computadora es muy grande.",
+        "example_sentence_english": "The monitor of my computer is very large."
+      },
+      {
+        "spanish": "la página principal",
+        "english": "the home page",
+        "example_sentence_spanish": "Configuré mi {{página principal}} para mostrar las noticias.",
+        "example_sentence_english": "I set my home page to show the news."
+      },
+      {
+        "spanish": "la pantalla",
+        "english": "the screen",
+        "example_sentence_spanish": "La {{pantalla}} de mi teléfono está rota.",
+        "example_sentence_english": "The screen of my phone is broken."
+      },
+      {
+        "spanish": "el programa de computación",
+        "english": "the computer program",
+        "example_sentence_spanish": "Instalé un nuevo {{programa de computación}} para editar fotos.",
+        "example_sentence_english": "I installed a new computer program to edit photos."
+      },
+      {
+        "spanish": "el ratón",
+        "english": "the mouse",
+        "example_sentence_spanish": "Mi {{ratón}} no funciona correctamente.",
+        "example_sentence_english": "My mouse is not working properly."
+      },
+      {
+        "spanish": "la red",
+        "english": "the network",
+        "example_sentence_spanish": "Mi computadora está conectada a {{la red}} de la oficina.",
+        "example_sentence_english": "My computer is connected to the office network."
+      },
+      {
+        "spanish": "el sitio web",
+        "english": "the website",
+        "example_sentence_spanish": "Encontré una receta en un {{sitio web}}.",
+        "example_sentence_english": "I found a recipe on a website."
+      },
+      {
+        "spanish": "el teclado",
+        "english": "the keyboard",
+        "example_sentence_spanish": "El {{teclado}} de mi computadora es cómodo para escribir.",
+        "example_sentence_english": "The keyboard of my computer is comfortable for typing."
+      }
+    ]
+  },
+  {
+    "vocabulary": [
+      {
+        "spanish": "borrar",
+        "english": "to erase, to delete",
+        "example_sentence_spanish": "Necesito {{borrar}} algunos archivos viejos.",
+        "example_sentence_english": "I need to delete some old files."
+      },
+      {
+        "spanish": "chatear",
+        "english": "to chat",
+        "example_sentence_spanish": "Suelo {{chatear}} con mis amigos en línea.",
+        "example_sentence_english": "I usually chat with my friends online."
+      },
+      {
+        "spanish": "descargar",
+        "english": "to download",
+        "example_sentence_spanish": "Voy a {{descargar}} música nueva esta noche.",
+        "example_sentence_english": "I am going to download new music tonight."
+      },
+      {
+        "spanish": "escanear",
+        "english": "to scan",
+        "example_sentence_spanish": "Debo {{escanear}} unos documentos para el trabajo.",
+        "example_sentence_english": "I have to scan some documents for work."
+      },
+      {
+        "spanish": "grabar",
+        "english": "to record",
+        "example_sentence_spanish": "{{Grabaré}} el concierto con mi cámara.",
+        "example_sentence_english": "I will record the concert with my camera."
+      },
+      {
+        "spanish": "guardar",
+        "english": "to save",
+        "example_sentence_spanish": "Siempre {{guardo}} mi trabajo antes de cerrar la computadora.",
+        "example_sentence_english": "I always save my work before closing the computer."
+      },
+      {
+        "spanish": "imprimir",
+        "english": "to print",
+        "example_sentence_spanish": "Tengo que {{imprimir}} mi tarea para la clase.",
+        "example_sentence_english": "I have to print my homework for the class."
+      },
+      {
+        "spanish": "navegar",
+        "english": "to navigate, to browse",
+        "example_sentence_spanish": "Me gusta {{navegar}} en Internet en mi tiempo libre.",
+        "example_sentence_english": "I like to browse the Internet in my free time."
+      }
+    ]
+  },
+  {
+    "vocabulary": [
+      {
+        "spanish": "la autopista",
+        "english": "the highway",
+        "example_sentence_spanish": "Manejamos por {{la autopista}} para llegar más rápido.",
+        "example_sentence_english": "We drive on the highway to get there faster."
+      },
+      {
+        "spanish": "la carretera",
+        "english": "the road",
+        "example_sentence_spanish": "La {{carretera}} está cerrada por construcción.",
+        "example_sentence_english": "The road is closed for construction."
+      },
+      {
+        "spanish": "el baúl",
+        "english": "the trunk",
+        "example_sentence_spanish": "Ponemos las maletas en {{el baúl}} del coche.",
+        "example_sentence_english": "We put the suitcases in the trunk of the car."
+      },
+      {
+        "spanish": "la calle",
+        "english": "the street",
+        "example_sentence_spanish": "Mi casa está en esta {{calle}}.",
+        "example_sentence_english": "My house is on this street."
+      },
+      {
+        "spanish": "el capo",
+        "english": "the hood",
+        "example_sentence_spanish": "Tengo que abrir {{el capo}} para revisar el motor.",
+        "example_sentence_english": "I have to open the hood to check the engine."
+      },
+      {
+        "spanish": "el cofre",
+        "english": "the trunk",
+        "example_sentence_spanish": "Hay herramientas en {{el cofre}} del carro.",
+        "example_sentence_english": "There are tools in the trunk of the car."
+      },
+      {
+        "spanish": "el carro",
+        "english": "the car",
+        "example_sentence_spanish": "{{El carro}} de Juan es muy rápido.",
+        "example_sentence_english": "Juan's car is very fast."
+      },
+      {
+        "spanish": "el coche",
+        "english": "the car",
+        "example_sentence_spanish": "Compré {{un coche}} nuevo el mes pasado.",
+        "example_sentence_english": "I bought a new car last month."
+      },
+      {
+        "spanish": "la circulación",
+        "english": "the traffic",
+        "example_sentence_spanish": "La {{circulación}} está muy lenta hoy.",
+        "example_sentence_english": "The traffic is very slow today."
+      },
+      {
+        "spanish": "el tráfico",
+        "english": "the traffic",
+        "example_sentence_spanish": "Evito {{el tráfico}} saliendo temprano.",
+        "example_sentence_english": "I avoid traffic by leaving early."
+      },
+      {
+        "spanish": "el garaje",
+        "english": "the garage",
+        "example_sentence_spanish": "Guardo mi bicicleta en {{el garaje}}.",
+        "example_sentence_english": "I keep my bike in the garage."
+      },
+      {
+        "spanish": "el taller",
+        "english": "the workshop, garage",
+        "example_sentence_spanish": "Llevé mi coche al {{taller}} para una revisión.",
+        "example_sentence_english": "I took my car to the workshop for a check-up."
+      },
+      {
+        "spanish": "la gasolina",
+        "english": "the gasoline",
+        "example_sentence_spanish": "Necesito poner {{gasolina}} en el coche.",
+        "example_sentence_english": "I need to put gasoline in the car."
+      },
+      {
+        "spanish": "la gasolinera",
+        "english": "the gas station",
+        "example_sentence_spanish": "Hay una {{gasolinera}} en la próxima salida de la autopista.",
+        "example_sentence_english": "There is a gas station at the next highway exit."
+      },
+      {
+        "spanish": "la licencia de conducir",
+        "english": "the driver's license",
+        "example_sentence_spanish": "Tengo que renovar mi {{licencia de conducir}}.",
+        "example_sentence_english": "I have to renew my driver's license."
+      },
+      {
+        "spanish": "la llanta",
+        "english": "the tire",
+        "example_sentence_spanish": "Una de las {{llantas}} del carro está desinflada.",
+        "example_sentence_english": "One of the car's tires is flat."
+      },
+      {
+        "spanish": "el mecánico",
+        "english": "the mechanic",
+        "example_sentence_spanish": "{{El mecánico}} reparó los frenos de mi coche.",
+        "example_sentence_english": "The mechanic repaired the brakes of my car."
+      },
+      {
+        "spanish": "la mecánica",
+        "english": "mechanics",
+        "example_sentence_spanish": "Estoy estudiando {{mecánica}} para arreglar mi propio coche.",
+        "example_sentence_english": "I am studying mechanics to fix my own car."
+      },
+      {
+        "spanish": "el navegador GPS",
+        "english": "the GPS navigator",
+        "example_sentence_spanish": "Usé {{el navegador GPS}} para encontrar la dirección.",
+        "example_sentence_english": "I used the GPS navigator to find the address."
+      },
+      {
+        "spanish": "el parabrisas",
+        "english": "the windshield",
+        "example_sentence_spanish": "Hay una grieta en {{el parabrisas}} de mi coche.",
+        "example_sentence_english": "There is a crack in my car's windshield."
+      },
+      {
+        "spanish": "la policía",
+        "english": "the police",
+        "example_sentence_spanish": "La {{policía}} estaba dirigiendo el tráfico.",
+        "example_sentence_english": "The police were directing the traffic."
+      },
+      {
+        "spanish": "la velocidad máxima",
+        "english": "the speed limit",
+        "example_sentence_spanish": "Siempre respeto {{la velocidad máxima}} en la autopista.",
+        "example_sentence_english": "I always respect the speed limit on the highway."
+      },
+      {
+        "spanish": "el volante",
+        "english": "the steering wheel",
+        "example_sentence_spanish": "Tengo que ajustar {{el volante}} antes de conducir.",
+        "example_sentence_english": "I need to adjust the steering wheel before driving."
+      }
+    ]
+  },
+  {
+    "vocabulary": [
+      {
+        "spanish": "arrancar",
+        "english": "to start (a vehicle)",
+        "example_sentence_spanish": "Tengo problemas para {{arrancar}} el coche en las mañanas.",
+        "example_sentence_english": "I have trouble starting the car in the mornings."
+      },
+      {
+        "spanish": "arreglar",
+        "english": "to fix, to arrange",
+        "example_sentence_spanish": "Necesito {{arreglar}} el motor de mi coche.",
+        "example_sentence_english": "I need to fix my car's engine."
+      },
+      {
+        "spanish": "bajarse de",
+        "english": "to get off, to get out of",
+        "example_sentence_spanish": "Me voy a {{bajar}} del autobús en la próxima parada.",
+        "example_sentence_english": "I am going to get off the bus at the next stop."
+      },
+      {
+        "spanish": "conducir",
+        "english": "to drive",
+        "example_sentence_spanish": "Mi hermano aprendió a {{conducir}} a los diecisiete años.",
+        "example_sentence_english": "My brother learned to drive at seventeen."
+      },
+      {
+        "spanish": "manejar",
+        "english": "to drive",
+        "example_sentence_spanish": "Prefiero {{manejar}} a lugares cercanos.",
+        "example_sentence_english": "I prefer to drive to nearby places."
+      },
+      {
+        "spanish": "estacionar",
+        "english": "to park",
+        "example_sentence_spanish": "Es difícil {{estacionar}} en el centro de la ciudad.",
+        "example_sentence_english": "It's difficult to park in the city center."
+      },
+      {
+        "spanish": "llenar el tanque",
+        "english": "to fill the tank",
+        "example_sentence_spanish": "Tengo que {{llenar el tanque}} de gasolina antes de viajar.",
+        "example_sentence_english": "I have to fill the gas tank before traveling."
+      },
+      {
+        "spanish": "parar",
+        "english": "to stop",
+        "example_sentence_spanish": "El autobús va a {{parar}} en todas las estaciones.",
+        "example_sentence_english": "The bus is going to stop at all the stations."
+      },
+      {
+        "spanish": "revisar el aceite",
+        "english": "to check the oil",
+        "example_sentence_spanish": "Debo {{revisar el aceite}} del coche cada mes.",
+        "example_sentence_english": "I should check the car's oil every month."
+      },
+      {
+        "spanish": "subirse a",
+        "english": "to get on, to get into",
+        "example_sentence_spanish": "Me voy a {{subir}} al tren en la próxima parada.",
+        "example_sentence_english": "I am going to get on the train at the next stop."
+      }
+    ]
+  },
+  {
+    "vocabulary": [
+      {
+        "spanish": "por aquí",
+        "english": "around here, this way",
+        "example_sentence_spanish": "Creo que el restaurante está {{por aquí}}.",
+        "example_sentence_english": "I think the restaurant is around here."
+      },
+      {
+        "spanish": "por ejemplo",
+        "english": "for example",
+        "example_sentence_spanish": "Hay muchas frutas tropicales, {{por ejemplo}}, el mango y la piña.",
+        "example_sentence_english": "There are many tropical fruits, for example, mango and pineapple."
+      },
+      {
+        "spanish": "por eso",
+        "english": "therefore, that's why",
+        "example_sentence_spanish": "No estudiamos, {{por eso}} no pasamos el examen.",
+        "example_sentence_english": "We did not study, that's why we didn't pass the exam."
+      },
+      {
+        "spanish": "por fin",
+        "english": "finally",
+        "example_sentence_spanish": "{{Por fin}} terminé mis tareas.",
+        "example_sentence_english": "I finally finished my homework."
+      }
+    ]
+  }
+]

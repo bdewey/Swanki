@@ -51,11 +51,10 @@ extension Note {
   }
 
   func speakSpanish() {
-    guard let front else {
-      return
-    }
-    let utterance = AVSpeechUtterance(string: front)
-    utterance.voice = .init(language: "es")
-    AVSpeechSynthesizer.shared.speak(utterance)
+    SwankiSpeechController.shared.speakVocabulary(from: self)
+  }
+
+  func speakExampleSentence() {
+    SwankiSpeechController.shared.speakExampleSentence(from: self)
   }
 }

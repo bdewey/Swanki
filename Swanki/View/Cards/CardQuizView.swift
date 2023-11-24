@@ -81,16 +81,10 @@ struct CardQuizView: View {
   }
 
   private func speakSampleSentence(delay: TimeInterval = 0.0) {
-    guard let exampleSentence = card.note?.exampleSentence,
-          let attributedSentence = try? NSAttributedString(markdown: exampleSentence)
-    else {
+    guard let note = card.note else {
       return
     }
-    let utterance = AVSpeechUtterance(attributedString: attributedSentence)
-    utterance.voice = .init(language: "es")
-    utterance.rate = AVSpeechUtteranceDefaultSpeechRate * 0.6
-    utterance.preUtteranceDelay = delay
-    AVSpeechSynthesizer.shared.speak(utterance)
+    SwankiSpeechController.shared.speakExampleSentence(from: note, delay: 0.2, rate: 0.6)
   }
 
   private var possibleAnswers: [(key: CardAnswer, value: SpacedRepetitionScheduler.Item)] {

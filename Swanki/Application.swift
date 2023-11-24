@@ -13,7 +13,7 @@ struct Application: App {
     WindowGroup {
       ApplicationContentView()
         .allowFileImports(fileImportNavigation: fileImportNavigation)
-        .modelContainer(for: Deck.self, isUndoEnabled: true)
+        .modelContainer(for: Deck.self)
         .environment(fileImportNavigation)
     }
     .commands {

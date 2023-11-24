@@ -33,16 +33,14 @@ public final class Deck {
     return note
   }
 
-  public static let spanishDeckName = "Spanish"
-
   static func spanishDeck(in modelContext: ModelContext) throws -> Deck {
     let existingDecks = try modelContext.fetch(FetchDescriptor<Deck>(
-      predicate: #Predicate { $0.name == "Spanish" }
+      predicate: #Predicate { $0.name == "Spanish Lesson 2" }
     ))
     if !existingDecks.isEmpty {
       return existingDecks[0]
     } else {
-      let deck = Deck(name: "Spanish")
+      let deck = Deck(name: "Spanish Lesson 2")
       modelContext.insert(deck)
       return deck
     }

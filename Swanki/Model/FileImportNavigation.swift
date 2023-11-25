@@ -24,7 +24,13 @@ struct AllowFileImportsModifier: ViewModifier {
       .fileImporter(isPresented: $fileImportNavigation.isShowingFileImporter, allowedContentTypes: [.ankiPackage, .json]) { result in
         guard let url = try? result.get() else { return }
         Task {
-          await importPackage(at: url)
+          let success = url.startAccessingSecurityScopedResource()
+          if success {
+            await importPackage(at: url)
+            url.stopAccessingSecurityScopedResource()
+          } else {
+            logger.error("Unable to access \(url)")
+          }
         }
       }
       .onOpenURL { url in

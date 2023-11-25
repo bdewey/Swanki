@@ -10,6 +10,7 @@ import SwiftData
 /// A sequence of cards to study.
 public final class StudySession {
   public enum Error: Swift.Error {
+    case noModelContext
     case noCard
   }
 
@@ -18,14 +19,14 @@ public final class StudySession {
   ///   - modelContext: The model context to query for ``Card`` models.
   ///   - deck: An optional ``Deck`` to confine the ``Card`` search.
   ///   - newCardLimit: The maximum number of new cards to learn per day.
-  public init(modelContext: ModelContext, deck: Deck? = nil, newCardLimit: Int) {
+  public init(modelContext: ModelContext? = nil, deck: Deck? = nil, newCardLimit: Int = 20) {
     self.modelContext = modelContext
     self.deck = deck
     self.newCardLimit = newCardLimit
   }
 
   /// The model context to query for ``Card`` models.
-  public let modelContext: ModelContext
+  public let modelContext: ModelContext?
 
   /// An optional ``Deck`` to confine the ``Card`` search.
   public let deck: Deck?
@@ -42,8 +43,15 @@ public final class StudySession {
   /// The count of cards to review.
   public private(set) var learningCardCount = 0
 
+  public var displaySummary: String {
+    "New: \(newCardCount) Learning: \(learningCardCount)"
+  }
+
   /// Loads cards for the study session.
   public func loadCards(dueBefore dueDate: Date) throws {
+    guard let modelContext else {
+      throw Error.noModelContext
+    }
     let previousCardID = currentCard?.id.description
     currentCard = nil
     let newCardsLearnedToday = try modelContext.fetchCount(FetchDescriptor(predicate: LogEntry.newCardsLearned(on: dueDate, deck: deck)))
@@ -74,6 +82,9 @@ public final class StudySession {
     studyTime: TimeInterval,
     currentDate: Date = .now
   ) throws {
+    guard let modelContext else {
+      throw Error.noModelContext
+    }
     guard let card = currentCard else {
       throw Error.noCard
     }

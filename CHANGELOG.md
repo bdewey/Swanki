@@ -1,5 +1,11 @@
 # Changelog
 
+## Unreleased
+
+### Added
+
+- Top-level "Study" menu command and toolbar item
+
 ## [0.1.0] 2023-11-25
 
 This is the first version that I prepared for distribution (iOS TestFlight, MacOS direct distribution).

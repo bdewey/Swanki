@@ -21,12 +21,12 @@
 		D3600BA12B0BBD7900356187 /* GenericCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3600BA02B0BBD7900356187 /* GenericCardView.swift */; };
 		D3600BA32B0BBDA500356187 /* FrontThenBackCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3600BA22B0BBDA500356187 /* FrontThenBackCard.swift */; };
 		D3600BA52B0BBDBC00356187 /* BackThenFrontCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3600BA42B0BBDBC00356187 /* BackThenFrontCard.swift */; };
-		D3600BA72B0BBF9500356187 /* StudySessionLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3600BA62B0BBF9500356187 /* StudySessionLoader.swift */; };
 		D3600BA92B0BC03300356187 /* StudySessionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3600BA82B0BC03300356187 /* StudySessionView.swift */; };
 		D3600BAB2B0BC0CF00356187 /* NoteEditor.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3600BAA2B0BC0CF00356187 /* NoteEditor.swift */; };
 		D36AD9CC2B0FF1E100FEA67B /* ChatGPTVocabulary.swift in Sources */ = {isa = PBXBuildFile; fileRef = D36AD9CB2B0FF1E100FEA67B /* ChatGPTVocabulary.swift */; };
 		D36AD9CE2B10F6CD00FEA67B /* OptionalString+DefaultEmpty.swift in Sources */ = {isa = PBXBuildFile; fileRef = D36AD9CD2B10F6CD00FEA67B /* OptionalString+DefaultEmpty.swift */; };
 		D36AD9D22B10F7FC00FEA67B /* Note+SpanishStudy.swift in Sources */ = {isa = PBXBuildFile; fileRef = D36AD9D12B10F7FC00FEA67B /* Note+SpanishStudy.swift */; };
+		D36AD9D62B1257A400FEA67B /* StudySessionNavigation.swift in Sources */ = {isa = PBXBuildFile; fileRef = D36AD9D52B1257A400FEA67B /* StudySessionNavigation.swift */; };
 		D37AB0B52B0ECBDF00070E99 /* SwankiSpeechController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D37AB0B42B0ECBDF00070E99 /* SwankiSpeechController.swift */; };
 		D37E2A0923AD9A3600D7913F /* GRDBCombine in Frameworks */ = {isa = PBXBuildFile; productRef = D37E2A0823AD9A3600D7913F /* GRDBCombine */; };
 		D37E2A0C23AF087800D7913F /* CloudKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D37E2A0B23AF087800D7913F /* CloudKit.framework */; };
@@ -76,12 +76,12 @@
 		D3600BA02B0BBD7900356187 /* GenericCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GenericCardView.swift; sourceTree = "<group>"; };
 		D3600BA22B0BBDA500356187 /* FrontThenBackCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FrontThenBackCard.swift; sourceTree = "<group>"; };
 		D3600BA42B0BBDBC00356187 /* BackThenFrontCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BackThenFrontCard.swift; sourceTree = "<group>"; };
-		D3600BA62B0BBF9500356187 /* StudySessionLoader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StudySessionLoader.swift; sourceTree = "<group>"; };
 		D3600BA82B0BC03300356187 /* StudySessionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StudySessionView.swift; sourceTree = "<group>"; };
 		D3600BAA2B0BC0CF00356187 /* NoteEditor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoteEditor.swift; sourceTree = "<group>"; };
 		D36AD9CB2B0FF1E100FEA67B /* ChatGPTVocabulary.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatGPTVocabulary.swift; sourceTree = "<group>"; };
 		D36AD9CD2B10F6CD00FEA67B /* OptionalString+DefaultEmpty.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "OptionalString+DefaultEmpty.swift"; sourceTree = "<group>"; };
 		D36AD9D12B10F7FC00FEA67B /* Note+SpanishStudy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Note+SpanishStudy.swift"; sourceTree = "<group>"; };
+		D36AD9D52B1257A400FEA67B /* StudySessionNavigation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StudySessionNavigation.swift; sourceTree = "<group>"; };
 		D37AB0B42B0ECBDF00070E99 /* SwankiSpeechController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwankiSpeechController.swift; sourceTree = "<group>"; };
 		D37E2A0A23AF06CA00D7913F /* Swanki.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Swanki.entitlements; sourceTree = "<group>"; };
 		D37E2A0B23AF087800D7913F /* CloudKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CloudKit.framework; path = System/Library/Frameworks/CloudKit.framework; sourceTree = SDKROOT; };
@@ -171,7 +171,6 @@
 				D3E8A3A32B02677500C8522C /* Model */,
 				D32BCEAE235829770036768A /* Preview Content */,
 				D3D518B12B0691F1003D6A53 /* SpacedRepetitionScheduler+Swanki.swift */,
-				D3600BA62B0BBF9500356187 /* StudySessionLoader.swift */,
 				D37E2A0A23AF06CA00D7913F /* Swanki.entitlements */,
 				D3600B9E2B0BBD5400356187 /* View */,
 				D36AD9CD2B10F6CD00FEA67B /* OptionalString+DefaultEmpty.swift */,
@@ -237,6 +236,7 @@
 				D3E8A3A82B026A1400C8522C /* Note.swift */,
 				D36AD9D12B10F7FC00FEA67B /* Note+SpanishStudy.swift */,
 				D3D518B52B0A415C003D6A53 /* StudySession.swift */,
+				D36AD9D52B1257A400FEA67B /* StudySessionNavigation.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -362,8 +362,8 @@
 				D3E8A3A72B02687B00C8522C /* Card.swift in Sources */,
 				D3E8A3AB2B02FF0900C8522C /* DeckList.swift in Sources */,
 				D3E8A3AD2B0307B100C8522C /* ModelContainer+Previews.swift in Sources */,
+				D36AD9D62B1257A400FEA67B /* StudySessionNavigation.swift in Sources */,
 				D32039F62B0F92E200B06FF8 /* ApplicationNavigation.swift in Sources */,
-				D3600BA72B0BBF9500356187 /* StudySessionLoader.swift in Sources */,
 				D3D518B82B0A585D003D6A53 /* LogEntry.swift in Sources */,
 				D3600B9B2B0BBB2500356187 /* CardType.swift in Sources */,
 				D32039F42B0EEC4600B06FF8 /* FileImportNavigation.swift in Sources */,
@@ -546,7 +546,7 @@
 					"@executable_path/Frameworks",
 				);
 				MACOSX_DEPLOYMENT_TARGET = 14.0;
-				MARKETING_VERSION = 0.1;
+				MARKETING_VERSION = 0.2;
 				PRODUCT_BUNDLE_IDENTIFIER = "org.brians-brain.Swanki";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator macosx";
@@ -581,7 +581,7 @@
 					"@executable_path/Frameworks",
 				);
 				MACOSX_DEPLOYMENT_TARGET = 14.0;
-				MARKETING_VERSION = 0.1;
+				MARKETING_VERSION = 0.2;
 				PRODUCT_BUNDLE_IDENTIFIER = "org.brians-brain.Swanki";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator macosx";

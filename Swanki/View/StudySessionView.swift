@@ -10,34 +10,51 @@ struct StudySessionView: View {
   var studySession: StudySession
 
   @State private var answerCount = 0
+  @Environment(\.dismiss) private var dismiss
 
   var body: some View {
-    VStack {
-      ProgressView(value: progress)
-      if let card = studySession.currentCard {
-        CardQuizView(card: card, didSelectAnswer: { answer, item, studyTime in
-          answerCount += 1
-          do {
-            try withAnimation {
-              try studySession.updateCurrentCardSchedule(answer: answer, schedulingItem: item, studyTime: studyTime)
+    NavigationStack {
+      VStack {
+        ProgressView(value: progress) {
+          Label(studySession.displaySummary, systemImage: "rectangle.on.rectangle.angled")
+            .foregroundColor(.secondary)
+        }
+        if let card = studySession.currentCard {
+          CardQuizView(card: card, didSelectAnswer: { answer, item, studyTime in
+            answerCount += 1
+            do {
+              try withAnimation {
+                try studySession.updateCurrentCardSchedule(answer: answer, schedulingItem: item, studyTime: studyTime)
+              }
+            } catch {
+              logger.error("Unexpected error scheduling card \(card.id) and answer \(answer.localizedName): \(error)")
             }
-          } catch {
-            logger.error("Unexpected error scheduling card \(card.id) and answer \(answer.localizedName): \(error)")
+          })
+          #if os(macOS)
+          .frame(width: 600, height: 400)
+          #endif
+          .id(card.id)
+        } else {
+          ContentUnavailableView {
+            Label("Nothing to study!", systemImage: "nosign")
+          } description: {
+            Text("No more cards!")
           }
-        })
-        #if os(macOS)
-        .frame(width: 600, height: 400)
-        #endif
-        .id(card.id)
-      } else {
-        ContentUnavailableView {
-          Label("Nothing to study!", systemImage: "nosign")
-        } description: {
-          Text("No more cards!")
         }
       }
+      .padding()
+      .navigationTitle("Study")
+      .toolbar {
+        ToolbarItem(placement: .cancellationAction) {
+          Button("Cancel") {
+            dismiss()
+          }
+        }
+      }
+      #if os(iOS)
+      .navigationBarTitleDisplayMode(.inline)
+      #endif
     }
-    .padding()
   }
 
   private var progress: Double {
@@ -50,24 +67,16 @@ struct StudySessionView: View {
   }
 }
 
+@MainActor
 private struct StudySessionView_Preview: View {
   @State private var applicationNavigation = ApplicationNavigation()
+  @State private var studySessionNavigation = StudySessionNavigation()
 
   var body: some View {
-    StudySessionPlucker()
-      .withStudySession()
+    StudySessionView(studySession: studySessionNavigation.studySession)
+      .withStudySession(applicationNavigation: applicationNavigation, studySessionNavigation: studySessionNavigation)
       .environment(applicationNavigation)
       .modelContainer(.previews)
-  }
-}
-
-private struct StudySessionPlucker: View {
-  @Environment(StudySession.self) private var studySession: StudySession?
-
-  var body: some View {
-    if let studySession {
-      StudySessionView(studySession: studySession)
-    }
   }
 }
 

@@ -13,9 +13,8 @@ extension AVSpeechSynthesizer {
 }
 
 final class SwankiSpeechController: NSObject, AVSpeechSynthesizerDelegate {
-
   static let shared = SwankiSpeechController()
-  
+
   public lazy var speechSynthesizer: AVSpeechSynthesizer = {
     let synthesizer = AVSpeechSynthesizer()
     synthesizer.delegate = self

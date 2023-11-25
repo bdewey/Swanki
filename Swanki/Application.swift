@@ -8,13 +8,13 @@ import SwiftUI
 @main
 struct Application: App {
   @State private var fileImportNavigation = FileImportNavigation()
+  @State private var studySessionNavigation = StudySessionNavigation()
 
   var body: some Scene {
     WindowGroup {
-      ApplicationContentView()
+      ApplicationContentView(studySessionNavigation: studySessionNavigation)
         .allowFileImports(fileImportNavigation: fileImportNavigation)
         .modelContainer(for: Deck.self)
-        .environment(fileImportNavigation)
     }
     .commands {
       CommandGroup(replacing: .importExport) {
@@ -22,6 +22,13 @@ struct Application: App {
           fileImportNavigation.isShowingFileImporter = true
         }
         .keyboardShortcut("i", modifiers: [.command, .shift])
+      }
+      CommandMenu("Study") {
+        Button("Study", systemImage: "rectangle.on.rectangle.angled") {
+          studySessionNavigation.isShowingStudySession = true
+        }
+        .keyboardShortcut("s", modifiers: [.command, .shift])
+        .disabled(studySessionNavigation.isDisabled)
       }
     }
   }
@@ -31,17 +38,31 @@ struct Application: App {
 ///
 /// My intent here was to create a separate `ApplicationState` instance per window but I'm not sure if that's working.
 struct ApplicationContentView: View {
+  let studySessionNavigation: StudySessionNavigation
   @State private var applicationNavigation = ApplicationNavigation()
 
   var body: some View {
     NavigationSplitView {
       DeckList()
     } detail: {
-      if let selectedDeck = applicationNavigation.selectedDeck {
-        NoteList(deck: selectedDeck)
+      ZStack {
+        if let selectedDeck = applicationNavigation.selectedDeck {
+          NoteList(deck: selectedDeck)
+        }
+      }
+      .toolbar {
+        ToolbarItem(placement: .secondaryAction) {
+          Button {
+            studySessionNavigation.isShowingStudySession = true
+          } label: {
+            Label("Study", systemImage: "rectangle.on.rectangle.angled")
+          }
+          .disabled(studySessionNavigation.isDisabled)
+          .help("Study")
+        }
       }
     }
-    .withStudySession()
+    .withStudySession(applicationNavigation: applicationNavigation, studySessionNavigation: studySessionNavigation)
     .environment(applicationNavigation)
   }
 }

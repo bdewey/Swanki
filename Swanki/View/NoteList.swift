@@ -15,11 +15,10 @@ struct NoteList: View {
 
   @State private var editingNote: Note?
   @State private var isShowingNewNote = false
-  @State private var isShowingStudySession = false
   @State private var isShowingInspector = false
   @Environment(\.modelContext) private var modelContext
   @Environment(ApplicationNavigation.self) private var applicationNavigation
-  @Environment(StudySession.self) private var studySession: StudySession?
+  @Environment(StudySessionNavigation.self) private var studySessionNavigation
 
   @Query private var notes: [Note]
 
@@ -33,11 +32,6 @@ struct NoteList: View {
     .inspector(isPresented: $isShowingInspector, content: {
       NoteInspector(deck: deck, persistentIdentifier: applicationNavigation.selectedNote)
     })
-    .sheet(isPresented: $isShowingStudySession) {
-      if let studySession {
-        StudySessionView(studySession: studySession)
-      }
-    }
     .toolbar {
       ToolbarItem(placement: .primaryAction) {
         Button {
@@ -46,14 +40,6 @@ struct NoteList: View {
         } label: {
           Label("New", systemImage: "plus")
         }
-      }
-      ToolbarItem(placement: .secondaryAction) {
-        Button {
-          isShowingStudySession = true
-        } label: {
-          Label("Study", systemImage: "rectangle.on.rectangle.angled")
-        }
-        .disabled(studySession == nil)
       }
       ToolbarItem(placement: .secondaryAction) {
         Toggle("Info", systemImage: "info.circle", isOn: $isShowingInspector)

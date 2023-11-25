@@ -11,40 +11,46 @@ struct DeckList: View {
   @State private var shouldShowNewDeck = false
   @Environment(ApplicationNavigation.self) private var applicationNavigation
   @Environment(FileImportNavigation.self) private var fileImporterNavigation
-  @Environment(StudySession.self) private var studySession: StudySession?
+  @Environment(StudySessionNavigation.self) private var studySessionNavigation
 
   var body: some View {
     @Bindable var applicationNavigation = applicationNavigation
     @Bindable var fileImporterNavigation = fileImporterNavigation
     VStack {
       List(selection: $applicationNavigation.selectedDeck) {
-        ForEach(decks) { deck in
-          HStack {
-            Text(deck.name)
-            Spacer()
-            Button {
-              editingDeck = deck
-            } label: {
-              Image(systemName: "info.circle")
-                // Needs an explicit foregroundColor because of the PlainButtonStyle
-                .foregroundColor(.accentColor)
+        #if !os(macOS)
+          Button("Study", systemImage: "plus") {
+            studySessionNavigation.isShowingStudySession = true
+          }
+          .disabled(studySessionNavigation.isDisabled)
+        #endif
+        Section("Decks") {
+          ForEach(decks) { deck in
+            HStack {
+              Text(deck.name)
+              Spacer()
+              Button {
+                editingDeck = deck
+              } label: {
+                Image(systemName: "info.circle")
+                  // Needs an explicit foregroundColor because of the PlainButtonStyle
+                  .foregroundColor(.accentColor)
+              }
+              // You need PlainButtonStyle() to keep the button from conflicting with
+              // the tap handling for the navigation.
+              .buttonStyle(PlainButtonStyle())
             }
-            // You need PlainButtonStyle() to keep the button from conflicting with
-            // the tap handling for the navigation.
-            .buttonStyle(PlainButtonStyle())
+            .tag(deck)
           }
-          .tag(deck)
+          .onDelete(perform: { indexSet in
+            for index in indexSet {
+              modelContext.delete(decks[index])
+            }
+          })
         }
-        .onDelete(perform: { indexSet in
-          for index in indexSet {
-            modelContext.delete(decks[index])
-          }
-        })
       }
       .listStyle(.sidebar)
-      if let studySession {
-        Text("New = \(studySession.newCardCount) Learning = \(studySession.learningCardCount)")
-      }
+      Text(studySessionNavigation.studySession.displaySummary)
     }
     .sheet(item: $editingDeck) { deck in
       DeckEditor(deck: deck)

@@ -46,6 +46,7 @@ struct AllowFileImportsModifier: ViewModifier {
           logger.error("Error creating default content: \(error)")
         }
       }
+      .environment(fileImportNavigation)
   }
 
   enum ImportError: Error {
@@ -100,7 +101,7 @@ struct AllowFileImportsModifier: ViewModifier {
       note.addCard(.backThenFront)
     }
   }
-  
+
   @MainActor
   private func importChatGPTJSON(url: URL) async throws {
     let deck = try Deck.spanishDeck(in: modelContext)

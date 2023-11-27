@@ -80,7 +80,8 @@ public final class StudySession {
     answer: CardAnswer,
     schedulingItem: SpacedRepetitionScheduler.Item,
     studyTime: TimeInterval,
-    currentDate: Date = .now
+    currentDate: Date = .now,
+    reloadCardsDueBefore dueDate: Date = .now.addingTimeInterval(10 * 60)
   ) throws {
     guard let modelContext else {
       throw Error.noModelContext
@@ -92,8 +93,9 @@ public final class StudySession {
     let entry = LogEntry(timestamp: currentDate, answer: answer, oldReps: card.reps, studyTime: studyTime)
     modelContext.insert(entry)
     entry.card = card
+    entry.deck = card.deck
     card.applySchedulingItem(schedulingItem, currentDate: currentDate)
     logger.debug("Finished scheduling card \(card.id) studyTime \(studyTime), due \(card.due.flatMap { ISO8601DateFormatter().string(from: $0) } ?? "nil")")
-    try loadCards(dueBefore: .now)
+    try loadCards(dueBefore: dueDate)
   }
 }

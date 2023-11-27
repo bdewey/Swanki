@@ -6,6 +6,11 @@
 
 - Top-level "Study" menu command and toolbar item
 
+### Fixed
+
+- Per-deck filtering of new/learing cards for study sessions
+- Study sessions now look 10 minutes into the future to prevent learning gaps
+
 ## [0.1.0] 2023-11-25
 
 This is the first version that I prepared for distribution (iOS TestFlight, MacOS direct distribution).

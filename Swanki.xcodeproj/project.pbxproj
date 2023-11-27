@@ -282,6 +282,8 @@
 				D32BCEBB235829770036768A /* PBXTargetDependency */,
 			);
 			name = SwankiTests;
+			packageProductDependencies = (
+			);
 			productName = SwankiTests;
 			productReference = D32BCEB9235829770036768A /* SwankiTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
@@ -609,12 +611,17 @@
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
 				);
+				MACOSX_DEPLOYMENT_TARGET = 14.0;
 				PRODUCT_BUNDLE_IDENTIFIER = "org.brians-brain.SwankiTests";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator macosx";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
+				SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Swanki.app/Swanki";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Swanki.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/Swanki";
 			};
 			name = Debug;
 		};
@@ -634,11 +641,16 @@
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
 				);
+				MACOSX_DEPLOYMENT_TARGET = 14.0;
 				PRODUCT_BUNDLE_IDENTIFIER = "org.brians-brain.SwankiTests";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator macosx";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
+				SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Swanki.app/Swanki";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Swanki.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/Swanki";
 			};
 			name = Release;
 		};

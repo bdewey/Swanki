@@ -8,6 +8,7 @@ extension ModelContainer {
   static let previews: ModelContainer = {
     let container = try! ModelContainer(for: Deck.self, configurations: ModelConfiguration(isStoredInMemoryOnly: true))
     container.createSampleDeck(named: "Sample Data")
+    container.createSampleDeck(named: "Second Deck")
     return container
   }()
 

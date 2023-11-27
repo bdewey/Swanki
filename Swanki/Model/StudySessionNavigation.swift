@@ -29,7 +29,7 @@ struct StudySessionNavigationModifier: ViewModifier {
       .onChange(of: applicationNavigation.selectedDeck, initial: true) {
         let studySession = StudySession(modelContext: modelContext, deck: applicationNavigation.selectedDeck, newCardLimit: 20)
         do {
-          try studySession.loadCards(dueBefore: .now)
+          try studySession.loadCards(dueBefore: .now.addingTimeInterval(10 * 60))
           studySessionNavigation.studySession = studySession
         } catch {
           logger.error("Error loading cards: \(error)")

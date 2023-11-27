@@ -37,6 +37,20 @@ final class NewStudySessionTests: XCTestCase {
     XCTAssertEqual(studySession.newCardCount, 19)
     XCTAssertEqual(studySession.learningCardCount, 1)
 
+    // Make sure the deck-filtered version of the study session has the right counts
+    let filteredStudySession = StudySession(modelContext: container.mainContext, deck: currentCard.deck, newCardLimit: 20)
+    try filteredStudySession.loadCards(dueBefore: currentDate)
+    XCTAssertEqual(filteredStudySession.newCardCount, 19)
+    XCTAssertEqual(filteredStudySession.learningCardCount, 1)
+
+    // A study session based on the OTHER deck should still be able to study 20 cards
+    let decks = try container.mainContext.fetch(FetchDescriptor<Deck>())
+    let otherDeck = try XCTUnwrap(decks.filter({ $0.name != currentCard.deck?.name }).first)
+    let otherStudySession = StudySession(modelContext: container.mainContext, deck: otherDeck, newCardLimit: 20)
+    try otherStudySession.loadCards(dueBefore: currentDate)
+    XCTAssertEqual(otherStudySession.newCardCount, 20)
+    XCTAssertEqual(otherStudySession.learningCardCount, 0)
+
     // Make sure the new card count resets when we move to a new day
     currentDate = Calendar.current.date(byAdding: .day, value: 1, to: currentDate)!
     try studySession.loadCards(dueBefore: currentDate)
@@ -61,7 +75,8 @@ final class NewStudySessionTests: XCTestCase {
       answer: goodItem.key,
       schedulingItem: goodItem.value,
       studyTime: 3,
-      currentDate: currentDate
+      currentDate: currentDate,
+      reloadCardsDueBefore: currentDate
     )
     XCTAssertEqual(studySession.newCardCount, 3)
     XCTAssertEqual(studySession.learningCardCount, 0)

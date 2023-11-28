@@ -1,10 +1,11 @@
 # Changelog
 
-## Unreleased
+## [0.2.0] 2023-11-27
 
 ### Added
 
 - Top-level "Study" menu command and toolbar item
+- MacOS Sandbox entitlement for TestFlight capability
 
 ### Fixed
 

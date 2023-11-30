@@ -5,6 +5,7 @@ import Foundation
 import SpacedRepetitionScheduler
 import SwiftData
 import SwiftUI
+import TipKit
 
 /// Quizzes a learner on the contents of a specific card.
 struct CardQuizView: View {
@@ -54,9 +55,14 @@ struct CardQuizView: View {
         }
         .hidden(!isShowingBack)
       }
-      CardAnswerButtonRow(answers: possibleAnswers) { answer, item in
-        let duration = viewDidAppearTime.flatMap { Date.now.timeIntervalSince($0) } ?? 2
-        didSelectAnswer?(answer, item, duration)
+      VStack {
+        if isShowingBack {
+          TipView(SelectAnswerTip(), arrowEdge: .bottom)
+        }
+        CardAnswerButtonRow(answers: possibleAnswers) { answer, item in
+          let duration = viewDidAppearTime.flatMap { Date.now.timeIntervalSince($0) } ?? 2
+          didSelectAnswer?(answer, item, duration)
+        }
       }
       .hidden(!isShowingBack)
     }
@@ -89,6 +95,20 @@ struct CardQuizView: View {
 
   private var possibleAnswers: [(key: CardAnswer, value: SpacedRepetitionScheduler.Item)] {
     SpacedRepetitionScheduler.builtin.scheduleItem(.init(card))
+  }
+}
+
+struct SelectAnswerTip: Tip {
+  var title: Text {
+    Text("Rate how well you knew the answer")
+  }
+
+  var message: Text? {
+    Text("Swanki uses this information to figure out how often to quiz you on this material.")
+  }
+
+  var image: Image? {
+    Image(systemName: "lightbulb")
   }
 }
 

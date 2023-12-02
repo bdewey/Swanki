@@ -45,7 +45,7 @@ final class NewStudySessionTests: XCTestCase {
 
     // A study session based on the OTHER deck should still be able to study 20 cards
     let decks = try container.mainContext.fetch(FetchDescriptor<Deck>())
-    let otherDeck = try XCTUnwrap(decks.filter({ $0.name != currentCard.deck?.name }).first)
+    let otherDeck = try XCTUnwrap(decks.filter { $0.name != currentCard.deck?.name }.first)
     let otherStudySession = StudySession(modelContext: container.mainContext, deck: otherDeck, newCardLimit: 20)
     try otherStudySession.loadCards(dueBefore: currentDate)
     XCTAssertEqual(otherStudySession.newCardCount, 20)

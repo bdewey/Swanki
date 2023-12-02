@@ -142,6 +142,6 @@ private struct SelectCardView: View {
 
 #Preview {
   SelectCardView()
-    .frame(width: 400, height: 300)
+    .withMacOSDialogFrame()
     .modelContainer(.previews)
 }

@@ -41,6 +41,7 @@
 		D3D518B82B0A585D003D6A53 /* LogEntry.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3D518B72B0A585D003D6A53 /* LogEntry.swift */; };
 		D3D518BA2B0A66FD003D6A53 /* NewStudySessionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3D518B92B0A66FD003D6A53 /* NewStudySessionTests.swift */; };
 		D3D518BC2B0B9B78003D6A53 /* AnkiPackageImporter.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3D518BB2B0B9B78003D6A53 /* AnkiPackageImporter.swift */; };
+		D3E1B6892B1B8FF300E2422B /* MacOSDialogSizeModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3E1B6882B1B8FF300E2422B /* MacOSDialogSizeModifier.swift */; };
 		D3E8A3A52B02678300C8522C /* Deck.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3E8A3A42B02678300C8522C /* Deck.swift */; };
 		D3E8A3A72B02687B00C8522C /* Card.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3E8A3A62B02687B00C8522C /* Card.swift */; };
 		D3E8A3A92B026A1400C8522C /* Note.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3E8A3A82B026A1400C8522C /* Note.swift */; };
@@ -96,6 +97,7 @@
 		D3D518B72B0A585D003D6A53 /* LogEntry.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogEntry.swift; sourceTree = "<group>"; };
 		D3D518B92B0A66FD003D6A53 /* NewStudySessionTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewStudySessionTests.swift; sourceTree = "<group>"; };
 		D3D518BB2B0B9B78003D6A53 /* AnkiPackageImporter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnkiPackageImporter.swift; sourceTree = "<group>"; };
+		D3E1B6882B1B8FF300E2422B /* MacOSDialogSizeModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MacOSDialogSizeModifier.swift; sourceTree = "<group>"; };
 		D3E8A3A42B02678300C8522C /* Deck.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Deck.swift; sourceTree = "<group>"; };
 		D3E8A3A62B02687B00C8522C /* Card.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Card.swift; sourceTree = "<group>"; };
 		D3E8A3A82B026A1400C8522C /* Note.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Note.swift; sourceTree = "<group>"; };
@@ -203,6 +205,7 @@
 				D3600B9C2B0BBC1B00356187 /* CardSide.swift */,
 				D3600B982B0BB83300356187 /* DeckEditor.swift */,
 				D3E8A3AA2B02FF0900C8522C /* DeckList.swift */,
+				D3E1B6882B1B8FF300E2422B /* MacOSDialogSizeModifier.swift */,
 				D3600BAA2B0BC0CF00356187 /* NoteEditor.swift */,
 				D3D518B32B093E42003D6A53 /* NoteList.swift */,
 				D3600BA82B0BC03300356187 /* StudySessionView.swift */,
@@ -367,6 +370,7 @@
 				D36AD9D62B1257A400FEA67B /* StudySessionNavigation.swift in Sources */,
 				D32039F62B0F92E200B06FF8 /* ApplicationNavigation.swift in Sources */,
 				D3D518B82B0A585D003D6A53 /* LogEntry.swift in Sources */,
+				D3E1B6892B1B8FF300E2422B /* MacOSDialogSizeModifier.swift in Sources */,
 				D3600B9B2B0BBB2500356187 /* CardType.swift in Sources */,
 				D32039F42B0EEC4600B06FF8 /* FileImportNavigation.swift in Sources */,
 				D3B71456235D211B00F2AFB2 /* Logger.swift in Sources */,

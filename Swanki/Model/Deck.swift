@@ -23,6 +23,10 @@ public final class Deck {
   @Relationship(deleteRule: .cascade, inverse: \LogEntry.deck)
   public var logEntries: [LogEntry]? = []
 
+  public var xp: Int {
+    logEntries?.count ?? 0
+  }
+
   @discardableResult
   public func addNote(_ factory: () -> Note = { Note() }) -> Note {
     let note = factory()

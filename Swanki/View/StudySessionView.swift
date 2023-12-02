@@ -30,9 +30,7 @@ struct StudySessionView: View {
               logger.error("Unexpected error scheduling card \(card.id) and answer \(answer.localizedName): \(error)")
             }
           })
-          #if os(macOS)
-          .frame(width: 600, height: 400)
-          #endif
+          .withMacOSDialogFrame()
           .id(card.id)
         } else {
           ContentUnavailableView {

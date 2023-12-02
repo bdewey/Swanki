@@ -42,6 +42,8 @@
 		D3D518BA2B0A66FD003D6A53 /* NewStudySessionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3D518B92B0A66FD003D6A53 /* NewStudySessionTests.swift */; };
 		D3D518BC2B0B9B78003D6A53 /* AnkiPackageImporter.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3D518BB2B0B9B78003D6A53 /* AnkiPackageImporter.swift */; };
 		D3E1B6892B1B8FF300E2422B /* MacOSDialogSizeModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3E1B6882B1B8FF300E2422B /* MacOSDialogSizeModifier.swift */; };
+		D3E1B68B2B1B91B000E2422B /* DeckProgressChart.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3E1B68A2B1B91B000E2422B /* DeckProgressChart.swift */; };
+		D3E1B68D2B1B96BC00E2422B /* PreviewEnvironmentModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3E1B68C2B1B96BC00E2422B /* PreviewEnvironmentModifier.swift */; };
 		D3E8A3A52B02678300C8522C /* Deck.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3E8A3A42B02678300C8522C /* Deck.swift */; };
 		D3E8A3A72B02687B00C8522C /* Card.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3E8A3A62B02687B00C8522C /* Card.swift */; };
 		D3E8A3A92B026A1400C8522C /* Note.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3E8A3A82B026A1400C8522C /* Note.swift */; };
@@ -98,6 +100,8 @@
 		D3D518B92B0A66FD003D6A53 /* NewStudySessionTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewStudySessionTests.swift; sourceTree = "<group>"; };
 		D3D518BB2B0B9B78003D6A53 /* AnkiPackageImporter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnkiPackageImporter.swift; sourceTree = "<group>"; };
 		D3E1B6882B1B8FF300E2422B /* MacOSDialogSizeModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MacOSDialogSizeModifier.swift; sourceTree = "<group>"; };
+		D3E1B68A2B1B91B000E2422B /* DeckProgressChart.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeckProgressChart.swift; sourceTree = "<group>"; };
+		D3E1B68C2B1B96BC00E2422B /* PreviewEnvironmentModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreviewEnvironmentModifier.swift; sourceTree = "<group>"; };
 		D3E8A3A42B02678300C8522C /* Deck.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Deck.swift; sourceTree = "<group>"; };
 		D3E8A3A62B02687B00C8522C /* Card.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Card.swift; sourceTree = "<group>"; };
 		D3E8A3A82B026A1400C8522C /* Note.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Note.swift; sourceTree = "<group>"; };
@@ -205,6 +209,7 @@
 				D3600B9C2B0BBC1B00356187 /* CardSide.swift */,
 				D3600B982B0BB83300356187 /* DeckEditor.swift */,
 				D3E8A3AA2B02FF0900C8522C /* DeckList.swift */,
+				D3E1B68A2B1B91B000E2422B /* DeckProgressChart.swift */,
 				D3E1B6882B1B8FF300E2422B /* MacOSDialogSizeModifier.swift */,
 				D3600BAA2B0BC0CF00356187 /* NoteEditor.swift */,
 				D3D518B32B093E42003D6A53 /* NoteList.swift */,
@@ -240,6 +245,7 @@
 				D36AD9D12B10F7FC00FEA67B /* Note+SpanishStudy.swift */,
 				D3D518B52B0A415C003D6A53 /* StudySession.swift */,
 				D36AD9D52B1257A400FEA67B /* StudySessionNavigation.swift */,
+				D3E1B68C2B1B96BC00E2422B /* PreviewEnvironmentModifier.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -363,6 +369,7 @@
 			files = (
 				D37AB0B52B0ECBDF00070E99 /* SwankiSpeechController.swift in Sources */,
 				D3600BA12B0BBD7900356187 /* GenericCardView.swift in Sources */,
+				D3E1B68D2B1B96BC00E2422B /* PreviewEnvironmentModifier.swift in Sources */,
 				D3E8A3A52B02678300C8522C /* Deck.swift in Sources */,
 				D3E8A3A72B02687B00C8522C /* Card.swift in Sources */,
 				D3E8A3AB2B02FF0900C8522C /* DeckList.swift in Sources */,
@@ -384,6 +391,7 @@
 				D3E8A3A92B026A1400C8522C /* Note.swift in Sources */,
 				D36AD9D22B10F7FC00FEA67B /* Note+SpanishStudy.swift in Sources */,
 				D3D518B42B093E42003D6A53 /* NoteList.swift in Sources */,
+				D3E1B68B2B1B91B000E2422B /* DeckProgressChart.swift in Sources */,
 				D38C800D2B00608800C619E6 /* Application.swift in Sources */,
 				D3600BA92B0BC03300356187 /* StudySessionView.swift in Sources */,
 				D3D518B22B0691F1003D6A53 /* SpacedRepetitionScheduler+Swanki.swift in Sources */,

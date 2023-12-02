@@ -35,7 +35,7 @@ struct DeckList: View {
                 TextField("Name", text: $deck.name)
                   .focused($focusedEditor, equals: deck.id)
                 Spacer()
-                Text("\(deck.xp.formatted(.number.grouping(.automatic))) XP").foregroundColor(.secondary)
+                Text("\(deck.summaryStatistics.xp.formatted(.number.grouping(.automatic))) XP").foregroundColor(.secondary)
               }
             }
             .contextMenu {
@@ -105,24 +105,9 @@ struct DeckList: View {
   }
 }
 
-extension ApplicationNavigation {
-  static let previews = ApplicationNavigation()
-}
-
-extension FileImportNavigation {
-  static let previews = FileImportNavigation()
-}
-
-extension StudySessionNavigation {
-  static let previews = StudySessionNavigation()
-}
-
 #Preview {
   NavigationStack {
     DeckList()
   }
-  .environment(ApplicationNavigation.previews)
-  .environment(FileImportNavigation.previews)
-  .environment(StudySessionNavigation.previews)
-  .modelContainer(.previews)
+  .withPreviewEnvironment()
 }

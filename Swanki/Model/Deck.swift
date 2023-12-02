@@ -23,8 +23,27 @@ public final class Deck {
   @Relationship(deleteRule: .cascade, inverse: \LogEntry.deck)
   public var logEntries: [LogEntry]? = []
 
-  public var xp: Int {
-    logEntries?.count ?? 0
+  public struct SummaryStatistics {
+    var newCardCount: Int = 0
+    var learningCardCount: Int = 0
+    var masteredCardCount: Int = 0
+    var xp: Int = 0
+  }
+
+  public var summaryStatistics: SummaryStatistics {
+    var stats = SummaryStatistics()
+    for card in cards ?? [] {
+      if card.reps == 0 {
+        stats.newCardCount += 1
+      } else if card.interval >= .day {
+        stats.masteredCardCount += 1
+        stats.xp += 1
+      } else {
+        stats.learningCardCount += 1
+        stats.xp += 1
+      }
+    }
+    return stats
   }
 
   @discardableResult

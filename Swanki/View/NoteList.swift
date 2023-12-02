@@ -24,9 +24,15 @@ struct NoteList: View {
 
   var body: some View {
     @Bindable var applicationNavigation = applicationNavigation
-    Table(notes, selection: $applicationNavigation.selectedNote) {
-      TableColumn("Spanish", value: \.front.defaultEmpty)
-      TableColumn("English", value: \.back.defaultEmpty)
+    let stats = deck.summaryStatistics
+    VStack {
+      DeckProgressChart(new: stats.newCardCount, learning: stats.learningCardCount, mastered: stats.masteredCardCount)
+        .frame(height: 50)
+        .padding()
+      Table(notes, selection: $applicationNavigation.selectedNote) {
+        TableColumn("Spanish", value: \.front.defaultEmpty)
+        TableColumn("English", value: \.back.defaultEmpty)
+      }
     }
     .navigationTitle(deck.name)
     .inspector(isPresented: $isShowingInspector, content: {
@@ -102,6 +108,5 @@ private struct SelectDeckView: View {
   NavigationStack {
     SelectDeckView()
   }
-  .environment(ApplicationNavigation.previews)
-  .modelContainer(.previews)
+  .withPreviewEnvironment()
 }

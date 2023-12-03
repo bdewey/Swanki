@@ -30,7 +30,7 @@ public final class Deck {
     var xp: Int = 0
   }
 
-  public var summaryStatistics: SummaryStatistics {
+  public func summaryStatistics(on day: Date = .now) -> SummaryStatistics {
     var stats = SummaryStatistics()
     for card in cards ?? [] {
       if card.reps == 0 {
@@ -41,6 +41,9 @@ public final class Deck {
       } else {
         stats.learningCardCount += 1
         stats.xp += 1
+      }
+      if (card.due ?? .distantPast) >= day {
+        stats.xp += Int(floor(card.interval / .day))
       }
     }
     return stats

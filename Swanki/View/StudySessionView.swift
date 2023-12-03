@@ -12,6 +12,8 @@ struct StudySessionView: View {
   @State private var answerCount = 0
   @Environment(\.dismiss) private var dismiss
 
+  @State private var isShowingSessionStart = true
+
   var body: some View {
     NavigationStack {
       VStack {
@@ -19,7 +21,18 @@ struct StudySessionView: View {
           Label(studySession.displaySummary, systemImage: "rectangle.on.rectangle.angled")
             .foregroundColor(.secondary)
         }
-        if let card = studySession.currentCard {
+        if isShowingSessionStart {
+          VStack {
+            Spacer()
+            Text("You can earn **\(studySession.estimatedGainableXP) XP** by studying today!")
+            Button("Let's go!", systemImage: "arrowshape.right") {
+              withAnimation {
+                isShowingSessionStart = false
+              }
+            }
+            Spacer()
+          }
+        } else if let card = studySession.currentCard {
           CardQuizView(card: card, didSelectAnswer: { answer, item, studyTime in
             answerCount += 1
             do {
@@ -30,7 +43,6 @@ struct StudySessionView: View {
               logger.error("Unexpected error scheduling card \(card.id) and answer \(answer.localizedName): \(error)")
             }
           })
-          .withMacOSDialogFrame()
           .id(card.id)
         } else {
           ContentUnavailableView {
@@ -41,6 +53,7 @@ struct StudySessionView: View {
         }
       }
       .padding()
+      .withMacOSDialogFrame()
       .navigationTitle("Study")
       .toolbar {
         ToolbarItem(placement: .cancellationAction) {
@@ -72,6 +85,7 @@ private struct StudySessionView_Preview: View {
 
   var body: some View {
     StudySessionView(studySession: studySessionNavigation.studySession)
+      .withMacOSDialogFrame()
       .withStudySession(applicationNavigation: applicationNavigation, studySessionNavigation: studySessionNavigation)
       .environment(applicationNavigation)
       .modelContainer(.previews)

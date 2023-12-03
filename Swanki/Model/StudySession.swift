@@ -47,6 +47,8 @@ public final class StudySession {
     "New: \(newCardCount) Learning: \(learningCardCount)"
   }
 
+  public private(set) var estimatedGainableXP = 0
+
   /// Loads cards for the study session.
   public func loadCards(dueBefore dueDate: Date) throws {
     guard let modelContext else {
@@ -54,20 +56,30 @@ public final class StudySession {
     }
     let previousCardID = currentCard?.id.description
     currentCard = nil
+    estimatedGainableXP = 0
+    var allCards: [Card] = []
     let newCardsLearnedToday = try modelContext.fetchCount(FetchDescriptor(predicate: LogEntry.newCardsLearned(on: dueDate, deck: deck)))
     if newCardsLearnedToday < newCardLimit {
       let newCards = try modelContext.fetch(FetchDescriptor(predicate: Card.newCards(deck: deck))).prefix(newCardLimit - newCardsLearnedToday)
+      allCards += newCards
       newCardCount = newCards.count
+      estimatedGainableXP += newCards.count
       currentCard = newCards.first
     } else {
       newCardCount = 0
     }
     let learningCards = try modelContext.fetch(FetchDescriptor(predicate: Card.cardsDue(before: dueDate, deck: deck)))
+    allCards += learningCards
     learningCardCount = learningCards.count
     logger.debug("Looking for cards due before \(ISO8601DateFormatter().string(from: dueDate)): Found \(self.newCardCount) new, \(self.learningCardCount) learning")
     currentCard = currentCard ?? learningCards.first
     let currentCardID = currentCard?.id.description
     logger.debug("Current card was \(previousCardID ?? "nil"), is now \(currentCardID ?? "nil")")
+    let studyingXP = allCards.reduce(0) { studyingXP, card in
+      studyingXP + SpacedRepetitionScheduler.builtin.simulateStudyingItem(.init(card)).xp
+    }
+    logger.debug("Estimating we could earn \(studyingXP) XP by studying")
+    estimatedGainableXP += studyingXP
   }
 
   /// Updates ``currentCard`` with the learner's answer.
@@ -97,5 +109,24 @@ public final class StudySession {
     card.applySchedulingItem(schedulingItem, currentDate: currentDate)
     logger.debug("Finished scheduling card \(card.id) studyTime \(studyTime), due \(card.due.flatMap { ISO8601DateFormatter().string(from: $0) } ?? "nil")")
     try loadCards(dueBefore: dueDate)
+  }
+}
+
+private extension SpacedRepetitionScheduler {
+  func simulateStudyingItem(_ item: Item) -> Item {
+    var item = item
+    repeat {
+      guard let goodResult = scheduleItem(item).first(where: { $0.key == .good }) else {
+        return item
+      }
+      item = goodResult.value
+    } while item.interval <= .day
+    return item
+  }
+}
+
+private extension SpacedRepetitionScheduler.Item {
+  var xp: Int {
+    Int(floor(interval / .day))
   }
 }

@@ -50,7 +50,7 @@ public final class Card {
   /// - learning: integer timestamp
   public var due: Date?
   public var interval: TimeInterval = 0
-  public var factor: Double = 0
+  public var factor: Double = 2.5
   public var reps = 0
   public var lapses = 0
   public var left = 0

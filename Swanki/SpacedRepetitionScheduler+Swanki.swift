@@ -14,7 +14,7 @@ extension SpacedRepetitionScheduler.Item {
       reviewCount: card.reps,
       lapseCount: card.lapses,
       interval: card.interval,
-      factor: card.factor
+      factor: card.factor == 0 ? 2.5 : card.factor
     )
   }
 }

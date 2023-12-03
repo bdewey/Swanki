@@ -35,7 +35,7 @@ struct DeckList: View {
                 TextField("Name", text: $deck.name)
                   .focused($focusedEditor, equals: deck.id)
                 Spacer()
-                Text("\(deck.summaryStatistics.xp.formatted(.number.grouping(.automatic))) XP").foregroundColor(.secondary)
+                Text("\(deck.summaryStatistics().xp.formatted(.number.grouping(.automatic))) XP").foregroundColor(.secondary)
               }
             }
             .contextMenu {
@@ -59,7 +59,6 @@ struct DeckList: View {
         }
       }
       .listStyle(.sidebar)
-      Text(studySessionNavigation.studySession.displaySummary)
     }
     .alert("Are you sure?", isPresented: $isConfirmingDelete, actions: {
       Button("Delete", systemImage: "trash", role: .destructive) {

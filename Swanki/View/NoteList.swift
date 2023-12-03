@@ -24,11 +24,14 @@ struct NoteList: View {
 
   var body: some View {
     @Bindable var applicationNavigation = applicationNavigation
-    let stats = deck.summaryStatistics
+    let stats = deck.summaryStatistics()
     VStack {
       DeckProgressChart(new: stats.newCardCount, learning: stats.learningCardCount, mastered: stats.masteredCardCount)
         .frame(height: 50)
         .padding()
+      if atRiskXP > 0 {
+        Text("You are at risk of losing **\(atRiskXP) XP**")
+      }
       Table(notes, selection: $applicationNavigation.selectedNote) {
         TableColumn("Spanish", value: \.front.defaultEmpty)
         TableColumn("English", value: \.back.defaultEmpty)
@@ -64,6 +67,12 @@ struct NoteList: View {
         .disabled(applicationNavigation.selectedNote == nil)
       }
     }
+  }
+
+  private var atRiskXP: Int {
+    let todayStats = deck.summaryStatistics()
+    let tomorrowStats = deck.summaryStatistics(on: .now.addingTimeInterval(.day))
+    return todayStats.xp - tomorrowStats.xp
   }
 
   private func makeNewNote() -> Note {

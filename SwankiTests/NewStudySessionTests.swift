@@ -102,11 +102,11 @@ final class NewStudySessionTests: XCTestCase {
 
   func testEstimatedXPAccuracy() throws {
     let container = try ModelContainer(for: Deck.self, configurations: ModelConfiguration(isStoredInMemoryOnly: true))
-    let deck = container.createSampleDeck(named: "Sample data", noteCount: 20)
+    container.createSampleDeck(named: "Sample data", noteCount: 20)
     let studySession = StudySession(modelContext: container.mainContext, newCardLimit: 20)
 
     XCTAssertEqual(try container.mainContext.summaryStatistics().xp, 0)
-    var currentDate = Date.now
+    let currentDate = Date.now
     try studySession.loadCards(dueBefore: currentDate)
     XCTAssertEqual(studySession.newCardCount, 20)
     XCTAssertEqual(studySession.learningCardCount, 0)

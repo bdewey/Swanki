@@ -99,4 +99,26 @@ final class NewStudySessionTests: XCTestCase {
     XCTAssertEqual(unfilteredStudySession.newCardCount, 7)
     XCTAssertEqual(unfilteredStudySession.learningCardCount, 1)
   }
+
+  func testEstimatedXPAccuracy() throws {
+    let container = try ModelContainer(for: Deck.self, configurations: ModelConfiguration(isStoredInMemoryOnly: true))
+    let deck = container.createSampleDeck(named: "Sample data", noteCount: 20)
+    let studySession = StudySession(modelContext: container.mainContext, newCardLimit: 20)
+
+    XCTAssertEqual(try container.mainContext.summaryStatistics().xp, 0)
+    var currentDate = Date.now
+    try studySession.loadCards(dueBefore: currentDate)
+    XCTAssertEqual(studySession.newCardCount, 20)
+    XCTAssertEqual(studySession.learningCardCount, 0)
+    let estimatedGainableXP = studySession.estimatedGainableXP
+    XCTAssertEqual(estimatedGainableXP, 40)
+
+    while let card = studySession.currentCard {
+      let items = SpacedRepetitionScheduler.builtin.scheduleItem(.init(card))
+      let goodItem = try XCTUnwrap(items.first(where: { $0.key == .good }))
+      try studySession.updateCurrentCardSchedule(answer: goodItem.key, schedulingItem: goodItem.value, studyTime: 3)
+    }
+
+    XCTAssertEqual(try container.mainContext.summaryStatistics().xp, estimatedGainableXP)
+  }
 }

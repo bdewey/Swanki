@@ -120,7 +120,7 @@ private extension SpacedRepetitionScheduler {
         return item
       }
       item = goodResult.value
-    } while item.interval <= .day
+    } while item.interval < .day
     return item
   }
 }

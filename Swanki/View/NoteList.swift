@@ -24,7 +24,7 @@ struct NoteList: View {
 
   var body: some View {
     @Bindable var applicationNavigation = applicationNavigation
-    let stats = deck.summaryStatistics()
+    let stats = summaryStatistics
     VStack {
       DeckProgressChart(new: stats.newCardCount, learning: stats.learningCardCount, mastered: stats.masteredCardCount)
         .frame(height: 50)
@@ -69,10 +69,32 @@ struct NoteList: View {
     }
   }
 
+  private var summaryStatistics: SummaryStatistics {
+    guard let modelContext = deck.modelContext else {
+      logger.warning("Trying to get statistics when the deck has not been saved")
+      return SummaryStatistics()
+    }
+    do {
+      return try modelContext.summaryStatistics(deck: deck)
+    } catch {
+      logger.error("Error fetching summary statistics: \(error)")
+      return SummaryStatistics()
+    }
+  }
+
   private var atRiskXP: Int {
-    let todayStats = deck.summaryStatistics()
-    let tomorrowStats = deck.summaryStatistics(on: .now.addingTimeInterval(.day))
-    return todayStats.xp - tomorrowStats.xp
+    guard let modelContext = deck.modelContext else {
+      logger.warning("Trying to get XP when the deck has not been saved")
+      return 0
+    }
+    do {
+      let todayStats = try modelContext.summaryStatistics(deck: deck)
+      let tomorrowStats = try modelContext.summaryStatistics(on: .now.addingTimeInterval(.day), deck: deck)
+      return todayStats.xp - tomorrowStats.xp
+    } catch {
+      logger.error("Error fetching summary statistics: \(error)")
+      return 0
+    }
   }
 
   private func makeNewNote() -> Note {

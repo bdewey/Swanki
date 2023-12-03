@@ -23,30 +23,12 @@ public final class Deck {
   @Relationship(deleteRule: .cascade, inverse: \LogEntry.deck)
   public var logEntries: [LogEntry]? = []
 
-  public struct SummaryStatistics {
-    var newCardCount: Int = 0
-    var learningCardCount: Int = 0
-    var masteredCardCount: Int = 0
-    var xp: Int = 0
-  }
-
-  public func summaryStatistics(on day: Date = .now) -> SummaryStatistics {
-    var stats = SummaryStatistics()
-    for card in cards ?? [] {
-      if card.reps == 0 {
-        stats.newCardCount += 1
-      } else if card.interval >= .day {
-        stats.masteredCardCount += 1
-        stats.xp += 1
-      } else {
-        stats.learningCardCount += 1
-        stats.xp += 1
-      }
-      if (card.due ?? .distantPast) >= day {
-        stats.xp += Int(floor(card.interval / .day))
-      }
+  public func summaryStatistics(on day: Date = .now) throws -> SummaryStatistics {
+    guard let modelContext else {
+      logger.warning("Trying to get summary statistics from an unmanaged Deck")
+      return SummaryStatistics()
     }
-    return stats
+    return try modelContext.summaryStatistics(on: day, deck: self)
   }
 
   @discardableResult

@@ -35,7 +35,7 @@ struct DeckList: View {
                 TextField("Name", text: $deck.name)
                   .focused($focusedEditor, equals: deck.id)
                 Spacer()
-                Text("\(deck.summaryStatistics().xp.formatted(.number.grouping(.automatic))) XP").foregroundColor(.secondary)
+                Text("\(((try? deck.summaryStatistics()) ?? .init()).xp.formatted(.number.grouping(.automatic))) XP").foregroundColor(.secondary)
               }
             }
             .contextMenu {

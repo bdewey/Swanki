@@ -55,6 +55,17 @@ public final class Card {
   public var lapses = 0
   public var left = 0
 
+  public static func allCards(deck: Deck? = nil) -> Predicate<Card> {
+    if let deck {
+      let deckID = deck.id
+      return #Predicate { card in
+        card.deck?.id == deckID
+      }
+    } else {
+      return #Predicate { _ in true }
+    }
+  }
+
   public static func newCards(deck: Deck? = nil) -> Predicate<Card> {
     if let deck {
       let deckID = deck.id

@@ -44,6 +44,8 @@
 		D3E1B6892B1B8FF300E2422B /* MacOSDialogSizeModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3E1B6882B1B8FF300E2422B /* MacOSDialogSizeModifier.swift */; };
 		D3E1B68B2B1B91B000E2422B /* DeckProgressChart.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3E1B68A2B1B91B000E2422B /* DeckProgressChart.swift */; };
 		D3E1B68D2B1B96BC00E2422B /* PreviewEnvironmentModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3E1B68C2B1B96BC00E2422B /* PreviewEnvironmentModifier.swift */; };
+		D3E1B68F2B1CD84200E2422B /* SummaryStatistics.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3E1B68E2B1CD84200E2422B /* SummaryStatistics.swift */; };
+		D3E1B6912B1CD87A00E2422B /* ModelContainer+SummaryStatistics.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3E1B6902B1CD87A00E2422B /* ModelContainer+SummaryStatistics.swift */; };
 		D3E8A3A52B02678300C8522C /* Deck.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3E8A3A42B02678300C8522C /* Deck.swift */; };
 		D3E8A3A72B02687B00C8522C /* Card.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3E8A3A62B02687B00C8522C /* Card.swift */; };
 		D3E8A3A92B026A1400C8522C /* Note.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3E8A3A82B026A1400C8522C /* Note.swift */; };
@@ -102,6 +104,8 @@
 		D3E1B6882B1B8FF300E2422B /* MacOSDialogSizeModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MacOSDialogSizeModifier.swift; sourceTree = "<group>"; };
 		D3E1B68A2B1B91B000E2422B /* DeckProgressChart.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeckProgressChart.swift; sourceTree = "<group>"; };
 		D3E1B68C2B1B96BC00E2422B /* PreviewEnvironmentModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreviewEnvironmentModifier.swift; sourceTree = "<group>"; };
+		D3E1B68E2B1CD84200E2422B /* SummaryStatistics.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SummaryStatistics.swift; sourceTree = "<group>"; };
+		D3E1B6902B1CD87A00E2422B /* ModelContainer+SummaryStatistics.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ModelContainer+SummaryStatistics.swift"; sourceTree = "<group>"; };
 		D3E8A3A42B02678300C8522C /* Deck.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Deck.swift; sourceTree = "<group>"; };
 		D3E8A3A62B02687B00C8522C /* Card.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Card.swift; sourceTree = "<group>"; };
 		D3E8A3A82B026A1400C8522C /* Note.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Note.swift; sourceTree = "<group>"; };
@@ -241,11 +245,13 @@
 				D32039F32B0EEC4600B06FF8 /* FileImportNavigation.swift */,
 				D3D518B72B0A585D003D6A53 /* LogEntry.swift */,
 				D3E8A3AC2B0307B100C8522C /* ModelContainer+Previews.swift */,
+				D3E1B6902B1CD87A00E2422B /* ModelContainer+SummaryStatistics.swift */,
 				D3E8A3A82B026A1400C8522C /* Note.swift */,
 				D36AD9D12B10F7FC00FEA67B /* Note+SpanishStudy.swift */,
+				D3E1B68C2B1B96BC00E2422B /* PreviewEnvironmentModifier.swift */,
 				D3D518B52B0A415C003D6A53 /* StudySession.swift */,
 				D36AD9D52B1257A400FEA67B /* StudySessionNavigation.swift */,
-				D3E1B68C2B1B96BC00E2422B /* PreviewEnvironmentModifier.swift */,
+				D3E1B68E2B1CD84200E2422B /* SummaryStatistics.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -384,11 +390,13 @@
 				D3600BA32B0BBDA500356187 /* FrontThenBackCard.swift in Sources */,
 				D3D518B02B06824B003D6A53 /* CardQuizView.swift in Sources */,
 				D3966846236DDC9A0015DB82 /* CardAnswerButtonRow.swift in Sources */,
+				D3E1B68F2B1CD84200E2422B /* SummaryStatistics.swift in Sources */,
 				D3600B992B0BB83300356187 /* DeckEditor.swift in Sources */,
 				D3D518B62B0A415C003D6A53 /* StudySession.swift in Sources */,
 				D3600BA52B0BBDBC00356187 /* BackThenFrontCard.swift in Sources */,
 				D3600B9D2B0BBC1B00356187 /* CardSide.swift in Sources */,
 				D3E8A3A92B026A1400C8522C /* Note.swift in Sources */,
+				D3E1B6912B1CD87A00E2422B /* ModelContainer+SummaryStatistics.swift in Sources */,
 				D36AD9D22B10F7FC00FEA67B /* Note+SpanishStudy.swift in Sources */,
 				D3D518B42B093E42003D6A53 /* NoteList.swift in Sources */,
 				D3E1B68B2B1B91B000E2422B /* DeckProgressChart.swift in Sources */,

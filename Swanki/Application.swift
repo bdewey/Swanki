@@ -13,7 +13,6 @@ struct Application: App {
 
   init() {
     do {
-      try Tips.resetDatastore()
       try Tips.configure()
     } catch {
       logger.error("Error configuring tips: \(error)")

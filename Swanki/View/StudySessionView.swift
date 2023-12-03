@@ -11,14 +11,16 @@ struct StudySessionView: View {
 
   @State private var answerCount = 0
   @Environment(\.dismiss) private var dismiss
+  @Environment(\.modelContext) private var modelContext
 
   @State private var isShowingSessionStart = true
+  @State private var initialXP = 0
 
   var body: some View {
     NavigationStack {
       VStack {
         ProgressView(value: progress) {
-          Label(studySession.displaySummary, systemImage: "rectangle.on.rectangle.angled")
+          Label("+ \(currentXP - initialXP) XP", systemImage: "rectangle.on.rectangle.angled")
             .foregroundColor(.secondary)
         }
         if isShowingSessionStart {
@@ -30,6 +32,7 @@ struct StudySessionView: View {
                 isShowingSessionStart = false
               }
             }
+            .keyboardShortcut(" ", modifiers: [])
             Spacer()
           }
         } else if let card = studySession.currentCard {
@@ -45,11 +48,7 @@ struct StudySessionView: View {
           })
           .id(card.id)
         } else {
-          ContentUnavailableView {
-            Label("Nothing to study!", systemImage: "nosign")
-          } description: {
-            Text("No more cards!")
-          }
+          SessionEndView(gainedXP: currentXP - initialXP)
         }
       }
       .padding()
@@ -62,9 +61,21 @@ struct StudySessionView: View {
           }
         }
       }
+      .task {
+        initialXP = currentXP
+      }
       #if os(iOS)
       .navigationBarTitleDisplayMode(.inline)
       #endif
+    }
+  }
+
+  private var currentXP: Int {
+    do {
+      return try modelContext.summaryStatistics().xp
+    } catch {
+      logger.error("Error getting summary statistics: \(error)")
+      return 0
     }
   }
 
@@ -74,6 +85,18 @@ struct StudySessionView: View {
       return Double(answerCount) / denominator
     } else {
       return 0
+    }
+  }
+}
+
+private struct SessionEndView: View {
+  let gainedXP: Int
+
+  var body: some View {
+    ContentUnavailableView {
+      Label("You gained \(gainedXP) XP!", systemImage: "flag.checkered.2.crossed")
+    } description: {
+      Text("Come back tomorrow to earn more XP.")
     }
   }
 }
@@ -94,4 +117,8 @@ private struct StudySessionView_Preview: View {
 
 #Preview {
   StudySessionView_Preview()
+}
+
+#Preview {
+  SessionEndView(gainedXP: 20)
 }

@@ -18,6 +18,7 @@ struct DeckEditor: View {
       Form {
         TextField("Name", text: $name)
       }
+      .padding()
       .navigationTitle(deck == nil ? "New Deck" : "Edit Deck")
       .toolbar {
         ToolbarItem(placement: .confirmationAction) {
@@ -42,6 +43,7 @@ struct DeckEditor: View {
         }
       }
     }
+    .withMacOSDialogFrame(width: 300, height: 200)
     .onAppear {
       if let deck {
         name = deck.name

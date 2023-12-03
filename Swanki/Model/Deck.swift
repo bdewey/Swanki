@@ -23,6 +23,14 @@ public final class Deck {
   @Relationship(deleteRule: .cascade, inverse: \LogEntry.deck)
   public var logEntries: [LogEntry]? = []
 
+  public func summaryStatistics(on day: Date = .now) throws -> SummaryStatistics {
+    guard let modelContext else {
+      logger.warning("Trying to get summary statistics from an unmanaged Deck")
+      return SummaryStatistics()
+    }
+    return try modelContext.summaryStatistics(on: day, deck: self)
+  }
+
   @discardableResult
   public func addNote(_ factory: () -> Note = { Note() }) -> Note {
     let note = factory()

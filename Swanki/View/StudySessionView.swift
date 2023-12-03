@@ -11,15 +11,31 @@ struct StudySessionView: View {
 
   @State private var answerCount = 0
   @Environment(\.dismiss) private var dismiss
+  @Environment(\.modelContext) private var modelContext
+
+  @State private var isShowingSessionStart = true
+  @State private var initialXP = 0
 
   var body: some View {
     NavigationStack {
       VStack {
         ProgressView(value: progress) {
-          Label(studySession.displaySummary, systemImage: "rectangle.on.rectangle.angled")
+          Label("+ \(currentXP - initialXP) XP", systemImage: "rectangle.on.rectangle.angled")
             .foregroundColor(.secondary)
         }
-        if let card = studySession.currentCard {
+        if isShowingSessionStart {
+          VStack {
+            Spacer()
+            Text("You can earn **\(studySession.estimatedGainableXP) XP** by studying today!")
+            Button("Let's go!", systemImage: "arrowshape.right") {
+              withAnimation {
+                isShowingSessionStart = false
+              }
+            }
+            .keyboardShortcut(" ", modifiers: [])
+            Spacer()
+          }
+        } else if let card = studySession.currentCard {
           CardQuizView(card: card, didSelectAnswer: { answer, item, studyTime in
             answerCount += 1
             do {
@@ -30,19 +46,13 @@ struct StudySessionView: View {
               logger.error("Unexpected error scheduling card \(card.id) and answer \(answer.localizedName): \(error)")
             }
           })
-          #if os(macOS)
-          .frame(width: 600, height: 400)
-          #endif
           .id(card.id)
         } else {
-          ContentUnavailableView {
-            Label("Nothing to study!", systemImage: "nosign")
-          } description: {
-            Text("No more cards!")
-          }
+          SessionEndView(gainedXP: currentXP - initialXP)
         }
       }
       .padding()
+      .withMacOSDialogFrame()
       .navigationTitle("Study")
       .toolbar {
         ToolbarItem(placement: .cancellationAction) {
@@ -51,9 +61,21 @@ struct StudySessionView: View {
           }
         }
       }
+      .task {
+        initialXP = currentXP
+      }
       #if os(iOS)
       .navigationBarTitleDisplayMode(.inline)
       #endif
+    }
+  }
+
+  private var currentXP: Int {
+    do {
+      return try modelContext.summaryStatistics().xp
+    } catch {
+      logger.error("Error getting summary statistics: \(error)")
+      return 0
     }
   }
 
@@ -67,6 +89,18 @@ struct StudySessionView: View {
   }
 }
 
+private struct SessionEndView: View {
+  let gainedXP: Int
+
+  var body: some View {
+    ContentUnavailableView {
+      Label("You gained \(gainedXP) XP!", systemImage: "flag.checkered.2.crossed")
+    } description: {
+      Text("Come back tomorrow to earn more XP.")
+    }
+  }
+}
+
 @MainActor
 private struct StudySessionView_Preview: View {
   @State private var applicationNavigation = ApplicationNavigation()
@@ -74,6 +108,7 @@ private struct StudySessionView_Preview: View {
 
   var body: some View {
     StudySessionView(studySession: studySessionNavigation.studySession)
+      .withMacOSDialogFrame()
       .withStudySession(applicationNavigation: applicationNavigation, studySessionNavigation: studySessionNavigation)
       .environment(applicationNavigation)
       .modelContainer(.previews)
@@ -82,4 +117,8 @@ private struct StudySessionView_Preview: View {
 
 #Preview {
   StudySessionView_Preview()
+}
+
+#Preview {
+  SessionEndView(gainedXP: 20)
 }

@@ -3,12 +3,21 @@
 import Observation
 import SwiftData
 import SwiftUI
+import TipKit
 
 @MainActor
 @main
 struct Application: App {
   @State private var fileImportNavigation = FileImportNavigation()
   @State private var studySessionNavigation = StudySessionNavigation()
+
+  init() {
+    do {
+      try Tips.configure()
+    } catch {
+      logger.error("Error configuring tips: \(error)")
+    }
+  }
 
   var body: some Scene {
     WindowGroup {

@@ -1,5 +1,15 @@
 # Changelog
 
+## Unreleased
+
+### Added
+
+- XP! We track XP based upon how well you've studied your cards, and you can lose XP if you let cards 
+  age beyond their due date. XP is shown on session start and session end to try to get **some** motivation
+  going.
+- Tips! I display a single tip right now telling you to rate how well you knew an answer.
+- Deck progress chart! I show the number of cards in the new / learning / mastered state.
+
 ## [0.2.0] 2023-11-27
 
 ### Added

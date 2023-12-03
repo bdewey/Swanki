@@ -45,7 +45,7 @@ final class NewStudySessionTests: XCTestCase {
 
     // A study session based on the OTHER deck should still be able to study 20 cards
     let decks = try container.mainContext.fetch(FetchDescriptor<Deck>())
-    let otherDeck = try XCTUnwrap(decks.filter({ $0.name != currentCard.deck?.name }).first)
+    let otherDeck = try XCTUnwrap(decks.filter { $0.name != currentCard.deck?.name }.first)
     let otherStudySession = StudySession(modelContext: container.mainContext, deck: otherDeck, newCardLimit: 20)
     try otherStudySession.loadCards(dueBefore: currentDate)
     XCTAssertEqual(otherStudySession.newCardCount, 20)
@@ -98,5 +98,27 @@ final class NewStudySessionTests: XCTestCase {
     try unfilteredStudySession.loadCards(dueBefore: currentDate)
     XCTAssertEqual(unfilteredStudySession.newCardCount, 7)
     XCTAssertEqual(unfilteredStudySession.learningCardCount, 1)
+  }
+
+  func testEstimatedXPAccuracy() throws {
+    let container = try ModelContainer(for: Deck.self, configurations: ModelConfiguration(isStoredInMemoryOnly: true))
+    container.createSampleDeck(named: "Sample data", noteCount: 20)
+    let studySession = StudySession(modelContext: container.mainContext, newCardLimit: 20)
+
+    XCTAssertEqual(try container.mainContext.summaryStatistics().xp, 0)
+    let currentDate = Date.now
+    try studySession.loadCards(dueBefore: currentDate)
+    XCTAssertEqual(studySession.newCardCount, 20)
+    XCTAssertEqual(studySession.learningCardCount, 0)
+    let estimatedGainableXP = studySession.estimatedGainableXP
+    XCTAssertEqual(estimatedGainableXP, 40)
+
+    while let card = studySession.currentCard {
+      let items = SpacedRepetitionScheduler.builtin.scheduleItem(.init(card))
+      let goodItem = try XCTUnwrap(items.first(where: { $0.key == .good }))
+      try studySession.updateCurrentCardSchedule(answer: goodItem.key, schedulingItem: goodItem.value, studyTime: 3)
+    }
+
+    XCTAssertEqual(try container.mainContext.summaryStatistics().xp, estimatedGainableXP)
   }
 }

@@ -12,6 +12,9 @@ struct DeckList: View {
   @Environment(ApplicationNavigation.self) private var applicationNavigation
   @Environment(FileImportNavigation.self) private var fileImporterNavigation
   @Environment(StudySessionNavigation.self) private var studySessionNavigation
+  @FocusState private var focusedEditor: UUID?
+  @State private var isConfirmingDelete = false
+  @State private var victims: IndexSet?
 
   var body: some View {
     @Bindable var applicationNavigation = applicationNavigation
@@ -26,35 +29,44 @@ struct DeckList: View {
         #endif
         Section("Decks") {
           ForEach(decks) { deck in
-            HStack {
-              Text(deck.name)
-              Spacer()
-              Button {
-                editingDeck = deck
-              } label: {
-                Image(systemName: "info.circle")
-                  // Needs an explicit foregroundColor because of the PlainButtonStyle
-                  .foregroundColor(.accentColor)
+            @Bindable var deck = deck
+            VStack {
+              HStack {
+                TextField("Name", text: $deck.name)
+                  .focused($focusedEditor, equals: deck.id)
+                Spacer()
+                Text("\(((try? deck.summaryStatistics()) ?? .init()).xp.formatted(.number.grouping(.automatic))) XP").foregroundColor(.secondary)
               }
-              // You need PlainButtonStyle() to keep the button from conflicting with
-              // the tap handling for the navigation.
-              .buttonStyle(PlainButtonStyle())
+            }
+            .contextMenu {
+              Button("Edit Name", systemImage: "square.and.pencil") {
+                focusedEditor = deck.id
+              }
+              Button("Delete", systemImage: "trash") {
+                guard let victimIndex = decks.firstIndex(where: { $0 == deck }) else {
+                  return
+                }
+                victims = IndexSet(integer: victimIndex)
+                isConfirmingDelete = true
+              }
             }
             .tag(deck)
           }
           .onDelete(perform: { indexSet in
-            for index in indexSet {
-              modelContext.delete(decks[index])
-            }
+            victims = indexSet
+            isConfirmingDelete = true
           })
         }
       }
       .listStyle(.sidebar)
-      Text(studySessionNavigation.studySession.displaySummary)
     }
-    .sheet(item: $editingDeck) { deck in
-      DeckEditor(deck: deck)
-    }
+    .alert("Are you sure?", isPresented: $isConfirmingDelete, actions: {
+      Button("Delete", systemImage: "trash", role: .destructive) {
+        for index in victims ?? [] {
+          modelContext.delete(decks[index])
+        }
+      }
+    })
     .sheet(isPresented: $shouldShowNewDeck) {
       DeckEditor(deck: nil)
     }
@@ -92,14 +104,9 @@ struct DeckList: View {
   }
 }
 
-extension ApplicationNavigation {
-  static let previews = ApplicationNavigation()
-}
-
 #Preview {
   NavigationStack {
     DeckList()
   }
-  .environment(ApplicationNavigation.previews)
-  .modelContainer(.previews)
+  .withPreviewEnvironment()
 }

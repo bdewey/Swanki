@@ -1,5 +1,6 @@
 // Copyright © 2019-present Brian Dewey.
 
+import AVFoundation
 import Observation
 import SwiftData
 import SwiftUI
@@ -17,6 +18,13 @@ struct Application: App {
     } catch {
       logger.error("Error configuring tips: \(error)")
     }
+    #if !os(macOS)
+      do {
+        try AVAudioSession.sharedInstance().setCategory(.playback, options: .mixWithOthers)
+      } catch {
+        logger.error("Error setting up audio session: \(error)")
+      }
+    #endif
   }
 
   var body: some Scene {

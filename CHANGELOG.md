@@ -1,5 +1,11 @@
 # Changelog
 
+## [0.4.0] 2023-12-17
+
+### Fixed
+
+- Set "playback" mode so audio works with the "silent" switch on
+
 ## [0.3.0] 2023-12-03
 
 ### Added

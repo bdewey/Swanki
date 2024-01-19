@@ -11,7 +11,7 @@ public struct LogEntry: Codable, FetchableRecord, PersistableRecord {
   public var id = 0
   public var cardID = 0
   public var usn = 0
-  public var ease = CardAnswer.easy
+  public var ease = RecallEase.easy
   public var interval = 0
   public var lastInterval = 0
   public var factor = 0
@@ -33,7 +33,7 @@ public struct LogEntry: Codable, FetchableRecord, PersistableRecord {
 
 public extension LogEntry {
   /// Initializes a log entry recording the state change from an old card to a new card.
-  init(now: Date, oldCard: Card, newCard: Card, answer: CardAnswer, studyTime: TimeInterval) {
+  init(now: Date, oldCard: Card, newCard: Card, answer: RecallEase, studyTime: TimeInterval) {
     precondition(oldCard.id == newCard.id)
     self.id = Int(floor(now.timeIntervalSince1970 * 1000)) // millisecond timestamp
     self.cardID = oldCard.id

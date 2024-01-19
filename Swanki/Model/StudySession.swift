@@ -76,7 +76,7 @@ public final class StudySession {
     let currentCardID = currentCard?.id.description
     logger.debug("Current card was \(previousCardID ?? "nil"), is now \(currentCardID ?? "nil")")
     let studyingXP = allCards.reduce(0) { studyingXP, card in
-      studyingXP + SpacedRepetitionScheduler.builtin.simulateStudyingItem(.init(card)).xp
+      studyingXP + SchedulingParameters.builtin.simulateStudyingItem(.init(card)).xp
     }
     logger.debug("Estimating we could earn \(studyingXP) XP by studying")
     estimatedGainableXP += studyingXP
@@ -89,8 +89,8 @@ public final class StudySession {
   ///   - studyTime: How long the learner took to select the answer.
   ///   - currentDate: The current time.
   public func updateCurrentCardSchedule(
-    answer: CardAnswer,
-    schedulingItem: SpacedRepetitionScheduler.Item,
+    answer: RecallEase,
+    schedulingItem: PromptSchedulingMetadata,
     studyTime: TimeInterval,
     currentDate: Date = .now,
     reloadCardsDueBefore dueDate: Date = .now.addingTimeInterval(10 * 60)
@@ -112,20 +112,17 @@ public final class StudySession {
   }
 }
 
-private extension SpacedRepetitionScheduler {
-  func simulateStudyingItem(_ item: Item) -> Item {
+private extension SchedulingParameters {
+  func simulateStudyingItem(_ item: PromptSchedulingMetadata) -> PromptSchedulingMetadata {
     var item = item
     repeat {
-      guard let goodResult = scheduleItem(item).first(where: { $0.key == .good }) else {
-        return item
-      }
-      item = goodResult.value
+      try? item.update(with: self, recallEase: .good, timeIntervalSincePriorReview: 0)
     } while item.interval < .day
     return item
   }
 }
 
-private extension SpacedRepetitionScheduler.Item {
+private extension PromptSchedulingMetadata {
   var xp: Int {
     Int(floor(interval / .day))
   }

@@ -6,7 +6,7 @@ import SwiftData
 
 @Model
 public final class LogEntry {
-  public init(card: Card? = nil, timestamp: Date, answer: CardAnswer, oldReps: Int, studyTime: TimeInterval) {
+  public init(card: Card? = nil, timestamp: Date, answer: RecallEase, oldReps: Int, studyTime: TimeInterval) {
     self.card = card
     self.timestamp = timestamp
     self.answer = answer
@@ -17,7 +17,7 @@ public final class LogEntry {
   public var card: Card?
   public var deck: Deck?
   public var timestamp: Date
-  public var answer: CardAnswer
+  public var answer: RecallEase
   public var oldReps: Int
   public var studyTime: TimeInterval
 

@@ -3,24 +3,24 @@
 import Foundation
 import SpacedRepetitionScheduler
 
-extension SpacedRepetitionScheduler {
-  static let builtin = SpacedRepetitionScheduler(learningIntervals: [.minute, 10 * .minute])
+extension SchedulingParameters {
+  static let builtin = SchedulingParameters(learningIntervals: [.minute, 10 * .minute])
 }
 
-extension SpacedRepetitionScheduler.Item {
+extension PromptSchedulingMetadata {
   init(_ card: Card) {
     self.init(
-      learningState: card.learningState,
+      mode: card.learningState,
       reviewCount: card.reps,
       lapseCount: card.lapses,
       interval: card.interval,
-      factor: card.factor == 0 ? 2.5 : card.factor
+      reviewSpacingFactor: card.factor == 0 ? 2.5 : card.factor
     )
   }
 }
 
 extension Card {
-  var learningState: SpacedRepetitionScheduler.Item.LearningState {
+  var learningState: PromptSchedulingMode {
     if let learningStep {
       .learning(step: learningStep)
     } else {
@@ -28,8 +28,8 @@ extension Card {
     }
   }
 
-  func applySchedulingItem(_ item: SpacedRepetitionScheduler.Item, currentDate: Date) {
-    switch item.learningState {
+  func applySchedulingItem(_ item: PromptSchedulingMetadata, currentDate: Date) {
+    switch item.mode {
     case .learning(step: let step):
       learningStep = step
     case .review:
@@ -39,6 +39,6 @@ extension Card {
     lapses = item.lapseCount
     interval = item.interval
     due = currentDate.addingTimeInterval(item.interval)
-    factor = item.factor
+    factor = item.reviewSpacingFactor
   }
 }

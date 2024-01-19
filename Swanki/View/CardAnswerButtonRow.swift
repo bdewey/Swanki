@@ -4,16 +4,16 @@ import SpacedRepetitionScheduler
 import SwiftUI
 
 /// Displays a row of answers that someone can select to pick scheduling of a new item.
-struct CardAnswerButtonRow: View {
+struct RecallEaseButtonRow: View {
   /// The answers to choose from, and the corresponding ``SpacedRepetitionScheduler/Item`` values that will be selected if you pick the corresponding answer.
-  let answers: [(key: CardAnswer, value: SpacedRepetitionScheduler.Item)]
+  let answers: [(key: RecallEase, value: PromptSchedulingMetadata)]
 
   /// A closure that is invoked with the selected answer and item.
-  var didSelectAnswer: ((CardAnswer, SpacedRepetitionScheduler.Item) -> Void)?
+  var didSelectAnswer: ((RecallEase, PromptSchedulingMetadata) -> Void)?
 
   private struct ButtonProperties: Hashable {
-    let answer: CardAnswer
-    let item: SpacedRepetitionScheduler.Item
+    let answer: RecallEase
+    let item: PromptSchedulingMetadata
     let interval: TimeInterval
     let shortcut: String
   }
@@ -57,7 +57,7 @@ struct CardAnswerButtonRow: View {
     .keyboardShortcut(KeyEquivalent(properties.shortcut.first!), modifiers: [])
   }
 
-  func buttonColor(for answer: CardAnswer) -> Color {
+  func buttonColor(for answer: RecallEase) -> Color {
     switch answer {
     case .again:
       .red
@@ -67,6 +67,21 @@ struct CardAnswerButtonRow: View {
       .blue
     case .easy:
       .green
+    }
+  }
+}
+
+extension RecallEase {
+  var localizedName: String {
+    switch self {
+    case .again:
+      String(localized: "Again")
+    case .hard:
+      String(localized: "Hard")
+    case .good:
+      String(localized: "Good")
+    case .easy:
+      String(localized: "Easy")
     }
   }
 }
@@ -85,6 +100,6 @@ private extension DateComponentsFormatter {
 
 #Preview {
   // Make some answers for a new item.
-  let scheduler = SpacedRepetitionScheduler(learningIntervals: [.minute, 10 * .minute])
-  return CardAnswerButtonRow(answers: scheduler.scheduleItem(SpacedRepetitionScheduler.Item()))
+  let scheduler = SchedulingParameters(learningIntervals: [.minute, 10 * .minute])
+  return RecallEaseButtonRow(answers: PromptSchedulingMetadata().allPossibleUpdates(with: scheduler))
 }

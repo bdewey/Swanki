@@ -13,7 +13,7 @@ struct CardQuizView: View {
   var card: Card
 
   /// A closure invoked when the learner selects an answer.
-  var didSelectAnswer: ((CardAnswer, SpacedRepetitionScheduler.Item, TimeInterval) -> Void)?
+  var didSelectAnswer: ((RecallEase, PromptSchedulingMetadata, TimeInterval) -> Void)?
 
   @State private var viewDidAppearTime: Date?
   @State private var isShowingBack = false
@@ -59,7 +59,7 @@ struct CardQuizView: View {
         if isShowingBack {
           TipView(SelectAnswerTip(), arrowEdge: .bottom)
         }
-        CardAnswerButtonRow(answers: possibleAnswers) { answer, item in
+        RecallEaseButtonRow(answers: possibleAnswers) { answer, item in
           let duration = viewDidAppearTime.flatMap { Date.now.timeIntervalSince($0) } ?? 2
           didSelectAnswer?(answer, item, duration)
         }
@@ -93,8 +93,8 @@ struct CardQuizView: View {
     SwankiSpeechController.shared.speakExampleSentence(from: note, delay: 0.2, rate: 0.6)
   }
 
-  private var possibleAnswers: [(key: CardAnswer, value: SpacedRepetitionScheduler.Item)] {
-    SpacedRepetitionScheduler.builtin.scheduleItem(.init(card))
+  private var possibleAnswers: [(key: RecallEase, value: PromptSchedulingMetadata)] {
+    PromptSchedulingMetadata(card).allPossibleUpdates(with: SchedulingParameters.builtin)
   }
 }
 

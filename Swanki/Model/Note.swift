@@ -21,7 +21,7 @@ public final class Note {
   public var fields: [String: String] = [:]
 
   /// A type that identifies a value inside of ``Note/fields``
-  public struct Key: RawRepresentable, ExpressibleByStringLiteral {
+  public struct Key: RawRepresentable, ExpressibleByStringLiteral, Sendable {
     public let rawValue: String
 
     public init(rawValue: String) {

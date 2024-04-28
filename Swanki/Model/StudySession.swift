@@ -2,6 +2,7 @@
 
 import Foundation
 import Observation
+import os
 import SpacedRepetitionScheduler
 import SwiftData
 
@@ -71,14 +72,14 @@ public final class StudySession {
     let learningCards = try modelContext.fetch(FetchDescriptor(predicate: Card.cardsDue(before: dueDate, deck: deck)))
     allCards += learningCards
     learningCardCount = learningCards.count
-    logger.debug("Looking for cards due before \(ISO8601DateFormatter().string(from: dueDate)): Found \(self.newCardCount) new, \(self.learningCardCount) learning")
+    Logger.general.debug("Looking for cards due before \(ISO8601DateFormatter().string(from: dueDate)): Found \(self.newCardCount) new, \(self.learningCardCount) learning")
     currentCard = currentCard ?? learningCards.first
     let currentCardID = currentCard?.id.description
-    logger.debug("Current card was \(previousCardID ?? "nil"), is now \(currentCardID ?? "nil")")
+    Logger.general.debug("Current card was \(previousCardID ?? "nil"), is now \(currentCardID ?? "nil")")
     let studyingXP = allCards.reduce(0) { studyingXP, card in
       studyingXP + SchedulingParameters.builtin.simulateStudyingItem(.init(card)).xp
     }
-    logger.debug("Estimating we could earn \(studyingXP) XP by studying")
+    Logger.general.debug("Estimating we could earn \(studyingXP) XP by studying")
     estimatedGainableXP += studyingXP
   }
 
@@ -107,7 +108,7 @@ public final class StudySession {
     entry.card = card
     entry.deck = card.deck
     card.applySchedulingItem(schedulingItem, currentDate: currentDate)
-    logger.debug("Finished scheduling card \(card.id) studyTime \(studyTime), due \(card.due.flatMap { ISO8601DateFormatter().string(from: $0) } ?? "nil")")
+    Logger.general.debug("Finished scheduling card \(card.id) studyTime \(studyTime), due \(card.due.flatMap { ISO8601DateFormatter().string(from: $0) } ?? "nil")")
     try loadCards(dueBefore: dueDate)
   }
 }

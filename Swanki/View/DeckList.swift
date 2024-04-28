@@ -1,5 +1,6 @@
 // Copyright © 2019-present Brian Dewey.
 
+import os
 import SwiftData
 import SwiftUI
 
@@ -82,7 +83,7 @@ struct DeckList: View {
       #if !os(macOS)
         ToolbarItem(placement: .secondaryAction) {
           Button {
-            logger.debug("Presenting file importer. Home directory is \(URL.homeDirectory.path)")
+            Logger.general.debug("Presenting file importer. Home directory is \(URL.homeDirectory.path)")
             fileImporterNavigation.isShowingFileImporter = true
           } label: {
             Label("Import", systemImage: "square.and.arrow.down.on.square")
@@ -93,13 +94,13 @@ struct DeckList: View {
   }
 
   private func importPackage(at url: URL) {
-    logger.info("Trying to import Anki package at url \(url)")
+    Logger.general.info("Trying to import Anki package at url \(url)")
     let importer = AnkiPackageImporter(packageURL: url, modelContext: modelContext)
     do {
       try importer.importPackage()
-      logger.info("Import complete")
+      Logger.general.info("Import complete")
     } catch {
-      logger.error("Error importing package at \(url): \(error)")
+      Logger.general.error("Error importing package at \(url): \(error)")
     }
   }
 }

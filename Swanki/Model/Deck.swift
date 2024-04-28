@@ -2,6 +2,7 @@
 
 import Foundation
 import Observation
+import os
 import SwiftData
 
 @Model
@@ -25,7 +26,7 @@ public final class Deck {
 
   public func summaryStatistics(on day: Date = .now) throws -> SummaryStatistics {
     guard let modelContext else {
-      logger.warning("Trying to get summary statistics from an unmanaged Deck")
+      Logger.general.warning("Trying to get summary statistics from an unmanaged Deck")
       return SummaryStatistics()
     }
     return try modelContext.summaryStatistics(on: day, deck: self)

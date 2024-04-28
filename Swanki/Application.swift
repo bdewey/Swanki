@@ -2,6 +2,7 @@
 
 import AVFoundation
 import Observation
+import os
 import SwiftData
 import SwiftUI
 import TipKit
@@ -16,13 +17,13 @@ struct Application: App {
     do {
       try Tips.configure()
     } catch {
-      logger.error("Error configuring tips: \(error)")
+      Logger.general.error("Error configuring tips: \(error)")
     }
     #if !os(macOS)
       do {
         try AVAudioSession.sharedInstance().setCategory(.playback, options: .mixWithOthers)
       } catch {
-        logger.error("Error setting up audio session: \(error)")
+        Logger.general.error("Error setting up audio session: \(error)")
       }
     #endif
   }

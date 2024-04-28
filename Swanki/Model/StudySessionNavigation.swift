@@ -2,6 +2,7 @@
 
 import Foundation
 import Observation
+import os
 import SwiftUI
 
 @MainActor
@@ -32,7 +33,7 @@ struct StudySessionNavigationModifier: ViewModifier {
           try studySession.loadCards(dueBefore: .now.addingTimeInterval(10 * 60))
           studySessionNavigation.studySession = studySession
         } catch {
-          logger.error("Error loading cards: \(error)")
+          Logger.general.error("Error loading cards: \(error)")
         }
       }
   }

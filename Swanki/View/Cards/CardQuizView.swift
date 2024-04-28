@@ -86,7 +86,7 @@ struct CardQuizView: View {
     }
   }
 
-  private func speakSampleSentence(delay: TimeInterval = 0.0) {
+  @MainActor private func speakSampleSentence(delay: TimeInterval = 0.0) {
     guard let note = card.note else {
       return
     }

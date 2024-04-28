@@ -2,6 +2,7 @@
 
 import Foundation
 import Observation
+import os
 import SwiftData
 import SwiftUI
 
@@ -12,7 +13,7 @@ final class FileImportNavigation {
 }
 
 /// A modifier that allows the wrapped view to respond to ``FileImporterNavigation/isShowingFileImporter``.
-struct AllowFileImportsModifier: ViewModifier {
+@MainActor struct AllowFileImportsModifier: ViewModifier {
   /// The Navigation model controlling whether we show the file importer.
   @Bindable var fileImportNavigation: FileImportNavigation
 
@@ -29,12 +30,12 @@ struct AllowFileImportsModifier: ViewModifier {
             await importPackage(at: url)
             url.stopAccessingSecurityScopedResource()
           } else {
-            logger.error("Unable to access \(url)")
+            Logger.general.error("Unable to access \(url)")
           }
         }
       }
       .onOpenURL { url in
-        logger.info("Trying to open url \(url)")
+        Logger.general.info("Trying to open url \(url)")
         Task {
           await importPackage(at: url)
         }
@@ -43,7 +44,7 @@ struct AllowFileImportsModifier: ViewModifier {
         do {
           try await makeDefaultContent()
         } catch {
-          logger.error("Error creating default content: \(error)")
+          Logger.general.error("Error creating default content: \(error)")
         }
       }
       .environment(fileImportNavigation)
@@ -56,7 +57,7 @@ struct AllowFileImportsModifier: ViewModifier {
   private func makeDefaultContent() async throws {
     let deck = try Deck.spanishDeck(in: modelContext)
     if deck.notes?.isEmpty == false {
-      logger.debug("No need to make default content because the Spanish deck has notes")
+      Logger.general.debug("No need to make default content because the Spanish deck has notes")
       return
     }
     guard let defaultContentURL = Bundle.main.url(forResource: "spanish-lesson-2", withExtension: "json", subdirectory: "SampleData") else {
@@ -69,18 +70,18 @@ struct AllowFileImportsModifier: ViewModifier {
     do {
       switch url.pathExtension {
       case "apkg":
-        logger.info("Trying to import Anki package at url \(url)")
+        Logger.general.info("Trying to import Anki package at url \(url)")
         let importer = AnkiPackageImporter(packageURL: url, modelContext: modelContext)
         try importer.importPackage()
-        logger.info("Import complete")
+        Logger.general.info("Import complete")
       case "json":
-        logger.info("Trying to import ChatGPT JSON from url \(url)")
+        Logger.general.info("Trying to import ChatGPT JSON from url \(url)")
         try await importChatGPTJSON(url: url)
       default:
-        logger.warning("Unrecognized url extension \(url.pathExtension) from \(url)")
+        Logger.general.warning("Unrecognized url extension \(url.pathExtension) from \(url)")
       }
     } catch {
-      logger.error("Error importing package at \(url): \(error)")
+      Logger.general.error("Error importing package at \(url): \(error)")
     }
   }
 
@@ -105,7 +106,7 @@ struct AllowFileImportsModifier: ViewModifier {
   @MainActor
   private func importChatGPTJSON(url: URL) async throws {
     let deck = try Deck.spanishDeck(in: modelContext)
-    let (data, _) = try await URLSession.shared.data(from: url)
+    let (data, _) = try await URLSession.shared.nonisolatedData(from: url)
 
     do {
       let json = try JSONDecoder().decode(ChatGPTVocabulary.self, from: data)
@@ -120,7 +121,7 @@ struct AllowFileImportsModifier: ViewModifier {
 }
 
 extension View {
-  func allowFileImports(fileImportNavigation: FileImportNavigation) -> some View {
+  @MainActor func allowFileImports(fileImportNavigation: FileImportNavigation) -> some View {
     modifier(AllowFileImportsModifier(fileImportNavigation: fileImportNavigation))
   }
 }

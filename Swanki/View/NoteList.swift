@@ -1,5 +1,6 @@
 // Copyright © 2019-present Brian Dewey.
 
+import os
 import SwiftData
 import SwiftUI
 
@@ -71,20 +72,20 @@ struct NoteList: View {
 
   private var summaryStatistics: SummaryStatistics {
     guard let modelContext = deck.modelContext else {
-      logger.warning("Trying to get statistics when the deck has not been saved")
+      Logger.general.warning("Trying to get statistics when the deck has not been saved")
       return SummaryStatistics()
     }
     do {
       return try modelContext.summaryStatistics(deck: deck)
     } catch {
-      logger.error("Error fetching summary statistics: \(error)")
+      Logger.general.error("Error fetching summary statistics: \(error)")
       return SummaryStatistics()
     }
   }
 
   private var atRiskXP: Int {
     guard let modelContext = deck.modelContext else {
-      logger.warning("Trying to get XP when the deck has not been saved")
+      Logger.general.warning("Trying to get XP when the deck has not been saved")
       return 0
     }
     do {
@@ -92,7 +93,7 @@ struct NoteList: View {
       let tomorrowStats = try modelContext.summaryStatistics(on: .now.addingTimeInterval(.day), deck: deck)
       return todayStats.xp - tomorrowStats.xp
     } catch {
-      logger.error("Error fetching summary statistics: \(error)")
+      Logger.general.error("Error fetching summary statistics: \(error)")
       return 0
     }
   }

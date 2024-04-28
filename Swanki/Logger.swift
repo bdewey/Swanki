@@ -3,4 +3,9 @@
 import Foundation
 import os
 
-let logger = Logger(subsystem: Bundle.main.bundleIdentifier!, category: "general")
+extension Logger {
+  @inlinable
+  static var general: Logger {
+    Logger(subsystem: Bundle.main.bundleIdentifier!, category: "general")
+  }
+}

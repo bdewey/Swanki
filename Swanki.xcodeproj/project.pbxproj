@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		D30302912BDEC697003A8042 /* ConcurrencyHacks.swift in Sources */ = {isa = PBXBuildFile; fileRef = D30302902BDEC697003A8042 /* ConcurrencyHacks.swift */; };
 		D32039F42B0EEC4600B06FF8 /* FileImportNavigation.swift in Sources */ = {isa = PBXBuildFile; fileRef = D32039F32B0EEC4600B06FF8 /* FileImportNavigation.swift */; };
 		D32039F62B0F92E200B06FF8 /* ApplicationNavigation.swift in Sources */ = {isa = PBXBuildFile; fileRef = D32039F52B0F92E200B06FF8 /* ApplicationNavigation.swift */; };
 		D325FDA22358966F002AC9C9 /* SampleData in Resources */ = {isa = PBXBuildFile; fileRef = D325FDA12358966F002AC9C9 /* SampleData */; };
@@ -66,6 +67,7 @@
 /* Begin PBXFileReference section */
 		63A505C323880E2400E93016 /* Aztec.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Aztec.framework; path = Carthage/Build/iOS/Aztec.framework; sourceTree = "<group>"; };
 		63A505CC2388145000E93016 /* libxml2.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libxml2.tbd; path = usr/lib/libxml2.tbd; sourceTree = SDKROOT; };
+		D30302902BDEC697003A8042 /* ConcurrencyHacks.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConcurrencyHacks.swift; sourceTree = "<group>"; };
 		D32039F32B0EEC4600B06FF8 /* FileImportNavigation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileImportNavigation.swift; sourceTree = "<group>"; };
 		D32039F52B0F92E200B06FF8 /* ApplicationNavigation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApplicationNavigation.swift; sourceTree = "<group>"; };
 		D325FDA12358966F002AC9C9 /* SampleData */ = {isa = PBXFileReference; lastKnownFileType = folder; path = SampleData; sourceTree = "<group>"; };
@@ -184,6 +186,7 @@
 				D37E2A0A23AF06CA00D7913F /* Swanki.entitlements */,
 				D3600B9E2B0BBD5400356187 /* View */,
 				D36AD9CD2B10F6CD00FEA67B /* OptionalString+DefaultEmpty.swift */,
+				D30302902BDEC697003A8042 /* ConcurrencyHacks.swift */,
 			);
 			path = Swanki;
 			sourceTree = "<group>";
@@ -397,6 +400,7 @@
 				D3600BA52B0BBDBC00356187 /* BackThenFrontCard.swift in Sources */,
 				D3600B9D2B0BBC1B00356187 /* CardSide.swift in Sources */,
 				D3E8A3A92B026A1400C8522C /* Note.swift in Sources */,
+				D30302912BDEC697003A8042 /* ConcurrencyHacks.swift in Sources */,
 				D3E1B6912B1CD87A00E2422B /* ModelContainer+SummaryStatistics.swift in Sources */,
 				D36AD9D22B10F7FC00FEA67B /* Note+SpanishStudy.swift in Sources */,
 				D3D518B42B093E42003D6A53 /* NoteList.swift in Sources */,
@@ -583,6 +587,7 @@
 				SUPPORTS_MACCATALYST = NO;
 				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SWIFT_STRICT_CONCURRENCY = complete;
+				SWIFT_TREAT_WARNINGS_AS_ERRORS = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VALIDATE_WORKSPACE = YES;
@@ -620,6 +625,7 @@
 				SUPPORTS_MACCATALYST = NO;
 				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SWIFT_STRICT_CONCURRENCY = complete;
+				SWIFT_TREAT_WARNINGS_AS_ERRORS = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VALIDATE_WORKSPACE = YES;

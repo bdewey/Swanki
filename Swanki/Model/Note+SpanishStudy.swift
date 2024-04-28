@@ -50,11 +50,11 @@ extension Note {
     }
   }
 
-  func speakSpanish() {
+  @MainActor func speakSpanish() {
     SwankiSpeechController.shared.speakVocabulary(from: self)
   }
 
-  func speakExampleSentence() {
+  @MainActor func speakExampleSentence() {
     SwankiSpeechController.shared.speakExampleSentence(from: self)
   }
 }

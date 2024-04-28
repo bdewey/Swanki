@@ -5,15 +5,17 @@ import Foundation
 import os
 
 private extension Logger {
-  static let speech = Logger(subsystem: Bundle.main.bundleIdentifier!, category: "speech")
+  static var speech: Logger {
+    Logger(subsystem: Bundle.main.bundleIdentifier!, category: "speech")
+  }
 }
 
 extension AVSpeechSynthesizer {
-  static let shared = AVSpeechSynthesizer()
+  @MainActor static let shared = AVSpeechSynthesizer()
 }
 
 final class SwankiSpeechController: NSObject, AVSpeechSynthesizerDelegate {
-  static let shared = SwankiSpeechController()
+  @MainActor static let shared = SwankiSpeechController()
 
   public lazy var speechSynthesizer: AVSpeechSynthesizer = {
     let synthesizer = AVSpeechSynthesizer()

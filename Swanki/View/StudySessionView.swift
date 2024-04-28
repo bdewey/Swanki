@@ -1,5 +1,6 @@
 // Copyright © 2019-present Brian Dewey.
 
+import os
 import SwiftUI
 
 @MainActor
@@ -43,7 +44,7 @@ struct StudySessionView: View {
                 try studySession.updateCurrentCardSchedule(answer: answer, schedulingItem: item, studyTime: studyTime)
               }
             } catch {
-              logger.error("Unexpected error scheduling card \(card.id) and answer \(answer.localizedName): \(error)")
+              Logger.general.error("Unexpected error scheduling card \(card.id) and answer \(answer.localizedName): \(error)")
             }
           })
           .id(card.id)
@@ -74,7 +75,7 @@ struct StudySessionView: View {
     do {
       return try modelContext.summaryStatistics().xp
     } catch {
-      logger.error("Error getting summary statistics: \(error)")
+      Logger.general.error("Error getting summary statistics: \(error)")
       return 0
     }
   }

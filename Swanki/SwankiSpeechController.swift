@@ -25,7 +25,7 @@ final class SwankiSpeechController: NSObject, AVSpeechSynthesizerDelegate {
 
   public let voice: AVSpeechSynthesisVoice? = {
     Logger.speech.debug("Available voices = \(AVSpeechSynthesisVoice.speechVoices().map(\.identifier).joined(separator: ", "))")
-    guard let voice = AVSpeechSynthesisVoice(language: "es") else {
+    guard let voice = AVSpeechSynthesisVoice(identifier: "com.apple.voice.enhanced.es-MX.Juan") ?? AVSpeechSynthesisVoice(language: "es") else {
       Logger.speech.error("Could not create voice for language 'es")
       return nil
     }

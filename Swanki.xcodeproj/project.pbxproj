@@ -64,7 +64,6 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		63A505C323880E2400E93016 /* Aztec.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Aztec.framework; path = Carthage/Build/iOS/Aztec.framework; sourceTree = "<group>"; };
 		63A505CC2388145000E93016 /* libxml2.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libxml2.tbd; path = usr/lib/libxml2.tbd; sourceTree = SDKROOT; };
 		D30302902BDEC697003A8042 /* ConcurrencyHacks.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConcurrencyHacks.swift; sourceTree = "<group>"; };
 		D32039F32B0EEC4600B06FF8 /* FileImportNavigation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileImportNavigation.swift; sourceTree = "<group>"; };
@@ -142,7 +141,6 @@
 			children = (
 				D37E2A0B23AF087800D7913F /* CloudKit.framework */,
 				63A505CC2388145000E93016 /* libxml2.tbd */,
-				63A505C323880E2400E93016 /* Aztec.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";

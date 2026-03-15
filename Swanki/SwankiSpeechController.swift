@@ -14,6 +14,7 @@ extension AVSpeechSynthesizer {
   @MainActor static let shared = AVSpeechSynthesizer()
 }
 
+@MainActor
 final class SwankiSpeechController: NSObject, AVSpeechSynthesizerDelegate {
   @MainActor static let shared = SwankiSpeechController()
 

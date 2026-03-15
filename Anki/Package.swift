@@ -5,6 +5,10 @@ import PackageDescription
 
 let package = Package(
   name: "Anki",
+  platforms: [
+    .iOS(.v13),
+    .macOS(.v10_15),
+  ],
   products: [
     // Products define the executables and libraries a package produces, making them visible to other packages.
     .library(
@@ -13,14 +17,18 @@ let package = Package(
     ),
   ],
   dependencies: [
-    .package(url: "https://github.com/groue/GRDB.swift.git", .upToNextMajor(from: "4.5.0")),
+    .package(url: "https://github.com/groue/GRDB.swift.git", .upToNextMajor(from: "7.10.0")),
+    .package(url: "https://github.com/bdewey/SpacedRepetitionScheduler.git", .upToNextMajor(from: "0.5.0")),
   ],
   targets: [
     // Targets are the basic building blocks of a package, defining a module or a test suite.
     // Targets can depend on other targets in this package and products from dependencies.
     .target(
       name: "Anki",
-      dependencies: [.product(name: "GRDB", package: "GRDB.swift")]
+      dependencies: [
+        .product(name: "GRDB", package: "GRDB.swift"),
+        .product(name: "SpacedRepetitionScheduler", package: "SpacedRepetitionScheduler"),
+      ]
     ),
     .testTarget(
       name: "AnkiTests",

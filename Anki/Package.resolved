@@ -1,0 +1,23 @@
+{
+  "pins" : [
+    {
+      "identity" : "grdb.swift",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/groue/GRDB.swift.git",
+      "state" : {
+        "revision" : "36e30a6f1ef10e4194f6af0cff90888526f0c115",
+        "version" : "7.10.0"
+      }
+    },
+    {
+      "identity" : "spacedrepetitionscheduler",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/bdewey/SpacedRepetitionScheduler.git",
+      "state" : {
+        "revision" : "54192fabf7a80b35281ff70e0375f7f20201fcad",
+        "version" : "0.5.0"
+      }
+    }
+  ],
+  "version" : 2
+}

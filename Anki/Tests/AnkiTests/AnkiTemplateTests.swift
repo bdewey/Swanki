@@ -40,4 +40,14 @@ final class AnkiTemplateTests: XCTestCase {
     let template = AnkiTemplate(template: "Hello {{field 1}}.")
     XCTAssertEqual(try? template.render(["field 1": "Jane"]), "Hello Jane.")
   }
+
+  func testTripleBracesRenderVerbatim() {
+    let template = AnkiTemplate(template: "Hello {{{name}}}.")
+    XCTAssertEqual(try? template.render(["name": "<Jane>"]), "Hello <Jane>.")
+  }
+
+  func testMultilineSections() {
+    let template = AnkiTemplate(template: "{{#boolean}}line 1\nline 2{{/boolean}}")
+    XCTAssertEqual(try? template.render(["boolean": true]), "line 1\nline 2")
+  }
 }
